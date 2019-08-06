@@ -9,7 +9,7 @@ Doccano is now able to:
 * Annotate a text classification task.
 * Annotate a sequence labeling task.
 * Annotate a sequence to sequence task.
-* Deploy on Azure, AWS and Heroku by 1-click.
+* Deploy on AWS and Heroku by 1-click.
 * Deploy anywhere by Docker.
 * Colaborate with many people.
 * Upload a labeled file.
@@ -63,8 +63,8 @@ This is a list of features on the short term roadmap and beyond:
 * Enable to customize font and font-family.
 * Enable to customize label color per user.
 * Enable to customize site theme per user.
- 
- 
+
+
 ### Entire project
 
 * Design Vue component and use it to implement frontend.
@@ -82,4 +82,3 @@ This is a list of features on the short term roadmap and beyond:
 * Gather and highlight novel doccano use cases.
 
 Track the progress of these features in the GitHub project tracker.
-

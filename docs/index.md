@@ -29,13 +29,6 @@ Final demo is one of the sequence to sequence tasks, machine translation. Since 
 
 ## Quick Deployment
 
-### Azure
-
-Doccano can be deployed to Azure ([Web App for Containers](https://azure.microsoft.com/en-us/services/app-service/containers/) +
-[PostgreSQL database](https://azure.microsoft.com/en-us/services/postgresql/)) by clicking on the button below:
-
-[![Deploy to Azure](https://azuredeploy.net/deploybutton.svg)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fchakki-works%2Fdoccano%2Fmaster%2Fazuredeploy.json)
-
 ### Heroku
 
 Doccano can be deployed to [Heroku](https://www.heroku.com/) by clicking on the button below:

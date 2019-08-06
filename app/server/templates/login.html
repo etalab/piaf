@@ -65,12 +65,6 @@
           <span>Login with Github</span>
         </a>
         {% endif %}
-        {% if aad_login %}
-        <a href="{% url 'social:begin' 'azuread-tenant-oauth2' %}" class="button is-fullwidth mb10">
-          <span class="icon"><i class="fab fa-microsoft"></i></span>
-          <span>Login with Active Directory</span>
-        </a>
-        {% endif %}
       </div>
     </div>
   </div>

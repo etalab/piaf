@@ -139,7 +139,6 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.azuread_tenant.AzureADTenantOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -150,15 +149,6 @@ GITHUB_ADMIN_TEAM_NAME = env('GITHUB_ADMIN_TEAM_NAME', None)
 
 if GITHUB_ADMIN_ORG_NAME and GITHUB_ADMIN_TEAM_NAME:
     SOCIAL_AUTH_GITHUB_SCOPE = ['read:org']
-
-SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_KEY = env('OAUTH_AAD_KEY', None)
-SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_SECRET = env('OAUTH_AAD_SECRET', None)
-SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_TENANT_ID = env('OAUTH_AAD_TENANT', None)
-AZUREAD_ADMIN_GROUP_ID = env('AZUREAD_ADMIN_GROUP_ID', None)
-
-if AZUREAD_ADMIN_GROUP_ID:
-    SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_RESOURCE = 'https://graph.microsoft.com/'
-    SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_SCOPE = ['Directory.Read.All']
 
 SOCIAL_AUTH_PIPELINE = [
     'social_core.pipeline.social_auth.social_details',
@@ -171,7 +161,6 @@ SOCIAL_AUTH_PIPELINE = [
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
     'server.social_auth.fetch_github_permissions',
-    'server.social_auth.fetch_azuread_permissions',
 ]
 
 # Database
@@ -254,11 +243,6 @@ DATABASES['default'].update(dj_database_url.config(
 if DATABASES['default'].get('ENGINE') == 'django.db.backends.sqlite3':
     DATABASES['default'].get('OPTIONS', {}).pop('sslmode', None)
 
-# default to a sensible modern driver for Azure SQL
-if DATABASES['default'].get('ENGINE') == 'sql_server.pyodbc':
-    db_options = DATABASES['default'].setdefault('OPTIONS', {})\
-        .setdefault('driver', 'ODBC Driver 17 for SQL Server')
-
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -270,11 +254,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 IMPORT_BATCH_SIZE = env.int('IMPORT_BATCH_SIZE', 500)
 
 GOOGLE_TRACKING_ID = env('GOOGLE_TRACKING_ID', 'UA-125643874-2')
-
-AZURE_APPINSIGHTS_IKEY = env('AZURE_APPINSIGHTS_IKEY', None)
-APPLICATION_INSIGHTS = {
-    'ikey': AZURE_APPINSIGHTS_IKEY if AZURE_APPINSIGHTS_IKEY else None,
-}
 
 ## necessary for email verification setup
 # EMAIL_USE_TLS = True
