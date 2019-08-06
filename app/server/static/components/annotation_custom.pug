@@ -1,0 +1,23 @@
+div.columns(v-cloak="")
+
+  div.column.is-10.is-offset-1.message.hero.is-fullheight#message-pane
+
+    div.columns.is-multiline.is-gapless.is-mobile.is-vertical-center
+      div.column.is-3
+        progress.progress.is-inline-block(
+          v-bind:class="progressColor"
+          v-bind:value="achievement"
+          max="100"
+        ) 30%
+      div.column.is-6
+        span.ml10
+          strong {{ total - remaining }}
+        | /
+        span {{ total }}
+
+    div.columns
+      div.column
+        block annotation-area
+
+      div.column(v-if="documentMetadata != null && documentMetadata.documentSourceUrl != null")
+        preview(v-bind:url="documentMetadata.documentSourceUrl")

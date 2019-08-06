@@ -1,5 +1,5 @@
 <template lang="pug">
-extends ./annotation.pug
+extends ./annotation_custom.pug
 
 block annotation-area
   div.card.has-text-weight-bold.has-text-white.has-background-royalblue
@@ -13,7 +13,7 @@ block annotation-area
         v-model="newTodo"
         v-on:keyup.enter="addTodo"
         type="text"
-        placeholder="What is your response?"
+        placeholder="Écrivez une question"
       )
 
     section.main(v-cloak="")
@@ -112,3 +112,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .todoapp{
+    border-radius: 4em;
+  }
+</style>

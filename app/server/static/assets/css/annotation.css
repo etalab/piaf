@@ -135,8 +135,8 @@ body {
 }
 
 .content {
-  font-size: 16pt;
-  line-height: 250%;
+  font-size: 12pt;
+  line-height: 100%;
 }
 
 .content .tag {
