@@ -29,7 +29,7 @@ Resources:
       KeyName: !Ref KeyName
       SecurityGroups:
         - !Ref AppSG
-      UserData: !Base64 
+      UserData: !Base64
         'Fn::Join':
           - ''
           - - |
@@ -82,10 +82,10 @@ Resources:
             - |
               set +a
             - |
-              sudo docker pull chakkiworks/piaf:latest
+              sudo docker pull etalab/piaf:latest
             - >
               sudo docker run -d --name piaf --env-file /env.list -p 80:80
-              chakkiworks/piaf:latest
+              etalab/piaf:latest
             - >
               sudo docker exec piaf tools/create-admin.sh ${ADMIN} ${EMAIL}
               ${PASSWORD}
@@ -162,8 +162,7 @@ Parameters:
     AllowedPattern: '^[a-zA-Z0-9]*$'
 Outputs:
   PublicDNS:
-    Value: !GetAtt 
+    Value: !GetAtt
       - App
       - PublicDnsName
     Description: Newly created server DNS address
-
