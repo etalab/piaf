@@ -31,20 +31,20 @@ script:
 before_deploy:
     - mkdocs build --verbose --clean
 
-deploy:
-  - provider: script
-    script: tools/cd.sh travis-${TRAVIS_BUILD_NUMBER}
-    on:
-      branch: master
-
-  - provider: script
-    script: tools/cd.sh ${TRAVIS_TAG}
-    on:
-      tags: true
-
-  - provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    local_dir: site
-    on:
-        branch: master
+# deploy:
+#   - provider: script
+#     script: tools/cd.sh travis-${TRAVIS_BUILD_NUMBER}
+#     on:
+#       branch: master
+#
+#   - provider: script
+#     script: tools/cd.sh ${TRAVIS_TAG}
+#     on:
+#       tags: true
+#
+#   - provider: pages
+#     skip_cleanup: true
+#     github_token: $GITHUB_TOKEN
+#     local_dir: site
+#     on:
+#         branch: master
