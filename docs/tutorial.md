@@ -1,7 +1,7 @@
 # Tutorial
 ## Dataset
 
-Here we take an NER annotation task for science fictions to give you a brief tutorial on doccano.
+Here we take an NER annotation task for science fictions to give you a brief tutorial on piaf.
 
 Below is a JSON file containing lots of science fictions description with different languages. We need to annotate some entities like people name, book title, date and so on. 
 
@@ -61,4 +61,4 @@ Here we choose JSONL file to download the data by clicking the button. Below is 
  "username": "admin"}
 ```
 
-Congratulation! You just mastered how to use doccano for a sequence labeling project. 
+Congratulation! You just mastered how to use piaf for a sequence labeling project. 

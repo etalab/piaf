@@ -35,6 +35,6 @@ class TestActivate(TestCase):
         response = self.client.get(reverse('activate', args=[self.uid, self.token]))
         # For some reason this get rejected by Travis CI
         # File "/usr/local/lib/python3.6/site-packages/webpack_loader/loader.py", line 26, in _load_assets with open(self.config['STATS_FILE'], encoding="utf-8") as f:
-        # FileNotFoundError: [Errno 2] No such file or directory: '/doccano/app/server/static/webpack-stats.json'
+        # FileNotFoundError: [Errno 2] No such file or directory: '/piaf/app/server/static/webpack-stats.json'
         # self.assertRedirects(response, '/projects/')
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)

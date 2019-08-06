@@ -3,9 +3,9 @@ Task runner.
 """
 import numpy as np
 
-from doccano.app.classifier.model import build_model
-from doccano.app.classifier import build_vectorizer
-from doccano.app.classifier import load_dataset, save_dataset, make_output, train_test_split
+from piaf.app.classifier.model import build_model
+from piaf.app.classifier import build_vectorizer
+from piaf.app.classifier import load_dataset, save_dataset, make_output, train_test_split
 
 
 def run(filename):

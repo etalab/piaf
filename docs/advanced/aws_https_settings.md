@@ -1,4 +1,4 @@
-# HTTPS settings for doccano in AWS
+# HTTPS settings for piaf in AWS
 
 
 1. Create hosted zone in Route 53 
@@ -53,7 +53,7 @@ After you request a certificate, wait for a while, You should see the status bec
 
 In this part, you can just click the launch button to create a EC2 instance.
 
-[![AWS CloudFormation Launch Stack SVG Button](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3-external-1.amazonaws.com/cf-templates-10vry9l3mp71r-us-east-1/20190732wl-new.templatexloywxxyimi&stackName=doccano)
+[![AWS CloudFormation Launch Stack SVG Button](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3-external-1.amazonaws.com/cf-templates-10vry9l3mp71r-us-east-1/20190732wl-new.templatexloywxxyimi&stackName=piaf)
 
 # Create ELB
 
@@ -95,6 +95,6 @@ Back to route 53, and click `Create Record Set`. Fill the subname and the ELB na
 
 ![image-20190314151601030](https://camo.githubusercontent.com/82944e13e1ef3f4015484417a50635c9352dae33/68747470733a2f2f7773312e73696e61696d672e636e2f6c617267652f303036744b665463677931673132617231383931666a33306278306e6d6a746d2e6a7067)
 
-Finally, you can access the doccano by HTTPS.
+Finally, you can access the piaf by HTTPS.
 
 ![image-20190314151841872](https://camo.githubusercontent.com/85dfef30b4b01df5e0d8e339b38e5a31592dd103/68747470733a2f2f7773332e73696e61696d672e636e2f6c617267652f303036744b6654636779316731326174746563636b6a3330716730396d6a73612e6a7067)

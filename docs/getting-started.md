@@ -5,16 +5,16 @@
 First of all, you have to clone the repository:
 
 ```bash
-git clone https://github.com/chakki-works/doccano.git
-cd doccano
+git clone https://github.com/chakki-works/piaf.git
+cd piaf
 ```
 
-To install doccano, there are three options:
+To install piaf, there are three options:
 
 ### Option1: Pull the production Docker image
 
 ```bash
-docker pull chakkiworks/doccano
+docker pull chakkiworks/piaf
 ```
 
 ### Option2: Pull the development Docker-Compose images
@@ -54,13 +54,13 @@ Depending on your installation method, there are two options:
 First, run a Docker container:
 
 ```bash
-docker run -d --name doccano -p 8000:80 chakkiworks/doccano
+docker run -d --name piaf -p 8000:80 chakkiworks/piaf
 ```
 
 Then, execute `create-admin.sh` script for creating a superuser.
 
 ```bash
-docker exec doccano tools/create-admin.sh "admin" "admin@example.com" "password"
+docker exec piaf tools/create-admin.sh "admin" "admin@example.com" "password"
 ```
 
 ### Option2: Running the development Docker-Compose stack

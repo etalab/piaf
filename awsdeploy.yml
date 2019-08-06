@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: AWS CloudFormation Template for doccano.
+Description: AWS CloudFormation Template for piaf.
 Resources:
   AppSG:
     Type: 'AWS::EC2::SecurityGroup'
@@ -82,12 +82,12 @@ Resources:
             - |
               set +a
             - |
-              sudo docker pull chakkiworks/doccano:latest
+              sudo docker pull chakkiworks/piaf:latest
             - >
-              sudo docker run -d --name doccano --env-file /env.list -p 80:80
-              chakkiworks/doccano:latest
+              sudo docker run -d --name piaf --env-file /env.list -p 80:80
+              chakkiworks/piaf:latest
             - >
-              sudo docker exec doccano tools/create-admin.sh ${ADMIN} ${EMAIL}
+              sudo docker exec piaf tools/create-admin.sh ${ADMIN} ${EMAIL}
               ${PASSWORD}
     Metadata:
       'AWS::CloudFormation::Designer':

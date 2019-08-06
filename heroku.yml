@@ -3,4 +3,4 @@ build:
     web: Dockerfile
 
 run:
-  web: /doccano/tools/run.sh
+  web: /piaf/tools/run.sh

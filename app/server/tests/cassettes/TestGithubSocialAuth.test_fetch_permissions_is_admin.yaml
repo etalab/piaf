@@ -4,7 +4,7 @@ interactions:
       $teamName: String!) {\n                    organization(login: $orgName) {\n                        teams(query:
       $teamName, userLogins: [$userName], first: 1) {\n                            nodes
       {\n                                name\n                            }\n                        }\n                    }\n                }\n            ",
-      "variables": {"userName": "c-w", "orgName": "CatalystCode", "teamName": "doccano-dev"}}'
+      "variables": {"userName": "c-w", "orgName": "CatalystCode", "teamName": "piaf-dev"}}'
     headers:
       Accept:
       - '*/*'
@@ -22,7 +22,7 @@ interactions:
     uri: https://api.github.com/graphql
   response:
     body:
-      string: '{"data":{"organization":{"teams":{"nodes":[{"name":"doccano-dev"}]}}}}'
+      string: '{"data":{"organization":{"teams":{"nodes":[{"name":"piaf-dev"}]}}}}'
     headers:
       Access-Control-Allow-Origin:
       - '*'

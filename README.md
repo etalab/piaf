@@ -1,19 +1,21 @@
-# doccano
+# piaf
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/98a0992c0a254d0ba23fd75631fe2907)](https://app.codacy.com/app/Hironsan/doccano?utm_source=github.com&utm_medium=referral&utm_content=chakki-works/doccano&utm_campaign=Badge_Grade_Dashboard)
-[![Build Status](https://travis-ci.org/chakki-works/doccano.svg?branch=master)](https://travis-ci.org/chakki-works/doccano)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/98a0992c0a254d0ba23fd75631fe2907)](https://app.codacy.com/app/Hironsan/piaf?utm_source=github.com&utm_medium=referral&utm_content=chakki-works/piaf&utm_campaign=Badge_Grade_Dashboard)
+[![Build Status](https://travis-ci.org/chakki-works/piaf.svg?branch=master)](https://travis-ci.org/chakki-works/piaf)
 
-doccano is an open source text annotation tool for human. It provides annotation features for text classification, sequence labeling and sequence to sequence. So, you can create labeled data for sentiment analysis, named entity recognition, text summarization and so on. Just create project, upload data and start annotation. You can build dataset in hours.
+piaf is an open source text annotation tool for human. It provides annotation features for text classification, sequence labeling and sequence to sequence. So, you can create labeled data for sentiment analysis, named entity recognition, text summarization and so on. Just create project, upload data and start annotation. You can build dataset in hours.
+
+First of all, a big thanks to the Doccano team since this is an adaptation from this project.
 
 ## Deployment (not maintained)
 
 ### Heroku
 
-Doccano can be deployed to [Heroku](https://www.heroku.com/) by clicking on the button below:
+piaf can be deployed to [Heroku](https://www.heroku.com/) by clicking on the button below:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-Of course, you can deploy doccano by using [heroku-cli](https://devcenter.heroku.com/articles/heroku-cli).
+Of course, you can deploy piaf by using [heroku-cli](https://devcenter.heroku.com/articles/heroku-cli).
 
 ```bash
 heroku create
@@ -23,11 +25,11 @@ git push heroku master
 
 ### AWS
 
-Doccano can be deployed to AWS ([Cloudformation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)) by clicking on the button below:
+piaf can be deployed to AWS ([Cloudformation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)) by clicking on the button below:
 
-[![AWS CloudFormation Launch Stack SVG Button](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3-external-1.amazonaws.com/cf-templates-10vry9l3mp71r-us-east-1/20190732wl-new.templatexloywxxyimi&stackName=doccano)
+[![AWS CloudFormation Launch Stack SVG Button](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3-external-1.amazonaws.com/cf-templates-10vry9l3mp71r-us-east-1/20190732wl-new.templatexloywxxyimi&stackName=piaf)
 
-> Notice: (1) EC2 KeyPair cannot be created automatically, so make sure you have an existing EC2 KeyPair in one region. Or [create one yourself](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair). (2) If you want to access doccano via HTTPS in AWS, here is an [instruction](https://github.com/chakki-works/doccano/wiki/HTTPS-setting-for-doccano-in-AWS).
+> Notice: (1) EC2 KeyPair cannot be created automatically, so make sure you have an existing EC2 KeyPair in one region. Or [create one yourself](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair). (2) If you want to access piaf via HTTPS in AWS, here is an [instruction](https://github.com/chakki-works/piaf/wiki/HTTPS-setting-for-piaf-in-AWS).
 
 
 ## Features
@@ -57,7 +59,7 @@ To install piaf, there are three options:
 <!-- **Option1: Pull the production Docker image**
 
 ```bash
-docker pull chakkiworks/doccano
+docker pull chakkiworks/piaf
 ``` -->
 
 **Option2: Setup Python environment**
@@ -100,13 +102,13 @@ Depending on your installation method, there are two options:
 First, run a Docker container:
 
 ```bash
-docker run -d --name doccano -p 8000:8000 chakkiworks/doccano
+docker run -d --name piaf -p 8000:8000 chakkiworks/piaf
 ```
 
 Then, execute `create-admin.sh` script for creating a superuser.
 
 ```bash
-docker exec doccano tools/create-admin.sh "admin" "admin@example.com" "password"
+docker exec piaf tools/create-admin.sh "admin" "admin@example.com" "password"
 ``` -->
 
 **Option2: Running Django development server**
@@ -153,7 +155,7 @@ Now, open a Web browser and go to <http://127.0.0.1:8000/login/>. You should see
 
 ### Create a project
 
-Now, try logging in with the superuser account you created in the previous step. You should see the doccano project list page:
+Now, try logging in with the superuser account you created in the previous step. You should see the piaf project list page:
 
 <img src="./docs/projects.png" alt="projects" width=600>
 

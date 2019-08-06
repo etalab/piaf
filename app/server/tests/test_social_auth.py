@@ -24,7 +24,7 @@ class VCRTestCase(VCRMixin, TestCase):
 
 
 @override_settings(GITHUB_ADMIN_ORG_NAME='CatalystCode')
-@override_settings(GITHUB_ADMIN_TEAM_NAME='doccano-dev')
+@override_settings(GITHUB_ADMIN_TEAM_NAME='piaf-dev')
 class TestGithubSocialAuth(VCRTestCase):
     strategy = None
     backend = GithubOAuth2(strategy=strategy)

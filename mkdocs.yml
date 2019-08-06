@@ -1,12 +1,12 @@
 # Project information
-site_name: 'doccano'
+site_name: 'piaf'
 site_description: 'A Text Annotation tool for Human'
 site_author: 'Hiroki Nakayama'
-site_url: 'https://chakki-works.github.io/doccano/'
+site_url: 'https://chakki-works.github.io/piaf/'
 
 # Repository
-repo_name: 'chakki-works/doccano'
-repo_url: 'https://github.com/chakki-works/doccano'
+repo_name: 'chakki-works/piaf'
+repo_url: 'https://github.com/chakki-works/piaf'
 
 # Copyright
 copyright: 'Copyright &copy; 2018 - 2019 Hiroki Nakayama'
@@ -27,7 +27,7 @@ extra:
 
 # Page tree
 nav:
-  - Doccano: index.md
+  - piaf: index.md
   - Getting started: getting-started.md
   - Tutorial: tutorial.md
   - Advanced:

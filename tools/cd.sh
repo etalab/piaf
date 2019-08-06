@@ -13,8 +13,8 @@ else
   DOCKER_USERNAME="${DOCKER_REGISTRY}"
 fi
 
-docker build -t "${DOCKER_USERNAME}/doccano:latest" .
-docker build -t "${DOCKER_USERNAME}/doccano:$1" .
+docker build -t "${DOCKER_USERNAME}/piaf:latest" .
+docker build -t "${DOCKER_USERNAME}/piaf:$1" .
 
-docker push "${DOCKER_USERNAME}/doccano:latest"
-docker push "${DOCKER_USERNAME}/doccano:$1"
+docker push "${DOCKER_USERNAME}/piaf:latest"
+docker push "${DOCKER_USERNAME}/piaf:$1"
