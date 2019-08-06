@@ -5,29 +5,7 @@
 
 doccano is an open source text annotation tool for human. It provides annotation features for text classification, sequence labeling and sequence to sequence. So, you can create labeled data for sentiment analysis, named entity recognition, text summarization and so on. Just create project, upload data and start annotation. You can build dataset in hours.
 
-## Demo
-
-You can enjoy [annotation demo](http://doccano.herokuapp.com).
-
-### [Named entity recognition](https://doccano.herokuapp.com/demo/named-entity-recognition/)
-
-First demo is one of the sequence labeling tasks, named-entity recognition. You just select text spans and annotate it. Since doccano supports shortcut key, so you can quickly annotate text spans.
-
-![Named Entity Recognition](./docs/named_entity_annotation.gif)
-
-### [Sentiment analysis](https://doccano.herokuapp.com/demo/text-classification/)
-
-Second demo is one of the text classification tasks, topic classification. Since there may be more than one category, you can annotate multi-labels.
-
-![Text Classification](./docs/text_classification.gif)
-
-### [Machine translation](https://doccano.herokuapp.com/demo/translation/)
-
-Final demo is one of the sequence to sequence tasks, machine translation. Since there may be more than one responses in sequence to sequence tasks, you can create multi responses.
-
-![Machine Translation](./docs/translation.gif)
-
-## Deployment
+## Deployment (not maintained)
 
 ### Azure
 
@@ -64,7 +42,6 @@ Doccano can be deployed to AWS ([Cloudformation](https://docs.aws.amazon.com/AWS
 * Collaborative annotation
 * Multi-Language support
 * Emoji :smile: support
-* (future) Auto labeling
 
 ## Requirements
 
@@ -78,17 +55,17 @@ Doccano can be deployed to AWS ([Cloudformation](https://docs.aws.amazon.com/AWS
 First of all, you have to clone the repository:
 
 ```bash
-git clone https://github.com/chakki-works/doccano.git
-cd doccano
+git clone https://github.com/etalab/piaf.git
+cd piaf
 ```
 
-To install doccano, there are three options:
+To install piaf, there are three options:
 
-**Option1: Pull the production Docker image**
+<!-- **Option1: Pull the production Docker image**
 
 ```bash
 docker pull chakkiworks/doccano
-```
+``` -->
 
 **Option2: Setup Python environment**
 
@@ -111,7 +88,7 @@ npm run build
 cd ..
 ```
 
-**Option3: Pull the development Docker-Compose images**
+**Option3: Pull the development Docker-Compose images** [recommended]
 
 ```bash
 docker-compose pull
@@ -125,8 +102,8 @@ Let’s start the development server and explore it.
 
 Depending on your installation method, there are two options:
 
-**Option1: Running the Docker image as a Container**
-
+<!-- **Option1: Running the Docker image as a Container** -->
+<!--
 First, run a Docker container:
 
 ```bash
@@ -137,7 +114,7 @@ Then, execute `create-admin.sh` script for creating a superuser.
 
 ```bash
 docker exec doccano tools/create-admin.sh "admin" "admin@example.com" "password"
-```
+``` -->
 
 **Option2: Running Django development server**
 
@@ -169,7 +146,7 @@ Optionally, you can change the bind ip and port using the command
 python manage.py runserver <ip>:<port>
 ```
 
-**Option3: Running the development Docker-Compose stack**
+**Option3: Running the development Docker-Compose stack** [recommended]
 
 We can use docker-compose to set up the webpack server, django server, database, etc. all in one command:
 
@@ -203,7 +180,7 @@ You can upload two types of files:
 - `CSV file`: file must contain a header with a `text` column or be one-column csv file.
 - `JSON file`: each line contains a JSON object with a `text` key. JSON format supports line breaks rendering.
 
-> Notice: Doccano won't render line breaks in annotation page for sequence labeling task due to the indent problem, but the exported JSON file still contains line breaks.
+> Notice: Piaf won't render line breaks in annotation page for sequence labeling task due to the indent problem, but the exported JSON file still contains line breaks.
 
 `example.txt` (or `example.csv`)
 ```python
@@ -243,7 +220,7 @@ After the annotation step, you can download the annotated data. Click the `Edit 
 
 <img src="./docs/export_data.png" alt="Edit label" width=600>
 
-You can export data as CSV file or JSON file by clicking the button. As for the export file format, you can check it here: [Export File Formats](https://github.com/chakki-works/doccano/wiki/Export-File-Formats). 
+You can export data as CSV file or JSON file by clicking the button.
 
 Each exported document will have metadata column or key, which will contain
 additional columns or keys from the imported document. The primary use-case for metadata is to allow you to match exported data with other system
@@ -260,21 +237,6 @@ and the exported file will look like this:
 {"doc_id": 2023, "text": "EU rejects German call to boycott British lamb.", "labels": ["news"], "username": "root", "metadata": {"external_id": 1}}
 ```
 
-### Tutorial
-
-We prepared a NER annotation tutorial, which can help you have a better understanding of doccano. Please first read the README page, and then take the tutorial. [A Tutorial For Sequence Labeling Project](https://github.com/chakki-works/doccano/wiki/A-Tutorial-For-Sequence-Labeling-Project).
-
-I hope you are having a great day!
-
-## Contribution
-
-As with any software, doccano is under continuous development. If you have requests for features, please file an issue describing your request. Also, if you want to see work towards a specific feature, feel free to contribute by working towards it. The standard procedure is to fork the repository, add a feature, fix a bug, then file a pull request that your changes are to be merged into the main repository and included in the next release.
-
-Here are some tips might be helpful. [How to Contribute to Doccano Project](https://github.com/chakki-works/doccano/wiki/How-to-Contribute-to-Doccano-Project)
-
-
 ## Contact
 
-For help and feedback, please feel free to contact [the author](https://github.com/Hironsan).
-
-**If you are favorite to doccano, please follow my [GitHub](https://github.com/Hironsan) and [Twitter](https://twitter.com/Hironsan13) account.**
+For help and feedback, please feel free to contact [the author](https://github.com/guillim).
