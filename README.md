@@ -1,5 +1,6 @@
 # piaf
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b64ba7294eca479181b52d30a7d2e9d7)](https://app.codacy.com/app/guillim/piaf?utm_source=github.com&utm_medium=referral&utm_content=etalab/piaf&utm_campaign=Badge_Grade_Dashboard)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/98a0992c0a254d0ba23fd75631fe2907)](https://app.codacy.com/app/Hironsan/piaf?utm_source=github.com&utm_medium=referral&utm_content=chakki-works/piaf&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/chakki-works/piaf.svg?branch=master)](https://travis-ci.org/chakki-works/piaf)
 
