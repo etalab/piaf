@@ -1,23 +1,56 @@
-div.columns(v-cloak="")
+div.is-marginless.columns(v-cloak="")
 
   div.column.is-10.is-offset-1.message.hero.is-fullheight#message-pane
 
-    div.columns.is-multiline.is-gapless.is-mobile.is-vertical-center
-      div.column.is-3
-        progress.progress.is-inline-block(
-          v-bind:class="progressColor"
-          v-bind:value="achievement"
-          max="100"
-        ) 30%
-      div.column.is-6
-        span.ml10
-          strong {{ total - remaining }}
-        | /
-        span {{ total }}
+    div.columns.is-gapless.is-mobile.is-vertical-center
+      div.column.is-1.modal-button(
+        data-target="modal-h" 
+        aria-haspopup="true"
+      )
+        figure.image
+          img(
+            src="/static/assets/images/logo.png"
+          ) 
+      p.column.is-5.has-text-right.has-text-link.has-text-weight-bold.modal-button(
+        data-target="modal-q" 
+        aria-haspopup="true"
+      )  Questionner
+      div.column.is-1
+      p.column.is-5.has-text-left.modal-button(
+        data-target="modal-r" 
+        aria-haspopup="true"
+      ) Réponder
 
+      div.column.is-1
+        
     div.columns
       div.column
         block annotation-area
 
       div.column(v-if="documentMetadata != null && documentMetadata.documentSourceUrl != null")
         preview(v-bind:url="documentMetadata.documentSourceUrl")
+
+  div.modal#modal-h
+    div.modal-background
+      div.modal-content
+        a.button Home
+      button.modal-close.is-large(
+        aria-label="close"
+        )
+
+
+  div.modal#modal-q
+    div.modal-background
+      div.modal-content
+        a.button Retour
+      button.modal-close.is-large(
+        aria-label="close"
+        )
+
+  div.modal#modal-r
+    div.modal-background
+      div.modal-content
+        a.button Retour
+      button.modal-close.is-large(
+        aria-label="close"
+        )
