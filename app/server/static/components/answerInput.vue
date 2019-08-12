@@ -1,44 +1,44 @@
 <template lang="pug">
   section.todoapp(
-    v-bind:class="{ 'is-transparentbackground': !editAnswerMode}"
+    v-bind:class="{ 'is-transparentbackground': isProtected}"
   )
-    header.header.card-content.columns.is-gapless(v-if="editAnswerMode")
-      input.column.is-mobile.is-vertical-center.is-11.new-todo.has-text-left.is-paddingless.is-shadowless(
-        v-model="newAnswer"
-        v-on:keyup.enter="addAnswer"
-        type="text"
-        placeholder="Écrire une réponse"
-      )
-      a.column.is-1.is-rounded.button.is-inline-block.doneButton.has-background-royalblue(
-        v-on:click="switchEditAnswerMode"
-      ) Ok
-
-    header.header.card-content(v-if="!editAnswerMode")
-      div.columns.is-gapless.is-mobile.is-vertical-center(
-         v-if="currentAnswer"
-      )
-        p.column.is-11.new-todo.has-text-left.is-paddingless.is-shadowless {{ currentAnswer.text }}
-        a.column.is-1.is-rounded.button.is-inline-block.doneButton(
-          v-on:click="switchEditAnswerMode"
-        ) Edit
-      div.columns.is-gapless.is-mobile.is-vertical-center(
-         v-if="!currentAnswer"
-      )
-        input.textarea.new-todo(
+    header.header.card-content
+      div.columns.is-gapless.is-mobile.is-vertical-center
+        p.column.is-11.new-todo.has-text-left.is-paddingless.is-shadowless(
+          v-if="isProtected"
+          v-model="editedAnswer"
+          v-on:keyup.enter="doneEditAnswer(editedAnswer)"
+        ) {{ currentAnswer.text }}
+        input.column.is-11.new-todo.has-text-left.is-paddingless.is-shadowless(
+          v-else
           v-model="newAnswer"
           v-on:keyup.enter="addAnswer"
           type="text"
           placeholder="Écrire une réponse"
         )
+        a.column.is-1.is-rounded.button.is-inline-block.doneButton(
+          v-on:click="onClick"
+          v-bind:class="{ 'has-background-royalblue': !isProtected}"
+        )
+          span(v-if="isProtected") Edit
+          span(v-else) Ok
 </template>
 
 <script>
 export default {
-  props: ['buttonMessage','editAnswerMode','answers','pageNumber','currentQuestionIndex','currentAnswer'],
+  props: ['buttonMessage','answers','pageNumber','currentQuestionIndex','currentAnswer'],
 
   data: () => ({
     newAnswer: '',
+    editedAnswer: null,
+    beforeEditAnswerCache: null,
   }),
+
+  computed: {
+    isProtected(){
+      return this.currentAnswer && this.editedAnswer === null
+    }
+  },
 
   methods: {
     addAnswer() {
@@ -60,7 +60,7 @@ export default {
       answersCopy[this.pageNumber][this.currentQuestionIndex] = payload;
       this.$emit('updateAnswers',answersCopy);
       this.newAnswer = '';
-      this.$emit('updateEditAnswerMode',false);
+      this.editedAnswer = null
       if (this.currentQuestionIndex < 4) {
         this.$emit('increaseCurrentQuestionIndex');
       }
@@ -71,38 +71,46 @@ export default {
       let answersCopy = JSON.parse(JSON.stringify(this.answers))
       answersCopy[this.pageNumber].splice(index, 1);
       this.$emit('updateAnswers',answersCopy);
-      this.$emit('updateEditAnswerMode',true);
     },
 
-    switchEditAnswerMode() {
-      this.$emit('updateEditAnswerMode',!this.editAnswerMode);
+    reInitialiseAnswerInputs(){
+      this.newAnswer = ''
+      this.editedAnswer = null;
+      this.beforeEditAnswerCache = null;
     },
 
-    // editAnswer(answer) {
-    //   this.beforeEditAnswerCache = answer.text;
-    //   this.editedAnswer = answer;
-    //   this.$emit('updateEditAnswerMode',true);
-    // },
+    editAnswer(answer) {
+      this.beforeEditAnswerCache = answer.text;
+      this.editedAnswer = answer;
+    },
 
-    // cancelEditAnswer(answer) {
-    //   this.editedAnswer = null;
-    //   answer.text = this.beforeEditAnswerCache;
-    //   this.$emit('updateEditAnswerMode',false);
-    // },
+    cancelEditAnswer(answer) {
+      this.reInitialiseAnswerInputs()
+    },
 
-    // doneEditAnswer(answer) {
-    //   if (!this.editedAnswer) {
-    //     return;
-    //   }
-    //   this.editedAnswer = null;
-    //   answer.text = answer.text.trim();
-    //   if (!answer.text) {
-    //     this.removeAnswer(answer);
-    //   }
-    //   const docId = this.docs[this.pageNumber].id;
-    //
-    //   console.log('something to do ?');
-    // },
+    doneEditAnswer() {
+      if (!this.editedAnswer) {
+        return;
+      }
+
+      const payload = {
+        text: this.editedAnswer.trim(),
+      };
+
+      let answersCopy = JSON.parse(JSON.stringify(this.answers))
+      answersCopy[this.pageNumber][this.currentQuestionIndex] = payload;
+      this.reInitialiseAnswerInputs()
+      this.$emit('updateAnswers',answersCopy);
+    },
+
+    onClick(){
+      if (this.isProtected) {
+        this.editAnswer(this.currentAnswer)
+      } else {
+        this.addAnswer()
+      }
+    },
+
   },
 }
 </script>

@@ -35,11 +35,10 @@ block annotation-area
 
   answerInput(
     v-if="currentQuestion"
+    ref="answerInputComponent"
     v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
     v-bind:buttonMessage="`Edit`"
     v-on:updateAnswers="updateAnswers"
-    v-on:updateEditAnswerMode="updateEditAnswerMode"
-    v-bind:editAnswerMode="editAnswerMode"
     v-bind:answers="answers"
     v-bind:pageNumber="pageNumber"
     v-bind:currentQuestionIndex="currentQuestionIndex"
@@ -70,7 +69,6 @@ export default {
     //- newAnswer: '',
     editedAnswer: null,
     answers: [[]],
-    editAnswerMode: true,
     messageInfo: 'teston',
   }),
 
@@ -182,22 +180,23 @@ export default {
     },
 
     setCurrentQuestionIndex(i){
+      this.$refs.answerInputComponent.reInitialiseAnswerInputs()
       if (this.questionClass(i) !== 'notYetButton') {
         this.currentQuestionIndex=i
-        this.editAnswerMode = false
       }else if(this.currentNumberOfQuestion === i && this.answers[this.pageNumber].length === this.currentNumberOfQuestion){
         this.currentQuestionIndex=i
-        this.editAnswerMode = true
       }
     },
 
     reduceCurrentQuestionIndex(){
+      this.$refs.answerInputComponent.reInitialiseAnswerInputs()
       if(this.currentQuestionIndex>0){
         this.currentQuestionIndex--
       }
     },
 
     increaseCurrentQuestionIndex(){
+      this.$refs.answerInputComponent.reInitialiseAnswerInputs()
       if(this.currentQuestionIndex<4){
         this.currentQuestionIndex++
       }else{
@@ -208,11 +207,27 @@ export default {
     updateAnswers(answers) {
       this.answers = answers
     },
-    updateEditAnswerMode(boo) {
-      this.editAnswerMode = boo
-    },
 
   },
+
+  mounted() {
+    const thisBis = this
+    // gestion des évènement liés au keyboard
+    window.addEventListener('keyup', function(event) {
+      // arrow left
+      if (event.keyCode == 37) {
+        thisBis.reduceCurrentQuestionIndex()
+      // arrow right
+      } else if (event.keyCode == 39) {
+        thisBis.setCurrentQuestionIndex(thisBis.currentQuestionIndex+1)
+      // escape
+      } else if (event.keyCode == 27) {
+        thisBis.$refs.answerInputComponent.cancelEditAnswer()
+      }
+    });
+  },
+
+
 };
 </script>
 
