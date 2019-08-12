@@ -19,30 +19,32 @@ block annotation-area
       div.content(v-if="docs[pageNumber]")
         span.text {{ docs[pageNumber].text }}
 
-  section.todoapp(v-if="!currentQuestion")
-    header.header
-      input.textarea.new-todo(
-        v-model="newTodo"
-        v-on:keyup.enter="addTodo"
-        type="text"
-        placeholder="Écrire une question"
-      )
-
-  questionInput(
-    v-bind:buttonMessage="`Edit`"
-    v-bind:currentQuestion="currentQuestion"
+  genericInput(
+    ref="questionInputComponent"
+    v-on:increaseCurrentQuestionIndex="`do something after update question?`"
+    v-bind:buttonMessage1="`Edit`"
+    v-bind:buttonMessage2="`OK`"
+    v-on:updateJSONs="updateQuestions"
+    v-bind:JSONs="annotations"
+    v-bind:pageNumber="pageNumber"
+    v-bind:currentQuestionIndex="currentQuestionIndex"
+    v-bind:currentJSON="currentQuestion"
+    v-bind:placeholder="`Écrire une question`"
   )
 
-  answerInput(
+
+  genericInput(
     v-if="currentQuestion"
     ref="answerInputComponent"
     v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
-    v-bind:buttonMessage="`Edit`"
-    v-on:updateAnswers="updateAnswers"
-    v-bind:answers="answers"
+    v-bind:buttonMessage1="`Edit`"
+    v-bind:buttonMessage2="`OK`"
+    v-on:updateJSONs="updateAnswers"
+    v-bind:JSONs="answers"
     v-bind:pageNumber="pageNumber"
     v-bind:currentQuestionIndex="currentQuestionIndex"
-    v-bind:currentAnswer="currentAnswer"
+    v-bind:currentJSON="currentAnswer"
+    v-bind:placeholder="`Écrire une réponse`"
   )
 </template>
 
@@ -52,15 +54,14 @@ import todoFocus from './directives';
 import HTTP from './http';
 import MessageInfo from './messageInfo.vue';
 import NavigationButtons from './navigationButtons.vue';
-import QuestionInput from './questionInput.vue';
-import AnswerInput from './answerInput.vue';
+import GenericInput from './genericInput.vue';
 
 export default {
   directives: { todoFocus },
 
   mixins: [annotationMixin],
 
-  components: { MessageInfo, NavigationButtons, QuestionInput, AnswerInput},
+  components: { MessageInfo, NavigationButtons, GenericInput},
 
   data: () => ({
     newTodo: '',
@@ -85,6 +86,10 @@ export default {
   },
 
   methods: {
+    updateQuestions(questions){
+      this.annotations = questions
+    },
+
     addTodo() {
       const value = this.newTodo && this.newTodo.trim();
       if (!value) {
@@ -180,7 +185,8 @@ export default {
     },
 
     setCurrentQuestionIndex(i){
-      this.$refs.answerInputComponent.reInitialiseAnswerInputs()
+      // in case we go to a new question, the _answerInputComponent_ is not yet defined unitl we press enter
+      if(this.$refs.answerInputComponent){this.$refs.answerInputComponent.reInitialiseInputs()}
       if (this.questionClass(i) !== 'notYetButton') {
         this.currentQuestionIndex=i
       }else if(this.currentNumberOfQuestion === i && this.answers[this.pageNumber].length === this.currentNumberOfQuestion){
@@ -189,14 +195,14 @@ export default {
     },
 
     reduceCurrentQuestionIndex(){
-      this.$refs.answerInputComponent.reInitialiseAnswerInputs()
+      if(this.$refs.answerInputComponent){this.$refs.answerInputComponent.reInitialiseInputs()}
       if(this.currentQuestionIndex>0){
         this.currentQuestionIndex--
       }
     },
 
     increaseCurrentQuestionIndex(){
-      this.$refs.answerInputComponent.reInitialiseAnswerInputs()
+      if(this.$refs.answerInputComponent){this.$refs.answerInputComponent.reInitialiseInputs()}
       if(this.currentQuestionIndex<4){
         this.currentQuestionIndex++
       }else{
@@ -222,7 +228,7 @@ export default {
         thisBis.setCurrentQuestionIndex(thisBis.currentQuestionIndex+1)
       // escape
       } else if (event.keyCode == 27) {
-        thisBis.$refs.answerInputComponent.cancelEditAnswer()
+        thisBis.$refs.answerInputComponent.cancelEditJSON()
       }
     });
   },
