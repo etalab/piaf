@@ -308,6 +308,12 @@ body {
   background-color: #BFBFBF;
 }
 
+.hoverEffect:hover{
+  color: white;
+  /* background-color: inherit; */
+  box-shadow: 0px 2px 6px 3px rgba(37, 37, 37, 0.2)
+}
+
 .is-shadowless{
   box-shadow: none !important;
 }

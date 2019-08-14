@@ -18,12 +18,10 @@
           :placeholder="placeholder"
           ref="input"
         )
-        a.column.is-1.is-rounded.button.is-inline-block.doneButton(
+        a.is-1.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
           v-on:click="onClick"
           v-bind:class="{ 'has-background-royalblue': !isProtected}"
-        )
-          span(v-if="isProtected") {{ buttonMessage1 }}
-          span(v-else) {{ buttonMessage2 }}
+        ) {{ buttonMessage }}
 </template>
 
 <script>
@@ -39,6 +37,9 @@ export default {
   computed: {
     isProtected(){
       return this.currentJSON && this.editedInput === null
+    },
+    buttonMessage(){
+      return (this.isProtected) ? this.buttonMessage1 : this.buttonMessage2;
     }
   },
 
