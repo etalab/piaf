@@ -15,11 +15,16 @@
           v-on:click="setCurrentQuestionIndex(index)"
         ) {{index + 1}}
     div.column.is-1
+      div.columns.is-gapless.is-mobile.is-vertical-center.is-justifycontentright(
+        v-on:click="increaseCurrentQuestionIndex"
+        v-if="((currentQuestionIndex + 1) < currentNumberOfQuestion) || (currentQuestionIndex + 1 == currentNumberOfQuestion && currentNumberOfAnswer == currentNumberOfQuestion)"
+      )
+        i.fas.fa-chevron-right.is-flex.has-text-grey-light
 </template>
 
 <script>
 export default {
-  props: ['currentQuestionIndex','questionClass'],
+  props: ['currentQuestionIndex', 'currentNumberOfQuestion', 'currentNumberOfAnswer', 'questionClass'],
 
   methods: {
     setCurrentQuestionIndex(index){
@@ -27,6 +32,9 @@ export default {
     },
     reduceCurrentQuestionIndex(index){
       this.$emit('reduceCurrentQuestionIndex', index);
+    },
+    increaseCurrentQuestionIndex(index){
+      this.$emit('increaseCurrentQuestionIndex', index);
     },
   },
 }

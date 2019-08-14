@@ -319,3 +319,7 @@ body {
 .is-justifycontentcenter{
   justify-content: center;
 }
+
+.is-justifycontentright{
+  justify-content: flex-end;
+}

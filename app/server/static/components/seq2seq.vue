@@ -9,8 +9,11 @@ block annotation-area
 
   navigationButtons(
     v-bind:currentQuestionIndex="currentQuestionIndex"
+    v-bind:currentNumberOfQuestion="currentNumberOfQuestion"
+    v-bind:currentNumberOfAnswer="currentNumberOfAnswer"
     v-on:setCurrentQuestionIndex="setCurrentQuestionIndex"
     v-on:reduceCurrentQuestionIndex="reduceCurrentQuestionIndex"
+    v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
     v-bind:questionClass="questionClass"
   )
 
@@ -79,6 +82,9 @@ export default {
     },
     currentQuestion(){
       return (this.annotations[this.pageNumber])? this.annotations[this.pageNumber][this.currentQuestionIndex] : null
+    },
+    currentNumberOfAnswer() {
+      return (this.answers[this.pageNumber]) ? this.answers[this.pageNumber].length : 0
     },
     currentAnswer(){
       return this.answers[this.pageNumber][this.currentQuestionIndex]
