@@ -228,7 +228,12 @@ export default {
         thisBis.setCurrentQuestionIndex(thisBis.currentQuestionIndex+1)
       // escape
       } else if (event.keyCode == 27) {
-        thisBis.$refs.answerInputComponent.cancelEditJSON()
+        if(thisBis.$refs.answerInputComponent){
+          thisBis.$refs.answerInputComponent.cancelEditJSON()
+        }
+        if(thisBis.$refs.questionInputComponent) {
+          thisBis.$refs.questionInputComponent.cancelEditJSON()
+        }
       }
     });
   },

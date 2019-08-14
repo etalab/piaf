@@ -13,8 +13,10 @@
           v-else
           v-model="newJSON"
           v-on:keyup.enter="addJSON"
+          v-on:blur="cancelEditJSON"
           type="text"
           :placeholder="placeholder"
+          ref="input"
         )
         a.column.is-1.is-rounded.button.is-inline-block.doneButton(
           v-on:click="onClick"
@@ -84,7 +86,7 @@ export default {
       this.editedInput = json;
     },
 
-    cancelEditJSON(json) {
+    cancelEditJSON() {
       this.reInitialiseInputs()
     },
 
@@ -106,6 +108,7 @@ export default {
     onClick(){
       if (this.isProtected) {
         this.editJSON(this.currentJSON)
+        this.$nextTick(() => this.$refs.input.focus())
       } else {
         this.addJSON()
       }
