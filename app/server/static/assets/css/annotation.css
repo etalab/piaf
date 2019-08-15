@@ -329,3 +329,24 @@ body {
 .is-justifycontentright{
   justify-content: flex-end;
 }
+
+/* @media screen and (min-width: 769px) {
+  .is-one-tenth-notmobile {
+    flex: none;
+    width: 10%;
+  }
+} */
+
+@media screen and (min-width: 769px) and (max-width: 1215px) {
+  .is-one-fifth-tabletdesktop {
+    flex: none;
+    width: 20%;
+  }
+}
+
+@media screen and (min-width: 1216px) {
+  .is-one-tenth-morethandesktop {
+    flex: none;
+    width: 10%;
+  }
+}

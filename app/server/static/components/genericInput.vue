@@ -4,12 +4,12 @@
   )
     header.header.card-content
       div.columns.is-gapless.is-mobile.is-vertical-center
-        p.column.is-11.new-todo.has-text-left.is-paddingless.is-shadowless(
+        p.column.new-todo.has-text-left.is-paddingless.is-shadowless(
           v-if="isProtected"
           v-model="editedInput"
           v-on:keyup.enter="doneEditInput(editedInput)"
         ) {{ currentJSON.text }}
-        input.column.is-11.new-todo.has-text-left.is-paddingless.is-shadowless(
+        input.column.new-todo.has-text-left.is-paddingless.is-shadowless(
           v-else
           v-model="newJSON"
           v-on:keyup.enter="addJSON"
@@ -18,7 +18,7 @@
           :placeholder="placeholder"
           ref="input"
         )
-        a.is-1.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
+        a.column.is-one-quarter-mobile.is-one-tenth-morethandesktop.is-one-fifth-tabletdesktop.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
           v-on:click="onClick"
           v-bind:class="{ 'has-background-royalblue': !isProtected}"
         ) {{ buttonMessage }}

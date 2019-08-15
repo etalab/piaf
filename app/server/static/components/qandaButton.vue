@@ -2,16 +2,16 @@
   section.is-transparentbackground
     header.header.card-content
       div.columns.is-gapless.is-mobile.is-vertical-center
-        p.column.is-11.new-todo.has-text-left.is-paddingless.is-shadowless(
+        p.column.new-todo.has-text-left.is-paddingless.is-shadowless(
           v-if="isProtected"
           v-model="editedInput"
           v-on:keyup.enter="doneEditInput(editedInput)"
         ) {{ currentJSON.text }}
-        p.paddingright.column.is-11.new-todo.has-text-left.is-paddingless.is-shadowless.has-text-grey-light.is-italic.is-justifycontentright.is-flex(
+        p.paddingright.column.new-todo.has-text-left.is-paddingless.is-shadowless.has-text-grey-light.is-italic.is-justifycontentright.is-flex(
           v-else
           ref="input"
         ) {{ placeholder }}
-        a.is-1.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
+        a.is-one-quarter-mobile.is-one-tenth-morethandesktop.is-one-fifth-tabletdesktop.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
           v-on:click="onClick"
           v-bind:class="{ 'has-background-royalblue': !isProtected}"
         ) {{ buttonMessage }}
