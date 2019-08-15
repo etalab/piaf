@@ -13,7 +13,6 @@
           v-else
           v-model="newJSON"
           v-on:keyup.enter="addJSON"
-          v-on:blur="cancelEditJSON"
           type="text"
           :placeholder="placeholder"
           ref="input"
