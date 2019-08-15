@@ -20,7 +20,10 @@ block annotation-area
   div.card.has-background-white
     div.card-content
       div.content(v-if="docs[pageNumber] && !annotations[pageNumber]")
-        span.text {{ docs[pageNumber].text }}
+        span.text(
+          oncopy="return false"
+          oncut="return false"
+        ) {{ docs[pageNumber].text }}
       div.content(v-if="docs[pageNumber] && annotations[pageNumber]")
         annotator(
           v-bind:entity-positions="currentAnswerForAnnotator"

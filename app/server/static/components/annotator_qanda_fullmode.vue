@@ -1,6 +1,8 @@
 <template lang="pug">
   div(@click="setSelectedRange")
     span.text-sequence(
+      oncopy="return false"
+      oncut="return false"
       v-for="r in chunks"
       v-bind:class="getChunkClass(r)"
       v-bind:style="getChunkStyle(r)"
