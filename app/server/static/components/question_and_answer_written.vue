@@ -19,16 +19,8 @@ block annotation-area
 
   div.card.has-background-white
     div.card-content
-      div.content(v-if="docs[pageNumber] && !annotations[pageNumber]")
+      div.content(v-if="docs[pageNumber]")
         span.text {{ docs[pageNumber].text }}
-      div.content(v-if="docs[pageNumber] && annotations[pageNumber]")
-        annotator(
-          v-bind:entity-positions="currentAnswerForAnnotator"
-          v-bind:text="docs[pageNumber].text"
-          v-bind:pageNumber="pageNumber"
-          v-bind:currentQuestionIndex="currentQuestionIndex"
-          ref="annotator"
-        )
 
   genericInput(
     ref="questionInputComponent"
@@ -43,18 +35,19 @@ block annotation-area
     v-bind:placeholder="`Écrire une question`"
   )
 
-  qandaButton(
+
+  genericInput(
     v-if="currentQuestion"
-    ref="quandaButtonComponent"
+    ref="answerInputComponent"
     v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
     v-bind:buttonMessage1="`Edit`"
-    v-bind:buttonMessage2="`Valider`"
+    v-bind:buttonMessage2="`OK`"
     v-on:updateJSONs="updateAnswers"
     v-bind:JSONs="answers"
     v-bind:pageNumber="pageNumber"
     v-bind:currentQuestionIndex="currentQuestionIndex"
     v-bind:currentJSON="currentAnswer"
-    v-bind:placeholder="`Surligner une réponse dans le texte`"
+    v-bind:placeholder="`Écrire une réponse`"
   )
 </template>
 
@@ -65,17 +58,13 @@ import HTTP from './http';
 import MessageInfo from './messageInfo.vue';
 import NavigationButtons from './navigationButtons.vue';
 import GenericInput from './genericInput.vue';
-import QandaButton from './qandaButton.vue';
-import Annotator from './annotator_qanda_fullmode.vue';
-
-import Bus from './bus.js'
 
 export default {
   directives: { todoFocus },
 
   mixins: [annotationMixin],
 
-  components: { MessageInfo, NavigationButtons, GenericInput, QandaButton, Annotator},
+  components: { MessageInfo, NavigationButtons, GenericInput},
 
   data: () => ({
     newTodo: '',
@@ -99,9 +88,6 @@ export default {
     },
     currentAnswer(){
       return this.answers[this.pageNumber][this.currentQuestionIndex]
-    },
-    currentAnswerForAnnotator(){
-      return (this.currentAnswer) ? [this.currentAnswer] : []
     },
   },
 
@@ -141,7 +127,6 @@ export default {
     },
 
     setCurrentQuestionIndex(i){
-      Bus.$emit('switch-editmode',false);
       // in case we go to a new question, the _answerInputComponent_ is not yet defined unitl we press enter
       if(this.$refs.answerInputComponent){this.$refs.answerInputComponent.reInitialiseInputs()}
       if (this.questionClass(i) !== 'notYetButton') {
@@ -152,7 +137,6 @@ export default {
     },
 
     reduceCurrentQuestionIndex(){
-      Bus.$emit('switch-editmode',false);
       if(this.$refs.answerInputComponent){this.$refs.answerInputComponent.reInitialiseInputs()}
       if(this.currentQuestionIndex>0){
         this.currentQuestionIndex--
@@ -160,22 +144,16 @@ export default {
     },
 
     increaseCurrentQuestionIndex(){
-      Bus.$emit('switch-editmode',false);
       if(this.$refs.answerInputComponent){this.$refs.answerInputComponent.reInitialiseInputs()}
       if(this.currentQuestionIndex<4){
         this.currentQuestionIndex++
       }else{
-        console.log('trouver une autrea ction apres avoir soumis la dernier repose');
-        // this.pageNumber++
+        this.pageNumber++
       }
     },
 
     updateAnswers(answers) {
       this.answers = answers
-    },
-
-    removeAnswer(){
-      console.log('il faut coder quelque chose ici');
     },
 
   },
@@ -192,7 +170,6 @@ export default {
         thisBis.setCurrentQuestionIndex(thisBis.currentQuestionIndex+1)
       // escape
       } else if (event.keyCode == 27) {
-        Bus.$emit('switch-editmode',false);
         if(thisBis.$refs.answerInputComponent){
           thisBis.$refs.answerInputComponent.cancelEditJSON()
         }
