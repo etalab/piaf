@@ -189,6 +189,8 @@ export default {
     Bus.$on('switch-editmode', (boo) => {
         this.editMode = boo
     });
+    window.addEventListener("touchend", () => { this.setSelectedRange() });
+    document.addEventListener("selectionchange", () => { this.setSelectedRange() });
   },
 
 };
