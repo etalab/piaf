@@ -268,6 +268,12 @@ class Seq2seqAnnotation(Annotation):
         unique_together = ('document', 'user', 'text')
 
 
+class Seq2seqAnnotationResponse(models.Model):
+    seq2seqAnnotation = models.ForeignKey(Seq2seqAnnotation, related_name='seq2seq_annotations_response', on_delete=models.CASCADE)
+    response = models.TextField()
+    start_offset = models.IntegerField()
+
+
 class QandAAnnotation(Annotation):
     objects = QandAAnnotationManager()
 
