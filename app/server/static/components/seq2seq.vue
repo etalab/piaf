@@ -153,17 +153,21 @@ export default {
                   this.messageInfo = 'problem while saving the question'
                 }else{
                   console.log('RESPONSE ADDED',result);
-                  this.reinitialise()
                 }
               });
           } else {
             console.log('problem while saving the question. It did not work:', res);
             this.messageInfo = 'problem while saving the question'
+            return false
           }
         });
 
       })
-      console.log('FORCER A LA PAGE SUIVANTE');
+      this.reinitialise()
+      console.log('chargement du texte suivant à implementer: this.submit();');
+      // chargement du texte suivant
+      this.submit();
+
     },
 
     // async submit() {
