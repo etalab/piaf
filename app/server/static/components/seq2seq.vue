@@ -121,6 +121,17 @@ export default {
       const p = this.pageNumber
       const docId = this.docs[p].id;
 
+      // let's check that every question is different
+      if (Array.isArray( this.annotations[p]) ) {
+        let annotations = this.annotations[p].map(annotation => annotation.text);
+        let annotationsNoDuplicates = new Set(annotations)
+        if (annotationsNoDuplicates.size !== annotations.length) {
+          console.log('err in the question array 1'); this.messageInfo = 'Every questions must be different'; return false
+        }
+      }else{
+        console.log('err in the question array 2'); this.messageInfo = 'problem with questions'; return false
+      }
+
       this.annotations[p].forEach((annotation,i) => {
         // here we check before sending the first request that Q and A are conform to expected (this is frontend verification, used for sending error messages. We check on the backend as well)
         if ( !(typeof annotation === 'object' && annotation.text) ) {
