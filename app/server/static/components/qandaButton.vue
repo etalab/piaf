@@ -71,9 +71,9 @@ export default {
       Bus.$emit('switch-editmode',false);
 
       this.editedInput = null
-      // if (this.currentQuestionIndex < 4) {
-      //   this.$emit('increaseCurrentQuestionIndex');
-      // }
+      if (this.isLastQuestion) {
+        this.$emit('submitToDatabase');
+      }
     },
 
     reInitialiseInputs(){
@@ -108,12 +108,7 @@ export default {
       if (this.isProtected) {
         this.editJSON(this.currentJSON)
       } else {
-        if (this.isLastQuestion) {
-          this.addJSON()
-          this.$emit('submitToDatabase');
-        } else {
-          this.addJSON()
-        }
+        this.addJSON()
       }
     },
 
