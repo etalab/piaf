@@ -11,8 +11,14 @@
           v-else
           ref="input"
         ) {{ placeholder }}
+        a.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
+          v-on:click="onClick"
+          v-if="isLastQuestion"
+          v-bind:class="{ 'has-background-royalblue': !isProtected}"
+        ) {{ buttonMessage3 }}
         a.is-one-quarter-mobile.is-one-tenth-morethandesktop.is-one-fifth-tabletdesktop.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
           v-on:click="onClick"
+          v-else
           v-bind:class="{ 'has-background-royalblue': !isProtected}"
         ) {{ buttonMessage }}
 </template>
@@ -27,7 +33,7 @@
 import Bus from './bus.js'
 
 export default {
-  props: ['buttonMessage1', 'buttonMessage2', 'JSONs', 'pageNumber', 'currentQuestionIndex', 'currentJSON','placeholder'],
+  props: ['buttonMessage1', 'buttonMessage2', 'buttonMessage3', 'JSONs', 'pageNumber', 'currentQuestionIndex', 'currentJSON','placeholder', 'questionIndexMax'],
 
   data: () => ({
     editedInput: null,
@@ -39,6 +45,9 @@ export default {
     },
     buttonMessage(){
       return (this.isProtected) ? this.buttonMessage1 : this.buttonMessage2;
+    },
+    isLastQuestion(){
+      return this.currentQuestionIndex >= this.questionIndexMax
     }
   },
 
@@ -99,7 +108,12 @@ export default {
       if (this.isProtected) {
         this.editJSON(this.currentJSON)
       } else {
-        this.addJSON()
+        if (this.isLastQuestion) {
+          this.addJSON()
+          this.$emit('submitToDatabase');
+        } else {
+          this.addJSON()
+        }
       }
     },
 

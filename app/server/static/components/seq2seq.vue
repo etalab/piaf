@@ -52,10 +52,13 @@ block annotation-area
     v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
     v-bind:buttonMessage1="`Edit`"
     v-bind:buttonMessage2="`Valider`"
+    v-bind:buttonMessage3="`Valider + envoyer`"
     v-on:updateJSONs="updateAnswers"
+    v-on:submitToDatabase="submitToDatabase"
     v-bind:JSONs="answers"
     v-bind:pageNumber="pageNumber"
     v-bind:currentQuestionIndex="currentQuestionIndex"
+    v-bind:questionIndexMax="questionIndexMax"
     v-bind:currentJSON="currentAnswer"
     v-bind:placeholder="`Surligner une réponse dans le texte`"
   )
@@ -84,10 +87,11 @@ export default {
     newTodo: '',
     editedTodo: null,
     currentQuestionIndex: 0,
+    questionIndexMax: 4,
     //- newAnswer: '',
     editedAnswer: null,
     answers: [[]],
-    messageInfo: 'teston',
+    messageInfo: 'no message',
   }),
 
   computed: {
@@ -120,11 +124,11 @@ export default {
       this.annotations[p].forEach((annotation,i) => {
         // here we check before sending the first request that Q and A are conform to expected (this is frontend verification, used for sending error messages. We check on the backend as well)
         if ( !(typeof annotation === 'object' && annotation.text) ) {
-          console.log('error in the question'); return false
+          console.log('error in the question'); this.messageInfo = 'problem while checking the questions'; return false
         }
-        let responseObj = JSON.parse(JSON.stringify(this.answers[p][i]))
+        let responseObj = (this.answers && this.answers[p] && this.answers[p][i]) ? JSON.parse(JSON.stringify(this.answers[p][i])) : null
         if ( !(responseObj && typeof responseObj.start_offset === 'number' && typeof responseObj.response === 'string') ) {
-          console.log('error in the answer'); return false
+          console.log('error in the answer'); this.messageInfo = 'problem while checking the answers'; return false
         }
         // console.log(this.answers[p][i],'responseObj',responseObj );
 
