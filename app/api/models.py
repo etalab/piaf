@@ -264,6 +264,13 @@ class Seq2seqAnnotation(Annotation):
     document = models.ForeignKey(Document, related_name='seq2seq_annotations', on_delete=models.CASCADE)
     text = models.CharField(max_length=500)
 
+    def get_annotation_serializer(self):
+        from .serializers import ResponseSerializer
+        return ResponseSerializer
+
+    def get_response_class(self):
+        return Seq2seqAnnotationResponse
+
     class Meta:
         unique_together = ('document', 'user', 'text')
 
@@ -272,6 +279,9 @@ class Seq2seqAnnotationResponse(models.Model):
     seq2seqAnnotation = models.ForeignKey(Seq2seqAnnotation, related_name='seq2seq_annotations_response', on_delete=models.CASCADE)
     response = models.TextField()
     start_offset = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class QandAAnnotation(Annotation):

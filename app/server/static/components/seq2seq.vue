@@ -114,16 +114,39 @@ export default {
     },
 
     submitToDatabase() {
-      const docId = this.docs[this.pageNumber].id;
-      this.annotations[this.pageNumber].forEach((annotation) => {
-        console.log('annotation:',JSON.parse(JSON.stringify(annotation)));
-        console.log(typeof annotation);
-        if (typeof annotation === 'object' && annotation.text) {
-          HTTP.post(`docs/${docId}/annotations`, annotation).then((response) => {
-            // this.annotations[this.pageNumber].push(response.data);
-            console.log('RESPONSE ADDED',response.data);
-          });
+      const p = this.pageNumber
+      const docId = this.docs[p].id;
+
+      this.annotations[p].forEach((annotation,i) => {
+        // here we check before sending the first request that Q and A are conform to expected (this is frontend verification, used for sending error messages. We check on the backend as well)
+        if ( !(typeof annotation === 'object' && annotation.text) ) {
+          console.log('error in the question'); return false
         }
+        let responseObj = JSON.parse(JSON.stringify(this.answers[p][i]))
+        if ( !(responseObj && typeof responseObj.start_offset === 'number' && typeof responseObj.response === 'string') ) {
+          console.log('error in the answer'); return false
+        }
+        // console.log(this.answers[p][i],'responseObj',responseObj );
+
+        // we send the QA to the database
+        HTTP.post(`docs/${docId}/annotations`, annotation).then((res,err) => {
+          console.log('res,err',res,err);
+          if (res.data && typeof res.data.id === 'number') {
+              HTTP.post(`seq2seq_annotations/${res.data.id}/response`, responseObj).then((result,error) => {
+                if(error){
+                  console.log('RESPONSE PROBLEM',error);
+                  this.messageInfo = 'problem while saving the question'
+                }else{
+                  console.log('RESPONSE ADDED',result);
+                  this.reinitialise()
+                }
+              });
+          } else {
+            console.log('problem while saving the question. It did not work:', res);
+            this.messageInfo = 'problem while saving the question'
+          }
+        });
+
       })
       console.log('FORCER A LA PAGE SUIVANTE');
     },
@@ -177,8 +200,12 @@ export default {
       this.answers = answers
     },
 
-    removeAnswer(){
-      console.log('il faut coder quelque chose ici');
+    reinitialise(){
+      this.answers = [[]]
+      this.annotations[this.pageNumber] = []
+      this.currentQuestionIndex = 0
+      this.editedAnswer= null
+      this.messageInfo = ''
     },
 
   },

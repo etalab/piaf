@@ -6,6 +6,7 @@ from .views import ProjectList, ProjectDetail
 from .views import LabelList, LabelDetail, ApproveLabelsAPI
 from .views import DocumentList, DocumentDetail
 from .views import AnnotationList, AnnotationDetail
+from .views import ResponseList, ResponseDetail
 from .views import TextUploadAPI, TextDownloadAPI, CloudUploadAPI
 from .views import StatisticsAPI
 
@@ -32,6 +33,10 @@ urlpatterns = [
          AnnotationList.as_view(), name='annotation_list'),
     path('projects/<int:project_id>/docs/<int:doc_id>/annotations/<int:annotation_id>',
          AnnotationDetail.as_view(), name='annotation_detail'),
+    path('projects/<int:project_id>/seq2seq_annotations/<int:seq2seq_annotation_id>/response',
+         ResponseList.as_view(), name='response_list'),
+    path('projects/<int:project_id>/seq2seq_annotations/<int:seq2seq_annotation_id>/response/<int:response_id>',
+         ResponseDetail.as_view(), name='response_detail'),
     path('projects/<int:project_id>/docs/upload',
          TextUploadAPI.as_view(), name='doc_uploader'),
     path('projects/<int:project_id>/docs/download',
