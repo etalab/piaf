@@ -29,7 +29,7 @@ class ProjectView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class ProjectsView(LoginRequiredMixin, TemplateView):
+class ProjectsView(SuperUserMixin, LoginRequiredMixin, TemplateView):
     template_name = 'projects.html'
 
 
