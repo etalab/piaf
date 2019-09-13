@@ -170,12 +170,12 @@ export default {
 
     },
 
-    // async submit() {
-    //   const state = this.getState();
-    //   this.url = `docs?q=${this.searchQuery}&seq2seq_annotations__isnull=${state}&offset=${this.offset}`;
-    //   await this.search();
-    //   this.pageNumber = 0;
-    // },
+    async submit() {
+      const state = this.getState();
+      this.url = `docs?q=${this.searchQuery}&is_checked=${state}&offset=${this.offset}&seq2seq_annotations__isnull=true`;
+      await this.search();
+      this.pageNumber = 0;
+    },
 
     questionClass(i){
       let qNum = parseInt(this.currentNumberOfQuestion)
