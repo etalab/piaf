@@ -11,17 +11,17 @@ div.is-marginless.columns(v-cloak="")
           img(
             src="/static/assets/images/logo.png"
           ) 
-      p.column.is-5.has-text-right.has-text-link.has-text-weight-bold.modal-button(
+      p.column.is-10.has-text-centered.has-text-link.has-text-weight-bold.modal-button(
         data-target="modal-q" 
         aria-haspopup="true"
-      ) Questions
-      div.column.is-1
-      p.column.is-5.has-text-left.modal-button(
-        data-target="modal-r" 
-        aria-haspopup="true"
-      ) Réponses
-
-      div.column.is-1
+      ) Écrire des Questions - Réponses
+      p.column.is-1.has-text-right.has-text-link
+        a.navbar-item(
+            href="/logout"
+        )
+          span.icon
+            i.fas.fa-sign-out-alt
+      p.column.is-1
         
     div.columns
       div.column
