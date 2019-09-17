@@ -135,8 +135,8 @@ body {
 }
 
 .content {
-  font-size: 16pt;
-  line-height: 250%;
+  font-size: 12pt;
+  line-height: 100%;
 }
 
 .content .tag {
@@ -284,3 +284,69 @@ body {
 }
 
 [v-cloak] { display: none; }
+
+.activeButton{
+  color: #505050;
+  border: 1px solid #FFFFFF;
+  background-color: #FFFFFF;
+  box-shadow: 0px 2px 6px 3px rgba(148, 148, 148, 0.2)
+}
+
+.notYetButton{
+  color: #BFBFBF;
+  border: 1px solid #BFBFBF;
+  background-color: #e1e1e100;
+  cursor: not-allowed;
+}
+.notYetButton:hover{
+  color: #BFBFBF;
+}
+
+.doneButton{
+  color: #FFFFFF;
+  border: 1px solid #BFBFBF;
+  background-color: #BFBFBF;
+}
+
+.hoverEffect:hover{
+  color: white;
+  /* background-color: inherit; */
+  box-shadow: 0px 2px 6px 3px rgba(37, 37, 37, 0.2)
+}
+
+.is-shadowless{
+  box-shadow: none !important;
+}
+
+.is-transparentbackground{
+  background-color: transparent;
+}
+
+.is-justifycontentcenter{
+  justify-content: center;
+}
+
+.is-justifycontentright{
+  justify-content: flex-end;
+}
+
+/* @media screen and (min-width: 769px) {
+  .is-one-tenth-notmobile {
+    flex: none;
+    width: 10%;
+  }
+} */
+
+@media screen and (min-width: 769px) and (max-width: 1215px) {
+  .is-one-fifth-tabletdesktop {
+    flex: none;
+    width: 20%;
+  }
+}
+
+@media screen and (min-width: 1216px) {
+  .is-one-tenth-morethandesktop {
+    flex: none;
+    width: 10%;
+  }
+}

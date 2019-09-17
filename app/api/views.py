@@ -13,7 +13,7 @@ from rest_framework.parsers import MultiPartParser
 from rest_framework_csv.renderers import CSVRenderer
 
 from .filters import DocumentFilter
-from .models import Project, Label, Document
+from .models import Project, Label, Document, Seq2seqAnnotation
 from .permissions import IsAdminUserAndWriteOnly, IsProjectUser, IsOwnAnnotation
 from .serializers import ProjectSerializer, LabelSerializer, DocumentSerializer, UserSerializer
 from .serializers import ProjectPolymorphicSerializer
@@ -187,6 +187,46 @@ class AnnotationDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         project = get_object_or_404(Project, pk=self.kwargs['project_id'])
         model = project.get_annotation_class()
+        self.queryset = model.objects.all()
+        return self.queryset
+
+class ResponseList(generics.ListCreateAPIView):
+    pagination_class = None
+    permission_classes = (IsAuthenticated, IsProjectUser)
+
+    def get_serializer_class(self):
+        annotation = get_object_or_404(Seq2seqAnnotation, pk=self.kwargs['seq2seq_annotation_id'])
+        self.serializer_class = annotation.get_annotation_serializer()
+        return self.serializer_class
+
+    def get_queryset(self):
+        annotation = get_object_or_404(Seq2seqAnnotation, pk=self.kwargs['seq2seq_annotation_id'])
+        model = annotation.get_response_class()
+        self.queryset = model.objects.filter(seq2seqAnnotation=self.kwargs['seq2seq_annotation_id'],
+                                             user=self.request.user)
+        return self.queryset
+
+    def create(self, request, *args, **kwargs):
+        request.data['seq2seqAnnotation'] = self.kwargs['seq2seq_annotation_id']
+        return super().create(request, args, kwargs)
+
+    def perform_create(self, serializer):
+        doc = get_object_or_404(Seq2seqAnnotation, pk=self.kwargs['seq2seq_annotation_id'])
+        serializer.save(seq2seqAnnotation=doc, user=self.request.user)
+
+
+class ResponseDetail(generics.RetrieveUpdateDestroyAPIView):
+    lookup_url_kwarg = 'annotation_id'
+    permission_classes = (IsAuthenticated, IsProjectUser, IsOwnAnnotation)
+
+    def get_serializer_class(self):
+        annotation = get_object_or_404(Seq2seqAnnotation, pk=self.kwargs['seq2seqannotation_id'])
+        self.serializer_class = annotation.get_annotation_serializer()
+        return self.serializer_class
+
+    def get_queryset(self):
+        annotation = get_object_or_404(Seq2seqAnnotation, pk=self.kwargs['seq2seqannotation_id'])
+        model = annotation.get_response_class()
         self.queryset = model.objects.all()
         return self.queryset
 

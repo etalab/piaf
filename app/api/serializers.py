@@ -6,7 +6,7 @@ from rest_framework.exceptions import ValidationError
 
 from .models import Label, Project, Document
 from .models import TextClassificationProject, SequenceLabelingProject, Seq2seqProject, QandAProject
-from .models import DocumentAnnotation, SequenceAnnotation, Seq2seqAnnotation, QandAAnnotation
+from .models import DocumentAnnotation, SequenceAnnotation, Seq2seqAnnotation, Seq2seqAnnotationResponse, QandAAnnotation
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -171,6 +171,14 @@ class Seq2seqAnnotationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seq2seqAnnotation
         fields = ('id', 'text', 'user', 'document', 'prob')
+        read_only_fields = ('user',)
+
+
+class ResponseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Seq2seqAnnotationResponse
+        fields = ('id', 'response', 'start_offset', 'user')
         read_only_fields = ('user',)
 
 

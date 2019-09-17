@@ -19,19 +19,8 @@ block annotation-area
 
   div.card.has-background-white
     div.card-content
-      div.content(v-if="docs[pageNumber] && !annotations[pageNumber]")
-        span.text(
-          oncopy="return false"
-          oncut="return false"
-        ) {{ docs[pageNumber].text }}
-      div.content(v-if="docs[pageNumber] && annotations[pageNumber]")
-        annotator(
-          v-bind:entity-positions="currentAnswerForAnnotator"
-          v-bind:text="docs[pageNumber].text"
-          v-bind:pageNumber="pageNumber"
-          v-bind:currentQuestionIndex="currentQuestionIndex"
-          ref="annotator"
-        )
+      div.content(v-if="docs[pageNumber]")
+        span.text {{ docs[pageNumber].text }}
 
   genericInput(
     ref="questionInputComponent"
@@ -46,21 +35,19 @@ block annotation-area
     v-bind:placeholder="`Écrire une question`"
   )
 
-  qandaButton(
+
+  genericInput(
     v-if="currentQuestion"
-    ref="quandaButtonComponent"
+    ref="answerInputComponent"
     v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
     v-bind:buttonMessage1="`Edit`"
-    v-bind:buttonMessage2="`Valider`"
-    v-bind:buttonMessage3="`Valider + envoyer`"
+    v-bind:buttonMessage2="`OK`"
     v-on:updateJSONs="updateAnswers"
-    v-on:submitToDatabase="submitToDatabase"
     v-bind:JSONs="answers"
     v-bind:pageNumber="pageNumber"
     v-bind:currentQuestionIndex="currentQuestionIndex"
-    v-bind:questionIndexMax="questionIndexMax"
     v-bind:currentJSON="currentAnswer"
-    v-bind:placeholder="`Surligner une réponse dans le texte`"
+    v-bind:placeholder="`Écrire une réponse`"
   )
 </template>
 
@@ -71,27 +58,22 @@ import HTTP from './http';
 import MessageInfo from './messageInfo.vue';
 import NavigationButtons from './navigationButtons.vue';
 import GenericInput from './genericInput.vue';
-import QandaButton from './qandaButton.vue';
-import Annotator from './annotator_qanda_fullmode.vue';
-
-import Bus from './bus.js'
 
 export default {
   directives: { todoFocus },
 
   mixins: [annotationMixin],
 
-  components: { MessageInfo, NavigationButtons, GenericInput, QandaButton, Annotator},
+  components: { MessageInfo, NavigationButtons, GenericInput},
 
   data: () => ({
     newTodo: '',
     editedTodo: null,
     currentQuestionIndex: 0,
-    questionIndexMax: 4,
     //- newAnswer: '',
     editedAnswer: null,
     answers: [[]],
-    messageInfo: 'no message',
+    messageInfo: 'teston',
   }),
 
   computed: {
@@ -107,9 +89,6 @@ export default {
     currentAnswer(){
       return this.answers[this.pageNumber][this.currentQuestionIndex]
     },
-    currentAnswerForAnnotator(){
-      return (this.currentAnswer) ? [this.currentAnswer] : []
-    },
   },
 
   methods: {
@@ -118,64 +97,26 @@ export default {
     },
 
     submitToDatabase() {
-      const p = this.pageNumber
-      const docId = this.docs[p].id;
-
-      // let's check that every question is different
-      if (Array.isArray( this.annotations[p]) ) {
-        let annotations = this.annotations[p].map(annotation => annotation.text);
-        let annotationsNoDuplicates = new Set(annotations)
-        if (annotationsNoDuplicates.size !== annotations.length) {
-          console.log('err in the question array 1'); this.messageInfo = 'Every questions must be different'; return false
+      const docId = this.docs[this.pageNumber].id;
+      this.annotations[this.pageNumber].forEach((annotation) => {
+        console.log('annotation:',JSON.parse(JSON.stringify(annotation)));
+        console.log(typeof annotation);
+        if (typeof annotation === 'object' && annotation.text) {
+          HTTP.post(`docs/${docId}/annotations`, annotation).then((response) => {
+            // this.annotations[this.pageNumber].push(response.data);
+            console.log('RESPONSE ADDED',response.data);
+          });
         }
-      }else{
-        console.log('err in the question array 2'); this.messageInfo = 'problem with questions'; return false
-      }
-
-      this.annotations[p].forEach((annotation,i) => {
-        // here we check before sending the first request that Q and A are conform to expected (this is frontend verification, used for sending error messages. We check on the backend as well)
-        if ( !(typeof annotation === 'object' && annotation.text) ) {
-          console.log('error in the question'); this.messageInfo = 'problem while checking the questions'; return false
-        }
-        let responseObj = (this.answers && this.answers[p] && this.answers[p][i]) ? JSON.parse(JSON.stringify(this.answers[p][i])) : null
-        if ( !(responseObj && typeof responseObj.start_offset === 'number' && typeof responseObj.response === 'string') ) {
-          console.log('error in the answer'); this.messageInfo = 'problem while checking the answers'; return false
-        }
-        // console.log(this.answers[p][i],'responseObj',responseObj );
-
-        // we send the QA to the database
-        HTTP.post(`docs/${docId}/annotations`, annotation).then((res,err) => {
-          console.log('res,err',res,err);
-          if (res.data && typeof res.data.id === 'number') {
-              HTTP.post(`seq2seq_annotations/${res.data.id}/response`, responseObj).then((result,error) => {
-                if(error){
-                  console.log('RESPONSE PROBLEM',error);
-                  this.messageInfo = 'problem while saving the question'
-                }else{
-                  console.log('RESPONSE ADDED',result);
-                }
-              });
-          } else {
-            console.log('problem while saving the question. It did not work:', res);
-            this.messageInfo = 'problem while saving the question'
-            return false
-          }
-        });
-
       })
-      this.reinitialise()
-      console.log('chargement du texte suivant à implementer: this.submit();');
-      // chargement du texte suivant
-      this.submit();
-
+      console.log('FORCER A LA PAGE SUIVANTE');
     },
 
-    async submit() {
-      const state = this.getState();
-      this.url = `docs?q=${this.searchQuery}&is_checked=${state}&offset=${this.offset}&seq2seq_annotations__isnull=true`;
-      await this.search();
-      this.pageNumber = 0;
-    },
+    // async submit() {
+    //   const state = this.getState();
+    //   this.url = `docs?q=${this.searchQuery}&seq2seq_annotations__isnull=${state}&offset=${this.offset}`;
+    //   await this.search();
+    //   this.pageNumber = 0;
+    // },
 
     questionClass(i){
       let qNum = parseInt(this.currentNumberOfQuestion)
@@ -186,7 +127,6 @@ export default {
     },
 
     setCurrentQuestionIndex(i){
-      Bus.$emit('switch-editmode',false);
       // in case we go to a new question, the _answerInputComponent_ is not yet defined unitl we press enter
       if(this.$refs.answerInputComponent){this.$refs.answerInputComponent.reInitialiseInputs()}
       if (this.questionClass(i) !== 'notYetButton') {
@@ -197,7 +137,6 @@ export default {
     },
 
     reduceCurrentQuestionIndex(){
-      Bus.$emit('switch-editmode',false);
       if(this.$refs.answerInputComponent){this.$refs.answerInputComponent.reInitialiseInputs()}
       if(this.currentQuestionIndex>0){
         this.currentQuestionIndex--
@@ -205,26 +144,16 @@ export default {
     },
 
     increaseCurrentQuestionIndex(){
-      Bus.$emit('switch-editmode',false);
       if(this.$refs.answerInputComponent){this.$refs.answerInputComponent.reInitialiseInputs()}
       if(this.currentQuestionIndex<4){
         this.currentQuestionIndex++
       }else{
-        console.log('trouver une autrea ction apres avoir soumis la dernier repose');
-        // this.pageNumber++
+        this.pageNumber++
       }
     },
 
     updateAnswers(answers) {
       this.answers = answers
-    },
-
-    reinitialise(){
-      this.answers = [[]]
-      this.annotations[this.pageNumber] = []
-      this.currentQuestionIndex = 0
-      this.editedAnswer= null
-      this.messageInfo = ''
     },
 
   },
@@ -241,7 +170,6 @@ export default {
         thisBis.setCurrentQuestionIndex(thisBis.currentQuestionIndex+1)
       // escape
       } else if (event.keyCode == 27) {
-        Bus.$emit('switch-editmode',false);
         if(thisBis.$refs.answerInputComponent){
           thisBis.$refs.answerInputComponent.cancelEditJSON()
         }
