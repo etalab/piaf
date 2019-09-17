@@ -69,8 +69,7 @@ class ViewsDBTest(TestCase):
             request = self.factory.post('/signup')
             request.POST = {'username': 'username5648',
                             'email': 'email@example.com',
-                            'password1': 'pwd0000Y00$$',
-                            'password2': 'pwd0000Y00$$'
+                            'password1': 'pwd0000Y00$$'
                             }
             response = SignupView.as_view()(request)
             needle = '<span>emailed you instructions to activate your account</span>'

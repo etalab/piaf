@@ -16,8 +16,7 @@ class TestActivate(TestCase):
 
         request_POST = {'username': 'username5648',
                         'email': 'email@example.com',
-                        'password1': 'pwd0000Y00$$',
-                        'password2': 'pwd0000Y00$$'}
+                        'password1': 'pwd0000Y00$$'}
         user = SignupForm(request_POST).save(commit=False)
         user.save()
         self.token = account_activation_token.make_token(user)
