@@ -14,5 +14,11 @@ frontend="${root}/app/server/static"
   fi
 
   echo "Starting webpack"
-  npm start
+  if [[ -n "${ENVIRONMENT_PRODUCTION}" ]] && [[ "${ENVIRONMENT_PRODUCTION}" = "True" ]]; then
+    npm run build
+    echo "webpack build => bundle finished"
+  else
+    echo "webpack starting in dev-mode with hot-reload"
+    npm start
+  fi
 )
