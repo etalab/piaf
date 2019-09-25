@@ -14,7 +14,7 @@ frontend="${root}/app/server/static"
   fi
 
   echo "Starting webpack"
-  if [[ -n "${ENVIRONMENT_PRODUCTION}" ]] && [[ "${ENVIRONMENT_PRODUCTION}" = "True" ]]; then
+  if [[ -n "${WEBPACK_ENVIRONMENT_PRODUCTION}" ]] && [[ "${WEBPACK_ENVIRONMENT_PRODUCTION}" = "True" ]]; then
     npm run build
     echo "webpack build => bundle finished"
   else
