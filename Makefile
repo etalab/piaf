@@ -8,3 +8,6 @@ down:
 	${DC} stop
 
 restart: down up
+
+build-statics:
+	cd app/server/static && npm run build
