@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'social_django',
     'polymorphic',
     'webpack_loader',
+    'anymail',
 ]
 
 CLOUD_BROWSER_APACHE_LIBCLOUD_PROVIDER = env('CLOUD_BROWSER_LIBCLOUD_PROVIDER', None)
@@ -262,5 +263,20 @@ GOOGLE_TRACKING_ID = env('GOOGLE_TRACKING_ID', 'UA-125643874-2')
 # EMAIL_HOST_PASSWORD = 'gfds6jk#4ljIr%G8%'
 # EMAIL_PORT = 587
 #
-## During development only
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+MAILJET_API_KEY = env('MAILJET_API_KEY', None)
+MAILJET_SECRET_KEY = env('MAILJET_SECRET_KEY', None)
+USE_MAILJET = env.bool('USE_MAILJET', False)
+DEFAULT_FROM_EMAIL = "piaf@data.gouv.fr"
+
+# information here: https://anymail.readthedocs.io/en/stable/esps/mailjet/
+ANYMAIL = {
+    "MAILJET_API_KEY": MAILJET_API_KEY,
+    "MAILJET_SECRET_KEY": MAILJET_SECRET_KEY,
+}
+
+if USE_MAILJET:
+    EMAIL_BACKEND = 'anymail.backends.mailjet.EmailBackend'
+else:
+    ## During development only
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

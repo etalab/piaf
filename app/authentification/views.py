@@ -26,8 +26,7 @@ class SignupView(TemplateView):
         # here we make sure that a post request won't trigger a subscription in case allow_signup is False
         if not bool(settings.ALLOW_SIGNUP):
             return redirect('signup')
-
-        if not hasattr(settings, "EMAIL_BACKEND") and not hasattr(settings, "EMAIL_HOST"):
+        if not hasattr(settings, "MAILJET_API_KEY") or not settings.MAILJET_API_KEY:
             return render(request, 'email_not_set.html')
 
         if form.is_valid():
@@ -43,9 +42,20 @@ class SignupView(TemplateView):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
-            email = EmailMessage(
-                mail_subject, message, to=[to_email]
-            )
+
+            if hasattr(settings, "USE_MAILJET") and settings.USE_MAILJET:
+                email = EmailMessage(
+                    to=[to_email]
+                )
+                email.template_id = 1013519  # Mailjet numeric template id
+                email.from_email = None
+                email.merge_data = {
+                    to_email: {'name': user.username, 'confirmation_link': "http://" + current_site.domain + "/activate/" + urlsafe_base64_encode(force_bytes(user.pk)).decode() + "/" + account_activation_token.make_token(user)},
+                }
+            else:
+                email = EmailMessage(
+                    mail_subject, message, to=[to_email]
+                )
             email.send()
             return render(request, 'validate_mail_address_complete.html')
         else:
