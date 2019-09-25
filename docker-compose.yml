@@ -8,11 +8,14 @@ services:
       - venv:/src/venv
     command: ["/src/tools/dev-django.sh", "0.0.0.0:8000"]
     environment:
-      ADMIN_USERNAME: "admin"
-      ADMIN_PASSWORD: "password"
-      ADMIN_EMAIL: "admin@example.com"
-      DATABASE_URL: "postgres://piaf:piaf@postgres:5432/piaf?sslmode=disable"
-      ALLOW_SIGNUP: "True"
+      ADMIN_USERNAME: "${DJANGO_ADMIN_USERNAME}"
+      ADMIN_PASSWORD: "${DJANGO_ADMIN_PASSWORD}"
+      ADMIN_EMAIL: "${DJANGO_ADMIN_EMAIL}"
+      DATABASE_URL: "${DJANGO_DATABASE_URL}"
+      ALLOW_SIGNUP: "${DJANGO_ALLOW_SIGNUP}"
+      USE_MAILJET: "${DJANGO_USE_MAILJET}"
+      MAILJET_API_KEY: "${DJANGO_MAILJET_API_KEY}"
+      MAILJET_SECRET_KEY: "${DJANGO_MAILJET_SECRET_KEY}"
     ports:
       - 8000:8000
 
@@ -23,20 +26,20 @@ services:
       - node_modules:/src/app/server/static/node_modules
     command: ["/src/tools/dev-webpack.sh"]
     environment:
-      ENVIRONMENT_PRODUCTION: "True"
-      WEBPACK_HOST: "0.0.0.0"
-      WEBPACK_PORT: "8080"
-      WEBPACK_POLL_MILLIS: "1000"
+      WEBPACK_ENVIRONMENT_PRODUCTION: "${WEBPACK_ENVIRONMENT_PRODUCTION}"
+      WEBPACK_HOST: "${WEBPACK_HOST}"
+      WEBPACK_PORT: "${WEBPACK_PORT}"
+      WEBPACK_POLL_MILLIS: "${WEBPACK_POLL_MILLIS}"
     ports:
       - 8080:8080
 
   postgres:
     image: postgres:9.6
     environment:
-      POSTGRES_USER: "piaf"
-      POSTGRES_PASSWORD: "piaf"
-      POSTGRES_DB: "piaf"
-      PGDATA: /var/lib/postgres/data
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      PGDATA: ${PGDATA}
     ports:
       - 5432:5432
     volumes:

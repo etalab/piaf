@@ -36,7 +36,7 @@ block annotation-area
   genericInput(
     ref="questionInputComponent"
     v-on:increaseCurrentQuestionIndex="`do something after update question?`"
-    v-bind:buttonMessage1="`Edit`"
+    v-bind:buttonMessage1="`Modifier`"
     v-bind:buttonMessage2="`OK`"
     v-on:updateJSONs="updateQuestions"
     v-bind:JSONs="annotations"
@@ -50,7 +50,7 @@ block annotation-area
     v-if="currentQuestion"
     ref="quandaButtonComponent"
     v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
-    v-bind:buttonMessage1="`Edit`"
+    v-bind:buttonMessage1="`Modifier la réponse`"
     v-bind:buttonMessage2="`Valider`"
     v-bind:buttonMessage3="`Valider + envoyer`"
     v-on:updateJSONs="updateAnswers"
