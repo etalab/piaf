@@ -3,164 +3,176 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b64ba7294eca479181b52d30a7d2e9d7)](https://app.codacy.com/app/guillim/piaf?utm_source=github.com&utm_medium=referral&utm_content=etalab/piaf&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/etalab/piaf.svg?branch=master)](https://travis-ci.org/etalab/piaf)
 
-Piaf est un projet d'annotation de texte open-source spécialisé sur la quesiton réponse. Il a été construit à partir du projet [Doccano](https://github.com/chakki-works/doccano) => un grand merci à l'équipe de Doccano.
+<abbr title="Pour Une IA Francophone">Piaf</abbr> is an open-source annotation project specialized in questions/answers.
+I was built based on [Doccano](https://github.com/chakki-works/doccano) => a big thanks to the Doccano team.
 
-## Prérequis
+## Prerequirements
 
 * Python 3.6+
 * Django 2.1.7+
 * Node.js 8.0+
-* Google Chrome(recommandé)
+* Chromium (recommended)
 
 ## Installation
 
-D'abord cloner le repo:
+First clone the repo:
 
 ```bash
 git clone https://github.com/etalab/piaf.git
 cd piaf
 ```
 
-Puis, 2 options sont possibles:
+Then choose either to run the app through Docker-Compose or manually
 
-**Option1: Avec Docker-Compose** [recommandé]
+### Installing through Docker-Compose
 
 ```bash
 docker-compose pull
 ```
 
-**Option2: Setup Python environment**
+## Installing manually
 
-Installer les dépendances python:
+First install Python dependencies:
 
 ```bash
-sudo apt-get install libpq-dev
+sudo apt-get install libpq-dev  # Linux/Debian only
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
-cd app
 ```
 
-Puis lancer le server webpack pour compiler le frontend en continue:
+Then compile the frontend (using Webpack):
 
 ```bash
 cd server/static
 npm install
 npm run build
-# npm start  # for developers
 cd ..
 ```
 
-## Utilisation
+> When developing the frontend, you may prefer watching for files changes.
+> Run `npm start` (instead of `npm run build`) for building and hot reloading.
 
-### Lancer le server de development
+## Running
+
+### Running the server for development
 
 Let’s start the development server and explore it.
+Depending on your installation method above, there are two options:
 
-Depending on your installation method, there are two options:
-
-**Option1: Docker-Compose** [recommandé]
+### Running through Docker-Compose
 
 ```bash
 docker-compose up
 ```
 
-**Option2: Lancer le server de dévelopment Django**
+### Running Django manually
+
+First prepare the database:
 
 ```bash
+cd app
 python manage.py migrate
 ```
 
-Puis il faut créer le premier utilisateur, l'admin:
+Then create the admin user:
 
 ```bash
 python manage.py create_admin --noinput --username "admin" --email "admin@example.com" --password "password"
 ```
 
-Les développeurs pourront lancer des tests si besoin: (optionel)
-
-```bash
-python manage.py test server.tests
-```
-
-Enfin, lancer le server:
+And finally run the Django server:
 
 ```bash
 python manage.py runserver
 ```
 
-Changer ip & port si besoin: (optionel)
-```bash
-python manage.py runserver <ip>:<port>
-```
+> Note that Django permits to run the server on a different IP or port. `python manage.py runserver <ip>:<port>`
 
+## Creating a project
 
-Puis ouvrir votre navigateur <http://127.0.0.1:8000/login/>. Vous devriez voir:
+Open your web-browser at http://127.0.0.1:8000/login/ and login with the admin you created above (username: "admin", password: "password"):
 
 <img src="./docs/login_form.png" alt="Login Form" width=400>
 
-### Création d'un projet
-
-Une fois connecté en tant qu'admin vous pouvez créer un projet:
+You will then access the home screen:
 
 <img src="./docs/projects.png" alt="projects" width=600>
 
-Cliquer sur le boutton `Create Project`:
 
-<img src="./docs/create_project.png" alt="Project Creation" width=400>
+You can create various kinds of projects. Onle the **questions/answers** project is considered here.
+If you are interested in others kinds of projects you should visit [doccano](https://github.com/chakki-works/doccano) from which Piaf is forked.
 
-Ici, vous aurez la possiblilité de créer plusieurs type de projet. Seul le projet de **question-réponse** à de la valeur ici, si vous êtes intéressés par d'autres type de projet, vous devriez visiter le projet [doccano](https://github.com/chakki-works/doccano) dont est issue Piaf.
 
-### Importer des textes
+### Running the tests
 
-Cliquer sur `Import Data`:
+```bash
+python manage.py test server.tests
+```
+
+
+### Importing texts
+
+Click on `Import Data`:
 
 <img src="./docs/upload.png" alt="Upload project" width=600>
 
-Deux types de fichiers peuvent être importés:
-- `CSV file`: doit avoir un header avec une colonne `text` ou alors, être un fichier mono-colonne.
-- `JSON file`: chaque ligne doit être un objet JSON avec une clé `text` key. le format de JSON permet d'avoir des rendu type **line breaks**.
+2 types of files can be imported:
+- `CSV file`: must include a header with a "text" column or must be a single column file.
+- `JSON file`: each row must be a JSON object including a "text" key. Note that JSON format is line-breaks friendly.
 
-`example.csv` (or `example.txt`)
+`example.csv` (or `example.txt`):
+
 ```python
 EU rejects German call to boycott British lamb.
 He lives in Newark, Ohio.
 ...
 ```
-`example.json`
+
+`example.json`:
+
 ```JSON
 {"text": "EU rejects German call to boycott British lamb."}
 {"text": "He lives in Newark, Ohio."}
 ...
 ```
 
-Toute autre colonne (ou clé pour JSON) sont enregistrés en metadata.
+If any other column (or key in a JSON file) is present they are saved as _metadata_.
 
 ### Annotation
 
-Cliquer sur le boutton `Annotate Data` dans la barre de navigation:
+Click in the _Annotate Data_ button in the navigation bar:
 
 <img src="./docs/annotation.png" alt="Edit label" width=600>
 
-### Exportation des résultats
 
-Après une phase d'annotation, vous avez la possibilité de télécharger les résutlats annotés. Clicquer sur `Export Data`. Vous verrez alors l'écran:
+### Exporing results
 
-<img src="./docs/export_data.png" alt="Edit label" width=600>  
+After annotating you can download the annotated results.
+Click on "Export Data".
 
+You will see a similar screen:
 
-Les formats possibles sont JSON et CSV
+<img src="./docs/export_data.png" alt="Edit label" width=600>
 
-Note sur les meta-data:  
-Tous les documents ont une colonne de metadata, qui contient les données du document importé. La principale utilité de ces meta-data est de pouvoir reconcilier les résultats exportés avec ceux du système original. Par example:
+Possible formats are CSV or JSON.
 
-`import.json`
+> All documents have a _metadata_ column which contain data about the imported document.
+> These _metadata_ are especially useful to match imported results with the original dataset.
+> Example:
+
+`import.json`:
+
 ```JSON
 {"text": "EU rejects German call to boycott British lamb.", "external_id": 1}
 ```
-`output.json`
+
+`output.json`:
+
 ```JSON
 {"doc_id": 16, "text": "EU rejects calls", "labels": ["news"], "username": "user23", "metadata": {"external_id": 1}}
 ```
 
 ## Contact
 
-Les feedback sont les bienvenues: [soumettre une remarque](https://github.com/etalab/piaf/issues/new).
+Feel free to [submit any feedback](https://github.com/etalab/piaf/issues/new).
