@@ -43,7 +43,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./app/db:/var/lib/postgres/data
+      - ./src/db:/var/lib/postgres/data
 
 volumes:
   node_modules:

@@ -200,4 +200,4 @@ bundle/
 webpack-stats.json
 
 # database
-app/db
+src/db

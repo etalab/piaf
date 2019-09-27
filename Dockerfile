@@ -9,7 +9,7 @@ RUN curl -sL "https://deb.nodesource.com/setup_${NODE_VERSION}" | bash - \
 RUN apt-get install --no-install-recommends -y \
       unixodbc-dev=2.3.4-1
 
-COPY app/server/static/package*.json /piaf/app/server/static/
+COPY src/server/static/package*.json /piaf/app/server/static/
 RUN cd /piaf/app/server/static \
  && npm ci
 
@@ -29,7 +29,7 @@ RUN cd /piaf/app/server/static \
  && rm -rf components pages node_modules .*rc package*.json webpack.config.js
 
 RUN cd /piaf \
- && python app/manage.py collectstatic --noinput
+ && python src/manage.py collectstatic --noinput
 
 FROM python:${PYTHON_VERSION}-slim-stretch AS runtime
 
@@ -37,13 +37,7 @@ RUN apt-get update \
  && apt-get install --no-install-recommends -y \
       curl=7.52.1-5+deb9u9 \
       gnupg=2.1.18-8~deb9u4 \
-      apt-transport-https=1.4.9 \
- && curl -fsS https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
- && curl -fsS https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql.list \
- && apt-get update \
- && ACCEPT_EULA=Y apt-get install --no-install-recommends -y \
-      msodbcsql17=17.3.1.1-1 \
-      mssql-tools=17.3.0.1-1 \
+      apt-transport-https=1.4.9
  && apt-get remove -y curl gnupg apt-transport-https \
  && rm -rf /var/lib/apt/lists/*
 

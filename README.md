@@ -71,7 +71,7 @@ docker-compose up
 First prepare the database:
 
 ```bash
-cd app
+cd src
 python manage.py migrate
 ```
 

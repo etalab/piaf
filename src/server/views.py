@@ -4,7 +4,7 @@ sys.path.append('../api')
 
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -15,8 +15,8 @@ from app import settings
 logger = logging.getLogger(__name__)
 
 
-class IndexView(TemplateView):
-    template_name = 'index.html'
+class IndexView(RedirectView):
+    url = '/projects/1/'
 
 
 class ProjectView(LoginRequiredMixin, TemplateView):
