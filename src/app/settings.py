@@ -254,7 +254,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # on the import phase
 IMPORT_BATCH_SIZE = env.int('IMPORT_BATCH_SIZE', 500)
 
-GOOGLE_TRACKING_ID = env('GOOGLE_TRACKING_ID', 'UA-125643874-2')
+GOOGLE_TRACKING_ID = env('GOOGLE_TRACKING_ID', '')
 
 ## necessary for email verification setup
 # EMAIL_USE_TLS = True
