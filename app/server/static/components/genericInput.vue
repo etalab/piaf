@@ -9,7 +9,7 @@
           v-model="editedInput"
           v-on:keyup.enter="doneEditInput(editedInput)"
         ) {{ currentJSON.text }}
-        input.column.new-todo.has-text-left.is-paddingless.is-shadowless(
+        input.column.new-todo.has-text-left.is-paddingless.placeholderDarker.is-shadowless(
           v-else
           v-model="newJSON"
           v-on:keyup.enter="addJSON"
@@ -17,7 +17,7 @@
           :placeholder="placeholder"
           ref="input"
         )
-        a.column.is-one-quarter-mobile.is-one-tenth-morethandesktop.is-one-fifth-tabletdesktop.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
+        a.column.is-one-third-mobile.is-one-tenth-morethandesktop.is-one-fifth-tabletdesktop.is-rounded.button.doneButton.has-text-weight-bold.is-size-5.is-flex.hoverEffect(
           v-on:click="onClick"
           v-bind:class="{ 'has-background-royalblue': !isProtected}"
         ) {{ buttonMessage }}
@@ -114,6 +114,12 @@ export default {
       }
     },
 
+  },
+  created: function() {
+    // we need to wait 1sec because DOM isn't defined otherwise
+    setTimeout(x => {
+      this.$nextTick(() => this.$refs.input.focus());
+    }, 1000);
   },
 }
 </script>

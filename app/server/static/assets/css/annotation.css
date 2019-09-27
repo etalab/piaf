@@ -350,3 +350,17 @@ body {
     min-width: 10%;
   }
 }
+
+/* We have to change the plcaeholder color since some people didn't understand what to do */
+::placeholder {
+  color: #c2c2c2 !important;
+  opacity: 1;
+}
+
+:-ms-input-placeholder { /* IE 10-11 */
+  color: #c2c2c2 !important;
+}
+
+::-ms-input-placeholder { /* Edge */
+  color: #c2c2c2 !important;
+}
