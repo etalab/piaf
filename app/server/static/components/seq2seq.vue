@@ -60,7 +60,7 @@ block annotation-area
     v-bind:currentQuestionIndex="currentQuestionIndex"
     v-bind:questionIndexMax="questionIndexMax"
     v-bind:currentJSON="currentAnswer"
-    v-bind:placeholder="`Surligner une réponse dans le texte`"
+    v-bind:placeholder="`Surligner une réponse dans le texte :`"
   )
 </template>
 
@@ -91,7 +91,7 @@ export default {
     //- newAnswer: '',
     editedAnswer: null,
     answers: [[]],
-    messageInfo: 'no message',
+    messageInfo: 'Pas de message',
   }),
 
   computed: {

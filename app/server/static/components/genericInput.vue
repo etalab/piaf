@@ -1,10 +1,13 @@
 <template lang="pug">
-  section.todoapp(
-    v-bind:class="{ 'is-transparentbackground': isProtected}"
-  )
-    header.header.card-content
+  section
+    p.is-transparentbackground(
+      v-if="!isProtected"
+    ) Utilisez vos propres mots pour poser une question, dont la réponse est dans ce texte :
+    header.header.card-content.todoapp.is-marginless(
+      v-bind:class="{ 'is-transparentbackground': isProtected}"
+    )
       div.columns.is-gapless.is-mobile.is-vertical-center
-        p.column.new-todo.has-text-left.is-paddingless.is-shadowless(
+        p.column.new-todo.has-text-left.is-paddingless.is-shadowless.scrollable(
           v-if="isProtected"
           v-model="editedInput"
           v-on:keyup.enter="doneEditInput(editedInput)"
@@ -22,6 +25,18 @@
           v-bind:class="{ 'has-background-royalblue': !isProtected}"
         ) {{ buttonMessage }}
 </template>
+
+<style scoped>
+.todoapp{
+  border-radius: 4em;
+}
+section{
+  margin-top:25px;
+}
+.scrollable{
+  overflow: scroll;
+}
+</style>
 
 <script>
 export default {
