@@ -7,7 +7,7 @@
           v-model="editedInput"
           v-on:keyup.enter="doneEditInput(editedInput)"
         ) {{ currentJSON.text }}
-        p.paddingright.column.new-todo.has-text-left.is-paddingless.is-shadowless.has-text-grey-light.is-italic.is-justifycontentright.is-flex(
+        p.paddingright.column.has-text-left.is-paddingless.is-shadowless.is-justifycontentright.is-flex(
           v-else
           ref="input"
         ) {{ placeholder }}
@@ -23,9 +23,12 @@
         ) {{ buttonMessage }}
 </template>
 
-<style>
+<style scoped>
 .paddingright{
   padding-right: 15px !important;
+}
+.has-text-left{
+  justify-content: end;
 }
 </style>
 
