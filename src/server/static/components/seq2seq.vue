@@ -17,6 +17,8 @@ block annotation-area
     v-bind:questionClass="questionClass"
   )
 
+  div
+    p.textaligncenter Titre de l'article dont est extrait le texte :
   div.card.has-background-white
     div.card-content
       div.content(v-if="docs[pageNumber] && !annotations[pageNumber]")
@@ -60,7 +62,7 @@ block annotation-area
     v-bind:currentQuestionIndex="currentQuestionIndex"
     v-bind:questionIndexMax="questionIndexMax"
     v-bind:currentJSON="currentAnswer"
-    v-bind:placeholder="`Surligner une réponse dans le texte`"
+    v-bind:placeholder="`Surligner une réponse dans le texte :`"
   )
 </template>
 
@@ -91,7 +93,7 @@ export default {
     //- newAnswer: '',
     editedAnswer: null,
     answers: [[]],
-    messageInfo: 'no message',
+    messageInfo: 'Pas de message',
   }),
 
   computed: {

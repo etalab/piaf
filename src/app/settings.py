@@ -11,6 +11,7 @@ Any setting that is configured via an environment variable may
 also be set in a `.env` file in the project base directory.
 """
 from os import path
+from pathlib import Path
 
 import django_heroku
 import dj_database_url
@@ -18,11 +19,12 @@ from environs import Env
 from furl import furl
 
 
-# Build paths inside the project like this: path.join(BASE_DIR, ...)
-BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
+# Build paths inside the project like this: path.join(BASE_PATH, ...)
+BASE_PATH = Path(__file__).parent.parent
+BASE_DIR = str(BASE_PATH)
 
 env = Env()
-env.read_env(path.join(BASE_DIR, '.env'), recurse=False)
+env.read_env(BASE_PATH / '.env', recurse=False)
 
 
 # Quick-start development settings - unsuitable for production
@@ -44,7 +46,6 @@ ALLOW_SIGNUP = env.bool('ALLOW_SIGNUP', True)
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,7 +74,6 @@ if CLOUD_BROWSER_APACHE_LIBCLOUD_PROVIDER:
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -89,7 +89,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [path.join(BASE_DIR, 'server/templates'), path.join(BASE_DIR, 'authentification/templates')],
+        'DIRS': [BASE_PATH / 'server' / 'templates', BASE_PATH / 'authentification' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,24 +112,23 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_PATH / 'staticfiles'
 
 STATICFILES_DIRS = [
     static_path
     for static_path in (
-        path.join(BASE_DIR, 'server', 'static', 'assets'),
-        path.join(BASE_DIR, 'server', 'static', 'static'),
+        BASE_PATH / 'server' / 'static' / 'assets',
+        BASE_PATH / 'server' / 'static' / 'static',
     )
     if path.isdir(static_path)
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': 'bundle/',
-        'STATS_FILE': path.join(BASE_DIR, 'server', 'static', 'webpack-stats.json'),
+        'STATS_FILE': BASE_PATH / 'server' / 'static' / 'webpack-stats.json',
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
         'IGNORE': [r'.*\.hot-update.js', r'.+\.map']
@@ -170,7 +169,7 @@ SOCIAL_AUTH_PIPELINE = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': BASE_PATH / 'db.sqlite3',
     }
 }
 
@@ -225,7 +224,7 @@ USE_L10N = True
 USE_TZ = True
 
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
-TEST_OUTPUT_DIR = path.join(BASE_DIR, 'junitxml')
+TEST_OUTPUT_DIR = BASE_PATH / 'junitxml'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/projects/1/'
@@ -280,3 +279,22 @@ if USE_MAILJET:
 else:
     ## During development only
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': BASE_PATH / 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}

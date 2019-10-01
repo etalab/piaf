@@ -41,13 +41,10 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Then compile the frontend (using Webpack):
+Then compile the frontend:
 
 ```bash
-cd server/static
-npm install
-npm run build
-cd ..
+make build-statics
 ```
 
 > When developing the frontend, you may prefer watching for files changes.

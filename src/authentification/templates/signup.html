@@ -3,6 +3,10 @@
 {% load utils_templating %}
 {% block content_auth %}
 {% if allow_signup %}
+<div class="card-header is-shadowless">
+  <p>Il est nécessaire de vous inscrire pour pouvoir contribuer au projet. Ceci permet de garantir l'honnêteté et la qualité des annotations saisies. Nous ne ferons rien de votre email (<a href="https://etalab.github.io/piaf-site/cgu.html">voir les CGU</a>).
+  </p>
+</div>
 <div class="card-content">
   <!-- <div style="text-align:center;font-size:1.5em">
     <h2>Sign up</h2>
@@ -38,7 +42,7 @@
 {% else %}
 <div class="card-content">
   <div>
-    You can't signup yourself, please contact the admin in order to get your username and your password!
+    Vous ne pouvez pas vous enregistrer vous-même. Il faudra contacter un membre de Piaf pour avoir votre nom d'utilisateur et votre mot de passe ! piaf@data.gouv.fr
   </div>
 </div>
 {% endif %}

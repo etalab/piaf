@@ -1,15 +1,18 @@
 <template lang="pug">
-  section.todoapp(
-    v-bind:class="{ 'is-transparentbackground': isProtected}"
-  )
-    header.header.card-content
+  section
+    p.is-transparentbackground(
+      v-if="!isProtected"
+    ) Utilisez vos propres mots pour poser une question, dont la réponse est dans ce texte :
+    header.header.card-content.todoapp.is-marginless(
+      v-bind:class="{ 'is-transparentbackground': isProtected}"
+    )
       div.columns.is-gapless.is-mobile.is-vertical-center
-        p.column.new-todo.has-text-left.is-paddingless.is-shadowless(
+        p.column.new-todo.has-text-left.is-paddingless.is-shadowless.scrollable(
           v-if="isProtected"
           v-model="editedInput"
           v-on:keyup.enter="doneEditInput(editedInput)"
         ) {{ currentJSON.text }}
-        input.column.new-todo.has-text-left.is-paddingless.is-shadowless(
+        input.column.new-todo.has-text-left.is-paddingless.placeholderDarker.is-shadowless(
           v-else
           v-model="newJSON"
           v-on:keyup.enter="addJSON"
@@ -17,11 +20,23 @@
           :placeholder="placeholder"
           ref="input"
         )
-        a.column.is-one-quarter-mobile.is-one-tenth-morethandesktop.is-one-fifth-tabletdesktop.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
+        a.column.is-one-third-mobile.is-one-tenth-morethandesktop.is-one-fifth-tabletdesktop.is-rounded.button.doneButton.has-text-weight-bold.is-size-5.is-flex.hoverEffect(
           v-on:click="onClick"
           v-bind:class="{ 'has-background-royalblue': !isProtected}"
         ) {{ buttonMessage }}
 </template>
+
+<style scoped>
+.todoapp{
+  border-radius: 4em;
+}
+section{
+  margin-top:25px;
+}
+.scrollable{
+  overflow: scroll;
+}
+</style>
 
 <script>
 export default {
@@ -114,6 +129,12 @@ export default {
       }
     },
 
+  },
+  created: function() {
+    // we need to wait 1sec because DOM isn't defined otherwise
+    setTimeout(x => {
+      this.$nextTick(() => this.$refs.input.focus());
+    }, 1000);
   },
 }
 </script>
