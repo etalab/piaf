@@ -364,3 +364,7 @@ body {
 ::-ms-input-placeholder { /* Edge */
   color: #c2c2c2 !important;
 }
+
+.textaligncenter{
+  text-align:center;
+}

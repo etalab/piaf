@@ -17,6 +17,8 @@ block annotation-area
     v-bind:questionClass="questionClass"
   )
 
+  div
+    p.textaligncenter Titre de l'article dont est extrait le texte :
   div.card.has-background-white
     div.card-content
       div.content(v-if="docs[pageNumber] && !annotations[pageNumber]")
