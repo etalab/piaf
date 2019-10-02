@@ -8,7 +8,9 @@ block annotation-area
   )
 
   div
-    p.textaligncenter Le texte que vous allez lire est extrait d'un article Wikipédia dont le titre est : {{ articleTitle }}
+    p.textaligncenter.margin1_5rem_topbottom
+      i.fa.fa-info-circle
+      |  Le texte que vous allez lire est extrait d'un article Wikipédia dont le titre est : {{ articleTitle }}
   div.card.has-background-white.maxWidth1100.marginAuto
     div.card-content
       div.content(v-if="docs[pageNumber] && !annotations[pageNumber]")
@@ -63,7 +65,7 @@ block annotation-area
       v-bind:currentQuestionIndex="currentQuestionIndex"
       v-bind:questionIndexMax="questionIndexMax"
       v-bind:currentJSON="currentAnswer"
-      v-bind:placeholder="`Surligner la réponse dans le texte :`"
+      v-bind:placeholder="`Surligner la réponse dans le texte`"
     )
 </template>
 

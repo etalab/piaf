@@ -761,5 +761,8 @@ p {
 	display:inline-block;
 }
 
+.margin1_5rem_topbottom{
+  margin: 1.5rem 0rem;
+}
 
 [v-cloak] { display: none; }

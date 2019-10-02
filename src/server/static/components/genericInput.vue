@@ -1,13 +1,15 @@
 <template lang="pug">
   section
-    p.is-transparentbackground.textaligncenter(
+    p.is-transparentbackground.textaligncenter.margin1_5rem_topbottom(
       v-if="!isProtected"
-    ) Utilisez vos propres mots pour poser une question, dont la réponse est dans le texte :
+    )
+      i.fa.fa-info-circle
+      |  Utilisez vos propres mots pour poser une question, dont la réponse est dans le texte :
     header.header.card-content.todoapp.is-marginless(
       v-bind:class="{ 'is-transparentbackground': isProtected}"
     )
       div.columns.is-gapless.is-mobile.is-vertical-center
-        p.column.new-todo.has-text-left.is-paddingless.is-shadowless.scrollable(
+        p.column.new-todo.has-text-left.is-paddingless.is-shadowless.scrollable.margin1_5rem_topbottom(
           v-if="isProtected"
           v-model="editedInput"
           v-on:keyup.enter="doneEditInput(editedInput)"
