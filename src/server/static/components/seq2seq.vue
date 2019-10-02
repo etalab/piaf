@@ -18,8 +18,8 @@ block annotation-area
   )
 
   div
-    p.textaligncenter Titre de l'article dont est extrait le texte :
-  div.card.has-background-white
+    p.textaligncenter Titre de l'article Wikipédia dont est extrait le texte : {{ articleTitle }}
+  div.card.has-background-white.maxWidth1100.marginAuto
     div.card-content
       div.content(v-if="docs[pageNumber] && !annotations[pageNumber]")
         span.text(
@@ -34,36 +34,36 @@ block annotation-area
           v-bind:currentQuestionIndex="currentQuestionIndex"
           ref="annotator"
         )
+  div.maxWidth1100.marginAuto
+    genericInput(
+      ref="questionInputComponent"
+      v-on:increaseCurrentQuestionIndex="`do something after update question?`"
+      v-bind:buttonMessage1="`Modifier`"
+      v-bind:buttonMessage2="`OK`"
+      v-on:updateJSONs="updateQuestions"
+      v-bind:JSONs="annotations"
+      v-bind:pageNumber="pageNumber"
+      v-bind:currentQuestionIndex="currentQuestionIndex"
+      v-bind:currentJSON="currentQuestion"
+      v-bind:placeholder="`Écrire une question`"
+    )
 
-  genericInput(
-    ref="questionInputComponent"
-    v-on:increaseCurrentQuestionIndex="`do something after update question?`"
-    v-bind:buttonMessage1="`Modifier`"
-    v-bind:buttonMessage2="`OK`"
-    v-on:updateJSONs="updateQuestions"
-    v-bind:JSONs="annotations"
-    v-bind:pageNumber="pageNumber"
-    v-bind:currentQuestionIndex="currentQuestionIndex"
-    v-bind:currentJSON="currentQuestion"
-    v-bind:placeholder="`Écrire une question`"
-  )
-
-  qandaButton(
-    v-if="currentQuestion"
-    ref="quandaButtonComponent"
-    v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
-    v-bind:buttonMessage1="`Modifier la réponse`"
-    v-bind:buttonMessage2="`Valider`"
-    v-bind:buttonMessage3="`Valider + envoyer`"
-    v-on:updateJSONs="updateAnswers"
-    v-on:submitToDatabase="submitToDatabase"
-    v-bind:JSONs="answers"
-    v-bind:pageNumber="pageNumber"
-    v-bind:currentQuestionIndex="currentQuestionIndex"
-    v-bind:questionIndexMax="questionIndexMax"
-    v-bind:currentJSON="currentAnswer"
-    v-bind:placeholder="`Surligner une réponse dans le texte :`"
-  )
+    qandaButton(
+      v-if="currentQuestion"
+      ref="quandaButtonComponent"
+      v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
+      v-bind:buttonMessage1="`Modifier la réponse`"
+      v-bind:buttonMessage2="`Valider`"
+      v-bind:buttonMessage3="`Valider + envoyer`"
+      v-on:updateJSONs="updateAnswers"
+      v-on:submitToDatabase="submitToDatabase"
+      v-bind:JSONs="answers"
+      v-bind:pageNumber="pageNumber"
+      v-bind:currentQuestionIndex="currentQuestionIndex"
+      v-bind:questionIndexMax="questionIndexMax"
+      v-bind:currentJSON="currentAnswer"
+      v-bind:placeholder="`Surligner la réponse dans le texte :`"
+    )
 </template>
 
 <script>
@@ -94,6 +94,7 @@ export default {
     editedAnswer: null,
     answers: [[]],
     messageInfo: '',
+    articleTitle: '"Agriculture péri-urbaine"',
   }),
 
   computed: {
@@ -262,5 +263,11 @@ export default {
 <style scoped>
   .todoapp{
     border-radius: 4em;
+  }
+  .maxWidth1100{
+    max-width: 700px
+  }
+  .marginAuto{
+    margin: auto;
   }
 </style>

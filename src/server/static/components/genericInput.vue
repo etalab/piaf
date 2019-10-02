@@ -1,8 +1,8 @@
 <template lang="pug">
   section
-    p.is-transparentbackground(
+    p.is-transparentbackground.textaligncenter(
       v-if="!isProtected"
-    ) Utilisez vos propres mots pour poser une question, dont la réponse est dans ce texte :
+    ) Utilisez vos propres mots pour poser une question, dont la réponse est dans le texte :
     header.header.card-content.todoapp.is-marginless(
       v-bind:class="{ 'is-transparentbackground': isProtected}"
     )
