@@ -7,18 +7,8 @@ block annotation-area
     v-on:remove-label="removeLabel"
   )
 
-  navigationButtons(
-    v-bind:currentQuestionIndex="currentQuestionIndex"
-    v-bind:currentNumberOfQuestion="currentNumberOfQuestion"
-    v-bind:currentNumberOfAnswer="currentNumberOfAnswer"
-    v-on:setCurrentQuestionIndex="setCurrentQuestionIndex"
-    v-on:reduceCurrentQuestionIndex="reduceCurrentQuestionIndex"
-    v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
-    v-bind:questionClass="questionClass"
-  )
-
   div
-    p.textaligncenter Titre de l'article Wikipédia dont est extrait le texte : {{ articleTitle }}
+    p.textaligncenter Le texte que vous allez lire est extrait d'un article Wikipédia dont le titre est : {{ articleTitle }}
   div.card.has-background-white.maxWidth1100.marginAuto
     div.card-content
       div.content(v-if="docs[pageNumber] && !annotations[pageNumber]")
@@ -34,6 +24,17 @@ block annotation-area
           v-bind:currentQuestionIndex="currentQuestionIndex"
           ref="annotator"
         )
+
+  navigationButtons(
+    v-bind:currentQuestionIndex="currentQuestionIndex"
+    v-bind:currentNumberOfQuestion="currentNumberOfQuestion"
+    v-bind:currentNumberOfAnswer="currentNumberOfAnswer"
+    v-on:setCurrentQuestionIndex="setCurrentQuestionIndex"
+    v-on:reduceCurrentQuestionIndex="reduceCurrentQuestionIndex"
+    v-on:increaseCurrentQuestionIndex="increaseCurrentQuestionIndex"
+    v-bind:questionClass="questionClass"
+  )
+
   div.maxWidth1100.marginAuto
     genericInput(
       ref="questionInputComponent"
