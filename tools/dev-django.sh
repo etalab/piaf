@@ -3,7 +3,7 @@
 set -o errexit
 
 root="$(dirname "$0")/.."
-app="${root}/app"
+app="${root}/src"
 venv="${root}/venv"
 
 if [[ ! -f "${venv}/bin/python" ]]; then

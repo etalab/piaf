@@ -26,7 +26,7 @@ class SignupView(TemplateView):
         # here we make sure that a post request won't trigger a subscription in case allow_signup is False
         if not bool(settings.ALLOW_SIGNUP):
             return redirect('signup')
-        if not hasattr(settings, "MAILJET_API_KEY") or not settings.MAILJET_API_KEY:
+        if not settings.DEBUG and not (getattr(settings, "MAILJET_API_KEY") and settings.MAILJET_API_KEY):
             return render(request, 'email_not_set.html')
 
         if form.is_valid():

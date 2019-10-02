@@ -1,19 +1,19 @@
 *
-!app/
+!src/
 !tests/
 !tools/
 !.coveragerc
 !.flake8
 !requirements.txt
 
-app/**/bundle/
-app/**/node_modules/
-app/**/webpack-stats.json
+src/**/bundle/
+src/**/node_modules/
+src/**/webpack-stats.json
 
-app/**/*.sqlite3
-app/**/.env
-app/**/junitxml/
-app/**/staticfiles/
-app/**/venv/
-app/**/__pycache__/
+src/**/*.sqlite3
+src/**/.env
+src/**/junitxml/
+src/**/staticfiles/
+src/**/venv/
+src/**/__pycache__/
 tests/**/__pycache__/

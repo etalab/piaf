@@ -23,7 +23,7 @@ Following list is ordered by from easy to hard. If you are not familiar with Pyt
    * Create environment for piaf: `virtualenv venv`
    * Activate environment: `source venv/bin/activate`
    * Install required packages: `pip install -r requirements.txt`
-   * Move server directory: `cd app/server`
+   * Move server directory: `cd src/server`
    * Build frontend library: `npm install`
    * Build frontend source code: `npm run build`
    * Back to server directory: `cd ../`
@@ -31,7 +31,7 @@ Following list is ordered by from easy to hard. If you are not familiar with Pyt
    * Create user: `python manage.py createsuperuser`
    * Run piaf: `python manage.py runserver`
    * Stop piaf: Ctrl+C
-   * Re-Launch piaf: `python manage.py runserver` (Confirm you are at `app/server` directory and environment is active).
+   * Re-Launch piaf: `python manage.py runserver` (Confirm you are at `src/server` directory and environment is active).
 
 ## I can't upload my data.
 

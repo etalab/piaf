@@ -3,7 +3,7 @@
 set -o errexit
 
 root="$(dirname "$0")/.."
-frontend="${root}/app/server/static"
+frontend="${root}/src/server/static"
 
 (
   cd "${frontend}"

@@ -25,7 +25,7 @@ script:
   - docker build --target=builder --tag=piaf-test .
   - >
     if [[ "${DATABASE}" != "sqlite" ]]; then
-      docker run --network piaf -e DATABASE_URL="${DATABASE_URL}" -it piaf-test sh -c 'app/manage.py migrate && app/manage.py test api.tests server.tests'
+      docker run --network piaf -e DATABASE_URL="${DATABASE_URL}" -it piaf-test sh -c 'src/manage.py migrate && src/manage.py test api.tests server.tests'
     fi
 
 before_deploy:
