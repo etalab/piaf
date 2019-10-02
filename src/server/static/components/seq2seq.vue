@@ -93,7 +93,7 @@ export default {
     //- newAnswer: '',
     editedAnswer: null,
     answers: [[]],
-    messageInfo: 'Pas de message',
+    messageInfo: '',
   }),
 
   computed: {
