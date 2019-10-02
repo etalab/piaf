@@ -236,13 +236,14 @@ export default {
     // gestion des évènement liés au keyboard
     window.addEventListener('keyup', function(event) {
       // arrow left
-      if (event.keyCode == 37) {
-        thisBis.reduceCurrentQuestionIndex()
+      // if (event.keyCode == 37) {
+      //   thisBis.reduceCurrentQuestionIndex()
       // arrow right
-      } else if (event.keyCode == 39) {
-        thisBis.setCurrentQuestionIndex(thisBis.currentQuestionIndex+1)
+      // } else if (event.keyCode == 39) {
+      //   thisBis.setCurrentQuestionIndex(thisBis.currentQuestionIndex+1)
       // escape
-      } else if (event.keyCode == 27) {
+      // } else if (event.keyCode == 27) {
+      if(event.keyCode == 27) {
         Bus.$emit('switch-editmode',false);
         if(thisBis.$refs.answerInputComponent){
           thisBis.$refs.answerInputComponent.cancelEditJSON()
