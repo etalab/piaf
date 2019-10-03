@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.columns.is-gapless.is-mobile.is-vertical-center
+  div.columns.is-gapless.is-mobile.is-vertical-center.mt20
     div.column.is-1
       div.columns.is-gapless.is-mobile.is-vertical-center(
         v-on:click="reduceCurrentQuestionIndex"

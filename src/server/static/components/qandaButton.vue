@@ -7,10 +7,12 @@
           v-model="editedInput"
           v-on:keyup.enter="doneEditInput(editedInput)"
         ) {{ currentJSON.text }}
-        p.paddingright.column.has-text-left.is-paddingless.is-shadowless.is-justifycontentright.is-flex(
+        p.paddingright.column.has-text-left.is-paddingless.is-shadowless.is-justifycontentright.margin1_5rem_topbottom(
           v-else
           ref="input"
-        ) {{ placeholder }}
+        )
+          i.fa.fa-info-circle.mr5
+          |  {{ placeholder }}
         a.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
           v-on:click="onClick"
           v-if="isLastQuestion"
@@ -18,9 +20,9 @@
         ) {{ buttonMessage3 }}
         a.is-one-quarter-mobile.is-one-tenth-morethandesktop.is-one-fifth-tabletdesktop.is-rounded.button.is-inline-block.doneButton.has-text-weight-bold.is-size-5.hoverEffect(
           v-on:click="onClick"
-          v-else
+          v-if="!isLastQuestion && !isProtected"
           v-bind:class="{ 'has-background-royalblue': !isProtected}"
-        ) {{ buttonMessage }}
+        ) {{ buttonMessage2 }}
 </template>
 
 <style scoped>
@@ -36,7 +38,7 @@
 import Bus from './bus.js'
 
 export default {
-  props: ['buttonMessage1', 'buttonMessage2', 'buttonMessage3', 'JSONs', 'pageNumber', 'currentQuestionIndex', 'currentJSON','placeholder', 'questionIndexMax'],
+  props: ['buttonMessage2', 'buttonMessage3', 'JSONs', 'pageNumber', 'currentQuestionIndex', 'currentJSON','placeholder', 'questionIndexMax'],
 
   data: () => ({
     editedInput: null,
@@ -45,9 +47,6 @@ export default {
   computed: {
     isProtected(){
       return this.currentJSON && this.editedInput === null
-    },
-    buttonMessage(){
-      return (this.isProtected) ? this.buttonMessage1 : this.buttonMessage2;
     },
     isLastQuestion(){
       return this.currentQuestionIndex >= this.questionIndexMax
