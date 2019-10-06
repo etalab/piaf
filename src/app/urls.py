@@ -23,7 +23,7 @@ from server.views import LoginView
 urlpatterns = [
     path('', include('authentification.urls')),
     path('', include('server.urls')),
-    path('app/', include('piaf.urls')),
+    path('app/', include('piaf.urls', namespace='app')),
     path('admin/', admin.site.urls),
     path('social/', include('social_django.urls')),
     path('login/', LoginView.as_view(), name='login'),

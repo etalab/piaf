@@ -1,12 +1,25 @@
+{% extends "base.html" %}
 
-<h1>Charger des contenus depuis un fichier JSON</h1>
+{% block content %}
+<div class="column is-12">
+    <div class="card">
+      <header class="card-header">
+        <h1 class="card-header-title">Charger des contenus depuis un fichier JSON</h1>
+      </header>
+      <div class="card-content">
+        {% if count_inserted_articles %}
+          <p>{{ count_inserted_articles }} articles on été ajoutés.</p>
+        {% endif %}
+        <form action="{% url 'app:admin' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label><input type=file name=file></label>
+          <input type="submit" class="button is-link">
+        </form>
+      </div>
+    </div>
+</div>
 
-{% if count_inserted_articles %}
-  <p>{{ count_inserted_articles }} articles on été ajoutés.</p>
-{% endif %}
-
-<form action="/app/admin" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <label>Fichier JSON des articles <input type=file name=file></label>
-  <input type="submit">
-</form>
+<style>
+#message-feed {}
+</style>
+{% endblock %}
