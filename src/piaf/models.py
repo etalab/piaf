@@ -1,4 +1,5 @@
-from django import models
+from django.db import models
+from django.contrib.auth.models import User
 
 
 class Article(models.Model):
@@ -10,16 +11,17 @@ class Article(models.Model):
 
 
 class Paragraph(models.Model):
-    article = models.ForeignKey(Article, related_name='paragraphs', on_delete='cascade')
+    article = models.ForeignKey(Article, on_delete='cascade', related_name='paragraphs')
+    text = models.TextField()
 
 
 class Question(models.Model):
-    paragraph = models.ForeignKey(Paragraph, on_delete='cascade')
+    paragraph = models.ForeignKey(Paragraph, on_delete='cascade', related_name='questions')
     text = models.CharField(max_length=200)
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete='cascade')
+    question = models.ForeignKey(Question, on_delete='cascade', related_name='answers')
     text = models.CharField(max_length=200)
     start_position = models.IntegerField()
     end_position = models.IntegerField()

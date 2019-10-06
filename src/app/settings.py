@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'polymorphic',
     'webpack_loader',
     'anymail',
+    'piaf',
 ]
 
 CLOUD_BROWSER_APACHE_LIBCLOUD_PROVIDER = env('CLOUD_BROWSER_LIBCLOUD_PROVIDER', None)
@@ -169,7 +170,7 @@ SOCIAL_AUTH_PIPELINE = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_PATH / 'db.sqlite3',
+        'NAME': str(BASE_PATH / 'db.sqlite3'),
     }
 }
 

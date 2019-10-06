@@ -10,4 +10,4 @@ down:
 restart: down up
 
 build-statics:
-	cd app/server/static && npm run build
+	cd src/server/static && npm run build

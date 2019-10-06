@@ -1,0 +1,12 @@
+
+<h1>Charger des contenus depuis un fichier JSON</h1>
+
+{% if count_inserted_articles %}
+  <p>{{ count_inserted_articles }} articles on été ajoutés.</p>
+{% endif %}
+
+<form action="/app/admin" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label>Fichier JSON des articles <input type=file name=file></label>
+  <input type="submit">
+</form>
