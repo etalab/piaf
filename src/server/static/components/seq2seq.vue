@@ -150,6 +150,7 @@ export default {
         // console.log(this.answers[p][i],'responseObj',responseObj );
 
         // we send the QA to the database
+        console.log(annotation);
         HTTP.post(`api/article`, annotation).then((res,err) => {
           console.log('res,err',res,err);
           if (res.data && typeof res.data.id === 'number') {
