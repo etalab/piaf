@@ -12,10 +12,6 @@
 <link rel="stylesheet" href="{% static 'assets/css/forum.css' %}">
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="{% static 'assets/css/annotation.css' %}">
-{% if settings.WEBPACK_ENVIRONMENT_PRODUCTION %}
-<!-- for the production mode -->
-<link rel="stylesheet" href="{% static 'front/css/chunk-vendors.css' %}">
-{% endif %}
 
 {% if user.is_superuser and 'project_id' in view.kwargs %}
 <nav class="navbar has-shadow">
