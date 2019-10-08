@@ -99,24 +99,3 @@ class LoginView(BaseLoginView):
         context['social_login_enabled'] = any(value for key, value in context.items()
                                               if key.endswith('_login'))
         return context
-
-
-class DemoTextClassification(TemplateView):
-    template_name = 'annotation.html'
-    extra_context = {
-        'bundle_name': 'demo_text_classification',
-    }
-
-
-class DemoNamedEntityRecognition(TemplateView):
-    template_name = 'annotation.html'
-    extra_context = {
-        'bundle_name': 'demo_named_entity',
-    }
-
-
-class DemoTranslation(TemplateView):
-    template_name = 'annotation.html'
-    extra_context = {
-        'bundle_name': 'demo_translation',
-    }

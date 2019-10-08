@@ -1,4 +1,0 @@
-text
-"John was a band lead singer"
-"Good morning. Today is raining"
-"1492 was the year Christopher Columbus discovered America."

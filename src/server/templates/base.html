@@ -38,7 +38,7 @@
       <div id="topNav" class="navbar-menu">
         <div class="navbar-end">
           {% if user.is_authenticated %}
-          <a class="navbar-item" href="{% url 'annotation' 1 %}">
+          <a class="navbar-item" href="{% url 'app:index' %}">
             <span>Participez</span>
           </a>
           {% endif %}
