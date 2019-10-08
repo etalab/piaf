@@ -27,9 +27,6 @@ div.is-marginless.columns(v-cloak="")
       div.column
         block annotation-area
 
-      div.column(v-if="documentMetadata != null && documentMetadata.documentSourceUrl != null")
-        preview(v-bind:url="documentMetadata.documentSourceUrl")
-
   div.modal#modal-h
     div.modal-background
       div.modal-content

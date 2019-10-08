@@ -2,7 +2,6 @@ import * as marked from 'marked';
 import VueJsonPretty from 'vue-json-pretty';
 import isEmpty from 'lodash.isempty';
 import HTTP, { defaultHttpClient } from './http';
-import Preview from './preview.vue';
 
 const getOffsetFromUrl = (url) => {
   const offsetMatch = url.match(/[?#].*offset=(\d+)/);
@@ -37,7 +36,7 @@ const storeOffsetInUrl = (offset) => {
 };
 
 export default {
-  components: { VueJsonPretty, Preview },
+  components: { VueJsonPretty },
 
   data() {
     return {
@@ -88,10 +87,12 @@ export default {
 
     async search() {
       await HTTP.get(this.url).then((response) => {
-        this.docs = response.data.results;
-        this.next = response.data.next;
-        this.prev = response.data.previous;
-        this.count = response.data.count;
+        this.docs = response.data.paragraphs;
+        this.title = response.data.name;
+        // this.docs = response.data.results;
+        // this.next = response.data.next;
+        // this.prev = response.data.previous;
+        // this.count = response.data.count;
         this.annotations = this.docs.map(doc => doc.annotations);
         this.offset = getOffsetFromUrl(this.url);
       });
@@ -109,7 +110,7 @@ export default {
 
     async submit() {
       const state = this.getState();
-      this.url = `docs?q=${this.searchQuery}&is_checked=${state}&offset=${this.offset}`;
+      this.url = `api/article`;
       await this.search();
       this.pageNumber = 0;
     },

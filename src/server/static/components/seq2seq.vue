@@ -150,7 +150,7 @@ export default {
         // console.log(this.answers[p][i],'responseObj',responseObj );
 
         // we send the QA to the database
-        HTTP.post(`docs/${docId}/annotations`, annotation).then((res,err) => {
+        HTTP.post(`api/article`, annotation).then((res,err) => {
           console.log('res,err',res,err);
           if (res.data && typeof res.data.id === 'number') {
               HTTP.post(`seq2seq_annotations/${res.data.id}/response`, responseObj).then((result,error) => {
@@ -178,7 +178,7 @@ export default {
 
     async submit() {
       const state = this.getState();
-      this.url = `docs?q=${this.searchQuery}&is_checked=${state}&offset=${this.offset}&seq2seq_annotations__isnull=true`;
+      this.url = `api/article`;
       await this.search();
       this.pageNumber = 0;
     },

@@ -27,7 +27,7 @@ module.exports = {
     output: {
         publicPath: hotReload ? `http://${webpackHost}:${webpackPort}/` : '',
         path: path.join(__dirname, 'bundle'),
-        filename: '[name].js'
+        filename: 'app.js'
     },
     devtool: noSourceMap ? false : (devMode ? 'cheap-eval-source-map' : 'source-map'),
     devServer: {
