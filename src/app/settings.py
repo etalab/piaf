@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'django_filters',
     'social_django',
     'polymorphic',
-    'webpack_loader',
     'anymail',
     'piaf',
 ]
@@ -124,17 +123,6 @@ STATICFILES_DIRS = [
     if path.isdir(static_path)
 ]
 
-
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': 'bundle/',
-        'STATS_FILE': BASE_PATH / 'server' / 'static' / 'webpack-stats.json',
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': None,
-        'IGNORE': [r'.*\.hot-update.js', r'.+\.map']
-    }
-}
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
