@@ -40,9 +40,8 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    user = models.ForeignKey(User, on_delete="null", related_name="answers")
+    user = models.ForeignKey(User, on_delete="null", related_name="answers", null=True)
     question = models.ForeignKey(Question, on_delete="cascade", related_name="answers")
     text = models.CharField(max_length=200)
     start_position = models.IntegerField()
-    end_position = models.IntegerField()
     created_at = models.DateField(auto_now_add=True)
