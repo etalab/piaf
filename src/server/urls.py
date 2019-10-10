@@ -3,8 +3,6 @@ from django.urls import path
 from .views import IndexView
 from .views import ProjectView, DatasetView, DataUpload, LabelView, StatsView, GuidelineView
 from .views import ProjectsView, DataDownload
-from .views import DemoTextClassification, DemoNamedEntityRecognition, DemoTranslation
-
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -22,10 +20,5 @@ urlpatterns = [
     path('projects/<int:project_id>/stats/',
          StatsView.as_view(), name='stats'),
     path('projects/<int:project_id>/guideline/',
-         GuidelineView.as_view(), name='guideline'),
-    path('demo/text-classification/',
-         DemoTextClassification.as_view(), name='demo-text-classification'),
-    path('demo/named-entity-recognition/',
-         DemoNamedEntityRecognition.as_view(), name='demo-named-entity-recognition'),
-    path('demo/translation/', DemoTranslation.as_view(), name='demo-translation'),
+         GuidelineView.as_view(), name='guideline')
 ]

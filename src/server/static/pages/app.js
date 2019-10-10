@@ -4,7 +4,7 @@ import Seq2Seq from '../components/seq2seq.vue';
 Vue.use(require('vue-shortkey'));
 
 new Vue({
-  el: '#mail-app',
+  el: '#vue-app',
 
   components: { Seq2Seq },
 
