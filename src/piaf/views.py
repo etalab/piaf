@@ -64,4 +64,6 @@ class ArticleApi(View):
                 start_position=qa["answer"]["index"],
             )
             answer.save()
+        paragraph.batch.status = 'complete'
+        paragraph.batch.save()
         return HttpResponse(status=201)

@@ -40,6 +40,7 @@ class ApiTest(TestCase):
             },
         )
 
-        article = Article.objects.first()
-        self.assertEqual(article.paragraphs.first().questions.count(), 5)
-        self.assertEqual(article.paragraphs.first().questions.last().answers.first().text, "a5")
+        paragraph = Article.objects.first().paragraphs.first()
+        self.assertEqual(paragraph.questions.count(), 5)
+        self.assertEqual(paragraph.questions.last().answers.first().text, "a5")
+        self.assertEqual(paragraph.batch.status, 'complete')
