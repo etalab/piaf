@@ -170,6 +170,17 @@ Possible formats are CSV or JSON.
 {"doc_id": 16, "text": "EU rejects calls", "labels": ["news"], "username": "user23", "metadata": {"external_id": 1}}
 ```
 
+## configuration
+
+Passing most settings as environment variable will override the default settings.
+
+Example:
+```
+DEBUG=0 MATOMO_SITE_ID=77 src/manage.py runserver
+```
+
+Will disable debugging and activate Matomo tracking.
+
 ## Contact
 
 Feel free to [submit any feedback](https://github.com/etalab/piaf/issues/new).
