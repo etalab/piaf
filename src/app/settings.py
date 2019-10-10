@@ -99,6 +99,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'piaf.context_processors.settings',
             ],
             'libraries': {
                 'analytics': 'server.templatetags.analytics',
@@ -256,6 +257,8 @@ MAILJET_API_KEY = env('MAILJET_API_KEY', None)
 MAILJET_SECRET_KEY = env('MAILJET_SECRET_KEY', None)
 USE_MAILJET = env.bool('USE_MAILJET', False)
 DEFAULT_FROM_EMAIL = "piaf@data.gouv.fr"
+
+WEBPACK_ENVIRONMENT_PRODUCTION = env.bool('WEBPACK_ENVIRONMENT_PRODUCTION', True)
 
 # information here: https://anymail.readthedocs.io/en/stable/esps/mailjet/
 ANYMAIL = {

@@ -1,5 +1,5 @@
 {% load static %}
-{% load render_bundle from webpack_loader %}
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,6 +12,10 @@
 <link rel="stylesheet" href="{% static 'assets/css/forum.css' %}">
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="{% static 'assets/css/annotation.css' %}">
+{% if settings.WEBPACK_ENVIRONMENT_PRODUCTION %}
+<!-- for the production mode -->
+<link rel="stylesheet" href="{% static 'front/css/chunk-vendors.css' %}">
+{% endif %}
 
 {% if user.is_superuser and 'project_id' in view.kwargs %}
 <nav class="navbar has-shadow">
@@ -62,6 +66,12 @@
 </nav>
 {% endif %}
 
-<div id="vue-app"></div>
-
-{% render_bundle 'app' 'js' %}
+<div id="app"></div>
+{% if not settings.WEBPACK_ENVIRONMENT_PRODUCTION %}
+<!-- for the development mode -->DEV
+<script src="{% static 'front/app.js' %}"></script>
+{% else %}
+<!-- for the production mode -->PROD
+<script src="{% static 'front/js/app.js' %}"></script>
+<script src="{% static 'front/js/chunk-vendors.js' %}"></script>
+{% endif %}
