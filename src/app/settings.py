@@ -254,8 +254,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # on the import phase
 IMPORT_BATCH_SIZE = env.int('IMPORT_BATCH_SIZE', 500)
 
-GOOGLE_TRACKING_ID = env('GOOGLE_TRACKING_ID', '')
-
 ## necessary for email verification setup
 # EMAIL_USE_TLS = True
 # EMAIL_HOST = 'smtp.gmail.com'
@@ -268,6 +266,8 @@ MAILJET_API_KEY = env('MAILJET_API_KEY', None)
 MAILJET_SECRET_KEY = env('MAILJET_SECRET_KEY', None)
 USE_MAILJET = env.bool('USE_MAILJET', False)
 DEFAULT_FROM_EMAIL = "piaf@data.gouv.fr"
+
+MATOMO_SITE_ID = env("MATOMO_SITE_ID", "")
 
 # information here: https://anymail.readthedocs.io/en/stable/esps/mailjet/
 ANYMAIL = {
