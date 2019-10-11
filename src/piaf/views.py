@@ -41,7 +41,7 @@ class AdminView(TemplateView, SuperUserMixin):
         return context
 
 
-class ArticleApi(View):
+class ParagraphApi(View):
     # Provide a randomly picked pending article.
     def get(self, request, *args, **kwargs):
         qs = ParagraphBatch.objects.filter(status="pending")
@@ -55,15 +55,5 @@ class ArticleApi(View):
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         paragraph = Paragraph.objects.get(pk=data["paragraph"])
-        for qa in data["data"]:
-            question = Question(paragraph=paragraph, text=qa["question"])
-            question.save()
-            answer = Answer(
-                question=question,
-                text=qa["answer"]["text"],
-                start_position=qa["answer"]["index"],
-            )
-            answer.save()
-        paragraph.batch.status = 'complete'
-        paragraph.batch.save()
+        paragraph.complete(data["data"])
         return HttpResponse(status=201)

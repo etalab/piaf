@@ -1,4 +1,4 @@
- """
+"""
 Django settings for app project.
 
 For more information on this file, see
