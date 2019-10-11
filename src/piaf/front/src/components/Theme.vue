@@ -72,8 +72,7 @@ export default {
   methods: {
     setCurrentTheme(theme){
       this.$store.commit('setCurrentTheme', theme)
-      this.$store.commit('setShowTheme', false)
-      this.$store.commit('setShowAnnotationTask', true)
+      this.$store.dispatch('switchFromThemeToAnnotationTask')
     },
   },
 };

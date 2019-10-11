@@ -17,7 +17,7 @@
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
       <Theme v-if="showTheme"/>
-      <AnnotationTask v-if="showAnnotationTask"/>
+      <AnnotationTask v-if="showAnnotationTask && currentDocument"/>
     </v-container>
   </v-content>
 </v-app>
@@ -39,6 +39,7 @@ export default {
     'currentTheme',
     'showTheme',
     'showAnnotationTask',
+    'currentDocument',
   ]),
   data: () => ({
   }),
