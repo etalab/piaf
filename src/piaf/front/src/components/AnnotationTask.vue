@@ -20,26 +20,19 @@
 
       <v-flex xs12 my-5>
         <div>
-          <!-- no annotation yet, we display the text -->
-          <div v-if="currentDocument && !annotations">
+          <div v-if="currentDocument && annotations">
             <v-card
               max-width="700"
               class="mx-auto"
             >
               <v-card-text>
-                <span oncopy="return false" oncut="return false">
-                 {{ currentDocument.text }}
-                </span>
-               </v-card-text>
+                <TextInteractive
+                  v-bind:text="currentDocument.text"
+                  v-bind:currentQuestionIndex="currentQuestionIndex"
+                  ref="annotator"
+                 />
+             </v-card-text>
             </v-card>
-          </div>
-          <!-- annotations exists, we show text + annotations -->
-          <div v-if="currentDocument && annotations">
-            <TextInteractive
-              v-bind:text="currentDocument.text"
-              v-bind:currentQuestionIndex="currentQuestionIndex"
-              ref="annotator"
-             />
           </div>
         </div>
       </v-flex>
@@ -55,16 +48,13 @@
       </v-flex>
 
       <v-flex xs12 my-10>
-        <QuestionInput
-          ref="questionInputComponent"
-          class="maxWid700 mx-auto"
-        />
+        <QuestionInput class="maxWid700 mx-auto"/>
       </v-flex>
 
 
       <v-flex xs12 my-10>
         <Answer
-          v-if="currentAnnotation && currentAnnotation.question"
+          v-if="currentAnnotation && currentAnnotation.question !== ''"
           class="maxWid700 mx-auto"
         />
       </v-flex>

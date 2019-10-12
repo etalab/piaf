@@ -13,24 +13,37 @@ export default new Vuex.Store({
     // Current paragraph we display
     currentDocument: {
       title: 'title article',
-      text:'balbalblbalablalbblabalbalblbalablalbbla DD balbalblbalablalbbla'
+      text:'this is a fake docuemnt, to be replaced by an API call'
     },
     // annotations from the user on the current paragraph
-    annotations: null,
+    annotations: [
+      {question:'',answer:{} },
+      {question:'',answer:{} },
+      {question:'',answer:{} },
+      {question:'',answer:{} },
+      {question:'',answer:{} }
+    ], // [{"question": "q1", "answer": {"text": "a1", "index": 1}}]
     currentQuestionIndex:0,
     maxAnnotationsPerDoc: 5,
     // interaction with the text for highliting answers
     startOffset: null,
     endOffset: null,
+    highlitedText: null,
+    editMode:false,
   },
   getters: {
     // here we have the number of completed annotation (It means proper question and its proper answer)
     finishedQuestionNumber: state => {
-      return (state.annotations) ? state.annotations.filter(annotation =>
-        annotation.question && annotation.answer).length : 0
+      return state.annotations.filter(annotation =>
+        annotation.question !== '' && annotation.answer.index !== undefined).length
     },
     currentAnnotation: state => {
-      return (state.annotations) ? state.annotations[state.currentQuestionIndex] : null
+      return state.annotations[state.currentQuestionIndex]
+    },
+    answersForTextInteraction: state => {
+      return state.annotations
+      .map(annotation => annotation.answer)
+      .filter(answer => typeof answer.text === 'string')
     },
   },
   mutations: {
@@ -52,11 +65,32 @@ export default new Vuex.Store({
     setEndOffset(state,num){
       state.endOffset = num
     },
+    setHighlitedText(state,text){
+      state.highlitedText = text
+    },
+    setEditeMode(state,boo){
+      state.editMode = boo
+    },
   },
   actions: {
     switchFromThemeToAnnotationTask(context){
       context.commit('setShowAnnotationTask', true)
       context.commit('setShowTheme', false)
-    }
+    },
+    addNewHighlitedText({ commit, state }) {
+      let newAnnotations = state.annotations
+      newAnnotations[state.currentQuestionIndex].answer = {"text": state.highlitedText, "index": state.startOffset},
+      commit('setAnnotations', newAnnotations)
+      commit('setEndOffset', null)
+      commit('setStartOffset', null)
+      commit('setHighlitedText', null)
+
+      // Bus.$emit('switch-editmode',false);
+
+      // this.editedInput = null
+      // if (this.isLastQuestion) {
+        // this.$emit('submitToDatabase');
+      // }
+    },
   }
 })

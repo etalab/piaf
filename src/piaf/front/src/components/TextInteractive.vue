@@ -1,61 +1,54 @@
 <template>
-  <div  @click="setSelectedRange">
+  <div>
     <span
       oncopy="return false"
       oncut="return false"
       v-for="r in chunks"
       v-bind:class="getChunkClass(r)"
       v-bind:style="getChunkStyle(r)"
+      v-touch:tap="setSelectedRange"
+      v-touch:start="setSelectedRange"
+      v-touch:end="setSelectedRange"
+      v-touch:moving="setSelectedRange"
     >
      {{ textPart(r) }}
-     <button v-if="r.label==1", v-on:click="removeAnswer(r)"
-     >remove</button>
+     <button v-if="r.label==1" v-on:click="removeAnswer(r)">
+       <v-icon fab small dark v-bind:color="white">mdi-close</v-icon>
+     </button>
     </span>
   </div>
 </template>
 
 <script>
-// import Bus from './bus.js'
 import { mapState } from 'vuex'
 
 export default {
-  props: {
-    text: {
-      type: String,
-      default: '',
-    },
-    // entityPositions: {
-    //   type: Array, // [{'startOffset': 10, 'endOffset': 15, 'label_id': 1}]
-    //   default: () => [],
-    // },
-  },
-
   data: () => ({
-    startOffset: 0,
-    endOffset: 0,
     editMode: false,
   }),
 
   computed: {
     ...mapState([
-      'startOffset',
-      'endOffset'
+      'currentDocument',
+      'annotations',
+      'currentQuestionIndex'
     ]),
-    entityPositions() {
-      const startOffset = this.startOffset
-      const endOffset = this.endOffset
-      return [{
-        startOffset:startOffset,
-        endOffset:endOffset
-      }]
+    entityPositionsOrempty () {
+      return this.$store.getters.answersForTextInteraction
     },
-    entityPositionsOrempty() {
-      return (this.editMode) ? [] : this.entityPositions;
-    },
+    // entityPositions() {
+    //   // return [this.annotations[this.currentQuestionIndex].answer]
+    //   return this.annotations
+    //   .map(annotation => annotation.answer)
+    //   .filter(answer => typeof answer === 'object')
+    // },
+    // entityPositionsOrempty() {
+    //   return (this.editMode) ? [] : this.entityPositions;
+    // },
 
     sortedEntityPositions() {
       /* eslint-disable vue/no-side-effects-in-computed-properties */
-      return this.entityPositionsOrempty.sort((a, b) => a.start_offset - b.start_offset);
+      return this.entityPositionsOrempty.sort((a, b) => a.index - b.index);
       /* eslint-enable vue/no-side-effects-in-computed-properties */
     },
 
@@ -66,26 +59,21 @@ export default {
       for (let i = 0; i < this.sortedEntityPositions.length; i++) {
         e = this.sortedEntityPositions[i];
         e.label = 1;
-        e.end_offset = e.start_offset + e.response.length;
+        e.startOffset = e.index
+        e.endOffset = e.startOffset + e.text.length
 
-        const l = this.makeEmptyChunk(left, e.start_offset);
+        const l = this.makeEmptyChunk(left, e.startOffset);
 
         res.push(l);
         res.push(e);
-        left = e.end_offset;
+        left = e.endOffset;
       }
-      const l = this.makeEmptyChunk(left, this.text.length);
+      const l = this.makeEmptyChunk(left, this.currentDocument.text.length);
       res.push(l);
 
       return res;
     },
 
-  },
-
-  watch: {
-    entityPositions() {
-      this.resetRange();
-    },
   },
 
   methods: {
@@ -105,13 +93,20 @@ export default {
       return {
         color: '#ffffff',
         backgroundColor: '#4169e1',
+        paddingRight: '1px',
+        paddingLeft: '1px',
+        borderRadius: '4px',
+        marginRight: '-2px',
+        marginLeft: '-2px',
       };
     },
 
 
     setSelectedRange() {
+      console.log('setSelectedRange');
       let start;
       let end;
+      let text;
       if (window.getSelection) {
         const range = window.getSelection().getRangeAt(0);
         const preSelectionRange = range.cloneRange();
@@ -119,6 +114,7 @@ export default {
         preSelectionRange.setEnd(range.startContainer, range.startOffset);
         start = [...preSelectionRange.toString()].length;
         end = start + [...range.toString()].length;
+        text = range.toString()
       } else if (document.selection && document.selection.type !== 'Control') {
         const selectedTextRange = document.selection.createRange();
         const preSelectionTextRange = document.body.createTextRange();
@@ -126,89 +122,33 @@ export default {
         preSelectionTextRange.setEndPoint('EndToStart', selectedTextRange);
         start = [...preSelectionTextRange.text].length;
         end = start + [...selectedTextRange.text].length;
+        text = selectedTextRange.text
       }
       this.$store.commit('setStartOffset', start)
       this.$store.commit('setEndOffset', end)
-    },
-
-    validRange() {
-      if (this.startOffset === this.endOffset) {
-        return false;
-      }
-      if (this.startOffset > this.text.length || this.endOffset > this.text.length) {
-        return false;
-      }
-      if (this.startOffset < 0 || this.endOffset < 0) {
-        return false;
-      }
-      for (let i = 0; i < this.entityPositionsOrempty.length; i++) {
-        const e = this.entityPositionsOrempty[i];
-        if ((e.start_offset <= this.startOffset) && (this.startOffset < e.end_offset)) {
-          return false;
-        }
-        if ((e.start_offset < this.endOffset) && (this.endOffset < e.end_offset)) {
-          return false;
-        }
-        if ((this.startOffset < e.start_offset) && (e.start_offset < this.endOffset)) {
-          return false;
-        }
-        if ((this.startOffset < e.end_offset) && (e.end_offset < this.endOffset)) {
-          return false;
-        }
-      }
-      return true;
-    },
-
-    hasAnswer() {
-      if (this.entityPositionsOrempty.length > 0) {
-        return true;
-      }
-      return false;
-    },
-
-    resetRange() {
-      this.startOffset = 0;
-      this.endOffset = 0;
+      this.$store.commit('setHighlitedText', text)
     },
 
     textPart(r) {
-      return [...this.text].slice(r.start_offset, r.end_offset).join('');
-    },
-
-    addAnswer() {
-      if (this.validRange() && !this.hasAnswer()) {
-        const text = {
-          start_offset: this.startOffset,
-          response: [...this.text].slice(this.startOffset, this.endOffset).join(''),
-        };
-        // Bus.$emit('addAnswer-with-text',text)
-      }
-    },
-
-    removeAnswer(index) {
-      // Bus.$emit('clicked-on-removeAnswer')
+      return [...this.currentDocument.text].slice(r.startOffset, r.endOffset).join('');
     },
 
     makeEmptyChunk(startOffset, endOffset) {
       const chunk = {
         id: 0,
         label: 0,
-        start_offset: startOffset,
-        end_offset: endOffset,
+        startOffset: startOffset,
+        endOffset: endOffset,
       };
       return chunk;
     },
-  },
 
-  created() {
-    // Bus.$on('clicked-on-addAnswer', () => {
-    //     this.addAnswer()
-    // });
-    // Bus.$on('switch-editmode', (boo) => {
-    //     this.editMode = boo
-    // });
-    window.addEventListener("touchend", () => { this.setSelectedRange() });
-    document.addEventListener("selectionchange", () => { this.setSelectedRange() });
+    removeAnswer(r){
+      let newAnnotations = this.annotations
+      console.log('ici i faudra match le R avec sa reponse au cas ou on soit plus sur le bon index');
+      newAnnotations[this.currentQuestionIndex].answer = {}
+      this.$store.commit('setEndOffset', newAnnotations)
+    },
   },
 
 };

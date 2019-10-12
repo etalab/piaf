@@ -2,16 +2,15 @@
   <section>
     <div class="columns is-gapless is-mobile is-vertical-center">
       <v-text-field
-      v-model="editedInput"
-      v-bind:label="currentAnnotation.question"
+      v-bind:value="currentAnnotation.question"
       v-if="isProtected"
       disabled
-      v-on:keyup.enter="doneEditInput(editedInput)">
+      >
       </v-text-field>
 
       <v-text-field
       v-else
-      v-model="newJSON"
+      v-model="newQuestion"
       v-on:keyup.enter="addJSON"
       ref="input"
       label="Question">
@@ -28,6 +27,7 @@
       v-on:click="onClick"
       >Modifier
       </v-btn>
+
       <v-btn
       small
       color="primary"
@@ -36,6 +36,7 @@
       v-on:click="onClick"
       class="has-background-royalblue">OK
       </v-btn>
+
     </div>
   </section>
 </template>
@@ -57,19 +58,18 @@ import { mapState } from 'vuex'
 
 export default {
   data: () => ({
-    newJSON: '',
-    editedInput: null,
-    beforeEditJSONCache: null,
+    newQuestion: '',
   }),
 
   computed: {
     ...mapState([
       'currentDocument',
       'annotations',
-      'currentQuestionIndex'
+      'currentQuestionIndex',
+      'editMode'
     ]),
     isProtected(){
-      return this.currentAnnotation && this.editedInput === null
+      return this.currentAnnotation.question !== '' && this.editMode === false
     },
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
@@ -78,14 +78,10 @@ export default {
 
   methods: {
     addJSON() {
-      const value = this.newJSON && this.newJSON.trim();
+      const value = this.newQuestion && this.newQuestion.trim();
       if (!value) {
         return;
       }
-
-      const payload = {
-        question: value,
-      };
 
       // forcing the update for nested object
       let JSONsCopy = JSON.parse(JSON.stringify(this.annotations))
@@ -93,46 +89,29 @@ export default {
       if (!JSONsCopy) {
         JSONsCopy = []
       }
-      JSONsCopy[this.currentQuestionIndex] = payload;
+
+      const annotation = JSONsCopy[this.currentQuestionIndex]
+      annotation.question = value
+
+      JSONsCopy[this.currentQuestionIndex] = annotation;
       this.$store.commit('setAnnotations', JSONsCopy)
-      this.newJSON = '';
-      this.editedInput = null
+      this.newQuestion = '';
+      this.$store.commit('setEditeMode',false)
     },
 
     reInitialiseInputs(){
-      this.newJSON = ''
-      this.editedInput = null;
-      this.beforeEditJSONCache = null;
-    },
-
-    editJSON(json) {
-      this.beforeEditJSONCache = json.question;
-      this.editedInput = json;
+      this.newQuestion = ''
+      this.$store.commit('setEditeMode',false)
     },
 
     cancelEditJSON() {
       this.reInitialiseInputs()
     },
 
-    doneEditInput() {
-      if (!this.editedInput) {
-        return;
-      }
-
-      const payload = {
-        question: this.editedInput.trim(),
-      };
-
-      let JSONsCopy = JSON.parse(JSON.stringify(this.annotations))
-      JSONsCopy[this.currentQuestionIndex] = payload;
-      this.reInitialiseInputs()
-      this.$store.commit('setAnnotations', JSONsCopy)
-    },
-
     onClick(){
       if (this.isProtected) {
-        this.editJSON(this.currentAnnotation)
-        // this.$nextTick(() => this.$refs.input.focus())
+        this.$store.commit('setEditeMode',true)
+        this.$nextTick(() => this.$refs.input.focus())
       } else {
         this.addJSON()
       }

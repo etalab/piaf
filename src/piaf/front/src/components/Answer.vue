@@ -62,7 +62,7 @@ export default {
       'maxAnnotationsPerDoc'
     ]),
     isProtected(){
-      return this.currentAnnotation.answer && this.editedInput === null
+      return this.currentAnnotation.answer.text && this.editedInput === null
     },
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
@@ -115,7 +115,7 @@ export default {
       if (this.isProtected) {
         this.editJSON(this.currentJSON)
       } else {
-        this.addJSON()
+        this.$store.dispatch('addNewHighlitedText')
       }
     },
 
