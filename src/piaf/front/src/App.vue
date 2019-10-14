@@ -45,3 +45,12 @@ export default {
   }),
 };
 </script>
+
+<style>
+.v-application {
+   font-family: "cooperhewitt light" !important;
+    .title {
+       font-family: "cooperhewitt medium" !important;
+    }
+}
+</style>
