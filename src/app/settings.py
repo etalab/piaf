@@ -45,6 +45,7 @@ ALLOW_SIGNUP = env.bool("ALLOW_SIGNUP", True)
 # Application definition
 
 INSTALLED_APPS = [
+<<<<<<< HEAD
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,6 +60,22 @@ INSTALLED_APPS = [
     'polymorphic',
     'anymail',
     'piaf',
+=======
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "api.apps.ApiConfig",
+    "widget_tweaks",
+    "rest_framework",
+    "django_filters",
+    "social_django",
+    "polymorphic",
+    "anymail",
+    "piaf",
+>>>>>>> clearing old 'server' app
 ]
 
 CLOUD_BROWSER_APACHE_LIBCLOUD_PROVIDER = env("CLOUD_BROWSER_LIBCLOUD_PROVIDER", None)
@@ -120,33 +137,16 @@ STATICFILES_DIRS = [
     if path.isdir(static_path)
 ]
 
+<<<<<<< HEAD
 
 WSGI_APPLICATION = 'app.wsgi.application'
+=======
+WSGI_APPLICATION = "app.wsgi.application"
+>>>>>>> clearing old 'server' app
 
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.github.GithubOAuth2",
     "django.contrib.auth.backends.ModelBackend",
-]
-
-SOCIAL_AUTH_GITHUB_KEY = env("OAUTH_GITHUB_KEY", None)
-SOCIAL_AUTH_GITHUB_SECRET = env("OAUTH_GITHUB_SECRET", None)
-GITHUB_ADMIN_ORG_NAME = env("GITHUB_ADMIN_ORG_NAME", None)
-GITHUB_ADMIN_TEAM_NAME = env("GITHUB_ADMIN_TEAM_NAME", None)
-
-if GITHUB_ADMIN_ORG_NAME and GITHUB_ADMIN_TEAM_NAME:
-    SOCIAL_AUTH_GITHUB_SCOPE = ["read:org"]
-
-SOCIAL_AUTH_PIPELINE = [
-    "social_core.pipeline.social_auth.social_details",
-    "social_core.pipeline.social_auth.social_uid",
-    "social_core.pipeline.social_auth.auth_allowed",
-    "social_core.pipeline.social_auth.social_user",
-    "social_core.pipeline.user.get_username",
-    "social_core.pipeline.user.create_user",
-    "social_core.pipeline.social_auth.associate_user",
-    "social_core.pipeline.social_auth.load_extra_data",
-    "social_core.pipeline.user.user_details",
-    "server.social_auth.fetch_github_permissions",
 ]
 
 # Database
@@ -193,13 +193,13 @@ REST_FRAMEWORK = {
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "fr-fr"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Paris"
 
-USE_I18N = True
+USE_I18N = False
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
@@ -209,8 +209,6 @@ TEST_OUTPUT_DIR = str(BASE_PATH / "junitxml")
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/app/"
 LOGOUT_REDIRECT_URL = "/"
-
-django_heroku.settings(locals(), test_runner=False)
 
 # Change 'default' database configuration with $DATABASE_URL.
 DATABASES["default"].update(
@@ -230,12 +228,6 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Allow all host headers
 # ALLOWED_HOSTS = ['*']
-
-# Size of the batch for creating documents
-# on the import phase
-IMPORT_BATCH_SIZE = env.int("IMPORT_BATCH_SIZE", 500)
-
-GOOGLE_TRACKING_ID = env("GOOGLE_TRACKING_ID", "")
 
 ## necessary for email verification setup
 # EMAIL_USE_TLS = True

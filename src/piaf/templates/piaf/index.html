@@ -1,67 +1,6 @@
-{% load static %}
+{% extends "base.html" %}
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Piaf - Pour une IA francophone</title>
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-  integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"
-    crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'assets/css/forum.css' %}">
-<meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" href="{% static 'assets/css/annotation.css' %}">
-
-{% if user.is_superuser and 'project_id' in view.kwargs %}
-<nav class="navbar has-shadow">
-  <div class="container">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="{% url 'index' %}">
-        <img src="{% static 'assets/images/logo.png' %}" width="32" height="32">
-        <b>piaf</b>
-      </a>
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="topNav">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-      {% if user.is_superuser and 'project_id' in view.kwargs %}
-      <a class="navbar-item" href="{% url 'dataset' view.kwargs.project_id %}">
-        <span class="icon">
-          <i class="fas fa-edit"></i>
-        </span>
-        <b>Edit Data</b>
-      </a>
-      {% endif %}
-    </div>
-    <div id="topNav" class="navbar-menu">
-      <div class="navbar-end">
-        {% if not user.is_authenticated %}
-        <a class="navbar-item" href="https://github.com/etalab/piaf">
-          <span>GitHub</span>
-        </a>
-        {% endif %}
-        {% if user.is_authenticated %}
-        <a class="navbar-item" href="{% url 'projects' %}">
-          <span>Projects</span>
-        </a>
-        {% endif %}
-        {% if not user.is_authenticated %}
-        <a class="navbar-item" href="{% url 'login' %}">
-          <span>Login</span>
-        </a>
-        {% else %}
-        <a class="navbar-item" href="{% url 'logout' %}">
-          <span>Logout</span>
-        </a>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-</nav>
-{% endif %}
-
+{% block content %}
 <div id="app"></div>
 {% if not settings.WEBPACK_ENVIRONMENT_PRODUCTION %}
 <!-- for the development mode -->DEV
@@ -70,4 +9,4 @@
 <!-- for the production mode -->PROD
 <script src="{% static 'front/js/app.js' %}"></script>
 <script src="{% static 'front/js/chunk-vendors.js' %}"></script>
-{% endif %}
+{% endblock %}

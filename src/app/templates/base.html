@@ -1,5 +1,4 @@
 {% load static %}
-{% load analytics %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,4 +58,21 @@
 
   {% block footer %}{% endblock %}
 </body>
+
+{% if settings.MATOMO_SITE_ID %}
+<script>
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//stats.data.gouv.fr/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '{{ settings.MATOMO_SITE_ID }}']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+{% endif %}
+
 </html>

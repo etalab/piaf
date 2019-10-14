@@ -6,7 +6,6 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('', include('authentification.urls')),
-    path('', include('server.urls')),
     path('', RedirectView.as_view(url='/app'), name='index'),
     path('app/', include('piaf.urls', namespace='app')),
     path('admin/', admin.site.urls),
