@@ -13,7 +13,7 @@ frontend="${root}/src/piaf/front/"
     npm install
   fi
 
-  echo "Starting npm run..."
+  echo "Starting npm run...  with WEBPACK_ENVIRONMENT_PRODUCTION = ${WEBPACK_ENVIRONMENT_PRODUCTION}"
   if [[ -n "${WEBPACK_ENVIRONMENT_PRODUCTION}" ]] && [[ "${WEBPACK_ENVIRONMENT_PRODUCTION}" = "True" ]]; then
     npm run build
     echo "--> build => bundle finished"
