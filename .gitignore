@@ -201,3 +201,8 @@ webpack-stats.json
 
 # database
 src/db
+
+# new app front
+src/piaf/front/node_modules
+src/piaf/front/dist
+src/piaf/static/
