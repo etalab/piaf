@@ -13,7 +13,7 @@
     >
      {{ textPart(r) }}
      <button v-if="r.label==1" v-on:click="removeAnswer(r)">
-       <v-icon fab small dark v-bind:color="white">mdi-close</v-icon>
+       <v-icon fab small dark>mdi-close</v-icon>
      </button>
     </span>
   </div>
