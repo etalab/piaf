@@ -90,7 +90,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            str(BASE_PATH / "server" / "templates"),
+            str(BASE_PATH / "app" / "templates"),
             str(BASE_PATH / "authentification" / "templates"),
         ],
         "APP_DIRS": True,
@@ -100,8 +100,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "social_django.context_processors.backends",
-                "social_django.context_processors.login_redirect",
             ],
             "libraries": {
                 "analytics": "server.templatetags.analytics",
@@ -224,8 +222,8 @@ TEST_RUNNER = "xmlrunner.extra.djangotestrunner.XMLTestRunner"
 TEST_OUTPUT_DIR = str(BASE_PATH / "junitxml")
 
 LOGIN_URL = "/login/"
-LOGIN_REDIRECT_URL = "/projects/1/"
-LOGOUT_REDIRECT_URL = "/projects/1/"
+LOGIN_REDIRECT_URL = "/app/"
+LOGOUT_REDIRECT_URL = "/"
 
 django_heroku.settings(locals(), test_runner=False)
 
