@@ -112,8 +112,11 @@ export default new Vuex.Store({
         return false
       }
     },
-    async saveQAs ({ commit }, data) {
-      const res = await sendQA(data)
+    async saveQAs ({ state }) {
+      let qas = {}
+      qas.paragraph = 1 //currentDocument.title 
+      qas.data = state.annotations
+      const res = await sendQA(qas)
       if(res){
         return true
       }else{

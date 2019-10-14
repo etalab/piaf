@@ -14,9 +14,9 @@ export async function getNewParagraph() {
   }
 }
 
-export async function sendQA(data) {
+export async function sendQA(qas) {
   try {
-    const res = await axios.post('/app/api/paragraph',data);
+    const res = await axios.post('/app/api/paragraph',qas);
     console.log(res);
     if (res && res.data) {
       return res

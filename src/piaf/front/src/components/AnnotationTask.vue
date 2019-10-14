@@ -58,6 +58,24 @@
           class="maxWid700 mx-auto"
         />
       </v-flex>
+
+      <v-btn
+      small
+      color="primary"
+      dark
+      v-on:click="validate"
+      >Valider QA
+      </v-btn>
+
+      <v-btn
+      small
+      color="primary"
+      dark
+      v-on:click="nextqa"
+      >next QA
+      </v-btn>
+
+
       <!-- <v-flex xs12 my-10>
         <v-row>
           <v-text-field>
@@ -197,6 +215,13 @@ export default {
     },
   },
   methods: {
+    validate(){
+      return this.$store.dispatch('saveQAs')
+    },
+    nextqa(){
+      return this.$store.commit('setCurrentQuestionIndex',this.currentQuestionIndex+1)
+    },
+
   },
 };
 </script>
