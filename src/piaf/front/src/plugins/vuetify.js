@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
-import light from './theme.js'
+import { theme } from './theme.js'
 
 Vue.use(Vuetify);
 
@@ -9,6 +9,8 @@ export default new Vuetify({
     iconfont: 'mdi',
   },
   theme: {
-    themes: { light },
+    themes: {
+      light: theme
+    },
   },
 });
