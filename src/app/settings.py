@@ -114,6 +114,7 @@ STATIC_ROOT = str(BASE_PATH / "staticfiles")
 STATICFILES_DIRS = [
     static_path
     for static_path in (
+        str(BASE_PATH / "app" / "assets"),
         str(BASE_PATH / "piaf" / "static"),
     )
     if path.isdir(static_path)
