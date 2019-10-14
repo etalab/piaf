@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="columns is-gapless is-mobile is-vertical-center">
+    <div class="columns is-gapless is-mobile is-vertical-center my-0">
       <v-text-field
       v-bind:value="currentAnnotation.question.text"
       v-if="isProtected"

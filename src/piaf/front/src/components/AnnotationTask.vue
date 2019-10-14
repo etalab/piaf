@@ -37,17 +37,22 @@
         </div>
       </v-flex>
 
-      <v-flex xs12 my-10 justify-center>
+      <v-flex xs12 my-0 justify-center>
         <v-progress-linear
           v-bind:value="stepPercentage"
-          color="amber"
+          color="#130c47"
+          background-color=""
           height="25"
           rounded
           class="maxWid700 mx-auto"
-        ></v-progress-linear>
+        >
+          <template v-slot="{ value }">
+            <span class="white--text">Question {{ Math.ceil(value / 20 ) }} / 5</span>
+          </template>
+        </v-progress-linear>
       </v-flex>
 
-      <v-flex xs12 my-10>
+      <v-flex xs12 my-0>
         <QuestionInput class="maxWid700 mx-auto"/>
       </v-flex>
 
