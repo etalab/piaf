@@ -1,11 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-STATUSES = [
-    ("pending", "pending"),
-    ("progress", "progress"),
-    ("completed", "completed"),
-]
+STATUS_PENDING = "pending"
+STATUS_PROGRESS = "progress"
+STATUS_COMPLETED = "completed"
+STATUSES = [STATUS_PENDING, STATUS_PROGRESS, STATUS_COMPLETED]
 
 
 class Article(models.Model):
@@ -15,7 +14,9 @@ class Article(models.Model):
 class ParagraphBatch(models.Model):
     user = models.ForeignKey(User, null=True, on_delete="null")
     participated_at = models.DateField(auto_now=True)
-    status = models.CharField(max_length=10, choices=STATUSES, default="pending")
+    status = models.CharField(
+        max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
+    )
 
     @property
     def article(self):
@@ -28,7 +29,29 @@ class Paragraph(models.Model):
         ParagraphBatch, on_delete="cascade", related_name="paragraphs"
     )
     text = models.TextField()
-    status = models.CharField(max_length=10, choices=STATUSES, default="pending")
+    status = models.CharField(
+        max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
+    )
+
+    def complete(self, questions_answers, user=None):
+        if self.status == STATUS_COMPLETED:
+            raise Exception("The Paragraph is completed already.")
+        if not len(questions_answers) == 5:
+            raise Exception(
+                "A Paragraph requires 5 questions and answers to be completed."
+            )
+        for qa in questions_answers:
+            question = Question.objects.create(
+                text=qa["question"]["text"], paragraph=self
+            )
+            answer = Answer.objects.create(
+                question=question,
+                text=qa["answer"]["text"],
+                index=qa["answer"]["index"],
+                user=user,
+            )
+        self.status = STATUS_COMPLETED
+        self.save()
 
 
 class Question(models.Model):
@@ -40,9 +63,8 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    user = models.ForeignKey(User, on_delete="null", related_name="answers")
+    user = models.ForeignKey(User, on_delete="null", related_name="answers", null=True)
     question = models.ForeignKey(Question, on_delete="cascade", related_name="answers")
     text = models.CharField(max_length=200)
-    start_position = models.IntegerField()
-    end_position = models.IntegerField()
+    index = models.IntegerField()
     created_at = models.DateField(auto_now_add=True)

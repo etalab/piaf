@@ -68,10 +68,27 @@
 
 <div id="app"></div>
 {% if not settings.WEBPACK_ENVIRONMENT_PRODUCTION %}
-<!-- for the development mode -->DEV
+<!-- for the development mode -->
 <script src="{% static 'front/app.js' %}"></script>
 {% else %}
-<!-- for the production mode -->PROD
+<!-- for the production mode -->
 <script src="{% static 'front/js/app.js' %}"></script>
 <script src="{% static 'front/js/chunk-vendors.js' %}"></script>
+{% endif %}
+
+
+{% if settings.MATOMO_SITE_ID %}
+<script>
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//stats.data.gouv.fr/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '{{ settings.MATOMO_SITE_ID }}']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
 {% endif %}

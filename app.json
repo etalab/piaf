@@ -20,8 +20,8 @@
             "description": "The value to use as the Django secret key.",
             "generator": "secret"
         },
-        "GOOGLE_TRACKING_ID": {
-            "description": "Google Analytics tracking id.",
+        "MATOMO_SITE_ID": {
+            "description": "Matomo tracking id.",
             "required": false,
             "value": ""
         },

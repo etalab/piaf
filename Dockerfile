@@ -52,7 +52,7 @@ ENV DEBUG="True"
 ENV SECRET_KEY="change-me-in-production"
 ENV PORT="8000"
 ENV WORKERS="2"
-ENV GOOGLE_TRACKING_ID=""
+ENV MATOMO_SITE_ID=""
 
 USER piaf
 WORKDIR /piaf

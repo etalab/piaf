@@ -2,9 +2,12 @@ import json
 from random import randint
 
 from django.views.generic import TemplateView, View
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 from api.permissions import SuperUserMixin
 from .models import Article, ParagraphBatch, Paragraph, Question, Answer
@@ -38,12 +41,19 @@ class AdminView(TemplateView, SuperUserMixin):
         return context
 
 
-class ArticleApi(View):
+class ParagraphApi(View):
     # Provide a randomly picked pending article.
-    def dispatch(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         qs = ParagraphBatch.objects.filter(status="pending")
         batch = qs[randint(0, qs.count() - 1)]
         paragraphs = Paragraph.objects.filter(batch=batch)
         data = model_to_dict(batch.article, ("name",))
         data["paragraphs"] = [model_to_dict(p, ("text",)) for p in paragraphs]
         return HttpResponse(json.dumps(data), content_type="application/json")
+
+    @method_decorator(csrf_exempt)
+    def post(self, request, *args, **kwargs):
+        data = json.loads(request.body)
+        paragraph = Paragraph.objects.get(pk=data["paragraph"])
+        paragraph.complete(data["data"])
+        return HttpResponse(status=201)
