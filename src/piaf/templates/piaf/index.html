@@ -9,11 +9,16 @@
   integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"
     crossorigin="anonymous">
+
+<link rel="icon" href="{% static 'front/favicon.ico' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+
 <link rel="stylesheet" href="{% static 'assets/css/forum.css' %}">
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="{% static 'assets/css/annotation.css' %}">
 {% if settings.WEBPACK_ENVIRONMENT_PRODUCTION %}
 <!-- for the production mode -->
+<link rel="stylesheet" href="{% static 'front/css/app.css' %}">
 <link rel="stylesheet" href="{% static 'front/css/chunk-vendors.css' %}">
 {% endif %}
 
