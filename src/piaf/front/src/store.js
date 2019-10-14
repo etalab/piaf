@@ -97,9 +97,13 @@ export default new Vuex.Store({
       // }
     },
     async loadNewText ({ commit }) {
-      const newParagraph = await getNewParagraph()
-      if(newParagraph){
-        commit('setCurrentDocument', newParagraph)
+      const p = await getNewParagraph()
+      if(p && p.paragraphs && p.paragraphs[0] && p.paragraphs[0].text){
+        const doc = {
+          title: p.name,
+          text: p.paragraphs[0].text
+        }
+        commit('setCurrentDocument', doc)
         return true
       }else{
         console.log('problem loading the new paragraph');
