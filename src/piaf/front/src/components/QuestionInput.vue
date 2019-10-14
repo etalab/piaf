@@ -15,7 +15,7 @@
       ref="input"
       label="Question">
         <template v-slot:label>
-          Allez-y: posez ici une <strong>question</strong> en utilisant vos propres mots ! (Le réponse doit être dans le texte)
+          Allez-y: posez ici une question en utilisant vos propres mots ! (Le réponse doit être dans le texte)
         </template>
       </v-text-field>
 

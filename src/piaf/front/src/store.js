@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { getNewParagraph, sendQA } from './storeUtils.js'
 
 Vue.use(Vuex)
 
@@ -13,7 +14,7 @@ export default new Vuex.Store({
     // Current paragraph we display
     currentDocument: {
       title: 'title article',
-      text:'this is a fake docuemnt, to be replaced by an API call'
+      text:'this is a fake docuemnt, to be replaced by an API call. It means there is a problem loading the text. please contact us using this email: piaf@data.gouv.fr'
     },
     // annotations from the user on the current paragraph
     annotations: [
@@ -71,6 +72,9 @@ export default new Vuex.Store({
     setEditeMode(state,boo){
       state.editMode = boo
     },
+    setCurrentDocument(state, currentDocument){
+      state.currentDocument = currentDocument
+    }
   },
   actions: {
     switchFromThemeToAnnotationTask(context){
@@ -91,6 +95,25 @@ export default new Vuex.Store({
       // if (this.isLastQuestion) {
         // this.$emit('submitToDatabase');
       // }
+    },
+    async loadNewText ({ commit }) {
+      const newParagraph = await getNewParagraph()
+      if(newParagraph){
+        commit('setCurrentDocument', newParagraph)
+        return true
+      }else{
+        console.log('problem loading the new paragraph');
+        return false
+      }
+    },
+    async saveQAs ({ commit }, data) {
+      const res = await sendQA(data)
+      if(res){
+        return true
+      }else{
+        console.log('problem saving your Q&As');
+        return false
+      }
     },
   }
 })
