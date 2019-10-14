@@ -1,12 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div id="app"></div>
-{% if not settings.WEBPACK_ENVIRONMENT_PRODUCTION %}
+
+{% if settings.WEBPACK_ENVIRONMENT_PRODUCTION %}
 <!-- for the development mode -->DEV
 <script src="{% static 'front/app.js' %}"></script>
 {% else %}
 <!-- for the production mode -->PROD
 <script src="{% static 'front/js/app.js' %}"></script>
 <script src="{% static 'front/js/chunk-vendors.js' %}"></script>
+{% endif %}
 {% endblock %}

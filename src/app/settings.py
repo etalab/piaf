@@ -45,22 +45,6 @@ ALLOW_SIGNUP = env.bool("ALLOW_SIGNUP", True)
 # Application definition
 
 INSTALLED_APPS = [
-<<<<<<< HEAD
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'api.apps.ApiConfig',
-    'widget_tweaks',
-    'rest_framework',
-    'django_filters',
-    'social_django',
-    'polymorphic',
-    'anymail',
-    'piaf',
-=======
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -71,11 +55,9 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "rest_framework",
     "django_filters",
-    "social_django",
     "polymorphic",
     "anymail",
     "piaf",
->>>>>>> clearing old 'server' app
 ]
 
 CLOUD_BROWSER_APACHE_LIBCLOUD_PROVIDER = env("CLOUD_BROWSER_LIBCLOUD_PROVIDER", None)
@@ -137,12 +119,7 @@ STATICFILES_DIRS = [
     if path.isdir(static_path)
 ]
 
-<<<<<<< HEAD
-
 WSGI_APPLICATION = 'app.wsgi.application'
-=======
-WSGI_APPLICATION = "app.wsgi.application"
->>>>>>> clearing old 'server' app
 
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.github.GithubOAuth2",
