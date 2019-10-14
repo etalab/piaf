@@ -18,12 +18,12 @@ export default new Vuex.Store({
     },
     // annotations from the user on the current paragraph
     annotations: [
-      {question:'',answer:{} },
-      {question:'',answer:{} },
-      {question:'',answer:{} },
-      {question:'',answer:{} },
-      {question:'',answer:{} }
-    ], // [{"question": "q1", "answer": {"text": "a1", "index": 1}}]
+      {question:{}, answer:{} },
+      {question:{}, answer:{} },
+      {question:{}, answer:{} },
+      {question:{}, answer:{} },
+      {question:{}, answer:{} }
+    ], // [{"question": {"text": "question 1"}, "answer": {"text": "a1", "index": 1}}]
     currentQuestionIndex:0,
     maxAnnotationsPerDoc: 5,
     // interaction with the text for highliting answers
@@ -36,7 +36,7 @@ export default new Vuex.Store({
     // here we have the number of completed annotation (It means proper question and its proper answer)
     finishedQuestionNumber: state => {
       return state.annotations.filter(annotation =>
-        annotation.question !== '' && annotation.answer.index !== undefined).length
+        typeof annotation.question.text === 'string' && annotation.answer.index !== undefined).length
     },
     currentAnnotation: state => {
       return state.annotations[state.currentQuestionIndex]

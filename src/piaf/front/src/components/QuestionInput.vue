@@ -2,7 +2,7 @@
   <section>
     <div class="columns is-gapless is-mobile is-vertical-center">
       <v-text-field
-      v-bind:value="currentAnnotation.question"
+      v-bind:value="currentAnnotation.question.text"
       v-if="isProtected"
       disabled
       >
@@ -69,7 +69,7 @@ export default {
       'editMode'
     ]),
     isProtected(){
-      return this.currentAnnotation.question !== '' && this.editMode === false
+      return typeof this.currentAnnotation.question.text === 'string' && this.editMode === false
     },
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
@@ -91,7 +91,7 @@ export default {
       }
 
       const annotation = JSONsCopy[this.currentQuestionIndex]
-      annotation.question = value
+      annotation.question.text = value
 
       JSONsCopy[this.currentQuestionIndex] = annotation;
       this.$store.commit('setAnnotations', JSONsCopy)

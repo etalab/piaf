@@ -54,7 +54,7 @@
 
       <v-flex xs12 my-10>
         <Answer
-          v-if="currentAnnotation && currentAnnotation.question !== ''"
+          v-if="currentAnnotation && currentAnnotation.question.text !== ''"
           class="maxWid700 mx-auto"
         />
       </v-flex>
