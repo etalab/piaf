@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --dest '../static/front'",
     "lint": "vue-cli-service lint",
-    "watch": "npm run build --watch"
+    "watch": "vue-cli-service build --dest '../static/front' --watch"
   },
   "dependencies": {
     "axios": "^0.19.0",
