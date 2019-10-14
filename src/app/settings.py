@@ -87,18 +87,18 @@ ROOT_URLCONF = "app.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_PATH / 'server' / 'templates', BASE_PATH / 'authentification' / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
-                'piaf.context_processors.settings',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            str(BASE_PATH / "app" / "templates"),
+            str(BASE_PATH / "authentification" / "templates"),
+        ],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
             "libraries": {
                 "analytics": "server.templatetags.analytics",
@@ -210,8 +210,8 @@ TEST_RUNNER = "xmlrunner.extra.djangotestrunner.XMLTestRunner"
 TEST_OUTPUT_DIR = str(BASE_PATH / "junitxml")
 
 LOGIN_URL = "/login/"
-LOGIN_REDIRECT_URL = "/projects/1/"
-LOGOUT_REDIRECT_URL = "/projects/1/"
+LOGIN_REDIRECT_URL = "/app/"
+LOGOUT_REDIRECT_URL = "/"
 
 django_heroku.settings(locals(), test_runner=False)
 
