@@ -48,7 +48,9 @@ export default {
 
     sortedEntityPositions() {
       /* eslint-disable vue/no-side-effects-in-computed-properties */
-      return this.entityPositionsOrempty.sort((a, b) => a.index - b.index);
+      let answers = this.entityPositionsOrempty.map(anno => {anno.isCurrentAnswer = 0; return anno})
+      answers[this.currentQuestionIndex].isCurrentAnswer = 1
+      return answers.sort((a, b) => a.index - b.index);
       /* eslint-enable vue/no-side-effects-in-computed-properties */
     },
 
@@ -58,15 +60,17 @@ export default {
       let e;
       for (let i = 0; i < this.sortedEntityPositions.length; i++) {
         e = this.sortedEntityPositions[i];
-        e.label = 1;
-        e.startOffset = e.index
-        e.endOffset = e.startOffset + e.text.length
+        if (e.text) {
+          e.label = (e.isCurrentAnswer === 1) ? 1 : 2;
+          e.startOffset = e.index
+          e.endOffset = e.startOffset + e.text.length
 
-        const l = this.makeEmptyChunk(left, e.startOffset);
+          const l = this.makeEmptyChunk(left, e.startOffset);
 
-        res.push(l);
-        res.push(e);
-        left = e.endOffset;
+          res.push(l);
+          res.push(e);
+          left = e.endOffset;
+        }
       }
       const l = this.makeEmptyChunk(left, this.currentDocument.text.length);
       res.push(l);
@@ -78,7 +82,7 @@ export default {
 
   methods: {
     getChunkClass(chunk) {
-      if (chunk.label === 0) {
+      if (chunk.label === 0 || chunk.label === 2) {
         return {};
       }
       return [
@@ -89,7 +93,17 @@ export default {
     getChunkStyle(chunk) {
       if (chunk.label === 0) {
         return {};
+      }else if (chunk.label === 2) {
+        return {
+          backgroundColor: '#94afff',
+          borderRadius: '4px',
+          paddingRight: '0px',
+          paddingLeft: '0px',
+          marginRight: '-4px',
+          marginLeft: '-4px',
+        };
       }
+
       return {
         color: '#ffffff',
         backgroundColor: '#4169e1',

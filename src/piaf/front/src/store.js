@@ -43,8 +43,7 @@ export default new Vuex.Store({
     },
     answersForTextInteraction: state => {
       return state.annotations
-      .map(annotation => annotation.answer)
-      .filter(answer => typeof answer.text === 'string')
+      .map(annotation => (annotation.answer && typeof annotation.answer.text === 'string') ? annotation.answer : {})
     },
   },
   mutations: {
@@ -74,6 +73,9 @@ export default new Vuex.Store({
     },
     setCurrentDocument(state, currentDocument){
       state.currentDocument = currentDocument
+    },
+    setCurrentQuestionIndex(state, num){
+      state.currentQuestionIndex = num
     }
   },
   actions: {
