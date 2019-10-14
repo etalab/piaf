@@ -1,11 +1,8 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
-from django.contrib.auth.views import PasswordResetView, LogoutView
+from django.contrib.auth.views import PasswordResetView, LogoutView, LoginView
 from django.views.generic import RedirectView
-
-from server.views import LoginView
-
 
 urlpatterns = [
     path('', include('authentification.urls')),
