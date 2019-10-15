@@ -41,6 +41,7 @@ class AdminView(TemplateView, SuperUserMixin):
         return context
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ParagraphApi(View):
     # Provide a randomly picked pending article.
     def get(self, request, *args, **kwargs):
@@ -51,7 +52,6 @@ class ParagraphApi(View):
         data["paragraphs"] = [model_to_dict(p, ("text",)) for p in paragraphs]
         return HttpResponse(json.dumps(data), content_type="application/json")
 
-    @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         paragraph = Paragraph.objects.get(pk=data["paragraph"])
