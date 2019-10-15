@@ -39,6 +39,7 @@ class Paragraph(models.Model):
     status = models.CharField(
         max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
     )
+    user = models.ForeignKey(User, on_delete="null", null=True)
 
     def complete(self, questions_answers, user=None):
         if self.status == STATUS_COMPLETED:
@@ -58,6 +59,7 @@ class Paragraph(models.Model):
                 user=user,
             )
         self.status = STATUS_COMPLETED
+        self.user = user
         self.save()
 
 

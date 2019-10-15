@@ -54,11 +54,10 @@ class ParagraphApi(View):
           "theme": article.theme,
           "text": paragraph.text,
         }
-
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         paragraph = Paragraph.objects.get(pk=data["paragraph"])
-        paragraph.complete(data["data"])
+        paragraph.complete(data["data"], request.user)
         return HttpResponse(status=201)
