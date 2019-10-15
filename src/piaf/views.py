@@ -47,9 +47,14 @@ class ParagraphApi(View):
     def get(self, request, *args, **kwargs):
         qs = ParagraphBatch.objects.filter(status="pending")
         batch = qs[randint(0, qs.count() - 1)]
-        paragraphs = Paragraph.objects.filter(batch=batch)
-        data = model_to_dict(batch.article, ("name",))
-        data["paragraphs"] = [model_to_dict(p, ("text",)) for p in paragraphs]
+        article = batch.article
+        paragraph = Paragraph.objects.filter(batch=batch, status="pending").first()
+        data = {
+          "id": paragraph.id,
+          "theme": article.theme,
+          "text": paragraph.text,
+        }
+
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     def post(self, request, *args, **kwargs):

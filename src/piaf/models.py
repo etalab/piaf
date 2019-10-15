@@ -1,14 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 STATUS_PENDING = "pending"
 STATUS_PROGRESS = "progress"
 STATUS_COMPLETED = "completed"
 STATUSES = [STATUS_PENDING, STATUS_PROGRESS, STATUS_COMPLETED]
 
+THEMES = ["Religion", "Géographie", "Histoire", "Sport", "Art", "Société", "Sciences"]
+THEME_SLUGS = [slugify(t) for t in THEMES]
+THEME_CHOICES = zip(THEME_SLUGS, THEMES)
+
 
 class Article(models.Model):
     name = models.CharField(max_length=100)
+    theme = models.CharField(max_length=20, choices=THEME_CHOICES)
+    reference = models.CharField(max_length=10)
 
 
 class ParagraphBatch(models.Model):
