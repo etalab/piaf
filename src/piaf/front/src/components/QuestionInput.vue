@@ -21,11 +21,12 @@
 
       <v-btn
       small
-      color="primary"
+      color="error"
       dark
       v-if="isProtected"
       v-on:click="onClick"
-      >Modifier
+      >
+        <v-icon dark>mdi-close</v-icon>
       </v-btn>
 
       <v-btn

@@ -34,9 +34,9 @@ export default new Vuex.Store({
   },
   getters: {
     // here we have the number of completed annotation (It means proper question and its proper answer)
-    finishedQuestionNumber: state => {
+    numOfFinishedQA: state => {
       return state.annotations.filter(annotation =>
-        typeof annotation.question.text === 'string' && annotation.answer.index !== undefined).length
+        typeof annotation.question.text === 'string' && typeof annotation.answer.text === 'string').length
     },
     currentAnnotation: state => {
       return state.annotations[state.currentQuestionIndex]
@@ -122,6 +122,16 @@ export default new Vuex.Store({
       }else{
         console.log('problem saving your Q&As');
         return false
+      }
+    },
+    goToNextIndex({commit, state, getters}){
+      let i = state.currentQuestionIndex
+      let f = getters.numOfFinishedQA
+      console.log('i',i,'f',f);
+      if( (i + 1) <= f){
+        commit('setCurrentQuestionIndex', i + 1)
+      }else{
+        console.log('we cannot increase the current question index');
       }
     },
   }
