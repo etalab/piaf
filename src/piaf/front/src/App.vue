@@ -6,10 +6,7 @@
 
   <!--  Is always placed at the top of an application with a lower priority than v-system-bar -->
   <v-app-bar app>
-    <v-toolbar-title class="headline text-uppercase">
-      <span>Vuetify</span>
-      <span class="font-weight-light">& MATERIAL DESIGN</span>
-    </v-toolbar-title>
+    <Navbar />
   </v-app-bar>
 
   <!-- Sizes your content based upon application components -->
@@ -26,6 +23,7 @@
 <script>
 import Theme from './components/Theme';
 import AnnotationTask from './components/AnnotationTask';
+import Navbar from './components/Navbar';
 import { mapState } from 'vuex'
 
 export default {
@@ -33,6 +31,7 @@ export default {
   components: {
     Theme,
     AnnotationTask,
+    Navbar,
   },
   computed: mapState([
     // attacher `this.currentTheme` à `store.state.currentTheme`
