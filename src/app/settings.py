@@ -45,22 +45,21 @@ ALLOW_SIGNUP = env.bool("ALLOW_SIGNUP", True)
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "server.apps.ServerConfig",
-    "api.apps.ApiConfig",
-    "widget_tweaks",
-    "rest_framework",
-    "django_filters",
-    "social_django",
-    "polymorphic",
-    "webpack_loader",
-    "anymail",
-    "piaf",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'server.apps.ServerConfig',
+    'api.apps.ApiConfig',
+    'widget_tweaks',
+    'rest_framework',
+    'django_filters',
+    'social_django',
+    'polymorphic',
+    'anymail',
+    'piaf',
 ]
 
 CLOUD_BROWSER_APACHE_LIBCLOUD_PROVIDER = env("CLOUD_BROWSER_LIBCLOUD_PROVIDER", None)
@@ -125,18 +124,7 @@ STATICFILES_DIRS = [
 ]
 
 
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "bundle/",
-        "STATS_FILE": str(BASE_PATH / "server" / "static" / "webpack-stats.json"),
-        "POLL_INTERVAL": 0.1,
-        "TIMEOUT": None,
-        "IGNORE": [r".*\.hot-update.js", r".+\.map"],
-    }
-}
-
-WSGI_APPLICATION = "app.wsgi.application"
+WSGI_APPLICATION = 'app.wsgi.application'
 
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.github.GithubOAuth2",
@@ -265,6 +253,7 @@ MAILJET_SECRET_KEY = env("MAILJET_SECRET_KEY", None)
 USE_MAILJET = env.bool("USE_MAILJET", False)
 DEFAULT_FROM_EMAIL = "piaf@data.gouv.fr"
 
+WEBPACK_ENVIRONMENT_PRODUCTION = env.bool('WEBPACK_ENVIRONMENT_PRODUCTION', True)
 MATOMO_SITE_ID = env("MATOMO_SITE_ID", "")
 
 # information here: https://anymail.readthedocs.io/en/stable/esps/mailjet/

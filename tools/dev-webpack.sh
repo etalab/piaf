@@ -3,7 +3,7 @@
 set -o errexit
 
 root="$(dirname "$0")/.."
-frontend="${root}/src/server/static"
+frontend="${root}/src/piaf/front/"
 
 (
   cd "${frontend}"
@@ -13,12 +13,12 @@ frontend="${root}/src/server/static"
     npm install
   fi
 
-  echo "Starting webpack"
+  echo "Starting npm run...  with WEBPACK_ENVIRONMENT_PRODUCTION = ${WEBPACK_ENVIRONMENT_PRODUCTION}"
   if [[ -n "${WEBPACK_ENVIRONMENT_PRODUCTION}" ]] && [[ "${WEBPACK_ENVIRONMENT_PRODUCTION}" = "True" ]]; then
     npm run build
-    echo "webpack build => bundle finished"
+    echo "--> build => bundle finished"
   else
-    echo "webpack starting in dev-mode with hot-reload"
-    npm start
+    echo "--> watch | dev-mode with hot-reload"
+    npm run watch
   fi
 )
