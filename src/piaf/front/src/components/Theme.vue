@@ -13,7 +13,7 @@
 
       <v-layout row justify-center>
         <v-flex xs6 sm4 md3
-          v-for="(theme, i) in themes"
+          v-for="(theme) in themes"
           v-on:click="setCurrentTheme(theme.name)"
         >
           <div class="my-2">

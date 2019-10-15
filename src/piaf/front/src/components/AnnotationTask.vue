@@ -38,18 +38,38 @@
       </v-flex>
 
       <v-flex xs12 my-0 justify-center>
-        <v-progress-linear
-          v-bind:value="stepPercentage"
-          color="#130c47"
-          background-color=""
-          height="25"
-          rounded
-          class="maxWid700 mx-auto"
-        >
-          <template v-slot="{ value }">
-            <span class="white--text">Question {{ Math.ceil(value / 20 ) }} / 5</span>
-          </template>
-        </v-progress-linear>
+        <v-row class="maxWid700 mx-auto">
+          <v-col
+            cols='1'
+            v-on:click="reduceIndex"
+          >
+            <v-btn class="mx-2" fab dark x-small color="primary">
+              <v-icon dark>mdi-arrow-left-drop-circle</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col cols='10' v-bind:style="{ alignSelf: 'center' }">
+            <v-progress-linear
+              v-bind:value="stepPercentage"
+              color="#1b4597"
+              height="25"
+              rounded
+              striped
+              v-bind:style="{ borderRadius: 30 + 'px' }"
+            >
+              <template v-slot="{ value }">
+                <span class="white--text">Question {{ Math.ceil(value / 20 ) + 1 }} / 5</span>
+              </template>
+            </v-progress-linear>
+          </v-col>
+          <v-col
+            cols='1'
+            v-on:click="nextqa"
+          >
+            <v-btn class="mx-2" fab dark x-small color="primary">
+              <v-icon dark>mdi-arrow-right-drop-circle</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-flex>
 
       <v-flex xs12 my-0>
@@ -79,116 +99,6 @@
       v-on:click="nextqa"
       >next QA
       </v-btn>
-
-
-      <!-- <v-flex xs12 my-10>
-        <v-row>
-          <v-text-field>
-            <template v-slot:label>
-              Allez-y: posez une <strong>question</strong> en utilisant vos propres mots !
-            </template>
-          </v-text-field>
-          <v-btn
-            color="primary"
-            @click="e1 = 3"
-          >
-            Continuer
-          </v-btn>
-        </v-row>
-      </v-flex> -->
-      <!-- <v-flex xs12 my-10>
-        <v-stepper v-model="e1">
-          <v-stepper-items>
-            <v-stepper-content step="1">
-              <v-container>
-                <v-text-field>
-                  <template v-slot:label>
-                    Allez-y: posez ici une <strong>question</strong> en utilisant vos propres mots ! (Le réponse doit être dans le texte)
-                  </template>
-                </v-text-field>
-              </v-container>
-              <v-btn
-                color="primary"
-                @click="e1 = 2"
-              >
-                Continuer
-              </v-btn>
-              <v-btn
-                color="primary"
-                @click="e1 = 2"
-              >
-                Surliner la réponse et valider en cliquant ici
-              </v-btn>
-            </v-stepper-content>
-
-            <v-stepper-content step="2">
-              <v-container>
-                <v-text-field>
-                  <template v-slot:label>
-                    Allez-y: posez une <strong>question</strong> en utilisant vos propres mots !
-                  </template>
-                </v-text-field>
-              </v-container>
-              <v-btn
-                color="primary"
-                @click="e1 = 3"
-              >
-                Continuer
-              </v-btn>
-            </v-stepper-content>
-
-            <v-stepper-content step="3">
-              <v-container>
-                <v-text-field>
-                  <template v-slot:label>
-                    Allez-y: posez une <strong>question</strong> en utilisant vos propres mots !
-                  </template>
-                </v-text-field>
-              </v-container>
-              <v-btn
-                color="primary"
-                @click="e1 = 4"
-              >
-                Continuer
-              </v-btn>
-            </v-stepper-content>
-
-            <v-stepper-content step="4">
-              <v-container>
-                <v-text-field>
-                  <template v-slot:label>
-                    Allez-y: posez une <strong>question</strong> en utilisant vos propres mots !
-                  </template>
-                </v-text-field>
-              </v-container>
-              <v-btn
-                color="primary"
-                @click="e1 = 5"
-              >
-                Continuer
-              </v-btn>
-            </v-stepper-content>
-
-            <v-stepper-content step="5">
-              <v-container>
-                <v-text-field>
-                  <template v-slot:label>
-                    Allez-y: posez une <strong>question</strong> en utilisant vos propres mots !
-                  </template>
-                </v-text-field>
-              </v-container>
-              <v-btn
-                color="primary"
-                @click="e1 = 1"
-              >
-                Revenir au premier
-              </v-btn>
-
-              <v-btn text>Cancel</v-btn>
-            </v-stepper-content>
-          </v-stepper-items>
-        </v-stepper>
-      </v-flex> -->
 
     </v-layout>
   </v-container>
@@ -224,7 +134,12 @@ export default {
       return this.$store.dispatch('saveQAs')
     },
     nextqa(){
-      return this.$store.commit('setCurrentQuestionIndex',this.currentQuestionIndex+1)
+      return this.$store.dispatch('goToNextIndex')
+    },
+    reduceIndex(){
+      if (this.currentQuestionIndex > 0) {
+        return this.$store.commit('setCurrentQuestionIndex', this.currentQuestionIndex - 1)
+      }
     },
 
   },
