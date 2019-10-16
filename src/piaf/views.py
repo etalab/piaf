@@ -1,16 +1,10 @@
 import json
 from random import randint
 
-from django.views.generic import TemplateView, View
-from django.contrib.auth.models import User
-from django.http import HttpResponse
-from django.forms.models import model_to_dict
-from django.core import serializers
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
 
 from api.permissions import SuperUserMixin
-from .models import Article, ParagraphBatch, Paragraph, Question, Answer
+from .models import Article, ParagraphBatch, Paragraph
 
 
 class IndexView(TemplateView):
@@ -44,24 +38,3 @@ class AdminView(TemplateView, SuperUserMixin):
         context = super().get_context_data(**kwargs)
         context["count_inserted_articles"] = self.count_inserted_articles
         return context
-
-
-@method_decorator(csrf_exempt, name="dispatch")
-class ParagraphApi(View):
-    # Provide a randomly picked pending article.
-    def get(self, request, *args, **kwargs):
-        theme = request.GET.get("theme")
-        qs = ParagraphBatch.objects.filter(status="pending")
-        if theme:
-            qs = qs.filter(paragraphs__article__theme=theme)
-        batch = qs[randint(0, qs.count() - 1)]
-        article = batch.article
-        paragraph = batch.paragraphs.filter(status="pending").first()
-        data = {"id": paragraph.id, "theme": article.theme, "text": paragraph.text}
-        return HttpResponse(json.dumps(data), content_type="application/json")
-
-    def post(self, request, *args, **kwargs):
-        data = json.loads(request.body)
-        paragraph = Paragraph.objects.get(pk=data["paragraph"])
-        paragraph.complete(data["data"], request.user)
-        return HttpResponse(status=201)

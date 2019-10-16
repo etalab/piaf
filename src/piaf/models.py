@@ -15,11 +15,16 @@ AUDIENCES = ["restricted", "all"]
 AUDIENCE_CHOICES = zip(AUDIENCES, AUDIENCES)
 
 
+# Monkeypatch User to add a `is_certified` property without resetting the whole
+# Django database subclassing auth.User
+User.is_certified = property(fget=lambda u: u.email.endswith(".gouv.fr"))
+
+
 class Article(models.Model):
     name = models.CharField(max_length=100)
     theme = models.CharField(max_length=20, choices=THEME_CHOICES)
     reference = models.CharField(max_length=10)
-    audience = models.CharField(max_length=10, choices=AUDIENCE_CHOICES)
+    audience = models.CharField(max_length=10, choices=AUDIENCE_CHOICES, default="all")
 
     @property
     def batches(self):

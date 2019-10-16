@@ -8,10 +8,10 @@ client = Client()
 
 class ApiTest(TestCase):
     def setUp(self):
-        user = User.objects.create(username="user")
-        user.set_password("password")
-        user.save()
-        self.user = client.login(username="user", password="password")
+        self.user = User.objects.create(username="user")
+        self.user.set_password("password")
+        self.user.save()
+        client.login(username="user", password="password")
         self.article = self.create_article(
             name="My First Article", theme="Géographie", text="this is text 1"
         )
@@ -23,8 +23,13 @@ class ApiTest(TestCase):
             )
         self.paragraphs = self.article.paragraphs
 
-    def create_article(self, name, theme, text):
-        article = Article.objects.create(name=name, theme=theme)
+    def test_me_values(self):
+        response = client.get("/app/me")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["is_certified"], False)
+
+    def create_article(self, name, theme, text, audience="all"):
+        article = Article.objects.create(name=name, theme=theme, audience=audience)
         batch = ParagraphBatch.objects.create()
         Paragraph.objects.create(text=text, article=article, batch=batch)
         return article
@@ -33,7 +38,13 @@ class ApiTest(TestCase):
         response = client.get("/app/api/paragraph")
         self.assertEqual(response.status_code, 200)
         self.assertDictEqual(
-            response.json(), {"id": 1, "theme": "Géographie", "text": "this is text 1"}
+            response.json(),
+            {
+                "id": 1,
+                "theme": "Géographie",
+                "text": "this is text 1",
+                "title": "My First Article",
+            },
         )
 
     def test_post_paragraph(self):
@@ -85,3 +96,13 @@ class ApiTest(TestCase):
         )
         response = client.get("/app/api/paragraph")
         self.assertEqual(response.json()["text"], "this is text 4")
+
+    def test_get_paragraph_limits_restricted_articles_to_certified_users(self):
+        Article.objects.filter(pk=self.article.pk).update(audience="restricted")
+        response = client.get("/app/api/paragraph")
+        self.assertEqual(response.json(), {})
+        User.objects.filter(pk=self.user.pk).update(email="example@e.gouv.fr")
+        client.logout()
+        client.login(username="user", password="password")
+        response = client.get("/app/api/paragraph")
+        self.assertEqual(response.json()["text"], "this is text 1")
