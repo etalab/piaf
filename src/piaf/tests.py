@@ -33,7 +33,13 @@ class ApiTest(TestCase):
         response = client.get("/app/api/paragraph")
         self.assertEqual(response.status_code, 200)
         self.assertDictEqual(
-            response.json(), {"id": 1, "theme": "Géographie", "text": "this is text 1"}
+            response.json(),
+            {
+                "id": 1,
+                "theme": "Géographie",
+                "text": "this is text 1",
+                "title": "My First Article",
+            },
         )
 
     def test_post_paragraph(self):

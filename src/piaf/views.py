@@ -57,7 +57,12 @@ class ParagraphApi(View):
         batch = qs[randint(0, qs.count() - 1)]
         article = batch.article
         paragraph = batch.paragraphs.filter(status="pending").first()
-        data = {"id": paragraph.id, "theme": article.theme, "text": paragraph.text}
+        data = {
+            "id": paragraph.id,
+            "theme": article.theme,
+            "text": paragraph.text,
+            "title": article.name,
+        }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     def post(self, request, *args, **kwargs):
