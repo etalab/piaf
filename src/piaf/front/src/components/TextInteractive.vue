@@ -1,31 +1,16 @@
 <template>
-  <div>
-
-    <v-tooltip left>
-      <template v-slot:activator="{ on }">
-        <i>
-          {{ currentDocument.title }}
-          <v-icon v-on="on" fab small dark class="grey--text" >mdi-information-outline</v-icon>
-        </i>
-      </template>
-      <span>Le texte que vous allez lire est extrait d'un article Wikipédia dont le titre est à gauche en italique</span>
-    </v-tooltip>
-
-    <br>
+  <div class="alignLeft">
     <span
       oncopy="return false"
       oncut="return false"
       v-for="r in chunks"
-      v-bind:class="getChunkClass(r)"
       v-bind:style="getChunkStyle(r)"
       v-touch:tap="setSelectedRange"
       v-touch:start="setSelectedRange"
       v-touch:end="setSelectedRange"
       v-touch:moving="setSelectedRange"
-    >
-     {{ textPart(r) }}
-     <button v-if="r.label==1" v-on:click="removeAnswer()">
-       <v-icon fab small dark>mdi-close</v-icon>
+    >{{ textPart(r) }}<button v-if="r.label==1" v-on:click="removeAnswer()" class="removeBtn">
+       <v-icon fab small dark size=12 >mdi-close</v-icon>
      </button>
     </span>
   </div>
@@ -97,15 +82,6 @@ export default {
   },
 
   methods: {
-    getChunkClass(chunk) {
-      if (chunk.label === 0 || chunk.label === 2) {
-        return {};
-      }
-      return [
-        { tag: '#ffffff' },
-      ];
-    },
-
     getChunkStyle(chunk) {
       if (chunk.label === 0) {
         return {};
@@ -123,8 +99,8 @@ export default {
       return {
         color: '#ffffff',
         backgroundColor: '#4169e1',
-        paddingRight: '1px',
-        paddingLeft: '1px',
+        paddingRight: '0px',
+        paddingLeft: '0px',
         borderRadius: '4px',
         marginRight: '-2px',
         marginLeft: '-2px',
@@ -133,7 +109,6 @@ export default {
 
 
     setSelectedRange() {
-      console.log('setSelectedRange');
       let start;
       let end;
       let text;
@@ -184,3 +159,18 @@ export default {
 
 };
 </script>
+<style scoped>
+.alignLeft{
+  text-align: left;
+}
+.removeBtn{
+  margin-left: -10px;
+  position: absolute;
+  margin-top: -6px;
+  background-color: #4169e1;
+  border-radius: 15px;
+}
+.removeBtn i{
+  font-size: 12px;
+}
+</style>

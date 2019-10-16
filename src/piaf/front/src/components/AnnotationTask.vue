@@ -13,6 +13,16 @@
               class="mx-auto"
             >
               <v-card-text>
+                <v-tooltip left>
+                  <template v-slot:activator="{ on }">
+                    <i>
+                      {{ currentDocument.title }}
+                      <v-icon v-on="on" fab small dark class="grey--text" >mdi-information-outline</v-icon>
+                    </i>
+                  </template>
+                  <span>Le texte que vous allez lire est extrait d'un article Wikipédia dont le titre est à gauche en italique</span>
+                </v-tooltip>
+                <br>
                 <TextInteractive
                   v-bind:text="currentDocument.text"
                   v-bind:currentQuestionIndex="currentQuestionIndex"
@@ -50,7 +60,7 @@
 
                 Surligner une réponse dans le texte :
                 <v-icon v-on="on" fab small dark class="grey--text" >mdi-information-outline</v-icon>
-              
+
             </template>
             <span>Après avoir posé une question sur ce texte, vous pouvez indiquer à l'IA où se trouve la réponse. Pour ça, surligner la réponse dans le texte puis validez.</span>
           </v-tooltip>
