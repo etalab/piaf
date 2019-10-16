@@ -1,5 +1,17 @@
 <template>
   <div>
+
+    <v-tooltip left>
+      <template v-slot:activator="{ on }">
+        <i>
+          {{ currentDocument.title }}
+          <v-icon v-on="on" fab small dark class="grey--text" >mdi-information-outline</v-icon>
+        </i>
+      </template>
+      <span>Le texte que vous allez lire est extrait d'un article Wikipédia dont le titre est à gauche en italique</span>
+    </v-tooltip>
+
+    <br>
     <span
       oncopy="return false"
       oncut="return false"
