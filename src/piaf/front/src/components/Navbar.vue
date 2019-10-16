@@ -26,7 +26,18 @@
 
       </v-col>
       <v-col cols='11' class="pr-0 alignSelf">
-        instruction
+        <v-progress-linear
+          v-bind:value="stepPercentage"
+          color="#1b4597"
+          height="25"
+          rounded
+          striped
+          v-bind:style="{ borderRadius: 30 + 'px' }"
+        >
+          <template v-slot="{ value }">
+            <span class="white--text">Question {{ Math.ceil(value / 20 ) }} / 5</span>
+          </template>
+        </v-progress-linear>
       </v-col>
     </v-row>
   </v-flex>
@@ -41,6 +52,9 @@ export default {
     ...mapState([
       'currentQuestionIndex'
     ]),
+    stepPercentage(){
+      return this.$store.getters.currentProgress * 20
+    },
   },
   data () {
     return {

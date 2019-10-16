@@ -41,6 +41,12 @@ export default new Vuex.Store({
     currentAnnotation: state => {
       return state.annotations[state.currentQuestionIndex]
     },
+    currentProgress: (state, getters) => {
+      let index = state.currentQuestionIndex
+      let hasAnswer = getters.hasAnswer
+      let hasQuestion = getters.hasQuestion
+      return index + 1 / 3 + hasAnswer / 3 + hasQuestion / 3
+    },
     hasQuestion: (state, getters) => {
       return (typeof getters.currentAnnotation.question.text === 'string') ? true : false
     },
