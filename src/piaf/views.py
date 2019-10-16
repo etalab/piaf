@@ -41,19 +41,18 @@ class AdminView(TemplateView, SuperUserMixin):
         return context
 
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt, name="dispatch")
 class ParagraphApi(View):
     # Provide a randomly picked pending article.
     def get(self, request, *args, **kwargs):
         qs = ParagraphBatch.objects.filter(status="pending")
+        theme = request.GET.get("theme")
+        if theme:
+            qs = qs.filter(paragraphs__article__theme=theme)
         batch = qs[randint(0, qs.count() - 1)]
         article = batch.article
-        paragraph = Paragraph.objects.filter(batch=batch, status="pending").first()
-        data = {
-          "id": paragraph.id,
-          "theme": article.theme,
-          "text": paragraph.text,
-        }
+        paragraph = batch.paragraphs.filter(status="pending").first()
+        data = {"id": paragraph.id, "theme": article.theme, "text": paragraph.text}
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     def post(self, request, *args, **kwargs):

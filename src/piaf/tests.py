@@ -1,4 +1,5 @@
 from django.test import Client, TestCase
+from m
 
 from django.contrib.auth.models import User
 from .models import Article, Paragraph, ParagraphBatch
@@ -12,7 +13,9 @@ class ApiTest(TestCase):
         user.set_password("password")
         user.save()
         self.user = client.login(username="user", password="password")
-        self.article = Article.objects.create(name="My First Article", theme="Géographie")
+        self.article = Article.objects.create(
+            name="My First Article", theme="Géographie"
+        )
         self.batch = ParagraphBatch.objects.create()
         self.paragraphs = []
         for i in range(0, 5):
@@ -20,6 +23,12 @@ class ApiTest(TestCase):
                 text=f"this is text {i + 1}", article=self.article, batch=self.batch
             )
             self.paragraphs.append(paragraph)
+
+    def create_article(self, name, theme, text):
+        article = Article.objects.create(name=name, theme=theme)
+        batch = ParagraphBatch.objects.create()
+        Paragraph.objects.create(text=text, article=article, batch=batch)
+        return article
 
     def test_get_paragraph(self):
         response = client.get("/app/api/paragraph")
@@ -53,3 +62,18 @@ class ApiTest(TestCase):
         self.assertEqual(paragraph.status, "completed")
         self.assertEqual(paragraph.user.username, "user")
         self.assertEqual(sample_answer.user.username, "user")
+
+    def test_get_paragraph_theme(self):
+        for i in range(0, 100):
+            self.create_article(
+                name=f"article {i}", theme="notmychoice", text=f"text {i}"
+            )
+        self.create_article(
+            name=f"article I like", theme="mychoice", text=f"text I like"
+        )
+        self.create_article(
+            name=f"other article I like", theme="mychoice", text=f"text I like"
+        )
+
+        response = client.get("/app/api/paragraph?theme=mychoice")
+        self.assertEqual(response.json().get("theme"), "mychoice")
