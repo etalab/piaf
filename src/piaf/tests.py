@@ -12,21 +12,36 @@ class ApiTest(TestCase):
         user.set_password("password")
         user.save()
         self.user = client.login(username="user", password="password")
-        self.article = Article.objects.create(name="My First Article")
-        self.batch = ParagraphBatch.objects.create()
-        self.paragraphs = []
-        for i in range(0, 5):
-            paragraph = Paragraph.objects.create(
-                text=f"this is text {i + 1}", article=self.article, batch=self.batch
+        self.article = self.create_article(
+            name="My First Article", theme="Géographie", text="this is text 1"
+        )
+        for i in range(2, 5):
+            Paragraph.objects.create(
+                text=f"this is text {i}",
+                article=self.article,
+                batch=self.article.batches[0],
             )
-            self.paragraphs.append(paragraph)
+        self.paragraphs = self.article.paragraphs
 
-    def test_post_annotation(self):
+    def create_article(self, name, theme, text):
+        article = Article.objects.create(name=name, theme=theme)
+        batch = ParagraphBatch.objects.create()
+        Paragraph.objects.create(text=text, article=article, batch=batch)
+        return article
+
+    def test_get_paragraph(self):
+        response = client.get("/app/api/paragraph")
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(
+            response.json(), {"id": 1, "theme": "Géographie", "text": "this is text 1"}
+        )
+
+    def test_post_paragraph(self):
         client.post(
             "/app/api/paragraph",
             content_type="application/json",
             data={
-                "paragraph": self.paragraphs[0].pk,
+                "paragraph": self.paragraphs.first().pk,
                 "data": [
                     {"question": {"text": "q1"}, "answer": {"text": "a1", "index": 11}},
                     {"question": {"text": "q2"}, "answer": {"text": "a2", "index": 12}},
@@ -38,6 +53,35 @@ class ApiTest(TestCase):
         )
 
         paragraph = Article.objects.first().paragraphs.first()
+        sample_question = paragraph.questions.all()[2]
+        sample_answer = sample_question.answers.first()
         self.assertEqual(paragraph.questions.count(), 5)
-        self.assertEqual(paragraph.questions.last().answers.first().text, "a5")
+        self.assertEqual(sample_question.text, "q3")
+        self.assertEqual(sample_answer.text, "a3")
         self.assertEqual(paragraph.status, "completed")
+        self.assertEqual(paragraph.user.username, "user")
+        self.assertEqual(sample_answer.user.username, "user")
+
+    def test_get_paragraph_theme(self):
+        for i in range(0, 100):
+            self.create_article(
+                name=f"article {i}", theme="notmychoice", text=f"text {i}"
+            )
+        self.create_article(
+            name=f"article I like", theme="mychoice", text=f"text I like"
+        )
+        self.create_article(
+            name=f"other article I like", theme="mychoice", text=f"text I like"
+        )
+
+        response = client.get("/app/api/paragraph?theme=mychoice")
+        self.assertEqual(response.json().get("theme"), "mychoice")
+
+    def test_get_paragraph_pending_only(self):
+        response = client.get("/app/api/paragraph")
+        self.assertEqual(response.json()["text"], "this is text 1")
+        Paragraph.objects.filter(pk__lte=int(response.json()["id"]) + 2).update(
+            status="complete"
+        )
+        response = client.get("/app/api/paragraph")
+        self.assertEqual(response.json()["text"], "this is text 4")

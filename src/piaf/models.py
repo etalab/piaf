@@ -1,14 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 STATUS_PENDING = "pending"
 STATUS_PROGRESS = "progress"
 STATUS_COMPLETED = "completed"
 STATUSES = [STATUS_PENDING, STATUS_PROGRESS, STATUS_COMPLETED]
 
+THEMES = ["Religion", "Géographie", "Histoire", "Sport", "Art", "Société", "Sciences"]
+THEME_SLUGS = [slugify(t) for t in THEMES]
+THEME_CHOICES = zip(THEME_SLUGS, THEMES)
+
+AUDIENCES = ["restricted", "all"]
+AUDIENCE_CHOICES = zip(AUDIENCES, AUDIENCES)
+
 
 class Article(models.Model):
     name = models.CharField(max_length=100)
+    theme = models.CharField(max_length=20, choices=THEME_CHOICES)
+    reference = models.CharField(max_length=10)
+    audience = models.CharField(max_length=10, choices=AUDIENCE_CHOICES)
+
+    @property
+    def batches(self):
+        return ParagraphBatch.objects.filter(paragraphs__article=self)
 
 
 class ParagraphBatch(models.Model):
@@ -32,6 +47,7 @@ class Paragraph(models.Model):
     status = models.CharField(
         max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
     )
+    user = models.ForeignKey(User, on_delete="null", null=True)
 
     def complete(self, questions_answers, user=None):
         if self.status == STATUS_COMPLETED:
@@ -51,6 +67,7 @@ class Paragraph(models.Model):
                 user=user,
             )
         self.status = STATUS_COMPLETED
+        self.user = user
         self.save()
 
 

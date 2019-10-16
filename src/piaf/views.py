@@ -25,7 +25,12 @@ class AdminView(TemplateView, SuperUserMixin):
         content = request.FILES["file"].read()
         data = json.loads(content).get("data")
         for d in data:
-            article = Article(name=d["title"])
+            article = Article(
+                name=d["displaytitle"],
+                theme=d["categorie"],
+                reference=d.get("wikipedia_page_id"),
+                audience=request.POST["audience"],
+            )
             article.save()
             for (i, p) in enumerate(d["paragraphs"]):
                 if i % 5 == 0:
@@ -41,19 +46,22 @@ class AdminView(TemplateView, SuperUserMixin):
         return context
 
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt, name="dispatch")
 class ParagraphApi(View):
     # Provide a randomly picked pending article.
     def get(self, request, *args, **kwargs):
+        theme = request.GET.get("theme")
         qs = ParagraphBatch.objects.filter(status="pending")
+        if theme:
+            qs = qs.filter(paragraphs__article__theme=theme)
         batch = qs[randint(0, qs.count() - 1)]
-        paragraphs = Paragraph.objects.filter(batch=batch)
-        data = model_to_dict(batch.article, ("name",))
-        data["paragraphs"] = [model_to_dict(p, ("text",)) for p in paragraphs]
+        article = batch.article
+        paragraph = batch.paragraphs.filter(status="pending").first()
+        data = {"id": paragraph.id, "theme": article.theme, "text": paragraph.text}
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         paragraph = Paragraph.objects.get(pk=data["paragraph"])
-        paragraph.complete(data["data"])
+        paragraph.complete(data["data"], request.user)
         return HttpResponse(status=201)
