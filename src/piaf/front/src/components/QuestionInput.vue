@@ -21,11 +21,12 @@
 
       <v-btn
       small
-      color="primary"
+      color="error"
       dark
       v-if="isProtected"
       v-on:click="onClick"
-      >Modifier
+      >
+        <v-icon dark>mdi-close</v-icon>
       </v-btn>
 
       <v-btn
@@ -46,7 +47,7 @@
   border-radius: 4em;
 }
 section{
-  margin-top:25px;
+  margin-top:0px;
 }
 .scrollable{
   overflow: scroll;
@@ -69,7 +70,7 @@ export default {
       'editMode'
     ]),
     isProtected(){
-      return typeof this.currentAnnotation.question.text === 'string' && this.editMode === false
+      return this.$store.getters.hasQuestion && this.editMode === false
     },
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
@@ -120,7 +121,7 @@ export default {
   },
   created: function() {
     // we need to wait 1sec because DOM isn't defined otherwise
-    setTimeout(x => {
+    setTimeout(() => {
       this.$nextTick(() => this.$refs.input.focus());
     }, 1000);
   },

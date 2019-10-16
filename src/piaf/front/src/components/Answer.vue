@@ -2,31 +2,15 @@
   <section class="is-transparentbackground">
     <header class="header card-content">
       <div class="columns is-gapless is-mobile is-vertical-center">
-          <p v-if="!isProtected" ref="input">
-            <i class="fa fa-info-circle mr5"></i>
-            Surligner la réponse dans le texte
-          </p>
-
           <v-btn
           small
           color="primary"
           dark
-          v-if="isLastQuestion"
-          v-on:click="onClick"
-          v-bind:class="{ 'has-background-royalblue': !isProtected}"
-          >Valider + envoyer
-          </v-btn>
-
-          <v-btn
-          small
-          color="primary"
-          dark
-          v-if="!isLastQuestion && !isProtected"
+          v-if="!isProtected"
           v-on:click="onClick"
           v-bind:class="{ 'has-background-royalblue': !isProtected}"
           >Valider
           </v-btn>
-
       </div>
     </header>
   </section>
@@ -48,8 +32,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  props: ['JSONs',],
-
   data: () => ({
     editedInput: null,
   }),
@@ -62,13 +44,10 @@ export default {
       'maxAnnotationsPerDoc'
     ]),
     isProtected(){
-      return this.currentAnnotation.answer.text && this.editedInput === null
+      return this.$store.getters.hasAnswer && this.editedInput === null
     },
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
-    },
-    isLastQuestion(){
-      return this.currentQuestionIndex >= (this.maxAnnotationsPerDoc - 1)
     }
   },
 
@@ -91,9 +70,6 @@ export default {
       // Bus.$emit('switch-editmode',false);
 
       this.editedInput = null
-      if (this.isLastQuestion) {
-        // this.$emit('submitToDatabase');
-      }
     },
 
     reInitialiseInputs(){

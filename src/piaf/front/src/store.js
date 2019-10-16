@@ -34,12 +34,24 @@ export default new Vuex.Store({
   },
   getters: {
     // here we have the number of completed annotation (It means proper question and its proper answer)
-    finishedQuestionNumber: state => {
+    numOfFinishedQA: state => {
       return state.annotations.filter(annotation =>
-        typeof annotation.question.text === 'string' && annotation.answer.index !== undefined).length
+        typeof annotation.question.text === 'string' && typeof annotation.answer.text === 'string').length
     },
     currentAnnotation: state => {
       return state.annotations[state.currentQuestionIndex]
+    },
+    currentProgress: (state, getters) => {
+      let index = state.currentQuestionIndex
+      let hasAnswer = getters.hasAnswer
+      let hasQuestion = getters.hasQuestion
+      return index + 1 / 3 + hasAnswer / 3 + hasQuestion / 3
+    },
+    hasQuestion: (state, getters) => {
+      return (typeof getters.currentAnnotation.question.text === 'string') ? true : false
+    },
+    hasAnswer: (state, getters) => {
+      return (typeof getters.currentAnnotation.answer.text === 'string') ? true : false
     },
     answersForTextInteraction: state => {
       return state.annotations
@@ -90,20 +102,15 @@ export default new Vuex.Store({
       commit('setEndOffset', null)
       commit('setStartOffset', null)
       commit('setHighlitedText', null)
-
-      // Bus.$emit('switch-editmode',false);
-
-      // this.editedInput = null
-      // if (this.isLastQuestion) {
-        // this.$emit('submitToDatabase');
-      // }
     },
-    async loadNewText ({ commit }) {
-      const p = await getNewParagraph()
-      if(p && p.paragraphs && p.paragraphs[0] && p.paragraphs[0].text){
+    async loadNewText ({ commit, state }) {
+      const p = await getNewParagraph(state.currentTheme)
+      if(p){
         const doc = {
-          title: p.name,
-          text: p.paragraphs[0].text
+          title: p.title,
+          id: p.id,
+          theme: p.theme,
+          text: p.text
         }
         commit('setCurrentDocument', doc)
         return true
@@ -114,7 +121,7 @@ export default new Vuex.Store({
     },
     async saveQAs ({ state }) {
       let qas = {}
-      qas.paragraph = 1 //currentDocument.title 
+      qas.paragraph = 1 //currentDocument.title
       qas.data = state.annotations
       const res = await sendQA(qas)
       if(res){
@@ -122,6 +129,16 @@ export default new Vuex.Store({
       }else{
         console.log('problem saving your Q&As');
         return false
+      }
+    },
+    goToNextIndex({commit, state, getters}){
+      let i = state.currentQuestionIndex
+      let f = getters.numOfFinishedQA
+      console.log('i',i,'f',f);
+      if( (i + 1) <= f){
+        commit('setCurrentQuestionIndex', i + 1)
+      }else{
+        console.log('we cannot increase the current question index');
       }
     },
   }
