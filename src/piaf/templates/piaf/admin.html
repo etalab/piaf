@@ -12,10 +12,32 @@
         {% endif %}
         <form action="{% url 'app:admin' %}" method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <label><input type=file name=file></label>
-          <input type="submit" class="button is-link">
+          <div>
+            <label>Fichier JSON des articles</label>
+            <input type=file name=file>
+          </div>
+
+          <div>
+            <label>Restriction des utilisateurs</label>
+            <select name=audience required>
+              <option> --- </option>
+              <option value=restricted>Réservé uniquement aux utilisateurs certifiés</option>
+              <option value=all>Valide pour tous les utilisateurs (non certifiés)</option>
+            </select>
+          </div>
+          <input type="submit" class="button is-link" value="Ajouter ces articles">
         </form>
       </div>
     </div>
 </div>
+
+<style>
+  form > div {
+    margin-bottom: 2rem;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+  }
+</style>
 {% endblock %}

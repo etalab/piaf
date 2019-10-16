@@ -25,7 +25,12 @@ class AdminView(TemplateView, SuperUserMixin):
         content = request.FILES["file"].read()
         data = json.loads(content).get("data")
         for d in data:
-            article = Article(name=d["title"])
+            article = Article(
+                name=d["displaytitle"],
+                theme=d["categorie"],
+                reference=d.get("wikipedia_page_id"),
+                audience=request.POST["audience"],
+            )
             article.save()
             for (i, p) in enumerate(d["paragraphs"]):
                 if i % 5 == 0:

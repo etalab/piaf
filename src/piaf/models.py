@@ -11,11 +11,15 @@ THEMES = ["Religion", "Géographie", "Histoire", "Sport", "Art", "Société", "S
 THEME_SLUGS = [slugify(t) for t in THEMES]
 THEME_CHOICES = zip(THEME_SLUGS, THEMES)
 
+AUDIENCES = ["restricted", "all"]
+AUDIENCE_CHOICES = zip(AUDIENCES, AUDIENCES)
+
 
 class Article(models.Model):
     name = models.CharField(max_length=100)
     theme = models.CharField(max_length=20, choices=THEME_CHOICES)
     reference = models.CharField(max_length=10)
+    audience = models.CharField(max_length=10, choices=AUDIENCE_CHOICES)
 
 
 class ParagraphBatch(models.Model):
