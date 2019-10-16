@@ -70,7 +70,7 @@ export default {
       'editMode'
     ]),
     isProtected(){
-      return typeof this.currentAnnotation.question.text === 'string' && this.editMode === false
+      return this.$store.getters.hasQuestion && this.editMode === false
     },
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
@@ -121,7 +121,7 @@ export default {
   },
   created: function() {
     // we need to wait 1sec because DOM isn't defined otherwise
-    setTimeout(x => {
+    setTimeout(() => {
       this.$nextTick(() => this.$refs.input.focus());
     }, 1000);
   },

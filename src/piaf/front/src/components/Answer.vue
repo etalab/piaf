@@ -62,7 +62,7 @@ export default {
       'maxAnnotationsPerDoc'
     ]),
     isProtected(){
-      return this.currentAnnotation.answer.text && this.editedInput === null
+      return this.$store.getters.hasAnswer && this.editedInput === null
     },
     currentAnnotation () {
       return this.$store.getters.currentAnnotation

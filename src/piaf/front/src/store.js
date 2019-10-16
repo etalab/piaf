@@ -41,6 +41,12 @@ export default new Vuex.Store({
     currentAnnotation: state => {
       return state.annotations[state.currentQuestionIndex]
     },
+    hasQuestion: (state, getters) => {
+      return (typeof getters.currentAnnotation.question.text === 'string') ? true : false
+    },
+    hasAnswer: (state, getters) => {
+      return (typeof getters.currentAnnotation.answer.text === 'string') ? true : false
+    },
     answersForTextInteraction: state => {
       return state.annotations
       .map(annotation => (annotation.answer && typeof annotation.answer.text === 'string') ? annotation.answer : {})
