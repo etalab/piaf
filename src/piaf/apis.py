@@ -38,10 +38,21 @@ class ParagraphView(APIView):
     # Provide a randomly picked pending article.
     def get(self, request, *args, **kwargs):
         theme = request.GET.get("theme")
-        is_certified = get(request.user, "is_certified", False)
         qs = ParagraphBatch.objects.filter(status="pending")
+        # Limit display by audience
+        if getattr(request.user, "is_certified", False):
+            qs_certified = qs.filter(paragraphs__article__audience="restricted")
+            if qs_certified.count():
+                qs = qs_certified
+        else:
+            qs = qs.filter(paragraphs__article__audience="all")
+
+        # Limit by theme
         if theme:
             qs = qs.filter(paragraphs__article__theme=theme)
+        if not qs.count():
+            return Response({})
+        # Pick one batch, randomly
         batch = qs[randint(0, qs.count() - 1)]
         article = batch.article
         paragraph = batch.paragraphs.filter(status="pending").first()
