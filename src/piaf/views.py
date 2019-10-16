@@ -50,8 +50,8 @@ class AdminView(TemplateView, SuperUserMixin):
 class ParagraphApi(View):
     # Provide a randomly picked pending article.
     def get(self, request, *args, **kwargs):
-        qs = ParagraphBatch.objects.filter(status="pending")
         theme = request.GET.get("theme")
+        qs = ParagraphBatch.objects.filter(status="pending")
         if theme:
             qs = qs.filter(paragraphs__article__theme=theme)
         batch = qs[randint(0, qs.count() - 1)]

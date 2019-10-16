@@ -21,6 +21,10 @@ class Article(models.Model):
     reference = models.CharField(max_length=10)
     audience = models.CharField(max_length=10, choices=AUDIENCE_CHOICES)
 
+    @property
+    def batches(self):
+        return ParagraphBatch.objects.filter(paragraphs__article=self)
+
 
 class ParagraphBatch(models.Model):
     user = models.ForeignKey(User, null=True, on_delete="null")

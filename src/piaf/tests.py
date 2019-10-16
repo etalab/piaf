@@ -1,5 +1,4 @@
 from django.test import Client, TestCase
-from m
 
 from django.contrib.auth.models import User
 from .models import Article, Paragraph, ParagraphBatch
@@ -13,16 +12,16 @@ class ApiTest(TestCase):
         user.set_password("password")
         user.save()
         self.user = client.login(username="user", password="password")
-        self.article = Article.objects.create(
-            name="My First Article", theme="Géographie"
+        self.article = self.create_article(
+            name="My First Article", theme="Géographie", text="this is text 1"
         )
-        self.batch = ParagraphBatch.objects.create()
-        self.paragraphs = []
-        for i in range(0, 5):
-            paragraph = Paragraph.objects.create(
-                text=f"this is text {i + 1}", article=self.article, batch=self.batch
+        for i in range(2, 5):
+            Paragraph.objects.create(
+                text=f"this is text {i}",
+                article=self.article,
+                batch=self.article.batches[0],
             )
-            self.paragraphs.append(paragraph)
+        self.paragraphs = self.article.paragraphs
 
     def create_article(self, name, theme, text):
         article = Article.objects.create(name=name, theme=theme)
@@ -42,7 +41,7 @@ class ApiTest(TestCase):
             "/app/api/paragraph",
             content_type="application/json",
             data={
-                "paragraph": self.paragraphs[0].pk,
+                "paragraph": self.paragraphs.first().pk,
                 "data": [
                     {"question": {"text": "q1"}, "answer": {"text": "a1", "index": 11}},
                     {"question": {"text": "q2"}, "answer": {"text": "a2", "index": 12}},
@@ -77,3 +76,17 @@ class ApiTest(TestCase):
 
         response = client.get("/app/api/paragraph?theme=mychoice")
         self.assertEqual(response.json().get("theme"), "mychoice")
+
+    def test_get_paragraph_pending_only(self):
+        response = client.get("/app/api/paragraph")
+        self.assertEqual(response.json()["text"], "this is text 1")
+        Paragraph.objects.filter(pk__lte=3.update(
+            status="complete"
+        )
+        response = client.get("/app/api/paragraph")
+        self.assertEqual(response.json()["text"], "this is text 2")
+        Paragraph.objects.filter(pk=self.paragraphs.all()[1].pk).update(
+            status="complete"
+        )
+        response = client.get("/app/api/paragraph")
+        self.assertEqual(response.json()["text"], "this is text 3")
