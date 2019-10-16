@@ -1,10 +1,13 @@
 import axios from 'axios'
 
-export async function getNewParagraph() {
+export async function getNewParagraph(theme) {
+  let t = (['Religion', 'Géographie', 'Histoire', 'Sport', 'Art', 'Société', 'Sciences'].indexOf(theme) !== -1)
+  ? '?theme='+theme
+  : ''
   try {
-    const res = await axios.get('/app/api/paragraph');
+    const res = await axios.get('/app/api/paragraph'+t);
     console.log(res);
-    if (res && res.data && typeof res.data.name === 'string') {
+    if (res && res.data && typeof res.data.text === 'string') {
       return res.data
     }else {
       return false

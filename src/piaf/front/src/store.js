@@ -103,12 +103,14 @@ export default new Vuex.Store({
       commit('setStartOffset', null)
       commit('setHighlitedText', null)
     },
-    async loadNewText ({ commit }) {
-      const p = await getNewParagraph()
-      if(p && p.paragraphs && p.paragraphs[0] && p.paragraphs[0].text){
+    async loadNewText ({ commit, state }) {
+      const p = await getNewParagraph(state.currentTheme)
+      if(p){
         const doc = {
-          title: p.name,
-          text: p.paragraphs[0].text
+          title: p.title,
+          id: p.id,
+          theme: p.theme,
+          text: p.text
         }
         commit('setCurrentDocument', doc)
         return true
