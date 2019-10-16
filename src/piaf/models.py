@@ -15,6 +15,11 @@ AUDIENCES = ["restricted", "all"]
 AUDIENCE_CHOICES = zip(AUDIENCES, AUDIENCES)
 
 
+# Monkeypatch User to add a `is_certified` property without resetting the whole
+# Django database subclassing auth.User
+setattr(User, "is_certified", lambda u: u.email.endswith(".gouv.fr"))
+
+
 class Article(models.Model):
     name = models.CharField(max_length=100)
     theme = models.CharField(max_length=20, choices=THEME_CHOICES)
