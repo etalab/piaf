@@ -80,13 +80,8 @@ class ApiTest(TestCase):
     def test_get_paragraph_pending_only(self):
         response = client.get("/app/api/paragraph")
         self.assertEqual(response.json()["text"], "this is text 1")
-        Paragraph.objects.filter(pk__lte=3.update(
+        Paragraph.objects.filter(pk__lte=int(response.json()["id"]) + 2).update(
             status="complete"
         )
         response = client.get("/app/api/paragraph")
-        self.assertEqual(response.json()["text"], "this is text 2")
-        Paragraph.objects.filter(pk=self.paragraphs.all()[1].pk).update(
-            status="complete"
-        )
-        response = client.get("/app/api/paragraph")
-        self.assertEqual(response.json()["text"], "this is text 3")
+        self.assertEqual(response.json()["text"], "this is text 4")
