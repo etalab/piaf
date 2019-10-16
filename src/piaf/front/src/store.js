@@ -102,13 +102,6 @@ export default new Vuex.Store({
       commit('setEndOffset', null)
       commit('setStartOffset', null)
       commit('setHighlitedText', null)
-
-      // Bus.$emit('switch-editmode',false);
-
-      // this.editedInput = null
-      // if (this.isLastQuestion) {
-        // this.$emit('submitToDatabase');
-      // }
     },
     async loadNewText ({ commit }) {
       const p = await getNewParagraph()

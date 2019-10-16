@@ -47,7 +47,7 @@
   border-radius: 4em;
 }
 section{
-  margin-top:25px;
+  margin-top:0px;
 }
 .scrollable{
   overflow: scroll;
