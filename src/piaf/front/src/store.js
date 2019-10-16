@@ -11,11 +11,12 @@ export default new Vuex.Store({
     // show or not specific Vue components
     showTheme: true,
     showFooter: false,
+    showNavbar: false,
     showAnnotationTask: false,
     // Current paragraph we display
     currentDocument: {
-      title: 'title article',
-      text:'this is a fake docuemnt, to be replaced by an API call. It means there is a problem loading the text. please contact us using this email: piaf@data.gouv.fr'
+      title: 'Titre',
+      text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l`adresse : piaf@data.gouv.fr'
     },
     // annotations from the user on the current paragraph
     annotations: [
@@ -65,6 +66,9 @@ export default new Vuex.Store({
     setShowTheme(state,boo) {
       state.showTheme = boo
     },
+    setShowNavbar(state,boo) {
+      state.showNavbar = boo
+    },
     setShowAnnotationTask(state,boo) {
       state.showAnnotationTask = boo
     },
@@ -103,6 +107,7 @@ export default new Vuex.Store({
     switchFromThemeToAnnotationTask(context){
       context.commit('setShowAnnotationTask', true)
       context.commit('setShowTheme', false)
+      context.commit('setShowNavbar', true)
     },
     addNewHighlitedText({ commit, state }) {
       let newAnnotations = state.annotations
@@ -166,7 +171,6 @@ export default new Vuex.Store({
         commit('setUserDetails', u)
         return true
       }else{
-        console.log('problem loading the new paragraph');
         return false
       }
     },

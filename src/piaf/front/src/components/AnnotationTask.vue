@@ -29,10 +29,10 @@
         <v-flex align-center>
           <v-tooltip left>
             <template v-slot:activator="{ on }">
-              <i>
-                Écrire une quesiton :
+
+                Écrire une question :
                 <v-icon v-on="on" fab small dark class="grey--text" >mdi-information-outline</v-icon>
-              </i>
+
             </template>
             <span>Après avoir lu le texte ci-dessus, écrivez une question en utilisant vos propres mots. La réponse doit être dans le texte. Vous avez peur de faire des fautes d'orthographe ? Pas grave: l'IA comprendra mieux le français en général, y compris celui de monsieur tout le monde... On ne s'appelle pas tous Bernard Pivot</span>
           </v-tooltip>
@@ -47,10 +47,10 @@
         <v-flex align-center>
           <v-tooltip left>
             <template v-slot:activator="{ on }">
-              <i>
+
                 Surligner une réponse dans le texte :
                 <v-icon v-on="on" fab small dark class="grey--text" >mdi-information-outline</v-icon>
-              </i>
+              
             </template>
             <span>Après avoir posé une question sur ce texte, vous pouvez indiquer à l'IA où se trouve la réponse. Pour ça, surligner la réponse dans le texte puis validez.</span>
           </v-tooltip>

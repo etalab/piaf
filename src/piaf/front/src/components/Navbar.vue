@@ -14,7 +14,7 @@
 
         <v-card>
           <v-card-title class="headline">Revenir à l'accueil ?</v-card-title>
-          <v-card-text>Si vous n'avez pas encore fini d'annoter votre paragrahe, vous allez perdre les questions-réponses non sauvegardées. Pour revenir à la page d'accueil et perdre les annotations non enregistrées, cliquez sur <v-icon small dark color="green">mdi-check</v-icon> </v-card-text>
+          <v-card-text>Si vous n'avez pas encore fini d'annoter votre paragrahe, vous allez perdre les questions-réponses non sauvegardées. Pour revenir quand même à la page d'accueil, cliquez sur <v-icon small dark color="green">mdi-check</v-icon> </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="green darken-1" text @click="dialog = false" href="https://piaf.etalab.studio"><v-icon dark>mdi-check</v-icon></v-btn>

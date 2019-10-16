@@ -5,12 +5,6 @@
       wrap
     >
 
-      <v-flex xs12>
-        <h1 class="display-2 font-weight-bold">
-          Thème
-        </h1>
-      </v-flex>
-
       <v-layout row justify-center>
         <v-flex xs6 sm4 md3
           v-for="(theme) in themes"

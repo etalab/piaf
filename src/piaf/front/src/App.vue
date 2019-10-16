@@ -6,7 +6,11 @@
 
   <!--  Is always placed at the top of an application with a lower priority than v-system-bar -->
   <v-app-bar app>
-    <Navbar />
+    <Navbar
+    v-if="showNavbar"
+    />
+    <NavbarProfile
+    v-else />
   </v-app-bar>
 
   <!-- Sizes your content based upon application components -->
@@ -34,6 +38,7 @@ import Theme from './components/Theme';
 import Footer from './components/Footer';
 import AnnotationTask from './components/AnnotationTask';
 import Navbar from './components/Navbar';
+import NavbarProfile from './components/NavbarProfile';
 import { mapState } from 'vuex'
 
 export default {
@@ -42,6 +47,7 @@ export default {
     Theme,
     AnnotationTask,
     Navbar,
+    NavbarProfile,
     Footer,
   },
   computed: mapState([
@@ -49,6 +55,7 @@ export default {
     'currentTheme',
     'showTheme',
     'showFooter',
+    'showNavbar',
     'showAnnotationTask',
     'currentDocument',
   ]),

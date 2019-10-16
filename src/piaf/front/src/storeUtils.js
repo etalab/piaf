@@ -34,9 +34,9 @@ export async function sendQA(qas) {
 
 export async function getUserDetails() {
   try {
-    const res = await axios.get('/app/api/me');
+    const res = await axios.get('/app/me');
     console.log(res);
-    if (res && res.data && typeof res.data.text === 'string') {
+    if (res && res.data && typeof res.data.email === 'string') {
       return res.data
     }else {
       return false
