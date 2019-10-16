@@ -31,3 +31,17 @@ export async function sendQA(qas) {
     return false
   }
 }
+
+export async function getUserDetails() {
+  try {
+    const res = await axios.get('/app/api/me');
+    console.log(res);
+    if (res && res.data && typeof res.data.text === 'string') {
+      return res.data
+    }else {
+      return false
+    }
+  } catch (error) {
+    return false
+  }
+}

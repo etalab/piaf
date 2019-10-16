@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getNewParagraph, sendQA } from './storeUtils.js'
+import { getNewParagraph, sendQA, getUserDetails } from './storeUtils.js'
 
 Vue.use(Vuex)
 
@@ -10,6 +10,7 @@ export default new Vuex.Store({
     currentTheme: null,
     // show or not specific Vue components
     showTheme: true,
+    showFooter: false,
     showAnnotationTask: false,
     // Current paragraph we display
     currentDocument: {
@@ -31,6 +32,8 @@ export default new Vuex.Store({
     endOffset: null,
     highlitedText: null,
     editMode:false,
+    // what deals with the user
+    userDetails: {}
   },
   getters: {
     // here we have the number of completed annotation (It means proper question and its proper answer)
@@ -88,7 +91,13 @@ export default new Vuex.Store({
     },
     setCurrentQuestionIndex(state, num){
       state.currentQuestionIndex = num
-    }
+    },
+    setShowFooter(state, boo){
+      state.showFooter = boo
+    },
+    setUserDetails(state, doc){
+      state.userDetails = doc
+    },
   },
   actions: {
     switchFromThemeToAnnotationTask(context){
@@ -102,6 +111,12 @@ export default new Vuex.Store({
       commit('setEndOffset', null)
       commit('setStartOffset', null)
       commit('setHighlitedText', null)
+    },
+    removeAnswer({ commit, state }) {
+      let newAnnotations = state.annotations
+      newAnnotations[state.currentQuestionIndex].answer = {}
+      commit('setAnnotations', newAnnotations)
+      commit('setShowFooter', false)
     },
     async loadNewText ({ commit, state }) {
       const p = await getNewParagraph(state.currentTheme)
@@ -136,9 +151,23 @@ export default new Vuex.Store({
       let f = getters.numOfFinishedQA
       console.log('i',i,'f',f);
       if( (i + 1) <= f){
-        commit('setCurrentQuestionIndex', i + 1)
+        if (i + 1 < 5) {
+          commit('setCurrentQuestionIndex', i + 1)
+        }else{
+          console.log('we cannot go further than 5 QR');
+        }
       }else{
         console.log('we cannot increase the current question index');
+      }
+    },
+    async getUserDetails ({ commit }) {
+      const u = await getUserDetails()
+      if(u){
+        commit('setUserDetails', u)
+        return true
+      }else{
+        console.log('problem loading the new paragraph');
+        return false
       }
     },
   }

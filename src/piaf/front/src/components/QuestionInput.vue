@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="columns is-gapless is-mobile is-vertical-center my-0">
+    <div>
       <v-text-field
       v-bind:value="currentAnnotation.question.text"
       v-if="isProtected"
@@ -20,23 +20,47 @@
       </v-text-field>
 
       <v-btn
-      small
-      color="error"
+      v-if="currentQuestionIndex > 0 && !isProtected"
+      class="mr-10"
+      fab
       dark
-      v-if="isProtected"
-      v-on:click="onClick"
-      >
-        <v-icon dark>mdi-close</v-icon>
+      x-small
+      outlined
+      color="secondary"
+      v-on:click="reduceIndex">
+        <v-icon dark>mdi-arrow-left</v-icon>
       </v-btn>
+
 
       <v-btn
       small
       color="primary"
       dark
-      v-else
+      v-if="newQuestion !== '' && !isProtected"
       v-on:click="onClick"
-      class="has-background-royalblue">OK
+      class="has-background-royalblue">Suivant
       </v-btn>
+
+      <v-btn
+      small
+      disabled
+      color="primary"
+      v-if="newQuestion === '' && !isProtected"
+      >Suivant
+      </v-btn>
+
+
+      <!-- <v-btn
+      v-if="currentQuestionIndex < numOfFinishedQA && !isProtected"
+      class="mr-10"
+      fab
+      dark
+      x-small
+      outlined
+      color="secondary"
+      v-on:click="next">
+        <v-icon dark>mdi-arrow-right</v-icon>
+      </v-btn> -->
 
     </div>
   </section>
@@ -67,7 +91,8 @@ export default {
       'currentDocument',
       'annotations',
       'currentQuestionIndex',
-      'editMode'
+      'editMode',
+      'numOfFinishedQA'
     ]),
     isProtected(){
       return this.$store.getters.hasQuestion && this.editMode === false
@@ -97,7 +122,6 @@ export default {
       JSONsCopy[this.currentQuestionIndex] = annotation;
       this.$store.commit('setAnnotations', JSONsCopy)
       this.newQuestion = '';
-      this.$store.commit('setEditeMode',false)
     },
 
     reInitialiseInputs(){
@@ -110,20 +134,35 @@ export default {
     },
 
     onClick(){
-      if (this.isProtected) {
-        this.$store.commit('setEditeMode',true)
-        this.$nextTick(() => this.$refs.input.focus())
-      } else {
-        this.addJSON()
+      // if (this.isProtected) {
+      //   this.$store.commit('setEditeMode',true)
+      //   // this.$nextTick(() => this.$refs.input.focus())
+      // } else {
+      this.$store.commit('setEditeMode',false)
+      this.addJSON()
+      // }
+    },
+
+    reduceIndex(){
+      if (this.currentQuestionIndex > 0) {
+        this.$store.commit('setEditeMode',false)
+        return this.$store.commit('setCurrentQuestionIndex', this.currentQuestionIndex - 1)
       }
     },
+
+    // next(){
+    //   this.$store.commit('setEditeMode',false)
+    //   return this.$store.commit('goToNextIndex')
+    // },
 
   },
   created: function() {
     // we need to wait 1sec because DOM isn't defined otherwise
     setTimeout(() => {
-      this.$nextTick(() => this.$refs.input.focus());
-    }, 1000);
+      if (!this.isProtected) {
+        this.$nextTick(() => this.$refs.input.focus());
+      }
+    }, 400);
   },
 }
 </script>

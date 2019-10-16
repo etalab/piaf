@@ -1,6 +1,6 @@
 // tool to generate this file: https://theme-generator.vuetifyjs.com/
 export const theme = {
-  primary: '#3f51b5',
+  primary: '#264fc8',
   secondary: '#607d8b',
   accent: '#ffc107',
   error: '#f44336',

@@ -24,7 +24,7 @@
       v-touch:moving="setSelectedRange"
     >
      {{ textPart(r) }}
-     <button v-if="r.label==1" v-on:click="removeAnswer(r)">
+     <button v-if="r.label==1" v-on:click="removeAnswer()">
        <v-icon fab small dark>mdi-close</v-icon>
      </button>
     </span>
@@ -58,12 +58,16 @@ export default {
     //   return (this.editMode) ? [] : this.entityPositions;
     // },
 
+    // sortedEntityPositions() {
+    //   let answers = this.entityPositionsOrempty.map(anno => {anno.isCurrentAnswer = 0; return anno})
+    //   answers[this.currentQuestionIndex].isCurrentAnswer = 1
+    //   return answers.sort((a, b) => a.index - b.index);
+    // },
+
     sortedEntityPositions() {
-      /* eslint-disable vue/no-side-effects-in-computed-properties */
-      let answers = this.entityPositionsOrempty.map(anno => {anno.isCurrentAnswer = 0; return anno})
-      answers[this.currentQuestionIndex].isCurrentAnswer = 1
-      return answers.sort((a, b) => a.index - b.index);
-      /* eslint-enable vue/no-side-effects-in-computed-properties */
+      let arr = this.entityPositionsOrempty[this.currentQuestionIndex]
+      arr.isCurrentAnswer = 1
+      return [arr]
     },
 
     chunks() {
@@ -169,11 +173,8 @@ export default {
       return chunk;
     },
 
-    removeAnswer(r){
-      let newAnnotations = this.annotations
-      console.log('ici i faudra match le R avec sa reponse au cas ou on soit plus sur le bon index');
-      newAnnotations[this.currentQuestionIndex].answer = {}
-      this.$store.commit('setEndOffset', newAnnotations)
+    removeAnswer(){
+      this.$store.dispatch('removeAnswer')
     },
   },
 

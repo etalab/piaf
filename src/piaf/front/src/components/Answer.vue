@@ -1,16 +1,35 @@
 <template>
   <section class="is-transparentbackground">
     <header class="header card-content">
-      <div class="columns is-gapless is-mobile is-vertical-center">
+      <div v-if="show">
+
+          <v-btn
+          class="mr-10"
+          fab
+          dark
+          x-small
+          outlined
+          color="secondary"
+          v-on:click="goToEditQuestion">
+            <v-icon dark>mdi-arrow-left</v-icon>
+          </v-btn>
+
           <v-btn
           small
           color="primary"
           dark
-          v-if="!isProtected"
+          v-if="highlitedText"
           v-on:click="onClick"
-          v-bind:class="{ 'has-background-royalblue': !isProtected}"
           >Valider
           </v-btn>
+
+          <v-btn
+          small
+          disabled
+          v-if="!highlitedText"
+          >Valider
+          </v-btn>
+
       </div>
     </header>
   </section>
@@ -32,68 +51,25 @@
 import { mapState } from 'vuex'
 
 export default {
-  data: () => ({
-    editedInput: null,
-  }),
-
   computed: {
     ...mapState([
-      'currentDocument',
-      'annotations',
-      'currentQuestionIndex',
-      'maxAnnotationsPerDoc'
+      'highlitedText',
+      'editMode'
     ]),
-    isProtected(){
-      return this.$store.getters.hasAnswer && this.editedInput === null
+    show(){
+      return !this.$store.getters.hasAnswer && this.editMode == false
     },
-    currentAnnotation () {
-      return this.$store.getters.currentAnnotation
-    }
   },
 
   methods: {
-    addJSON() {
-      // Bus.$emit('clicked-on-addAnswer')
-    },
-
-    addJSONwithText(json) {
-      if (!json || typeof json !== 'object' || typeof json.response !== 'string' || typeof json.start_offset !== 'number') {
-        return;
-      }
-      // forcing the update for nested object
-      let JSONsCopy = JSON.parse(JSON.stringify(this.annotations))
-      if (!JSONsCopy) {
-        JSONsCopy = []
-      }
-      JSONsCopy[this.currentQuestionIndex] = json;
-      this.$store.commit('setAnnotations', JSONsCopy)
-      // Bus.$emit('switch-editmode',false);
-
-      this.editedInput = null
-    },
-
-    reInitialiseInputs(){
-      this.editedInput = null;
-    },
-
-    editJSON(json) {
-      this.editedInput = json;
-      // Bus.$emit('switch-editmode',true);
-    },
-
-    cancelEditJSON() {
-      this.reInitialiseInputs()
-    },
-
-
-
     onClick(){
-      if (this.isProtected) {
-        this.editJSON(this.currentJSON)
-      } else {
-        this.$store.dispatch('addNewHighlitedText')
-      }
+      this.$store.dispatch('addNewHighlitedText')
+      this.$store.commit('setShowFooter',true)
     },
+
+    goToEditQuestion(){
+      this.$store.commit('setEditeMode',true)
+    }
 
   },
 

@@ -17,11 +17,21 @@
       <AnnotationTask v-if="showAnnotationTask && currentDocument"/>
     </v-container>
   </v-content>
+
+  <v-footer
+  v-if="showFooter"
+  padless
+  fixed
+  min-height='150px'
+  color='#8bcbff'>
+    <Footer/>
+  </v-footer>
 </v-app>
 </template>
 
 <script>
 import Theme from './components/Theme';
+import Footer from './components/Footer';
 import AnnotationTask from './components/AnnotationTask';
 import Navbar from './components/Navbar';
 import { mapState } from 'vuex'
@@ -32,16 +42,19 @@ export default {
     Theme,
     AnnotationTask,
     Navbar,
+    Footer,
   },
   computed: mapState([
     // attacher `this.currentTheme` à `store.state.currentTheme`
     'currentTheme',
     'showTheme',
+    'showFooter',
     'showAnnotationTask',
     'currentDocument',
   ]),
-  data: () => ({
-  }),
+  mounted () {
+      this.$store.dispatch('getUserDetails')
+  },
 };
 </script>
 

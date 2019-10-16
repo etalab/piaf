@@ -43,7 +43,7 @@
         <QuestionInput class="maxWid700 mx-auto"/>
       </v-flex>
 
-      <v-flex xs12 justify-center my-5 v-if="!this.$store.getters.hasAnswer && this.$store.getters.hasQuestion">
+      <v-flex xs12 justify-center my-5 v-if="!this.$store.getters.hasAnswer && this.editMode === false && this.$store.getters.hasQuestion">
         <v-flex align-center>
           <v-tooltip left>
             <template v-slot:activator="{ on }">
@@ -57,51 +57,14 @@
         </v-flex>
       </v-flex>
 
-      <v-flex xs12 my-10 v-if="this.$store.getters.hasQuestion">
+      <v-flex xs12 my-0 v-if="this.$store.getters.hasQuestion">
         <Answer
           v-if="currentAnnotation && currentAnnotation.question.text !== ''"
           class="maxWid700 mx-auto"
         />
       </v-flex>
 
-      <v-flex xs12 my-0 justify-center>
-        <v-row class="maxWid700 mx-auto">
-          <v-col
-            cols='1'
-            v-on:click="reduceIndex"
-          >
-            <v-btn class="mx-2" fab dark x-small color="primary">
-              <v-icon dark>mdi-arrow-left-drop-circle</v-icon>
-            </v-btn>
-          </v-col>
 
-          <!-- <v-col
-            cols='1'
-            v-on:click="nextqa"
-          >
-            <v-btn class="mx-2" fab dark x-small color="primary">
-              <v-icon dark>mdi-arrow-right-drop-circle</v-icon>
-            </v-btn>
-          </v-col> -->
-        </v-row>
-      </v-flex>
-
-
-      <v-btn
-      small
-      color="primary"
-      dark
-      v-on:click="validate"
-      >Valider QA
-      </v-btn>
-
-      <v-btn
-      small
-      color="primary"
-      dark
-      v-on:click="nextqa"
-      >next QA
-      </v-btn>
 
     </v-layout>
   </v-container>
@@ -122,25 +85,12 @@ export default {
     ...mapState([
       'currentDocument',
       'annotations',
-      'currentQuestionIndex'
+      'currentQuestionIndex',
+      'editMode'
     ]),
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
     },
-  },
-  methods: {
-    validate(){
-      return this.$store.dispatch('saveQAs')
-    },
-    nextqa(){
-      return this.$store.dispatch('goToNextIndex')
-    },
-    reduceIndex(){
-      if (this.currentQuestionIndex > 0) {
-        return this.$store.commit('setCurrentQuestionIndex', this.currentQuestionIndex - 1)
-      }
-    },
-
   },
 };
 </script>
