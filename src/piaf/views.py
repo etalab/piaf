@@ -4,10 +4,11 @@ from random import randint
 from django.views.generic import TemplateView
 
 from api.permissions import SuperUserMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Article, ParagraphBatch, Paragraph
 
 
-class IndexView(TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
     template_name = "piaf/index.html"
 
 
