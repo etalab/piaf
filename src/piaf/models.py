@@ -1,28 +1,22 @@
 from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.contrib.auth import get_user_model
 
 STATUS_PENDING = "pending"
 STATUS_PROGRESS = "progress"
 STATUS_COMPLETED = "completed"
 STATUSES = [STATUS_PENDING, STATUS_PROGRESS, STATUS_COMPLETED]
 
-THEMES = ["Religion", "Géographie", "Histoire", "Sport", "Art", "Société", "Sciences"]
-THEME_SLUGS = [slugify(t) for t in THEMES]
-THEME_CHOICES = zip(THEME_SLUGS, THEMES)
+THEMES = ["Religion", "Géographie", "Histoire", "Sport", "Arts", "Société", "Sciences"]
+THEME_CHOICES = zip(THEMES, THEMES)
 
 AUDIENCES = ["restricted", "all"]
 AUDIENCE_CHOICES = zip(AUDIENCES, AUDIENCES)
 
 
-# Monkeypatch User to add a `is_certified` property without resetting the whole
-# Django database subclassing auth.User
-User.is_certified = property(fget=lambda u: u.email.endswith(".gouv.fr"))
-
-
 class Article(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=200)
     theme = models.CharField(max_length=20, choices=THEME_CHOICES)
     reference = models.CharField(max_length=10)
     audience = models.CharField(max_length=10, choices=AUDIENCE_CHOICES, default="all")
@@ -30,6 +24,9 @@ class Article(models.Model):
     @property
     def batches(self):
         return ParagraphBatch.objects.filter(paragraphs__article=self)
+
+    def __str__(self):
+        return self.name
 
 
 class ParagraphBatch(models.Model):
@@ -43,6 +40,9 @@ class ParagraphBatch(models.Model):
     def article(self):
         return Paragraph.objects.filter(batch=self).first().article
 
+    def __str__(self):
+        return f"Batch for {self.paragraphs.first().article}"
+
 
 class Paragraph(models.Model):
     article = models.ForeignKey(Article, on_delete="cascade", related_name="paragraphs")
@@ -53,7 +53,7 @@ class Paragraph(models.Model):
     status = models.CharField(
         max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
     )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete="null", null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="paragraphs", on_delete="null", null=True)
 
     def complete(self, questions_answers, user=None):
         if self.status == STATUS_COMPLETED:
@@ -75,6 +75,9 @@ class Paragraph(models.Model):
         self.status = STATUS_COMPLETED
         self.user = user
         self.save()
+
+    def __str__(self):
+        return f"{self.text[:100]}…"
 
 
 class Question(models.Model):
