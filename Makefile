@@ -10,4 +10,4 @@ down:
 restart: down up
 
 build-statics:
-	cd src/server/static && npm run build
+	cd src/piaf/front/static && npm run build
