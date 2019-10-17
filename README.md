@@ -90,12 +90,7 @@ python manage.py runserver
 
 Open your web-browser at http://127.0.0.1:8000/login/ and login with the admin you created above (username: "admin", password: "password"):
 
-<img src="./docs/login_form.png" alt="Login Form" width=400>
-
-You will then access the home screen:
-
-<img src="./docs/projects.png" alt="projects" width=600>
-
+You will then need to create a project on the admin panel: http://127.0.0.1:8000/admin
 
 You can create various kinds of projects. Onle the **questions/answers** project is considered here.
 If you are interested in others kinds of projects you should visit [doccano](https://github.com/chakki-works/doccano) from which Piaf is forked.
@@ -110,9 +105,7 @@ python manage.py test server.tests
 
 ### Importing texts
 
-Click on `Import Data`:
-
-<img src="./docs/upload.png" alt="Upload project" width=600>
+Go to : http://127.0.0.1:8000/app/admin
 
 2 types of files can be imported:
 - `CSV file`: must include a header with a "text" column or must be a single column file.
@@ -138,19 +131,12 @@ If any other column (or key in a JSON file) is present they are saved as _metada
 
 ### Annotation
 
-Click in the _Annotate Data_ button in the navigation bar:
-
-<img src="./docs/annotation.png" alt="Edit label" width=600>
+Simply reach : http://127.0.0.1:8000/app/
 
 
 ### Exporing results
 
-After annotating you can download the annotated results.
-Click on "Export Data".
-
-You will see a similar screen:
-
-<img src="./docs/export_data.png" alt="Edit label" width=600>
+Again, on the page : http://127.0.0.1:8000/app/admin
 
 Possible formats are CSV or JSON.
 
