@@ -52,7 +52,7 @@ export default {
         color: "secondary"
       },
       {
-        name: "Art",
+        name: "Arts",
         logo: "mdi-palette",
         color: "info"
       },

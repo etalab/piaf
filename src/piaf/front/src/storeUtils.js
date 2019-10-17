@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export async function getNewParagraph(theme) {
-  let t = (['Religion', 'Géographie', 'Histoire', 'Sport', 'Art', 'Société', 'Sciences'].indexOf(theme) !== -1)
+  let t = (['Religion', 'Géographie', 'Histoire', 'Sport', 'Arts', 'Société', 'Sciences'].indexOf(theme) !== -1)
   ? '?theme='+theme
   : ''
   try {
