@@ -15,7 +15,7 @@ class IndexView(LoginRequiredMixin, TemplateView):
     template_name = "piaf/index.html"
 
 
-class AdminView(TemplateView, SuperUserMixin):
+class AdminView(SuperUserMixin, TemplateView):
     template_name = "piaf/admin.html"
     count_inserted_articles = None
 
