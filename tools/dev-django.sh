@@ -29,5 +29,15 @@ if [[ -n "${ADMIN_USERNAME}" ]] && [[ -n "${ADMIN_PASSWORD}" ]] && [[ -n "${ADMI
   || true
 fi
 
-echo "Starting django"
-"${venv}/bin/python" -u "${app}/manage.py" runserver "$@"
+PORT="8000"
+WORKERS="2"
+echo "so now ============="
+echo "${venv}/bin/sh" ls
+
+if [[ ${DJANGO_ENVIRONMENT_PRODUCTION} = "True" ]]; then
+  echo "Starting django in Production mode"
+  "${venv}/bin/gunicorn" --bind="0.0.0.0:${PORT:-8000}" --workers="${WORKERS:-1}" --pythonpath='/src,/src/src' app.wsgi --timeout 300
+else
+  echo "Starting django in Development mode"
+  "${venv}/bin/python" -u "${app}/manage.py" runserver "$@"
+fi
