@@ -45,21 +45,21 @@ ALLOW_SIGNUP = env.bool("ALLOW_SIGNUP", True)
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'server.apps.ServerConfig',
-    'api.apps.ApiConfig',
-    'widget_tweaks',
-    'rest_framework',
-    'django_filters',
-    'social_django',
-    'polymorphic',
-    'anymail',
-    'piaf',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "server.apps.ServerConfig",
+    "api.apps.ApiConfig",
+    "widget_tweaks",
+    "rest_framework",
+    "django_filters",
+    "polymorphic",
+    "anymail",
+    "piaf",
+    "account",
 ]
 
 CLOUD_BROWSER_APACHE_LIBCLOUD_PROVIDER = env("CLOUD_BROWSER_LIBCLOUD_PROVIDER", None)
@@ -79,7 +79,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "social_django.middleware.SocialAuthExceptionMiddleware",
     "applicationinsights.django.ApplicationInsightsMiddleware",
 ]
 
@@ -124,12 +123,9 @@ STATICFILES_DIRS = [
 ]
 
 
-WSGI_APPLICATION = 'app.wsgi.application'
+WSGI_APPLICATION = "app.wsgi.application"
 
-AUTHENTICATION_BACKENDS = [
-    "social_core.backends.github.GithubOAuth2",
-    "django.contrib.auth.backends.ModelBackend",
-]
+AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
 
 SOCIAL_AUTH_GITHUB_KEY = env("OAUTH_GITHUB_KEY", None)
 SOCIAL_AUTH_GITHUB_SECRET = env("OAUTH_GITHUB_SECRET", None)
@@ -138,19 +134,6 @@ GITHUB_ADMIN_TEAM_NAME = env("GITHUB_ADMIN_TEAM_NAME", None)
 
 if GITHUB_ADMIN_ORG_NAME and GITHUB_ADMIN_TEAM_NAME:
     SOCIAL_AUTH_GITHUB_SCOPE = ["read:org"]
-
-SOCIAL_AUTH_PIPELINE = [
-    "social_core.pipeline.social_auth.social_details",
-    "social_core.pipeline.social_auth.social_uid",
-    "social_core.pipeline.social_auth.auth_allowed",
-    "social_core.pipeline.social_auth.social_user",
-    "social_core.pipeline.user.get_username",
-    "social_core.pipeline.user.create_user",
-    "social_core.pipeline.social_auth.associate_user",
-    "social_core.pipeline.social_auth.load_extra_data",
-    "social_core.pipeline.user.user_details",
-    "server.social_auth.fetch_github_permissions",
-]
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -162,6 +145,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "account.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -253,7 +237,7 @@ MAILJET_SECRET_KEY = env("MAILJET_SECRET_KEY", None)
 USE_MAILJET = env.bool("USE_MAILJET", False)
 DEFAULT_FROM_EMAIL = "piaf@data.gouv.fr"
 
-WEBPACK_ENVIRONMENT_PRODUCTION = env.bool('WEBPACK_ENVIRONMENT_PRODUCTION', True)
+WEBPACK_ENVIRONMENT_PRODUCTION = env.bool("WEBPACK_ENVIRONMENT_PRODUCTION", True)
 MATOMO_SITE_ID = env("MATOMO_SITE_ID", "")
 
 # information here: https://anymail.readthedocs.io/en/stable/esps/mailjet/

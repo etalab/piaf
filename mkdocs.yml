@@ -18,13 +18,6 @@ theme:
     accent: 'cyan'
   show_sidebar: true
 
-extra:
-  social:
-    - type: 'github'
-      link: 'https://github.com/guillim'
-    - type: 'twitter'
-      link: 'https://twitter.com/maxiguillim'
-
 # Page tree
 nav:
   - piaf: index.md

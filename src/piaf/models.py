@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
@@ -32,7 +33,7 @@ class Article(models.Model):
 
 
 class ParagraphBatch(models.Model):
-    user = models.ForeignKey(User, null=True, on_delete="null")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete="null")
     participated_at = models.DateField(auto_now=True)
     status = models.CharField(
         max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
@@ -52,7 +53,7 @@ class Paragraph(models.Model):
     status = models.CharField(
         max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
     )
-    user = models.ForeignKey(User, on_delete="null", null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete="null", null=True)
 
     def complete(self, questions_answers, user=None):
         if self.status == STATUS_COMPLETED:
@@ -85,7 +86,9 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    user = models.ForeignKey(User, on_delete="null", related_name="answers", null=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete="null", related_name="answers", null=True
+    )
     question = models.ForeignKey(Question, on_delete="cascade", related_name="answers")
     text = models.CharField(max_length=200)
     index = models.IntegerField()
