@@ -1,8 +1,8 @@
 <template>
   <v-app>
   <!-- Can be placed on the left or right side of an application and can be configured to sit next to or below v-app-bar -->
-  <v-navigation-drawer app>
-  </v-navigation-drawer>
+  <!-- <v-navigation-drawer app>
+  </v-navigation-drawer> -->
 
   <!--  Is always placed at the top of an application with a lower priority than v-system-bar -->
   <v-app-bar app>
