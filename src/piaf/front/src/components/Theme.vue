@@ -52,7 +52,7 @@ export default {
         color: "secondary"
       },
       {
-        name: "Art",
+        name: "Arts",
         logo: "mdi-palette",
         color: "info"
       },
@@ -60,6 +60,11 @@ export default {
         name: "Sciences",
         logo: "mdi-telescope",
         color: "accent"
+      },
+      {
+        name: "",
+        logo: "mdi-help-circle",
+        color: "black"
       }
     ]
   }),

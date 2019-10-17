@@ -16,7 +16,8 @@ export default new Vuex.Store({
     // Current paragraph we display
     currentDocument: {
       title: 'Titre',
-      text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l`adresse : piaf@data.gouv.fr'
+      text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l`adresse : piaf@data.gouv.fr',
+      id:766
     },
     // annotations from the user on the current paragraph
     annotations: [
@@ -141,7 +142,7 @@ export default new Vuex.Store({
     },
     async saveQAs ({ state }) {
       let qas = {}
-      qas.paragraph = 1 //currentDocument.title
+      qas.paragraph = state.currentDocument.id
       qas.data = state.annotations
       const res = await sendQA(qas)
       if(res){

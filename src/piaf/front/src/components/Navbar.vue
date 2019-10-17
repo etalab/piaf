@@ -5,24 +5,30 @@
         cols='1'
         class="px-0"
       >
-      <v-dialog v-model="dialog" persistent max-width="290">
-        <template v-slot:activator="{ on }">
-          <v-btn class="mx-0 minwidth" fab dark x-small color="primary" outlined v-on="on">
-            <v-icon dark>mdi-close</v-icon>
-          </v-btn>
-        </template>
+      <v-row justify="center">
+        <v-dialog
+          v-model="dialog"
+          width="500"
+        >
+          <template v-slot:activator="{ on }">
+            <v-btn class="mx-0 minwidth" fab dark x-small color="primary" outlined v-on="on">
+              <v-icon dark>mdi-close</v-icon>
+            </v-btn>
+          </template>
 
-        <v-card>
-          <v-card-title class="headline">Revenir à l'accueil ?</v-card-title>
-          <v-card-text>Si vous n'avez pas encore fini d'annoter votre paragrahe, vous allez perdre les questions-réponses non sauvegardées. Pour revenir quand même à la page d'accueil, cliquez sur <v-icon small dark color="green">mdi-check</v-icon> </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="dialog = false" href="https://piaf.etalab.studio"><v-icon dark>mdi-check</v-icon></v-btn>
-            <v-btn color="red darken-1" text @click="dialog = false"><v-icon dark>mdi-close</v-icon></v-btn>
-          </v-card-actions>
-        </v-card>
+          <v-card>
+            <v-btn class="close pa-0" color="grey darken-1" text @click="dialog = false"><v-icon dark>mdi-close</v-icon></v-btn>
+            <v-card-title class="headline">Quitter ce texte ?</v-card-title>
+            <v-card-text>En quittant maintenant, vous allez perdre les questions-réponses non sauvegardées.</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="red darken-1" text @click="dialog = false" href="/app"><v-icon dark>mdi-close</v-icon>Quitter</v-btn>
+              <v-btn color="green darken-1" text @click="dialog = false"><v-icon dark>mdi-check</v-icon>Finir</v-btn>
+            </v-card-actions>
+          </v-card>
 
-      </v-dialog>
+        </v-dialog>
+      </v-row>
 
       </v-col>
       <v-col cols='11' class="pr-0 alignSelf">
@@ -74,5 +80,11 @@ export default {
 }
 .minwidth{
   min-width: 32px;
+}
+.close{
+  position: absolute;
+  height: 50px;
+  right: 0px;
+  top: 0px;
 }
 </style>
