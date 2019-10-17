@@ -60,6 +60,11 @@ export default {
         name: "Sciences",
         logo: "mdi-telescope",
         color: "accent"
+      },
+      {
+        name: "",
+        logo: "mdi-help-circle",
+        color: "black"
       }
     ]
   }),
