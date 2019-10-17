@@ -27,6 +27,9 @@
         <p v-else>Vous êtes contributeur officiel de Piaf</p>
         <p>Merci pour vos contributions! On peut dire que vous êtes en train d'Édith Piaf :)</p>
         <br>
+        <p v-if="userDetails.paragraphs_count">Déja {{ userDetails.paragraphs_count }} textes annotés ! Bravo</p>
+        <br>
+        <br>
         <p>Rappel de votre email: {{ userDetails.email }}</p>
       </v-card-text>
       <v-card-actions>
