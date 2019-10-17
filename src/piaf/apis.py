@@ -2,6 +2,8 @@ from random import randint
 import json
 
 from django.contrib.auth import get_user_model
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -32,6 +34,7 @@ class MeView(APIView):
         return Response(serializer.data)
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class ParagraphView(APIView):
     permission_classes = [IsAuthenticated]
 
