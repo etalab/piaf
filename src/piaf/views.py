@@ -3,7 +3,7 @@ from random import randint
 
 from django.views.generic import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
@@ -63,7 +63,7 @@ class ParagraphView(View):
         if theme:
             qs = qs.filter(paragraphs__article__theme=theme)
         if not qs.count():
-            return HttpResponse(json.dumps({}))
+            return JsonResponse({})
         # Pick one batch, randomly
         batch = qs[randint(0, qs.count() - 1)]
         article = batch.article
@@ -74,10 +74,10 @@ class ParagraphView(View):
             "text": paragraph.text,
             "title": article.name,
         }
-        return HttpResponse(json.dumps(data))
+        return JsonResponse(data)
 
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         paragraph = Paragraph.objects.get(pk=data["paragraph"])
         paragraph.complete(data["data"], request.user)
-        return HttpResponse(status=201)
+        return JsonResponse(None, status=201, safe=False)

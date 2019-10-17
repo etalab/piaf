@@ -1,6 +1,6 @@
 from django.test import Client, TestCase
+from django.contrib.auth import get_user_model
 
-from django.contrib.auth.models import User
 from .models import Article, Paragraph, ParagraphBatch
 
 client = Client()
@@ -8,7 +8,7 @@ client = Client()
 
 class ApiTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create(username="user")
+        self.user = get_user_model().objects.create(username="user")
         self.user.set_password("password")
         self.user.save()
         client.login(username="user", password="password")
@@ -27,6 +27,7 @@ class ApiTest(TestCase):
         response = client.get("/app/me")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["is_certified"], False)
+        self.assertEqual(response.json()["paragraphs_count"], 0)
 
     def create_article(self, name, theme, text, audience="all"):
         article = Article.objects.create(name=name, theme=theme, audience=audience)
@@ -101,8 +102,6 @@ class ApiTest(TestCase):
         Article.objects.filter(pk=self.article.pk).update(audience="restricted")
         response = client.get("/app/api/paragraph")
         self.assertEqual(response.json(), {})
-        User.objects.filter(pk=self.user.pk).update(email="example@e.gouv.fr")
-        client.logout()
-        client.login(username="user", password="password")
+        get_user_model().objects.filter(pk=self.user.pk).update(is_certified=True)
         response = client.get("/app/api/paragraph")
         self.assertEqual(response.json()["text"], "this is text 1")

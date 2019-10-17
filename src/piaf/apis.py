@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "email",
             "is_superuser",
-            "is_certified",
+            "is_certified"
         )
 
 
@@ -29,4 +29,6 @@ class MeView(APIView):
 
     def get(self, request, *args, **kwargs):
         serializer = UserSerializer(request.user, context={"request": request})
-        return Response(serializer.data)
+        data = serializer.data
+        data["paragraphs_count"] = request.user.paragraphs.count()
+        return Response(data)
