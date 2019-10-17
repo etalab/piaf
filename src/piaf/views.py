@@ -1,10 +1,13 @@
 import json
 from random import randint
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 from api.permissions import SuperUserMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Article, ParagraphBatch, Paragraph
 
 
@@ -39,3 +42,42 @@ class AdminView(TemplateView, SuperUserMixin):
         context = super().get_context_data(**kwargs)
         context["count_inserted_articles"] = self.count_inserted_articles
         return context
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class ParagraphView(View):
+
+    # Provide a randomly picked pending article.
+    def get(self, request, *args, **kwargs):
+        theme = request.GET.get("theme")
+        qs = ParagraphBatch.objects.filter(status="pending")
+        # Limit display by audience
+        if getattr(request.user, "is_certified", False):
+            qs_certified = qs.filter(paragraphs__article__audience="restricted")
+            if qs_certified.count():
+                qs = qs_certified
+        else:
+            qs = qs.filter(paragraphs__article__audience="all")
+
+        # Limit by theme
+        if theme:
+            qs = qs.filter(paragraphs__article__theme=theme)
+        if not qs.count():
+            return HttpResponse(json.dumps({}))
+        # Pick one batch, randomly
+        batch = qs[randint(0, qs.count() - 1)]
+        article = batch.article
+        paragraph = batch.paragraphs.filter(status="pending").first()
+        data = {
+            "id": paragraph.id,
+            "theme": article.theme,
+            "text": paragraph.text,
+            "title": article.name,
+        }
+        return HttpResponse(json.dumps(data))
+
+    def post(self, request, *args, **kwargs):
+        data = json.loads(request.body)
+        paragraph = Paragraph.objects.get(pk=data["paragraph"])
+        paragraph.complete(data["data"], request.user)
+        return HttpResponse(status=201)

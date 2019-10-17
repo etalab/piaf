@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import IndexView, AdminView
-from .apis import MeView, ParagraphView
+from .views import IndexView, AdminView, ParagraphView
+from .apis import MeView
 
 
 app_name = "app"
