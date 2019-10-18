@@ -31,8 +31,6 @@ fi
 
 PORT="8000"
 WORKERS="2"
-echo "so now ============="
-echo "${venv}/bin/sh" ls
 
 if [[ ${DJANGO_ENVIRONMENT_PRODUCTION} = "True" ]]; then
   echo "Starting django in Production mode"
