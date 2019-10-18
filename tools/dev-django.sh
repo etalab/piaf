@@ -16,6 +16,11 @@ fi
 echo "Installing dependencies"
 "${venv}/bin/pip" install -r "${root}/requirements.txt"
 
+echo "Collecting static files"
+if [[ ! -d "src/staticfiles" ]]; then
+"${venv}/bin/python" "${app}/manage.py" collectstatic --noinput;
+fi
+
 echo "Initializing database"
 "${venv}/bin/python" "${app}/manage.py" wait_for_db
 "${venv}/bin/python" "${app}/manage.py" migrate
