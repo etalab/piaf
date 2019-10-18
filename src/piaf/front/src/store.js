@@ -140,12 +140,14 @@ export default new Vuex.Store({
         return false
       }
     },
-    async saveQAs ({ state }) {
+    async saveQAs ({ commit, state, dispatch }) {
       let qas = {}
       qas.paragraph = state.currentDocument.id
       qas.data = state.annotations
       const res = await sendQA(qas)
       if(res){
+        dispatch('resetDefaultStore')
+        await dispatch('loadNewText')
         return true
       }else{
         console.log('problem saving your Q&As');
@@ -174,6 +176,22 @@ export default new Vuex.Store({
       }else{
         return false
       }
+    },
+    resetDefaultStore ({ commit }) {
+      commit('setCurrentQuestionIndex', 0)
+      commit('setEndOffset',null)
+      commit('setStartOffset',null)
+      commit('setHighlitedText',null)
+      commit('setEditeMode',false)
+      commit('setShowFooter',false)
+      const defaultAnnotations = [
+        {question:{}, answer:{} },
+        {question:{}, answer:{} },
+        {question:{}, answer:{} },
+        {question:{}, answer:{} },
+        {question:{}, answer:{} }
+      ]
+      commit('setAnnotations',defaultAnnotations)
     },
   }
 })
