@@ -43,6 +43,16 @@ class ParagraphBatch(models.Model):
     def __str__(self):
         return f"Batch for {self.paragraphs.first().article}"
 
+    def update_status(self, user):
+        if not self.user:
+            self.user = user
+        self.status = (
+            STATUS_PROGRESS
+            if self.paragraphs.filter(status="pending").count()
+            else STATUS_COMPLETED
+        )
+        self.save()
+
 
 class Paragraph(models.Model):
     article = models.ForeignKey(Article, on_delete="cascade", related_name="paragraphs")
@@ -53,7 +63,9 @@ class Paragraph(models.Model):
     status = models.CharField(
         max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
     )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="paragraphs", on_delete="null", null=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="paragraphs", on_delete="null", null=True
+    )
 
     def complete(self, questions_answers, user=None):
         if self.status == STATUS_COMPLETED:
@@ -75,6 +87,7 @@ class Paragraph(models.Model):
         self.status = STATUS_COMPLETED
         self.user = user
         self.save()
+        self.batch.update_status(user=user)
 
     def __str__(self):
         return f"{self.text[:100]}…"

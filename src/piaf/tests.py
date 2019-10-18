@@ -6,6 +6,39 @@ from .models import Article, Paragraph, ParagraphBatch
 client = Client()
 
 
+questions_answers = [
+    {"question": {"text": "q1"}, "answer": {"text": "a1", "index": 11}},
+    {"question": {"text": "q2"}, "answer": {"text": "a2", "index": 12}},
+    {"question": {"text": "q3"}, "answer": {"text": "a3", "index": 13}},
+    {"question": {"text": "q4"}, "answer": {"text": "a4", "index": 14}},
+    {"question": {"text": "q5"}, "answer": {"text": "a5", "index": 15}},
+]
+
+
+class ModelTest(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create(username="user")
+        self.article = Article.objects.create(
+            name="My First Article", theme="Géographie"
+        )
+        self.batch = ParagraphBatch.objects.create()
+        self.paragraphs = [
+            Paragraph.objects.create(
+                text=f"this is text {i}", article=self.article, batch=self.batch
+            )
+            for i in range(2, 5)
+        ]
+
+    def test_update_paragraph_also_updates_batch_status(self):
+        self.assertEqual(self.batch.status, "pending")
+        self.paragraphs[0].complete(questions_answers, user=self.user)
+        self.assertEqual(self.batch.status, "progress")
+        for p in self.paragraphs:
+            if p.status == "pending":
+                p.complete(questions_answers, user=self.user)
+        self.assertEqual(self.batch.status, "completed")
+
+
 class ApiTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create(username="user")
@@ -52,16 +85,7 @@ class ApiTest(TestCase):
         client.post(
             "/app/api/paragraph",
             content_type="application/json",
-            data={
-                "paragraph": self.paragraphs.first().pk,
-                "data": [
-                    {"question": {"text": "q1"}, "answer": {"text": "a1", "index": 11}},
-                    {"question": {"text": "q2"}, "answer": {"text": "a2", "index": 12}},
-                    {"question": {"text": "q3"}, "answer": {"text": "a3", "index": 13}},
-                    {"question": {"text": "q4"}, "answer": {"text": "a4", "index": 14}},
-                    {"question": {"text": "q5"}, "answer": {"text": "a5", "index": 15}},
-                ],
-            },
+            data={"paragraph": self.paragraphs.first().pk, "data": questions_answers},
         )
 
         paragraph = Article.objects.first().paragraphs.first()
@@ -105,3 +129,14 @@ class ApiTest(TestCase):
         get_user_model().objects.filter(pk=self.user.pk).update(is_certified=True)
         response = client.get("/app/api/paragraph")
         self.assertEqual(response.json()["text"], "this is text 1")
+
+    def test_paragraph_are_suggested_in_order_for_a_user(self):
+        for i in range(0, 100):
+            self.create_article(
+                name=f"rand article {i}", theme="default", text=f"rand text {i}"
+            )
+        response = client.get("/app/api/paragraph")
+        self.assertNotEqual(response.json()["text"], "this is text 1")
+        self.paragraphs.first().complete(questions_answers, user=self.user)
+        response = client.get("/app/api/paragraph")
+        self.assertEqual(response.json()["text"], "this is text 2")

@@ -50,7 +50,7 @@ class ParagraphView(View):
     # Provide a randomly picked pending article.
     def get(self, request, *args, **kwargs):
         theme = request.GET.get("theme")
-        qs = ParagraphBatch.objects.filter(status="pending")
+        qs = ParagraphBatch.objects.exclude(status="completed")
         # Limit display by audience
         if getattr(request.user, "is_certified", False):
             qs_certified = qs.filter(paragraphs__article__audience="restricted")
@@ -58,14 +58,14 @@ class ParagraphView(View):
                 qs = qs_certified
         else:
             qs = qs.filter(paragraphs__article__audience="all")
-
         # Limit by theme
         if theme:
             qs = qs.filter(paragraphs__article__theme=theme)
         if not qs.count():
             return JsonResponse({})
-        # Pick one batch, randomly
-        batch = qs[randint(0, qs.count() - 1)]
+        batch = qs.filter(status="progress", user=request.user).first()
+        if not batch:
+            batch = qs[randint(0, qs.count() - 1)]
         article = batch.article
         paragraph = batch.paragraphs.filter(status="pending").first()
         data = {
