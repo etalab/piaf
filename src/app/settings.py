@@ -90,6 +90,8 @@ TEMPLATES = [
         "DIRS": [
             str(BASE_PATH / "app" / "templates"),
             str(BASE_PATH / "authentification" / "templates"),
+            str(BASE_PATH / "piaf" / "templates"),
+            str(BASE_PATH / "piaf" / "static"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -117,7 +119,7 @@ STATICFILES_DIRS = [
     static_path
     for static_path in (
         str(BASE_PATH / "server" / "static" / "assets"),
-        str(BASE_PATH / "server" / "static" / "static"),
+        str(BASE_PATH / "piaf" / "static" / "front"),
     )
     if path.isdir(static_path)
 ]

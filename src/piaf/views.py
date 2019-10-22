@@ -12,7 +12,7 @@ from .models import Article, ParagraphBatch, Paragraph
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
-    template_name = "piaf/index.html"
+    template_name = "front/index.html"
 
 
 class AdminView(SuperUserMixin, TemplateView):
