@@ -55,7 +55,7 @@ class SignupView(TemplateView):
                 email.template_id = 1013519  # Mailjet numeric template id
                 email.from_email = None
                 email.merge_data = {
-                    to_email: {'name': user.username, 'confirmation_link': "http://" + current_site.domain + "/activate/" + urlsafe_base64_encode(force_bytes(user.pk)).decode() + "/" + account_activation_token.make_token(user)},
+                    to_email: {'name': user.username, 'confirmation_link': "https://" + current_site.domain + "/activate/" + urlsafe_base64_encode(force_bytes(user.pk)).decode() + "/" + account_activation_token.make_token(user)},
                 }
             else:
                 email = EmailMessage(
