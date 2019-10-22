@@ -8,6 +8,7 @@ from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView as BaseLoginView
 
 from app import settings
 
@@ -65,3 +66,16 @@ class SignupView(TemplateView):
             return render(request, 'validate_mail_address_complete.html')
         else:
             return render(request, self.template_name, {'form': form, 'allow_signup': bool(settings.ALLOW_SIGNUP)})
+
+
+class LoginView(BaseLoginView):
+    template_name = "login.html"
+    redirect_authenticated_user = True
+    extra_context = {
+        "github_login": bool(settings.SOCIAL_AUTH_GITHUB_KEY),
+        "allow_signup": bool(settings.ALLOW_SIGNUP),
+    }
+
+    def get_context_data(self, **kwargs):
+        context = super(LoginView, self).get_context_data(**kwargs)
+        return context

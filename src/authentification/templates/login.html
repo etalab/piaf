@@ -1,0 +1,40 @@
+{% extends "base_auth.html" %}
+
+{% load utils_templating %}
+{% block content_auth %}
+{% if allow_signup %}
+<div class="card-content">
+  <form method="post" action="{% url 'login' %}">
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="field">
+      <label class="label">{{ field.label_tag }}</label>
+      <div class="control">
+        {{ field|addcss:'input'  }}
+        {% if field.help_text %}
+        <small style="display: none">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    <div style="text-align:center">
+      <button type="submit" class="button is-block is-primary is-fullwidth is-middle">Inscription</button>
+    </div>
+    <div class="field">
+      <span class="checkbox" style="margin-top:30px">
+        Pas de compte ? <a href="{% url 'signup' %}"> S'inscrire </a>
+      </span>
+    </div>
+  </form>
+</div>
+{% else %}
+<p>No login form, please contact the admin piaf@data.gouv.fr (we're sorry for this issue)</p>
+{% endif %}
+{% endblock %}
