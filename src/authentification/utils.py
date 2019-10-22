@@ -20,6 +20,6 @@ def activate(request, uidb64, token):
         user.save()
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(request=request, user=user,)
-        return redirect('signup')
+        return redirect('login')
     else:
         return render(request, 'validate_mail_address_invalid.html')
