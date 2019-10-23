@@ -5,6 +5,9 @@
 {% if allow_signup %}
 <div class="card-content">
   <form method="post" action="{% url 'login' %}">
+    <!-- {% if form.errors %}
+    {% endif %} -->
+    {{context.data}}
     {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
