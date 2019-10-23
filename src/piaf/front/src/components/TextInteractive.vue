@@ -1,15 +1,18 @@
 <template>
-  <div class="alignLeft" id="paragraph">
-    <span
-    oncopy="return false"
-    oncut="return false"
-    v-touch:tap="setSelectedRange"
-    v-touch:start="setSelectedRange"
-    v-touch:end="setSelectedRange"
-    v-touch:moving="setSelectedRange"
-    >
-    {{this.currentDocument.text}}
-    </span>
+  <div>
+    <div class="alignLeft" id="paragraph">
+      <span
+      oncopy="return false"
+      oncut="return false"
+      v-touch:tap="setSelectedRange"
+      v-touch:start="setSelectedRange"
+      v-touch:end="setSelectedRange"
+      v-touch:moving="setSelectedRange"
+      >
+      {{this.currentDocument.text}}
+      </span>
+    </div>
+    <v-btn v-on:click="onClick" v-if="highlitedText">Valider</v-btn>
   </div>
 </template>
 
@@ -20,6 +23,7 @@ import SelectText from '@vinyll/selecttext'
 export default {
   data: () => ({
     editMode: false,
+    highlitedText: false,
   }),
 
   computed: {
@@ -52,8 +56,13 @@ export default {
         marginRight: '-2px',
         marginLeft: '-2px',
       };
+
     },
 
+    onClick() {
+      this.$store.dispatch('addNewHighlitedText')
+      this.$store.commit('setShowFooter',true)
+    },
 
     setSelectedRange() {
       let start;
@@ -69,7 +78,9 @@ export default {
           start = range[0]
           end = range[1]
           text = container.textContent.substr(range[0], range[1] - range[0] + 1)
+            this.highlitedText = true
         } else {
+          this.highlitedText = false
           console.log('not yet defined');
         }
       }
