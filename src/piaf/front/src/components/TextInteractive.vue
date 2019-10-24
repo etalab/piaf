@@ -2,7 +2,6 @@
   <div id="container">
     <div class="alignLeft paragraph" ref="paragraph">
       <div
-      v-touch:moving="setSelectedRange"
       >
         {{this.currentDocument.text}}
       </div>
