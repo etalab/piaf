@@ -10,10 +10,11 @@
           v-for="(theme) in themes"
           v-on:click="setCurrentTheme(theme.name)"
         >
-          <div class="my-2">
+          <div class="my-2 d-flex flex-column align-center">
             <v-btn fab large dark v-bind:color="theme.color">
               <v-icon>{{theme.logo}}</v-icon>
             </v-btn>
+            <span class="font-weight-thin grey--text">{{theme.name}}</span>
           </div>
         </v-flex>
       </v-layout>
@@ -62,7 +63,7 @@ export default {
         color: "accent"
       },
       {
-        name: "",
+        name: "Mystère",
         logo: "mdi-help-circle",
         color: "black"
       }
