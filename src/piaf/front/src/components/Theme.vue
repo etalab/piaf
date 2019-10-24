@@ -1,10 +1,12 @@
 <template>
   <v-container>
+    <v-layout justify-center>
+      <span class="font-weight-thin mb-5">Pour annoter, choisissez une catégorie</span>
+    </v-layout>
     <v-layout
       text-center
       wrap
     >
-
       <v-layout row justify-center>
         <v-flex xs6 sm4 md3
           v-for="(theme) in themes"
@@ -49,7 +51,7 @@ export default {
       },
       {
         name: "Religion",
-        logo: "mdi-christianity",
+        logo: "mdi-alpha-r",
         color: "secondary"
       },
       {
