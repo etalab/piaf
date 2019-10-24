@@ -114,14 +114,17 @@ export default new Vuex.Store({
       let newAnnotations = state.annotations
       newAnnotations[state.currentQuestionIndex].answer = {"text": state.highlitedText, "index": state.startOffset},
       commit('setAnnotations', newAnnotations)
+    },
+    restoreHighliting({ commit }) {
       commit('setEndOffset', null)
       commit('setStartOffset', null)
       commit('setHighlitedText', null)
     },
-    removeAnswer({ commit, state }) {
+    removeAnswer({ commit, state, dispatch }) {
       let newAnnotations = state.annotations
       newAnnotations[state.currentQuestionIndex].answer = {}
       commit('setAnnotations', newAnnotations)
+      dispatch('restoreHighliting')
       commit('setShowFooter', false)
     },
     async loadNewText ({ commit, state }) {
@@ -154,13 +157,14 @@ export default new Vuex.Store({
         return false
       }
     },
-    goToNextIndex({commit, state, getters}){
+    goToNextIndex({commit, state, getters, dispatch}){
       let i = state.currentQuestionIndex
       let f = getters.numOfFinishedQA
       console.log('i',i,'f',f);
       if( (i + 1) <= f){
         if (i + 1 < 5) {
           commit('setCurrentQuestionIndex', i + 1)
+          dispatch('restoreHighliting')
         }else{
           console.log('we cannot go further than 5 QR');
         }
