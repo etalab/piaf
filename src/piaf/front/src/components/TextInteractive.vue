@@ -1,18 +1,15 @@
 <template>
-  <div>
-    <div class="alignLeft" id="paragraph">
-      <span
-      oncopy="return false"
-      oncut="return false"
-      v-touch:tap="setSelectedRange"
-      v-touch:start="setSelectedRange"
-      v-touch:end="setSelectedRange"
+  <div id="container">
+    <div class="alignLeft paragraph" ref="paragraph">
+      <div
       v-touch:moving="setSelectedRange"
       >
-      {{this.currentDocument.text}}
-      </span>
+        {{this.currentDocument.text}}
+      </div>
     </div>
-    <v-btn v-on:click="onClick" v-if="highlitedText">Valider</v-btn>
+    <v-btn v-on:click="onClick" class="tooltip" id="validate" ref="validate" v-show="highlitedText">
+      Valider
+      </v-btn>
   </div>
 </template>
 
@@ -64,25 +61,27 @@ export default {
       this.$store.commit('setShowFooter',true)
     },
 
+    moveValidateButton() {
+      const button = this.$refs.validate
+      const paragraph = this.$refs.paragraph
+      const answer = paragraph.querySelector('.selected.last')
+      button.$el.style.left = `${answer.offsetLeft}px`
+      button.$el.style.top = `${answer.offsetTop}px`
+    },
+
     setSelectedRange() {
       let start;
       let end;
       let text;
 
-      const container = document.querySelector('#paragraph')
-      //this.$el
-      const selector = new SelectText(container)
+      const paragraph = this.$refs.paragraph
+      const selector = new SelectText(paragraph)
       selector.onSelect = (range) => {
-        console.log('range',range);
-        if (range.length) {
-          start = range[0]
-          end = range[1]
-          text = container.textContent.substr(range[0], range[1] - range[0] + 1)
-            this.highlitedText = true
-        } else {
-          this.highlitedText = false
-          console.log('not yet defined');
-        }
+        this.highlitedText = Boolean(range.length)
+        if (!this.highlitedText) return
+        let { start, end } = range
+        text = paragraph.textContent.substr(end, start - end + 1)
+        this.moveValidateButton()
       }
 
       this.$store.commit('setStartOffset', start)
@@ -122,24 +121,60 @@ export default {
 </style>
 
 <style>
-#paragraph span {
+.paragraph span {
   cursor: pointer;
   user-select: none;
 }
-#paragraph span:hover {
+.paragraph span:hover {
   background-color: #d4e6ff;
 }
-#paragraph span.selected.first {
+.paragraph span.selected.first {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
-#paragraph span.selected.last {
+.paragraph span.selected.last {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-#paragraph span.selected {
+.paragraph span.selected {
   color: #ffffff;
   background-color: #4169e1;
+}
+
+#container {
+  position: relative;
+}
+#container #validate {
+  position: absolute;
+}
+
+.tooltip { /* This is for the tooltip text */
+   background-color: #555;
+   text-align: center;
+   padding: 10px;
+   border-radius: 10px; /* Defines tooltip text position */
+   position: absolute;
+   z-index: 1;
+   min-width: 100px;
+   bottom: -50px;
+   left: 50%;
+   margin-left: -50px;
+   margin-top: 30px;
+   background-color: #555 !important;
+   color: white !important;
+
+}
+
+.tooltip::after {
+ content: " ";
+ position: absolute;
+ bottom: 100%; /* This will position the arrow at the top of the tooltip */
+ left: 50%;
+ margin-left: -10px;
+ border-width: 10px;
+ border-style: solid;
+ border-color: transparent transparent #555 transparent;
+ box-shadow: none !important;
 }
 
 </style>
