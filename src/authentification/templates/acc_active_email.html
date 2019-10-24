@@ -1,5 +1,5 @@
 {% autoescape off %}
 Bonjour {{ user.username }},
 Pour valider votre email, veuillez cliquer sur ce lien,
-http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+https://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 {% endautoescape %}
