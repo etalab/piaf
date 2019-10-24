@@ -1,14 +1,13 @@
 <template>
   <div id="container">
     <div class="alignLeft paragraph" ref="paragraph">
-      <div
-      >
-        {{this.currentDocument.text}}
+      <div v-on:mouseenter="setSelectedRange">
+      {{this.currentDocument.text}}
       </div>
     </div>
     <v-btn v-on:click="onClick" class="tooltip" id="validate" ref="validate" v-show="highlitedText">
       Valider
-      </v-btn>
+    </v-btn>
   </div>
 </template>
 
@@ -74,8 +73,8 @@ export default {
       let text;
 
       const paragraph = this.$refs.paragraph
-      const selector = new SelectText(paragraph)
-      selector.onSelect = (range) => {
+      this.selector = new SelectText(paragraph)
+      this.selector.onSelect = (range) => {
         this.highlitedText = Boolean(range.length)
         if (!this.highlitedText) return
         let { start, end } = range
