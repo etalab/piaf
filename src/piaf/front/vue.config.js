@@ -17,5 +17,7 @@ module.exports = {
   },
   publicPath: process.env.WEBPACK_ENVIRONMENT_PRODUCTION === 'True'
     ? '/static/front/'
-    : '/static/front/',
+    : (process.env.NODE_ENV === 'development')
+      ? '/'
+      : '/static/front/',
 }

@@ -1,19 +1,22 @@
 <template>
   <v-container>
+    <v-layout justify-center>
+      <span class="font-weight-thin mb-5">Pour annoter, choisissez une catégorie</span>
+    </v-layout>
     <v-layout
       text-center
       wrap
     >
-
       <v-layout row justify-center>
         <v-flex xs6 sm4 md3
           v-for="(theme) in themes"
           v-on:click="setCurrentTheme(theme.name)"
         >
-          <div class="my-2">
+          <div class="my-2 d-flex flex-column align-center">
             <v-btn fab large dark v-bind:color="theme.color">
               <v-icon>{{theme.logo}}</v-icon>
             </v-btn>
+            <span class="font-weight-thin grey--text">{{theme.name}}</span>
           </div>
         </v-flex>
       </v-layout>
@@ -48,7 +51,7 @@ export default {
       },
       {
         name: "Religion",
-        logo: "mdi-christianity",
+        logo: "mdi-alpha-r",
         color: "secondary"
       },
       {
@@ -62,7 +65,7 @@ export default {
         color: "accent"
       },
       {
-        name: "",
+        name: "Mystère",
         logo: "mdi-help-circle",
         color: "black"
       }

@@ -15,7 +15,8 @@
         >
       </v-avatar>
       </v-col>
-      <v-col cols='10' class="pr-0 alignSelf">
+      <v-col cols='10' class="pr-0 alignSelf" style="text-align:center;font-size:22px">
+        Edite Piaf
       </v-col>
       <v-col
         cols='1'

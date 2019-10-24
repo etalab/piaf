@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --dest '../static/front'",
     "lint": "vue-cli-service lint",
-    "watch": "vue-cli-service build --dest '../static/front' --watch"
+    "watch": "vue-cli-service build --dest '../static/front' --watch --mode production"
   },
   "dependencies": {
     "@vinyll/selecttext": "0.0.4",

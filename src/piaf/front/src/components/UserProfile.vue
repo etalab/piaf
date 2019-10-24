@@ -19,6 +19,11 @@
             src="https://i.ibb.co/fMQjbXc/logo.png"
           >
         </v-avatar>
+        <v-btn
+        color="grey darken-1" text @click="dialog = false"
+        style="position:absolute;top:5px;right:5px"
+        min-width=20
+        ><v-icon dark small>mdi-close</v-icon></v-btn>
       </v-card-title>
       <v-card-text>
         <p>Hello {{userDetails.username}},</p>
@@ -32,9 +37,9 @@
         <br>
         <p>Rappel de votre email: {{ userDetails.email }}</p>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" text @click="dialog = false"><v-icon dark>mdi-close</v-icon></v-btn>
+      <v-card-actions class="d-flex justify-space-between">
+        <v-btn color="red darken-1" outlined class="text-capitalize" small href="/logout">Se déconnecter</v-btn>
+        <v-btn color="grey darken-1" text @click="dialog = false" class="text-capitalize">Retour</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

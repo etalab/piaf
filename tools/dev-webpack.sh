@@ -15,10 +15,12 @@ frontend="${root}/src/piaf/front/"
 
   echo "Starting npm run...  with WEBPACK_ENVIRONMENT_PRODUCTION = ${WEBPACK_ENVIRONMENT_PRODUCTION}"
   if [[ -n "${WEBPACK_ENVIRONMENT_PRODUCTION}" ]] && [[ "${WEBPACK_ENVIRONMENT_PRODUCTION}" = "True" ]]; then
+    echo "--> building bundle for production"
     npm run build
     echo "--> build => bundle finished"
   else
-    echo "--> watch | dev-mode with hot-reload"
+    echo "--> starting to watch => hot-reload"
     npm run watch
+    echo "--> watch with hot-reload ready"
   fi
 )

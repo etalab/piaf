@@ -12,18 +12,18 @@
         >
           <template v-slot:activator="{ on }">
             <v-btn class="mx-0 minwidth" fab dark x-small color="primary" outlined v-on="on">
-              <v-icon dark>mdi-close</v-icon>
+              <v-icon dark>mdi-home</v-icon>
             </v-btn>
           </template>
 
           <v-card>
             <v-btn class="close pa-0" color="grey darken-1" text @click="dialog = false"><v-icon dark>mdi-close</v-icon></v-btn>
             <v-card-title class="headline">Quitter ce texte ?</v-card-title>
-            <v-card-text>En quittant maintenant, vous allez perdre les questions-réponses non sauvegardées.</v-card-text>
+            <v-card-text>Les questions-réponses que vous avez proposées sur ce texte ne seront pas sauvegardées. Vous pourrez alors choisir une nouvelle catégorie d'articles à annoter.</v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-1" text @click="dialog = false" href="/app"><v-icon dark>mdi-close</v-icon>Quitter</v-btn>
-              <v-btn color="green darken-1" text @click="dialog = false"><v-icon dark>mdi-check</v-icon>Finir</v-btn>
+              <v-btn color="red darken-1" text @click="dialog = false" class="text-capitalize" href="/app"><v-icon dark>mdi-close</v-icon>Quitter</v-btn>
+              <v-btn color="green darken-1" text @click="dialog = false" class="text-capitalize"><v-icon dark>mdi-check</v-icon>Continuer</v-btn>
             </v-card-actions>
           </v-card>
 
@@ -84,7 +84,7 @@ export default {
 .close{
   position: absolute;
   height: 50px;
-  right: 0px;
-  top: 0px;
+  right: -10px;
+  top: 5px;
 }
 </style>
