@@ -3,10 +3,7 @@
     <span
     oncopy="return false"
     oncut="return false"
-    v-touch:tap="setSelectedRange"
-    v-touch:start="setSelectedRange"
-    v-touch:end="setSelectedRange"
-    v-touch:moving="setSelectedRange"
+    @click="setSelectedRange"
     >
     {{this.currentDocument.text}}
     </span>
@@ -69,14 +66,16 @@ export default {
           start = range[0]
           end = range[1]
           text = container.textContent.substr(range[0], range[1] - range[0] + 1)
+
+          this.$store.commit('setStartOffset', start)
+          this.$store.commit('setEndOffset', end)
+          this.$store.commit('setHighlitedText', text)
+
         } else {
           console.log('not yet defined');
         }
       }
 
-      this.$store.commit('setStartOffset', start)
-      this.$store.commit('setEndOffset', end)
-      this.$store.commit('setHighlitedText', text)
     },
 
     textPart(r) {
