@@ -8,6 +8,9 @@
     <v-btn v-on:click="onClick" class="tooltip" id="validate" ref="validate" v-show="highlitedText">
       Valider
     </v-btn>
+    <button v-on:click="unselect" id="unselect" ref="unselect" v-show="highlitedText">
+      X
+    </button>
   </div>
 </template>
 
@@ -59,12 +62,24 @@ export default {
       this.$store.commit('setShowFooter',true)
     },
 
+    unselect() {
+      this.selector.selectionChanged([])
+    },
+
     moveValidateButton() {
       const button = this.$refs.validate
       const paragraph = this.$refs.paragraph
       const answer = paragraph.querySelector('.selected.last')
       button.$el.style.left = `${answer.offsetLeft}px`
       button.$el.style.top = `${answer.offsetTop}px`
+    },
+
+    moveUnselectButton() {
+      const button = this.$refs.unselect
+      const paragraph = this.$refs.paragraph
+      const answer = paragraph.querySelector('.selected.last')
+      button.style.left = `${answer.offsetLeft + answer.offsetWidth}px`
+      button.style.top = `${answer.offsetTop}px`
     },
 
     setSelectedRange() {
@@ -76,10 +91,11 @@ export default {
       this.selector = new SelectText(paragraph)
       this.selector.onSelect = (range) => {
         this.highlitedText = Boolean(range.length)
-        if (!this.highlitedText) return
         let { start, end } = range
         text = paragraph.textContent.substr(end, start - end + 1)
         this.moveValidateButton()
+        this.moveUnselectButton()
+        if (!this.highlitedText) return
       }
 
       this.$store.commit('setStartOffset', start)
@@ -142,7 +158,8 @@ export default {
 #container {
   position: relative;
 }
-#container #validate {
+#container #validate,
+#container #unselect {
   position: absolute;
 }
 
@@ -160,7 +177,14 @@ export default {
    margin-top: 30px;
    background-color: #555 !important;
    color: white !important;
+}
 
+#unselect {
+  background-color: #555;
+  color: white;
+  padding: 3px;
+  font-size: .9em;
+  border-radius: 10px;
 }
 
 .tooltip::after {
