@@ -139,11 +139,12 @@ export default new Vuex.Store({
         commit('setCurrentDocument', doc)
         return true
       }else{
+        // eslint-disable-next-line
         console.log('problem loading the new paragraph');
         return false
       }
     },
-    async saveQAs ({ commit, state, dispatch }) {
+    async saveQAs ({ state, dispatch }) {
       let qas = {}
       qas.paragraph = state.currentDocument.id
       qas.data = state.annotations
@@ -153,6 +154,7 @@ export default new Vuex.Store({
         await dispatch('loadNewText')
         return true
       }else{
+        // eslint-disable-next-line
         console.log('problem saving your Q&As');
         return false
       }
@@ -160,15 +162,16 @@ export default new Vuex.Store({
     goToNextIndex({commit, state, getters, dispatch}){
       let i = state.currentQuestionIndex
       let f = getters.numOfFinishedQA
-      console.log('i',i,'f',f);
       if( (i + 1) <= f){
         if (i + 1 < 5) {
           commit('setCurrentQuestionIndex', i + 1)
           dispatch('restoreHighliting')
         }else{
+          // eslint-disable-next-line
           console.log('we cannot go further than 5 QR');
         }
       }else{
+        // eslint-disable-next-line
         console.log('we cannot increase the current question index');
       }
     },
