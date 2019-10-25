@@ -4,6 +4,7 @@
       <span
       oncopy="return false"
       oncut="return false"
+      v-on:mouseenter="setSelectedRange"
       >
       <!-- @click="setSelectedRange" -->
       {{this.currentDocument.text}}
@@ -104,7 +105,7 @@ export default {
 
   mounted () {
       this.$store.dispatch('loadNewText')
-      this.setSelectedRange()
+      // this.setSelectedRange()
   },
 
 };
