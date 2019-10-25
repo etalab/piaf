@@ -52,11 +52,7 @@ export default {
           this.$store.commit('setStartOffset', start)
           this.$store.commit('setEndOffset', end)
           this.$store.commit('setHighlitedText', text)
-
-          // this.moveValidateButton()
-          this.moveDeleteButton()
         } else {
-          console.log('no words selec');
           this.$store.dispatch('removeAnswer')
         }
       }
@@ -99,6 +95,9 @@ export default {
     highlitedText: function (text) {
       if (!text) {
         this.setSelectedRange()
+      }else{
+        this.moveDeleteButton()
+        // this.moveValidateButton()
       }
     }
   },
