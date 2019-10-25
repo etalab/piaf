@@ -4,7 +4,6 @@
       <span
       oncopy="return false"
       oncut="return false"
-      v-on:mouseenter="setSelectedRange"
       >
       <!-- @click="setSelectedRange" -->
       {{this.currentDocument.text}}
@@ -50,14 +49,14 @@ export default {
           end = range[1]
           text = paragraph.textContent.substr(range[0], range[1] - range[0] + 1)
 
-          // this.moveValidateButton()
-          this.moveDeleteButton()
-
           this.$store.commit('setStartOffset', start)
           this.$store.commit('setEndOffset', end)
           this.$store.commit('setHighlitedText', text)
+
+          // this.moveValidateButton()
+          this.moveDeleteButton()
         } else {
-          console.log('no words selected yet');
+          console.log('no words selec');
           this.$store.dispatch('removeAnswer')
         }
       }
@@ -85,8 +84,10 @@ export default {
       const button = this.$refs.delete
       const paragraph = this.$refs.paragraph
       const answer = paragraph.querySelector('.selected.last')
-      button.$el.style.left = `${answer.offsetLeft + answer.offsetWidth}px`
-      button.$el.style.top = `${answer.offsetTop - 8}px`
+      if(answer){
+        button.$el.style.left = `${answer.offsetLeft + answer.offsetWidth}px`
+        button.$el.style.top = `${answer.offsetTop - 8}px`
+      }
     },
 
   },
@@ -104,6 +105,7 @@ export default {
 
   mounted () {
       this.$store.dispatch('loadNewText')
+      this.setSelectedRange()
   },
 
 };
