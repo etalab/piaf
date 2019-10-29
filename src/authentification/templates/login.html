@@ -5,11 +5,15 @@
 {% if allow_signup %}
 <div class="card-content">
   <form method="post" action="{% url 'login' %}">
-    <!-- {% if form.errors %}
-    {% endif %} -->
-    {{context.data}}
     {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    {% if message %}
+    <p style="color: red">{{ message }}</p>
+    <br>
+    {% endif %}
+    {% if form.errors %}
+    <p style="color: red">Le nom d'utilisateur et le mot de passe ne sont pas valides. Veuillez recommencer</p>
     {% endif %}
 
     {% csrf_token %}
@@ -33,6 +37,9 @@
     <div class="field">
       <span class="checkbox" style="margin-top:30px">
         Pas de compte ? <a href="{% url 'signup' %}"> S'inscrire </a>
+      </span>
+      <span class="checkbox" style="margin-top:30px">
+        Mot de passe oublié ? <a href="{% url 'password_reset' %}"> Réinitialiser </a>
       </span>
     </div>
   </form>

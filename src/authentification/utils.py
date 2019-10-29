@@ -38,7 +38,7 @@ def activate(request, uidb64, token):
             message_num = 5
         print('errormessage is',message_num, 'while error was', error)
         base_url = reverse('login')
-        query_string =  urlencode({'message': message_num})
+        query_string =  urlencode({'messageid': message_num})
         url = '{}?{}'.format(base_url, query_string)
         return redirect(url)
         # return render(request, 'validate_mail_address_invalid.html')
