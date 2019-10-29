@@ -6,7 +6,6 @@
       oncut="return false"
       v-on:mouseenter="setSelectedRange"
       >
-      <!-- @click="setSelectedRange" -->
       {{this.currentDocument.text}}
       </span>
     </div>
@@ -32,7 +31,8 @@ export default {
     ...mapState([
       'currentDocument',
       'highlitedText',
-      'currentQuestionIndex'
+      'currentQuestionIndex',
+      'startOffset'
     ]),
   },
 
@@ -92,6 +92,8 @@ export default {
   watch: {
     currentQuestionIndex: function () {
       this.setSelectedRange()
+      let len = typeof this.highlitedText === 'string' ? this.highlitedText.length : 0
+      this.selector.addSelection(this.startOffset,len)
     },
     highlitedText: function (text) {
       if (!text) {
@@ -105,7 +107,6 @@ export default {
 
   mounted () {
       this.$store.dispatch('loadNewText')
-      // this.setSelectedRange()
   },
 
 };

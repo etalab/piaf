@@ -120,6 +120,13 @@ export default new Vuex.Store({
       commit('setStartOffset', null)
       commit('setHighlitedText', null)
     },
+    syncAnswerWithHighliting({ state, commit }) {
+      const answer = state.annotations[state.currentQuestionIndex].answer
+      if(answer === {}) { return false }
+      commit('setEndOffset', answer.index + answer.text.length)
+      commit('setStartOffset', answer.index)
+      commit('setHighlitedText', answer.text)
+    },
     removeAnswer({ commit, state, dispatch }) {
       let newAnnotations = state.annotations
       newAnnotations[state.currentQuestionIndex].answer = {}
