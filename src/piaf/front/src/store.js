@@ -114,14 +114,24 @@ export default new Vuex.Store({
       let newAnnotations = state.annotations
       newAnnotations[state.currentQuestionIndex].answer = {"text": state.highlitedText, "index": state.startOffset},
       commit('setAnnotations', newAnnotations)
+    },
+    restoreHighliting({ commit }) {
       commit('setEndOffset', null)
       commit('setStartOffset', null)
       commit('setHighlitedText', null)
     },
-    removeAnswer({ commit, state }) {
+    syncAnswerWithHighliting({ state, commit }) {
+      const answer = state.annotations[state.currentQuestionIndex].answer
+      if(answer === {}) { return false }
+      commit('setEndOffset', answer.index + answer.text.length)
+      commit('setStartOffset', answer.index)
+      commit('setHighlitedText', answer.text)
+    },
+    removeAnswer({ commit, state, dispatch }) {
       let newAnnotations = state.annotations
       newAnnotations[state.currentQuestionIndex].answer = {}
       commit('setAnnotations', newAnnotations)
+      dispatch('restoreHighliting')
       commit('setShowFooter', false)
     },
     async loadNewText ({ commit, state }) {
@@ -136,11 +146,12 @@ export default new Vuex.Store({
         commit('setCurrentDocument', doc)
         return true
       }else{
+        // eslint-disable-next-line
         console.log('problem loading the new paragraph');
         return false
       }
     },
-    async saveQAs ({ commit, state, dispatch }) {
+    async saveQAs ({ state, dispatch }) {
       let qas = {}
       qas.paragraph = state.currentDocument.id
       qas.data = state.annotations
@@ -150,21 +161,24 @@ export default new Vuex.Store({
         await dispatch('loadNewText')
         return true
       }else{
+        // eslint-disable-next-line
         console.log('problem saving your Q&As');
         return false
       }
     },
-    goToNextIndex({commit, state, getters}){
+    goToNextIndex({commit, state, getters, dispatch}){
       let i = state.currentQuestionIndex
       let f = getters.numOfFinishedQA
-      console.log('i',i,'f',f);
       if( (i + 1) <= f){
         if (i + 1 < 5) {
           commit('setCurrentQuestionIndex', i + 1)
+          dispatch('restoreHighliting')
         }else{
+          // eslint-disable-next-line
           console.log('we cannot go further than 5 QR');
         }
       }else{
+        // eslint-disable-next-line
         console.log('we cannot increase the current question index');
       }
     },

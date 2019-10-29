@@ -11,7 +11,7 @@
       <v-text-field
       v-else
       v-model="newQuestion"
-      v-on:keyup.enter="addJSON"
+      v-on:keyup.enter="onClick"
       ref="input"
       label="Question">
         <template v-slot:label>
@@ -146,7 +146,8 @@ export default {
     reduceIndex(){
       if (this.currentQuestionIndex > 0) {
         this.$store.commit('setEditeMode',false)
-        return this.$store.commit('setCurrentQuestionIndex', this.currentQuestionIndex - 1)
+        this.$store.commit('setCurrentQuestionIndex', this.currentQuestionIndex - 1)
+        this.$store.dispatch('syncAnswerWithHighliting')
       }
     },
 

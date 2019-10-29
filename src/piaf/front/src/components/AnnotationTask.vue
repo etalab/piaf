@@ -13,7 +13,7 @@
               class="mx-auto"
             >
               <v-card-text>
-                <v-tooltip left open-on-click=true open-delay=1000>
+                <v-tooltip left v-bind:open-on-click=true open-delay=1000>
                   <template v-slot:activator="{ on }">
                     <i v-on="on">
                       {{ currentDocument.title }}
@@ -37,7 +37,7 @@
 
       <v-flex xs12 justify-center my-0 v-if="!this.$store.getters.hasQuestion">
         <v-flex align-center>
-          <v-tooltip left open-on-click=true open-delay=1000>
+          <v-tooltip left v-bind:open-on-click=true open-delay=1000>
             <template v-slot:activator="{ on }">
                 <span v-on="on">
                 Écrire une question :
@@ -55,7 +55,7 @@
 
       <v-flex xs12 justify-center my-5 v-if="!this.$store.getters.hasAnswer && this.editMode === false && this.$store.getters.hasQuestion">
         <v-flex align-center>
-          <v-tooltip left open-on-click=true open-delay=1000>
+          <v-tooltip left v-bind:open-on-click=true open-delay=1000>
             <template v-slot:activator="{ on }">
                 <span v-on="on">
                   Surligner une réponse dans le texte :

@@ -6,7 +6,6 @@ export async function getNewParagraph(theme) {
   : ''
   try {
     const res = await axios.get('/app/api/paragraph'+t);
-    console.log(res);
     if (res && res.data && typeof res.data.text === 'string') {
       return res.data
     }else {
@@ -20,13 +19,13 @@ export async function getNewParagraph(theme) {
 export async function sendQA(qas) {
   try {
     const res = await axios.post('/app/api/paragraph',qas);
-    console.log(res);
     if (res && res.status === 201) {
       return true
     }else {
       return false
     }
   } catch (error) {
+    // eslint-disable-next-line
     console.error(error);
     return false
   }
@@ -35,7 +34,6 @@ export async function sendQA(qas) {
 export async function getUserDetails() {
   try {
     const res = await axios.get('/app/me');
-    console.log(res);
     if (res && res.data && typeof res.data.email === 'string') {
       return res.data
     }else {
