@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -12,8 +12,15 @@ class SignupForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("email", "password1")
-        labels = {"username": "Nom d'utilisateur"}
+        labels = {"username": "Email"}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields.pop("password2")
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = UsernameField(
+        label='Email',
+        widget=forms.TextInput(attrs={'autofocus': True})
+    )
