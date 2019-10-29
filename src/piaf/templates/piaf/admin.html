@@ -2,33 +2,44 @@
 
 {% block content %}
 <div class="column is-12">
-    <div class="card">
-      <header class="card-header">
-        <h1 class="card-header-title">Charger des contenus depuis un fichier JSON</h1>
-      </header>
-      <div class="card-content">
-        {% if count_inserted_articles %}
-          <p>{{ count_inserted_articles }} articles on été ajoutés.</p>
-        {% endif %}
-        <form action="{% url 'app:admin' %}" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div>
-            <label>Fichier JSON des articles</label>
-            <input type=file name=file>
-          </div>
+  <section class="card">
+    <header class="card-header">
+      <h1 class="card-header-title">Charger des contenus depuis un fichier JSON</h1>
+    </header>
+    <div class="card-content">
+      {% if count_inserted_articles %}
+        <p class=notification>{{ count_inserted_articles }} articles on été ajoutés.</p>
+      {% endif %}
+      <form action="{% url 'app:dataset' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+          <label>Fichier JSON des articles</label>
+          <input type=file name=file>
+        </div>
 
-          <div>
-            <label>Restriction des utilisateurs</label>
-            <select name=audience required>
-              <option> --- </option>
-              <option value=restricted>Réservé uniquement aux utilisateurs certifiés</option>
-              <option value=all>Valide pour tous les utilisateurs (non certifiés)</option>
-            </select>
-          </div>
-          <input type="submit" class="button is-link" value="Ajouter ces articles">
-        </form>
-      </div>
+        <div>
+          <label>Restriction des utilisateurs</label>
+          <select name=audience required>
+            <option> --- </option>
+            <option value=restricted>Réservé uniquement aux utilisateurs certifiés</option>
+            <option value=all>Valide pour tous les utilisateurs (non certifiés)</option>
+          </select>
+        </div>
+        <input type="submit" class="button is-link" value="Ajouter ces articles">
+      </form>
     </div>
+  </section>
+
+  <hr>
+
+  <section class="card">
+    <header class="card-header">
+      <h1 class="card-header-title">Télécharger les données en JSON</h1>
+    </header>
+    <div class="card-content">
+      <a class="button is-link" href="/app/admin/dataset">Télécharger</a>
+    </div>
+  </section>
 </div>
 
 <style>
@@ -38,6 +49,11 @@
   label {
     display: block;
     font-weight: bold;
+  }
+  .notification {
+    background-color: aliceblue;
+    padding: 10px;
+    margin: 5px 0 20px 0;
   }
 </style>
 {% endblock %}
