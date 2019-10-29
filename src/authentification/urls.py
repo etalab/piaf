@@ -6,15 +6,15 @@ from .utils import activate
 
 
 urlpatterns = [
-    path('password_reset/done/', PasswordResetDoneView.as_view(),
+    path('password_reset/done/', PasswordResetDoneView.as_view(template_name='password_reset_done.html'),
          name='password_reset_done'),
-    path('reset/done/', PasswordResetCompleteView.as_view(),
+    path('reset/done/', PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
          name='password_reset_complete'),
-    path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(),
+    path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
          name='password_reset_confirm'),
     path('signup/', SignupView.as_view(), name='signup'),
     path('activate/<str:uidb64>/<str:token>', activate, name='activate'),
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path("logout/", LogoutView.as_view(), name="logout"),
-    path("password_reset/", PasswordResetView.as_view(), name="password_reset")
+    path("password_reset/", PasswordResetView.as_view(template_name='password_reset_form.html'), name="password_reset")
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import SignupForm
+from .forms import SignupForm, CustomAuthenticationForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -71,12 +71,26 @@ class SignupView(TemplateView):
 class LoginView(BaseLoginView):
     template_name = "login.html"
     redirect_authenticated_user = True
-    extra_context = {
-        "github_login": bool(settings.SOCIAL_AUTH_GITHUB_KEY),
-        "allow_signup": bool(settings.ALLOW_SIGNUP),
-    }
+    authentication_form = CustomAuthenticationForm
 
     def get_context_data(self, **kwargs):
-        context = super(LoginView, self).get_context_data(**kwargs)
-        print('kwargs',context)
+        context = super().get_context_data(**kwargs)
+        context["allow_signup"] = bool(settings.ALLOW_SIGNUP)
+
+        message_id_raw = self.request.GET.get("messageid")
+        if not isinstance(message_id_raw, str):
+            return context
+
+        message_id = int(message_id_raw)
+        if message_id == 1:
+            context["message"] = "TypeError. Contacter piaf@data.gouv.fr"
+        elif message_id == 2:
+            context["message"] = "ValueError. Contacter piaf@data.gouv.fr"
+        elif message_id == 3:
+            context["message"] = "OverflowError. Contacter piaf@data.gouv.fr"
+        elif message_id == 4:
+            context["message"] = "Utilisateur inconnu. Etes-vous déjà inscrit ?"
+        else:
+            context["message"] = "Erreur inconnue. Contacter piaf@data.gouv.fr"
+
         return context
