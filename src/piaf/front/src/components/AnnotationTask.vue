@@ -15,10 +15,10 @@
               <v-card-text>
                 <v-tooltip left v-bind:open-on-click=true open-delay=1000>
                   <template v-slot:activator="{ on }">
-                    <i v-on="on">
-                      {{ currentDocument.title }}
+                    <span v-on="on">
+                      <span v-html="currentDocument.title"></span>
                       <v-icon fab small dark class="grey--text" >mdi-information-outline</v-icon>
-                    </i>
+                    </span>
                   </template>
                   <span>Titre de l'article Wikipédia dont est extrait ce texte</span>
                 </v-tooltip>
