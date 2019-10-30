@@ -13,6 +13,7 @@
       v-model="newQuestion"
       v-on:keyup.enter="onClick"
       ref="input"
+      :rules="rulesArray"
       label="Question">
         <template v-slot:label>
           Allez-y: posez ici une question en utilisant vos propres mots ! (La réponse doit être dans le texte)
@@ -49,19 +50,6 @@
       >Suivant
       </v-btn>
 
-
-      <!-- <v-btn
-      v-if="currentQuestionIndex < numOfFinishedQA && !isProtected"
-      class="mr-10"
-      fab
-      dark
-      x-small
-      outlined
-      color="secondary"
-      v-on:click="next">
-        <v-icon dark>mdi-arrow-right</v-icon>
-      </v-btn> -->
-
     </div>
   </section>
 </template>
@@ -84,6 +72,9 @@ import { mapState } from 'vuex'
 export default {
   data: () => ({
     newQuestion: '',
+    rulesArray: [
+      (v) => v.length < 200 ? true : 'La question doit faire moins de 200 caractères'
+    ]
   }),
 
   computed: {
@@ -134,13 +125,9 @@ export default {
     },
 
     onClick(){
-      // if (this.isProtected) {
-      //   this.$store.commit('setEditeMode',true)
-      //   // this.$nextTick(() => this.$refs.input.focus())
-      // } else {
+      if(this.newQuestion.length >= 200) {return false}
       this.$store.commit('setEditeMode',false)
       this.addJSON()
-      // }
     },
 
     reduceIndex(){
@@ -151,10 +138,6 @@ export default {
       }
     },
 
-    // next(){
-    //   this.$store.commit('setEditeMode',false)
-    //   return this.$store.commit('goToNextIndex')
-    // },
 
   },
   created: function() {
