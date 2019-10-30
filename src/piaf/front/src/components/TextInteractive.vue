@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="TextInteractive" v-bind:class="{ showErrorMessage: showErrorMessage }">
     <div class="alignLeft paragraph" ref="paragraph">
       <span
       oncopy="return false"
@@ -34,6 +34,9 @@ export default {
       'currentQuestionIndex',
       'startOffset'
     ]),
+    showErrorMessage () {
+      return typeof this.highlitedText === 'string' && this.highlitedText.length > 200
+    },
   },
 
   methods: {
@@ -131,7 +134,6 @@ export default {
    text-align: center;
    padding: 10px;
    border-radius: 10px; /* Defines tooltip text position */
-   position: absolute;
    z-index: 1;
    min-width: 100px;
    bottom: -50px;
@@ -190,6 +192,10 @@ export default {
 .paragraph span.selected {
   color: #ffffff;
   background-color: #4169e1;
+}
+
+#TextInteractive.showErrorMessage span.selected, #TextInteractive.showErrorMessage .delete {
+  background-color: #de3737 !important;
 }
 
 </style>

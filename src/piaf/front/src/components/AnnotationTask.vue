@@ -15,14 +15,22 @@
               <v-card-text>
                 <v-tooltip left v-bind:open-on-click=true open-delay=1000>
                   <template v-slot:activator="{ on }">
-                    <i v-on="on">
-                      {{ currentDocument.title }}
+                    <span v-on="on">
+                      <span v-html="currentDocument.title"></span>
                       <v-icon fab small dark class="grey--text" >mdi-information-outline</v-icon>
-                    </i>
+                    </span>
                   </template>
                   <span>Titre de l'article Wikipédia dont est extrait ce texte</span>
                 </v-tooltip>
                 <br>
+                <v-alert
+                  dense
+                  outlined
+                  type="error"
+                  v-show="showErrorMessage"
+                >
+                  La réponse est <strong>trop longue</strong>, elle doit faire moins de 200 caractères
+                </v-alert>
                 <TextInteractive
                   v-bind:text="currentDocument.text"
                   v-bind:currentQuestionIndex="currentQuestionIndex"
@@ -96,10 +104,14 @@ export default {
       'currentDocument',
       'annotations',
       'currentQuestionIndex',
-      'editMode'
+      'editMode',
+      'highlitedText'
     ]),
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
+    },
+    showErrorMessage () {
+      return typeof this.highlitedText === 'string' && this.highlitedText.length > 200
     },
   },
 };
