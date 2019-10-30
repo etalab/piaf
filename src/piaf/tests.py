@@ -78,6 +78,8 @@ class ApiTest(TestCase):
                 "theme": "Géographie",
                 "text": "this is text 1",
                 "title": "My First Article",
+                "count_pending_paragraphs": 4,
+                "count_pending_batches": 1,
             },
         )
 

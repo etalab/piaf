@@ -112,6 +112,8 @@ class ParagraphView(View):
             "theme": article.theme,
             "text": paragraph.text,
             "title": article.name,
+            "count_pending_paragraphs": batch.paragraphs.filter(status="pending").count(),
+            "count_pending_batches": article.batches.filter(status="pending").count(),
         }
         return JsonResponse(data)
 
