@@ -41,10 +41,12 @@ class ModelTest(TestCase):
 
 class ApiTest(TestCase):
     def setUp(self):
+        # create user and authenticate
         self.user = get_user_model().objects.create(username="user")
         self.user.set_password("password")
         self.user.save()
         client.login(username="user", password="password")
+        # 1 article with 1 batch and 5 articles
         self.article = self.create_article(
             name="My First Article", theme="Géographie", text="this is text 1"
         )
@@ -142,3 +144,19 @@ class ApiTest(TestCase):
         self.paragraphs.first().complete(questions_answers, user=self.user)
         response = client.get("/app/api/paragraph")
         self.assertEqual(response.json()["text"], "this is text 2")
+
+    def test_get_datasets_info(self):
+        response = client.get("/app/api/datasets")
+        self.assertEqual(response.status_code, 200)
+        # import ipdb; ipdb.set_trace()
+        self.assertDictEqual(response.json(), {"count_pending_articles": 1, "count_completed_articles": 0})
+        paragraph = self.paragraphs.first()
+        paragraph.status = "completed"
+        paragraph.save()
+        response = client.get("/app/api/datasets")
+        self.assertDictEqual(response.json(), {"count_pending_articles": 1, "count_completed_articles": 0})
+        for p in self.paragraphs.all():
+            p.status = "completed"
+            p.save()
+        response = client.get("/app/api/datasets")
+        self.assertDictEqual(response.json(), {"count_pending_articles": 0, "count_completed_articles": 1})
