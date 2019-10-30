@@ -51,13 +51,13 @@ class DatasetView(SuperUserMixin, TemplateView):
                 "paragraphs": paragraphs,
             }
             data.append(d)
-            response = HttpResponse(
-                json.dumps(list(data)), content_type="application/force-download"
-            )
-            response[
-                "Content-Disposition"
-            ] = "attachment; filename=piaf-annotations.json"
-            return response
+        response = HttpResponse(
+            json.dumps(list(data)), content_type="application/json"
+        )
+        response[
+            "Content-Disposition"
+        ] = "attachment; filename=piaf-annotations.json"
+        return response
 
     def post(self, request, *args, **kwargs):
         content = request.FILES["file"].read()
