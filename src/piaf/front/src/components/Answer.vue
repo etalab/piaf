@@ -18,7 +18,7 @@
           small
           color="primary"
           dark
-          v-if="highlitedText"
+          v-if="typeof highlitedText === 'string' && highlitedText.length < 200"
           v-on:click="onClick"
           >Valider
           </v-btn>
@@ -26,7 +26,7 @@
           <v-btn
           small
           disabled
-          v-if="!highlitedText"
+          v-else
           >Valider
           </v-btn>
 

@@ -23,6 +23,14 @@
                   <span>Titre de l'article Wikipédia dont est extrait ce texte</span>
                 </v-tooltip>
                 <br>
+                <v-alert
+                  dense
+                  outlined
+                  type="error"
+                  v-show="showErrorMessage"
+                >
+                  La réponse est <strong>trop longue</strong>, elle doit faire moins de 200 caractères
+                </v-alert>
                 <TextInteractive
                   v-bind:text="currentDocument.text"
                   v-bind:currentQuestionIndex="currentQuestionIndex"
@@ -96,10 +104,14 @@ export default {
       'currentDocument',
       'annotations',
       'currentQuestionIndex',
-      'editMode'
+      'editMode',
+      'highlitedText'
     ]),
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
+    },
+    showErrorMessage () {
+      return typeof this.highlitedText === 'string' && this.highlitedText.length > 200
     },
   },
 };
