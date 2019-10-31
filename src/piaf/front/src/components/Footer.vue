@@ -1,6 +1,6 @@
 <template>
   <v-flex xs12 my-0 justify-center class="container">
-    <v-row class="maxWid700 mx-auto textContainer">
+    <v-row class="maxWid700 mx-auto textContainer bold">
       Bravo !
     </v-row>
     <v-row class="maxWid700 mx-auto">
@@ -64,10 +64,10 @@ export default {
   methods:{
     validate(){
       let res = this.$store.dispatch('saveQAs')
-      console.log(res);
       if (res) {
         this.next()
       } else {
+        // eslint-disable-next-line
         console.log('error in the Q or A');
       }
     },

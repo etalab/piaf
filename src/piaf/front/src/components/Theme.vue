@@ -16,7 +16,7 @@
             <v-btn fab large dark v-bind:color="theme.color">
               <v-icon>{{theme.logo}}</v-icon>
             </v-btn>
-            <span class="font-weight-thin grey--text">{{theme.name}}</span>
+            <span class="font-weight-thin black--text">{{theme.name}}</span>
           </div>
         </v-flex>
       </v-layout>

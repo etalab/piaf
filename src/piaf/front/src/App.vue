@@ -72,4 +72,10 @@ export default {
        font-family: "cooperhewitt medium" !important;
     }
 }
+strong{
+  font-family: "cooperhewitt medium" !important;
+}
+.bold{
+  font-family: "cooperhewitt medium" !important;
+}
 </style>
