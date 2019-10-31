@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout justify-center>
-      <span class="font-weight-thin mb-5">Pour annoter, choisissez une catégorie</span>
+      <span class="font-weight-thin mb-5 white--text zind0">Pour annoter, choisissez une catégorie</span>
     </v-layout>
     <v-layout
       text-center
@@ -16,7 +16,7 @@
             <v-btn fab large dark v-bind:color="theme.color">
               <v-icon>{{theme.logo}}</v-icon>
             </v-btn>
-            <span class="font-weight-thin black--text">{{theme.name}}</span>
+            <span class="font-weight-thin white--text zind0">{{theme.name}}</span>
           </div>
         </v-flex>
       </v-layout>
@@ -79,3 +79,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.zind0{
+  z-index: 0;
+}
+</style>

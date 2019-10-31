@@ -15,6 +15,7 @@
 
   <!-- Sizes your content based upon application components -->
   <v-content>
+    <Animation v-if="showTheme"/>
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
       <Theme v-if="showTheme"/>
@@ -39,6 +40,7 @@ import Footer from './components/Footer';
 import AnnotationTask from './components/AnnotationTask';
 import Navbar from './components/Navbar';
 import NavbarProfile from './components/NavbarProfile';
+import Animation from './components/Animation.vue';
 import { mapState } from 'vuex'
 
 export default {
@@ -49,6 +51,7 @@ export default {
     Navbar,
     NavbarProfile,
     Footer,
+    Animation,
   },
   computed: mapState([
     // attacher `this.currentTheme` à `store.state.currentTheme`
