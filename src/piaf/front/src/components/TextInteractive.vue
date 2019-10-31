@@ -1,5 +1,5 @@
 <template>
-  <div id="TextInteractive" v-bind:class="{ showErrorMessage: showErrorMessage }">
+  <div id="TextInteractive" v-bind:class="{ showErrorMessage: showErrorMessage }" :key="this.currentDocument.text">
     <div class="alignLeft paragraph" ref="paragraph">
       <span
       oncopy="return false"
@@ -94,6 +94,7 @@ export default {
 
   watch: {
     currentQuestionIndex: function () {
+      console.log('currentQuestionIndex triggered');
       this.setSelectedRange()
       let len = typeof this.highlitedText === 'string' ? this.highlitedText.length : 0
       this.selector.addSelection(this.startOffset,len)
