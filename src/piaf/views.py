@@ -20,7 +20,7 @@ class AdminView(SuperUserMixin, TemplateView):
     template_name = "piaf/admin.html"
 
 
-class DatasetView(SuperUserMixin, TemplateView):
+class AdminDatasetView(SuperUserMixin, TemplateView):
     template_name = "piaf/admin.html"
     count_inserted_articles = None
 
@@ -84,6 +84,20 @@ class DatasetView(SuperUserMixin, TemplateView):
         return context
 
 
+def get_datasets_info(request):
+        theme = request.GET.get("theme")
+        qs = Article.objects.distinct("pk")
+        if theme:
+            qs = qs.filter(theme=theme)
+        if not request.user.is_certified:
+            qs = qs.filter(audience="all")
+        data = {
+            "count_completed_articles": qs.exclude(paragraphs__status="pending").count(),
+            "count_pending_articles": qs.filter(paragraphs__status="pending").count(),
+        }
+        return JsonResponse(data)
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class ParagraphView(View):
     def get(self, request, *args, **kwargs):
@@ -112,6 +126,8 @@ class ParagraphView(View):
             "theme": article.theme,
             "text": paragraph.text,
             "title": article.name,
+            "count_pending_paragraphs": batch.paragraphs.filter(status="pending").count(),
+            "count_pending_batches": article.batches.filter(status="pending").count(),
         }
         return JsonResponse(data)
 

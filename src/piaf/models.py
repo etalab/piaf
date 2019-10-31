@@ -23,7 +23,7 @@ class Article(models.Model):
 
     @property
     def batches(self):
-        return ParagraphBatch.objects.filter(paragraphs__article=self)
+        return ParagraphBatch.objects.filter(paragraphs__article=self).distinct('paragraphs__article')
 
     def __str__(self):
         return self.name
