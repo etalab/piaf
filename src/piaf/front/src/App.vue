@@ -15,7 +15,7 @@
 
   <!-- Sizes your content based upon application components -->
   <v-content>
-    <Animation v-if="showTheme"/>
+    <Animation v-if="showTheme || showAnnotationTask"/>
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
       <Theme v-if="showTheme"/>
@@ -28,7 +28,7 @@
   padless
   fixed
   min-height='150px'
-  color='#8bcbff'>
+  color='white'>
     <Footer/>
   </v-footer>
 </v-app>
@@ -75,10 +75,22 @@ export default {
        font-family: "cooperhewitt medium" !important;
     }
 }
+html, .v-application {
+  font-size: 14px;
+}
+@media (min-width:700px) {
+  html, .v-application {
+    font-size: 18px;
+  }
+}
 strong{
   font-family: "cooperhewitt medium" !important;
 }
 .bold{
   font-family: "cooperhewitt medium" !important;
+}
+.v-tooltip__content{
+  background-color: #616161 !important;
+  opacity: 1 !important;
 }
 </style>

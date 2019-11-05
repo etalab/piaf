@@ -34,10 +34,10 @@
       <v-col cols='11' class="pr-0 alignSelf">
         <v-progress-linear
           v-bind:value="stepPercentage"
-          color="#1b4597"
+          color="#11174d"
+          background-color="#1b4799"
           height="25"
           rounded
-          striped
           v-bind:style="{ borderRadius: 30 + 'px' }"
         >
           <template v-slot="{ value }">

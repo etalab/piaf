@@ -171,6 +171,9 @@ export default {
  box-shadow: none !important;
 }
 
+#TextInteractive{
+  color: black;
+}
 </style>
 
 <style>

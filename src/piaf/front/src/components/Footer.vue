@@ -6,8 +6,8 @@
           <v-tooltip left v-bind:open-on-click=true open-delay=1000>
             <template v-slot:activator="{ on }">
                 <span v-on="on">
-                Écrire une question :
-                <v-icon fab small dark class="grey--text" >mdi-information-outline</v-icon>
+                Écrire une question
+                <v-icon fab small dark class="black--text" >mdi-information-outline</v-icon>
                 </span>
             </template>
             <span>Après avoir lu le texte ci-dessus, écrivez une question en utilisant vos propres mots. La réponse doit être dans le texte. Vous avez peur de faire des fautes d'orthographe ? Pas grave: l'IA comprendra mieux le français en général, y compris celui de monsieur tout le monde... On ne s'appelle pas tous Bernard Pivot</span>
@@ -18,8 +18,8 @@
           <v-tooltip left v-bind:open-on-click=true open-delay=1000>
             <template v-slot:activator="{ on }">
                 <span v-on="on">
-                  Surligner une réponse dans le texte :
-                  <v-icon fab small dark class="grey--text" >mdi-information-outline</v-icon>
+                  Surligner une réponse dans le texte
+                  <v-icon fab small dark class="black--text" >mdi-information-outline</v-icon>
                 </span>
             </template>
             <span>Après avoir posé une question sur ce texte, vous pouvez indiquer à l'IA où se trouve la réponse.<br> Pour ça, cliquez sur le premier mot de la réponse, puis sur le dernier mot.</span>

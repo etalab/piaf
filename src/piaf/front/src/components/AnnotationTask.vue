@@ -12,12 +12,12 @@
               max-width="700"
               class="mx-auto"
             >
-              <v-card-text>
+              <v-card-text style="font-size:1em;line-height:1.7;">
                 <v-tooltip left v-bind:open-on-click=true open-delay=1000>
                   <template v-slot:activator="{ on }">
                     <span v-on="on">
-                      <span v-html="currentDocument.title"></span>
-                      <v-icon fab small dark class="grey--text ml-1" >mdi-information-outline</v-icon>
+                      <span v-html="currentDocument.title" class="black--text bold"></span>
+                      <v-icon fab small dark class="black--text ml-1" >mdi-information-outline</v-icon>
                     </span>
                   </template>
                   <span>Titre de l'article Wikipédia dont est extrait ce texte</span>
