@@ -17,7 +17,7 @@
                   <template v-slot:activator="{ on }">
                     <span v-on="on">
                       <span v-html="currentDocument.title"></span>
-                      <v-icon fab small dark class="grey--text" >mdi-information-outline</v-icon>
+                      <v-icon fab small dark class="grey--text ml-1" >mdi-information-outline</v-icon>
                     </span>
                   </template>
                   <span>Titre de l'article Wikipédia dont est extrait ce texte</span>
@@ -70,7 +70,7 @@
                   <v-icon fab small dark class="grey--text" >mdi-information-outline</v-icon>
                 </span>
             </template>
-            <span>Après avoir posé une question sur ce texte, vous pouvez indiquer à l'IA où se trouve la réponse. Pour ça, surligner la réponse dans le texte puis validez.</span>
+            <span>Après avoir posé une question sur ce texte, vous pouvez indiquer à l'IA où se trouve la réponse.<br> Pour ça, cliquez sur le premier mot de la réponse, puis sur le dernier mot.</span>
           </v-tooltip>
         </v-flex>
       </v-flex>
