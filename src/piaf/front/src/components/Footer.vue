@@ -1,15 +1,52 @@
 <template>
   <v-flex xs12 my-0 justify-center class="container">
-    <v-row class="maxWid700 mx-auto textContainer bold">
+    <v-row class="maxWid700 mx-auto textContainer bold"
+    v-if="annotationFooter">
+      <span xs12 justify-center my-0 v-if="!this.$store.getters.hasQuestion">
+          <v-tooltip left v-bind:open-on-click=true open-delay=1000>
+            <template v-slot:activator="{ on }">
+                <span v-on="on">
+                Écrire une question :
+                <v-icon fab small dark class="grey--text" >mdi-information-outline</v-icon>
+                </span>
+            </template>
+            <span>Après avoir lu le texte ci-dessus, écrivez une question en utilisant vos propres mots. La réponse doit être dans le texte. Vous avez peur de faire des fautes d'orthographe ? Pas grave: l'IA comprendra mieux le français en général, y compris celui de monsieur tout le monde... On ne s'appelle pas tous Bernard Pivot</span>
+          </v-tooltip>
+      </span>
+
+      <span xs12 justify-center my-5 v-if="!this.$store.getters.hasAnswer && this.editMode === false && this.$store.getters.hasQuestion">
+          <v-tooltip left v-bind:open-on-click=true open-delay=1000>
+            <template v-slot:activator="{ on }">
+                <span v-on="on">
+                  Surligner une réponse dans le texte :
+                  <v-icon fab small dark class="grey--text" >mdi-information-outline</v-icon>
+                </span>
+            </template>
+            <span>Après avoir posé une question sur ce texte, vous pouvez indiquer à l'IA où se trouve la réponse.<br> Pour ça, cliquez sur le premier mot de la réponse, puis sur le dernier mot.</span>
+          </v-tooltip>
+      </span>
+
+    </v-row>
+    <v-row class="maxWid700 mx-auto textContainer bold"
+    v-if="lastValidationFooter">
       Bravo !
     </v-row>
-    <v-row class="maxWid700 mx-auto">
-      <v-col
-        cols='3'
-        class="px-0"
-      >
+    <v-row class="maxWid700 mx-auto"
+    v-if="annotationFooter">
+      <v-col cols='12'>
+        <QuestionInput class="maxWid700 mx-auto"/>
+
+        <span v-if="this.$store.getters.hasQuestion">
+          <Answer
+            v-if="currentAnnotation && currentAnnotation.question.text !== ''"
+            class="maxWid700 mx-auto"
+          />
+        </span>
       </v-col>
-      <v-col cols='6' class="pr-0 textContainer">
+    </v-row>
+    <v-row class="maxWid700 mx-auto"
+    v-if="lastValidationFooter">
+      <v-col cols='12' class="pr-0 textContainer">
 
         <v-btn
         class="mx-2"
@@ -44,23 +81,33 @@
         </v-btn>
 
       </v-col>
-      <v-col
-        cols='3'
-        class="px-0"
-      >
-      </v-col>
     </v-row>
   </v-flex>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import QuestionInput from './QuestionInput.vue';
+import Answer from './Answer.vue';
 
 export default {
+  components: { QuestionInput, Answer },
   computed: {
     ...mapState([
-      'currentQuestionIndex'
+      'currentQuestionIndex',
+      'editMode',
+      'showFooter',
+      'showTheme',
     ]),
+    currentAnnotation () {
+      return this.$store.getters.currentAnnotation
+    },
+    lastValidationFooter () {
+      return !this.showTheme && this.showFooter
+    },
+    annotationFooter () {
+      return !this.showTheme && !this.showFooter
+    },
   },
   methods:{
     validate(){
