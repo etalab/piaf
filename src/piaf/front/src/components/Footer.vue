@@ -16,6 +16,7 @@
         fab
         dark
         x-small
+        outlined
         color="secondary"
         v-on:click="removeAnswer">
           <v-icon dark>mdi-arrow-left</v-icon>

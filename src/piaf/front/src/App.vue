@@ -19,7 +19,7 @@
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
       <Theme v-if="showTheme"/>
-      <AnnotationTask v-if="showAnnotationTask && currentDocument"/>
+      <AnnotationTask v-if="showAnnotationTask && currentDocument" style="margin-bottom:150px;"/>
     </v-container>
   </v-content>
 
@@ -31,12 +31,21 @@
   color='#8bcbff'>
     <Footer/>
   </v-footer>
+  <v-footer
+  v-if="!showFooter && !showTheme"
+  padless
+  fixed
+  min-height='150px'
+  color='#8bcbff'>
+    <FooterAnnotation/>
+  </v-footer>
 </v-app>
 </template>
 
 <script>
 import Theme from './components/Theme';
 import Footer from './components/Footer';
+import FooterAnnotation from './components/FooterAnnotation';
 import AnnotationTask from './components/AnnotationTask';
 import Navbar from './components/Navbar';
 import NavbarProfile from './components/NavbarProfile';
@@ -51,6 +60,7 @@ export default {
     Navbar,
     NavbarProfile,
     Footer,
+    FooterAnnotation,
     Animation,
   },
   computed: mapState([

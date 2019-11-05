@@ -1,6 +1,5 @@
 <template>
   <section>
-    <div>
       <v-text-field
       v-bind:value="currentAnnotation.question.text"
       v-if="isProtected"
@@ -20,37 +19,37 @@
         </template>
       </v-text-field>
 
-      <v-btn
-      v-if="currentQuestionIndex > 0 && !isProtected"
-      class="mr-10"
-      fab
-      dark
-      x-small
-      outlined
-      color="secondary"
-      v-on:click="reduceIndex">
-        <v-icon dark>mdi-arrow-left</v-icon>
-      </v-btn>
+      <span class="justify-center d-flex">
+        <v-btn
+        v-if="currentQuestionIndex > 0 && !isProtected"
+        class="mr-10"
+        fab
+        dark
+        x-small
+        outlined
+        color="secondary"
+        v-on:click="reduceIndex">
+          <v-icon dark>mdi-arrow-left</v-icon>
+        </v-btn>
 
 
-      <v-btn
-      small
-      color="primary"
-      dark
-      v-if="newQuestion !== '' && !isProtected"
-      v-on:click="onClick"
-      class="has-background-royalblue">Suivant
-      </v-btn>
+        <v-btn
+        small
+        color="primary"
+        dark
+        v-if="newQuestion !== '' && !isProtected"
+        v-on:click="onClick"
+        class="has-background-royalblue">Suivant
+        </v-btn>
 
-      <v-btn
-      small
-      disabled
-      color="primary"
-      v-if="newQuestion === '' && !isProtected"
-      >Suivant
-      </v-btn>
-
-    </div>
+        <v-btn
+        small
+        disabled
+        color="primary"
+        v-if="newQuestion === '' && !isProtected"
+        >Suivant
+        </v-btn>
+      </span>
   </section>
 </template>
 

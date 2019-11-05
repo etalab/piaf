@@ -1,7 +1,6 @@
 <template>
   <section class="is-transparentbackground">
-    <header class="header card-content">
-      <div v-if="show">
+      <span v-if="show" class="justify-center d-flex">
 
           <v-btn
           class="mr-10"
@@ -29,9 +28,7 @@
           v-else
           >Valider
           </v-btn>
-
-      </div>
-    </header>
+      </span>
   </section>
 </template>
 
