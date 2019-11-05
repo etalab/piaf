@@ -5,7 +5,7 @@
   </v-navigation-drawer> -->
 
   <!--  Is always placed at the top of an application with a lower priority than v-system-bar -->
-  <v-app-bar app>
+  <v-app-bar app hide-on-scroll>
     <Navbar
     v-if="showNavbar"
     />
