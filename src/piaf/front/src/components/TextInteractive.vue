@@ -1,5 +1,5 @@
 <template>
-  <div id="TextInteractive" v-bind:class="{ showErrorMessage: showErrorMessage }">
+  <div id="TextInteractive" v-bind:class="{ showErrorMessage: showErrorMessage }" :key="this.currentDocument.text">
     <div class="alignLeft paragraph" ref="paragraph">
       <span
       oncopy="return false"
@@ -83,7 +83,7 @@ export default {
     moveDeleteButton() {
       const button = this.$refs.delete
       const paragraph = this.$refs.paragraph
-      const answer = paragraph.querySelector('.selected.last')
+      const answer = paragraph.querySelector('.last')
       if(answer){
         button.$el.style.left = `${answer.offsetLeft + answer.offsetWidth}px`
         button.$el.style.top = `${answer.offsetTop - 8}px`
@@ -171,6 +171,9 @@ export default {
  box-shadow: none !important;
 }
 
+#TextInteractive{
+  color: black;
+}
 </style>
 
 <style>
@@ -181,11 +184,15 @@ export default {
 .paragraph span:hover {
   background-color: #d4e6ff;
 }
-.paragraph span.selected.first {
+.paragraph span.first {
+  color: #ffffff;
+  background-color: #4169e1;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
-.paragraph span.selected.last {
+.paragraph span.last {
+  color: #ffffff;
+  background-color: #4169e1;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
