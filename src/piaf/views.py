@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 from api.permissions import SuperUserMixin
-from .models import Article, ParagraphBatch, Paragraph, Question
+from .models import Article, ParagraphBatch, Paragraph, Question, Answer
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -163,3 +163,9 @@ class QuestionView(View):
             },
         }
         return JsonResponse(data)
+
+    def post(self, request):
+        data = json.loads(request.body)
+        question = Question.objects.get(pk=data["id"])
+        Answer.objects.create(question=question, text=data["text"], index=data["index"])
+        return JsonResponse(None, status=201, safe=False)

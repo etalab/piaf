@@ -1,7 +1,7 @@
 from django.test import Client, TestCase
 from django.contrib.auth import get_user_model
 
-from .models import Article, Paragraph, ParagraphBatch, Question
+from .models import Article, Paragraph, ParagraphBatch, Question, Answer
 
 client = Client()
 
@@ -20,6 +20,10 @@ def create_article(name, theme, text, audience="all"):
     batch = ParagraphBatch.objects.create()
     Paragraph.objects.create(text=text, article=article, batch=batch)
     return article
+
+
+def create_question(paragraph, text):
+    return Question.objects.create(paragraph=paragraph, text=text)
 
 
 class ModelTest(TestCase):
@@ -44,6 +48,17 @@ class ModelTest(TestCase):
             if p.status == "pending":
                 p.complete(questions_answers, user=self.user)
         self.assertEqual(self.batch.status, "completed")
+
+    def test_3_answers_complete_question(self):
+        article = create_article("article", "g", "text")
+        question = Question.objects.create(paragraph=article.paragraphs.first(), text="q")
+        Answer.objects.create(question=question, text="a1", index=1)
+        Answer.objects.create(question=question, text="a2", index=2)
+        self.assertEqual(question.status, "pending")
+        answer = Answer(question=question, text="a3", index=3)
+        answer.save()
+        self.assertEqual(question.status, "completed")
+
 
 
 def login_user():
@@ -200,3 +215,25 @@ class QuestionApiTest(TestCase):
                 },
             },
         )
+
+    def test_post_answer_to_question(self):
+        article = create_article("title 1", "general", "this is article 1")
+        question = Question.objects.create(
+            paragraph=article.paragraphs.first(), text="What is it?"
+        )
+        self.assertEqual(Answer.objects.count(), 0)
+        client.post(
+            "/app/api/question",
+            content_type="application/json",
+            data={"id": question.pk, "text": "This is the answer", "index": 42},
+        )
+        self.assertEqual(Answer.objects.count(), 1)
+
+    def test_get_answer_only_pending_question(self):
+        article = create_article("title 1", "general", "this is article 1")
+        paragraph = article.paragraphs.first()
+        for i in range(0, 20):
+            Question.objects.create(paragraph=paragraph, status="completed", text=f"q {i}")
+        Question.objects.create(paragraph=paragraph, text="I'm pending")
+        response = client.get("/app/api/question")
+        self.assertEqual(response.json()["text"], "I'm pending")
