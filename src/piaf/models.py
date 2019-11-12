@@ -99,6 +99,14 @@ class Question(models.Model):
     )
     text = models.CharField(max_length=200)
     created_at = models.DateField(auto_now_add=True)
+    status = models.CharField(
+        max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
+    )
+
+    def watch_status(self):
+        if self.answers.count() >= 3:
+            self.status = STATUS_COMPLETED
+            self.save()
 
 
 class Answer(models.Model):
@@ -109,3 +117,7 @@ class Answer(models.Model):
     text = models.CharField(max_length=200)
     index = models.IntegerField()
     created_at = models.DateField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.question.watch_status()
