@@ -13,6 +13,7 @@ export default new Vuex.Store({
     showFooter: false,
     showNavbar: false,
     showAnnotationTask: false,
+    showBravo: false,
     // Current paragraph we display
     currentDocument: {
       title: 'Titre',
@@ -73,6 +74,9 @@ export default new Vuex.Store({
     setShowAnnotationTask(state,boo) {
       state.showAnnotationTask = boo
     },
+    setShowBravo(state,boo) {
+      state.showBravo = boo
+    },
     setCurrentTheme(state,newTheme) {
       state.currentTheme = newTheme
     },
@@ -109,6 +113,15 @@ export default new Vuex.Store({
       context.commit('setShowAnnotationTask', true)
       context.commit('setShowTheme', false)
       context.commit('setShowNavbar', true)
+    },
+    switchBetweenAnnotationAndBravo({commit}, boo){
+      if (boo) {
+        commit('setShowAnnotationTask', false)
+        commit('setShowBravo', true)
+      } else {
+        commit('setShowAnnotationTask', true)
+        commit('setShowBravo', false)
+      }
     },
     addNewHighlitedText({ commit, state }) {
       let newAnnotations = state.annotations

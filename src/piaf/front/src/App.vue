@@ -15,15 +15,18 @@
 
   <!-- Sizes your content based upon application components -->
   <v-content>
-    <Animation v-if="showTheme || showAnnotationTask"/>
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
       <Theme v-if="showTheme"/>
       <AnnotationTask v-if="showAnnotationTask && currentDocument" style="margin-bottom:150px;"/>
+      <Bravo v-if="showBravo" style="margin-bottom:150px;"/>
     </v-container>
+    <!-- we need to put the Animation after the other components for the background to be beneath -->
+    <Animation v-if="showTheme || showAnnotationTask || showBravo"/>
   </v-content>
 
   <v-footer
+  style="z-index:10"
   v-if="!showTheme"
   padless
   fixed
@@ -41,6 +44,7 @@ import AnnotationTask from './components/AnnotationTask';
 import Navbar from './components/Navbar';
 import NavbarProfile from './components/NavbarProfile';
 import Animation from './components/Animation.vue';
+import Bravo from './components/Bravo.vue';
 import { mapState } from 'vuex'
 
 export default {
@@ -52,6 +56,7 @@ export default {
     NavbarProfile,
     Footer,
     Animation,
+    Bravo,
   },
   computed: mapState([
     // attacher `this.currentTheme` à `store.state.currentTheme`
@@ -60,6 +65,7 @@ export default {
     'showFooter',
     'showNavbar',
     'showAnnotationTask',
+    'showBravo',
     'currentDocument',
   ]),
   mounted () {
@@ -70,6 +76,7 @@ export default {
 
 <style>
 .v-application {
+   background-color: transparent !important;
    font-family: "cooperhewitt light" !important;
     .title {
        font-family: "cooperhewitt medium" !important;

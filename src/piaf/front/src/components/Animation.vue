@@ -62,6 +62,7 @@ export default {
   right: 0;
   background: linear-gradient(44deg, #130c47 0%,#1d4b9f 87%,#8760e9 100%);
   transform: rotateX(180deg);
+  z-index: -1;
 }
 svg{
   min-height: 150%;

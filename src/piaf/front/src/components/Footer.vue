@@ -82,6 +82,21 @@
 
       </v-col>
     </v-row>
+    <v-row class="maxWid700 mx-auto"
+    v-if="bravoFooter">
+      <v-col cols='12' class="pr-0 textContainer">
+
+        <v-btn
+        small
+        color="primary"
+        dark
+        v-on:click="$store.dispatch('switchBetweenAnnotationAndBravo',false)"
+        class="alignSelf"
+        >Continuer
+        </v-btn>
+
+      </v-col>
+    </v-row>
   </v-flex>
 </template>
 
@@ -97,22 +112,27 @@ export default {
       'currentQuestionIndex',
       'editMode',
       'showFooter',
-      'showTheme',
+      'showBravo',
+      'showAnnotationTask',
     ]),
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
     },
     lastValidationFooter () {
-      return !this.showTheme && this.showFooter
+      return this.showAnnotationTask && this.showFooter
     },
     annotationFooter () {
-      return !this.showTheme && !this.showFooter
+      return this.showAnnotationTask && !this.showFooter
+    },
+    bravoFooter () {
+      return this.showBravo
     },
   },
   methods:{
     validate(){
       let res = this.$store.dispatch('saveQAs')
       if (res) {
+        this.$store.dispatch('switchBetweenAnnotationAndBravo',true)
         this.next()
       } else {
         // eslint-disable-next-line
