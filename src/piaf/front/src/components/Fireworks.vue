@@ -15,6 +15,7 @@
 <template>
   <div
     class="canvasBox"
+    ref="canvasBox"
     :style="`
       height: ${canvasBoxHeight};
       width: ${canvasBoxWidth};`">
@@ -70,7 +71,7 @@
       },
       loop() {
         let timelapse = (new Date().getTime() - this.fireworksBeginAt.getTime()) / 1000 // seconds since the begining
-        if (this.ctx !== undefined && timelapse < 14) {
+        if (this.ctx !== undefined && timelapse < 6) {
           this.clearCanvas();
           this.ctx.globalCompositeOperation = 'lighter';
 
@@ -92,7 +93,7 @@
             }
           }
 
-          if (this.auto && (this.seedAmount % 40) === 0 && timelapse < 5) {
+          if (this.auto && (this.seedAmount % 40) === 0 && timelapse < 2) {
             const seed =
               this.Seed(
                 this.randomInt(20, this.width - 20),
@@ -106,6 +107,8 @@
           this.ctx.globalCompositeOperation = 'destination-out';
           requestAnimationFrame(this.loop);
           this.seedAmount += 1;
+        }else if (this.ctx !== undefined){
+          this.$refs.canvasBox.style = 'display:none';
         }
       },
       Seed(x, y, angle, color) {

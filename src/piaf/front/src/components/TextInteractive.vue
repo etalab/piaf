@@ -110,6 +110,7 @@ export default {
 
   mounted () {
       this.$store.dispatch('loadNewText')
+      this.$store.dispatch('loadDatasetInfo')
   },
 
 };

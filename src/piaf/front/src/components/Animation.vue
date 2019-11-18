@@ -22,7 +22,6 @@
 <script>
 export default {
   mounted () {
-    this.$store.dispatch('loadNewText')
     document.addEventListener("DOMContentLoaded", function() {
       const anime = require('animejs')
       anime.default({

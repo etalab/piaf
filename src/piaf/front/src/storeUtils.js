@@ -43,3 +43,19 @@ export async function getUserDetails() {
     return false
   }
 }
+
+export async function getDatasetInfo(theme) {
+  let t = (['Religion', 'Géographie', 'Histoire', 'Sport', 'Arts', 'Société', 'Sciences'].indexOf(theme) !== -1)
+  ? '?theme='+theme
+  : ''
+  try {
+    const res = await axios.get('/app/api/datasets'+t);
+    if (res && res.data && typeof res.data.text === 'string') {
+      return res.data
+    }else {
+      return false
+    }
+  } catch (error) {
+    return false
+  }
+}

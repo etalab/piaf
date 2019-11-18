@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getNewParagraph, sendQA, getUserDetails } from './storeUtils.js'
+import { getNewParagraph, sendQA, getUserDetails, getDatasetInfo } from './storeUtils.js'
 
 Vue.use(Vuex)
 
@@ -18,7 +18,12 @@ export default new Vuex.Store({
     currentDocument: {
       title: 'Titre',
       text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l`adresse : piaf@data.gouv.fr',
-      id:766
+      id:766,
+      count_pending_batches:1,
+      count_pending_paragraphs:1,
+      count_completed_paragraphs:1,
+      count_progress_batches:1,
+      count_completed_batches:1,
     },
     // annotations from the user on the current paragraph
     annotations: [
@@ -36,7 +41,8 @@ export default new Vuex.Store({
     highlitedText: null,
     editMode:false,
     // what deals with the user
-    userDetails: {}
+    userDetails: {},
+    datasetInfo:{},
   },
   getters: {
     // here we have the number of completed annotation (It means proper question and its proper answer)
@@ -62,6 +68,11 @@ export default new Vuex.Store({
     answersForTextInteraction: state => {
       return state.annotations
       .map(annotation => (annotation.answer && typeof annotation.answer.text === 'string') ? annotation.answer : {})
+    },
+    currentDocumentChapitresInfo: state => {
+      let total = (state.currentDocument && typeof state.currentDocument.count_completed_batches === 'number') ?  state.currentDocument.count_pending_batches + state.currentDocument.count_progress_batches + state.currentDocument.count_completed_batches : false
+      let toDo = (state.currentDocument && typeof state.currentDocument.count_completed_batches === 'number') ?  state.currentDocument.count_pending_batches + state.currentDocument.count_progress_batches : false
+      return {total:total,toDo:toDo}
     },
   },
   mutations: {
@@ -97,6 +108,9 @@ export default new Vuex.Store({
     },
     setCurrentDocument(state, currentDocument){
       state.currentDocument = currentDocument
+    },
+    setDatasetInfo(state, datasetInfo){
+      state.datasetInfo = datasetInfo
     },
     setCurrentQuestionIndex(state, num){
       state.currentQuestionIndex = num
@@ -154,7 +168,9 @@ export default new Vuex.Store({
           title: p.title,
           id: p.id,
           theme: p.theme,
-          text: p.text
+          text: p.text,
+          count_pending_batches: p.count_pending_batches,
+          count_pending_paragraphs: p.count_pending_paragraphs,
         }
         commit('setCurrentDocument', doc)
         return true
@@ -219,6 +235,21 @@ export default new Vuex.Store({
         {question:{}, answer:{} }
       ]
       commit('setAnnotations',defaultAnnotations)
+    },
+    async loadDatasetInfo ({ commit, state }) {
+      const p = await getDatasetInfo(state.currentTheme)
+      if(p){
+        const doc = {
+          count_pending_articles: p.count_pending_articles,
+          count_completed_articles: p.count_completed_articles,
+        }
+        commit('setDatasetInfo', doc)
+        return true
+      }else{
+        // eslint-disable-next-line
+        console.log('problem loading the new datasetInfo');
+        return false
+      }
     },
   }
 })

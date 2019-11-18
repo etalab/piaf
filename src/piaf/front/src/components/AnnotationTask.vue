@@ -17,10 +17,20 @@
                   <template v-slot:activator="{ on }">
                     <span v-on="on">
                       <span v-html="currentDocument.title" class="black--text bold"></span>
+                      <span class="black--text bold">
+                      {{currentDocument.count_completed_paragraphs}} / {{currentDocument.count_pending_paragraphs + currentDocument.count_completed_paragraphs}}
+                      </span>
                       <v-icon fab small dark class="black--text ml-1" >mdi-information-outline</v-icon>
                     </span>
                   </template>
-                  <span>Titre de l'article Wikipédia dont est extrait ce texte</span>
+                  <span><strong>"{{currentDocument.title}}"</strong> est le titre de l'article Wikipédia dont est extrait ce paragraphe. Cet article est découpé en <strong>{{currentDocumentChapitresInfo.total}} chapitres, et vous en êtes au numéro {{currentDocumentChapitresInfo.total - currentDocumentChapitresInfo.toDo}}</strong>. Dans ce chapitre, vous en êtes au <strong>paragraphe {{currentDocument.count_completed_paragraphs}} / {{currentDocument.count_pending_paragraphs + currentDocument.count_completed_paragraphs}}</strong>.
+                  <br><br>
+                  <strong>Qu'est ce qu'un chapitre ?</strong><br>
+                  Pour rendre le travail d'annotation plus agréable, nous avons regroupé les paragraphes en groupe de 5 : les chapitres. Par exemple, un article wikipedia de 8 paragraphes sera découpé en deux chapitres : le premier de 5 paragraphes, et le second de 3 paragraphes.
+                  <br><br>
+                  <strong>Combien de question faut-il par paragraphe ?</strong><br>
+                  Pour chaque paragraphe, il faudra trouver 5 questions-réponses.
+                  </span>
                 </v-tooltip>
                 <br>
                 <v-alert
@@ -48,6 +58,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import TextInteractive from './TextInteractive.vue';
 
 export default {
@@ -58,6 +69,9 @@ export default {
       'annotations',
       'currentQuestionIndex',
       'highlitedText'
+    ]),
+    ...mapGetters([
+      'currentDocumentChapitresInfo',
     ]),
     currentAnnotation () {
       return this.$store.getters.currentAnnotation

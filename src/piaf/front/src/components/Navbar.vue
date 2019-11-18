@@ -31,7 +31,7 @@
       </v-row>
 
       </v-col>
-      <v-col cols='11' class="pr-0 alignSelf">
+      <v-col cols='11' class="pr-0 alignSelf" v-if="!showBravo">
         <v-progress-linear
           v-bind:value="stepPercentage"
           color="#11174d"
@@ -42,6 +42,20 @@
         >
           <template v-slot="{ value }">
             <span class="white--text">Question {{ Math.ceil(value / 20 ) }} / 5</span>
+          </template>
+        </v-progress-linear>
+      </v-col>
+      <v-col cols='11' class="pr-0 alignSelf" v-if="showBravo">
+        <v-progress-linear
+          v-bind:value="100"
+          color="#11174d"
+          background-color="#1b4799"
+          height="25"
+          rounded
+          v-bind:style="{ borderRadius: 30 + 'px' }"
+        >
+          <template>
+            <span class="white--text">Questions-réponses enregistrées!</span>
           </template>
         </v-progress-linear>
       </v-col>
@@ -56,7 +70,8 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState([
-      'currentQuestionIndex'
+      'currentQuestionIndex',
+      'showBravo'
     ]),
     stepPercentage(){
       return this.$store.getters.currentProgress * 20
