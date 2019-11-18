@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 from api.permissions import SuperUserMixin
-from .models import Article, ParagraphBatch, Paragraph
+from .models import Article, ParagraphBatch, Paragraph, Question, Answer
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -51,12 +51,8 @@ class AdminDatasetView(SuperUserMixin, TemplateView):
                 "paragraphs": paragraphs,
             }
             data.append(d)
-        response = HttpResponse(
-            json.dumps(list(data)), content_type="application/json"
-        )
-        response[
-            "Content-Disposition"
-        ] = "attachment; filename=piaf-annotations.json"
+        response = HttpResponse(json.dumps(list(data)), content_type="application/json")
+        response["Content-Disposition"] = "attachment; filename=piaf-annotations.json"
         return response
 
     def post(self, request, *args, **kwargs):
@@ -85,17 +81,17 @@ class AdminDatasetView(SuperUserMixin, TemplateView):
 
 
 def get_datasets_info(request):
-        theme = request.GET.get("theme")
-        qs = Article.objects.distinct("pk")
-        if theme:
-            qs = qs.filter(theme=theme)
-        if not request.user.is_certified:
-            qs = qs.filter(audience="all")
-        data = {
-            "count_completed_articles": qs.exclude(paragraphs__status="pending").count(),
-            "count_pending_articles": qs.filter(paragraphs__status="pending").count(),
-        }
-        return JsonResponse(data)
+    theme = request.GET.get("theme")
+    qs = Article.objects.distinct("pk")
+    if theme:
+        qs = qs.filter(theme=theme)
+    if not request.user.is_certified:
+        qs = qs.filter(audience="all")
+    data = {
+        "count_completed_articles": qs.exclude(paragraphs__status="pending").count(),
+        "count_pending_articles": qs.filter(paragraphs__status="pending").count(),
+    }
+    return JsonResponse(data)
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -126,7 +122,9 @@ class ParagraphView(View):
             "theme": article.theme,
             "text": paragraph.text,
             "title": article.name,
-            "count_pending_paragraphs": batch.paragraphs.filter(status="pending").count(),
+            "count_pending_paragraphs": batch.paragraphs.filter(
+                status="pending"
+            ).count(),
             "count_pending_batches": article.batches.filter(status="pending").count(),
             "count_completed_paragraphs": batch.paragraphs.filter(status="completed").count(),
             "count_completed_batches": article.batches.filter(status="completed").count(),
@@ -138,4 +136,39 @@ class ParagraphView(View):
         data = json.loads(request.body)
         paragraph = Paragraph.objects.get(pk=data["paragraph"])
         paragraph.complete(data["data"], request.user)
+        return JsonResponse(None, status=201, safe=False)
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class QuestionView(View):
+    def get(self, request):
+        user = request.user
+        questions = (
+            Question.objects.filter(status="pending")
+            .exclude(paragraph__user=user)
+            .exclude(answers__user=user)
+        )
+        count = questions.count()
+        if count == 0:
+            return JsonResponse({})
+        question = questions[randint(0, questions.count() - 1)]
+        paragraph = question.paragraph
+        article = paragraph.article
+
+        data = {
+            "id": question.id,
+            "text": question.text,
+            "paragraph": {
+                "id": paragraph.id,
+                "theme": article.theme,
+                "title": article.name,
+                "text": paragraph.text,
+            },
+        }
+        return JsonResponse(data)
+
+    def post(self, request):
+        data = json.loads(request.body)
+        question = Question.objects.get(pk=data["id"])
+        Answer.objects.create(question=question, text=data["text"], index=data["index"])
         return JsonResponse(None, status=201, safe=False)
