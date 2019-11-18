@@ -171,6 +171,9 @@ export default new Vuex.Store({
           text: p.text,
           count_pending_batches: p.count_pending_batches,
           count_pending_paragraphs: p.count_pending_paragraphs,
+          count_completed_paragraphs:p.count_completed_paragraphs,
+          count_progress_batches:p.count_progress_batches,
+          count_completed_batches:p.count_completed_batches,
         }
         commit('setCurrentDocument', doc)
         return true
