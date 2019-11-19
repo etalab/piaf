@@ -12,4 +12,30 @@ class UserAdmin(admin.ModelAdmin):
     fields = ("email", "is_staff", "is_certified")
 
 
+class Usercertification(User):
+    class Meta:
+        proxy = True
+
+
+class UserAdmincertification(admin.ModelAdmin):
+    list_display = ("email", "is_certified", "date_joined")
+    ordering = ("email",)
+    search_fields = ("email", "is_certified")
+    list_editable = ("is_certified",)
+    list_display_links = ("email",)
+    fields = ("is_certified",)
+
+    def get_queryset(self, request):
+        return self.model.objects.filter(is_staff=False)
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
 admin.site.register(User, UserAdmin)
+admin.site.register(Usercertification, UserAdmincertification)
