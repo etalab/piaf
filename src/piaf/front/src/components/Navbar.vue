@@ -22,7 +22,9 @@
             <v-card-text>Les questions-réponses que vous avez proposées sur ce texte ne seront pas sauvegardées. Vous pourrez alors choisir une nouvelle catégorie d'articles à annoter.</v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-1" text @click="dialog = false" class="text-capitalize" href="/app"><v-icon dark>mdi-close</v-icon>Quitter</v-btn>
+              <router-link to="/">
+                <v-btn color="red darken-1" text @click="dialog = false" class="text-capitalize"><v-icon dark>mdi-close</v-icon>Quitter</v-btn>
+              </router-link>
               <v-btn color="green darken-1" text @click="dialog = false" class="text-capitalize"><v-icon dark>mdi-check</v-icon>Continuer</v-btn>
             </v-card-actions>
           </v-card>
@@ -31,7 +33,7 @@
       </v-row>
 
       </v-col>
-      <v-col cols='11' class="pr-0 alignSelf" v-if="!showBravo">
+      <v-col cols='11' class="pr-0 alignSelf">
         <v-progress-linear
           v-bind:value="stepPercentage"
           color="#11174d"
@@ -42,20 +44,6 @@
         >
           <template v-slot="{ value }">
             <span class="white--text">Question {{ Math.ceil(value / 20 ) }} / 5</span>
-          </template>
-        </v-progress-linear>
-      </v-col>
-      <v-col cols='11' class="pr-0 alignSelf" v-if="showBravo">
-        <v-progress-linear
-          v-bind:value="100"
-          color="#11174d"
-          background-color="#1b4799"
-          height="25"
-          rounded
-          v-bind:style="{ borderRadius: 30 + 'px' }"
-        >
-          <template>
-            <span class="white--text">Questions-réponses enregistrées!</span>
           </template>
         </v-progress-linear>
       </v-col>
@@ -71,7 +59,6 @@ export default {
   computed: {
     ...mapState([
       'currentQuestionIndex',
-      'showBravo'
     ]),
     stepPercentage(){
       return this.$store.getters.currentProgress * 20
@@ -101,5 +88,8 @@ export default {
   height: 50px;
   right: -10px;
   top: 5px;
+}
+.router-link-active{
+  text-decoration: none;
 }
 </style>

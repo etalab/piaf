@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 my-0 justify-center class="container">
     <v-row class="maxWid700 mx-auto textContainer bold"
-    v-if="annotationFooter">
+    v-if="!showContinue">
       <span xs12 justify-center my-0 v-if="!this.$store.getters.hasQuestion">
           <v-tooltip left v-bind:open-on-click=true open-delay=1000>
             <template v-slot:activator="{ on }">
@@ -18,7 +18,7 @@
           <v-tooltip left v-bind:open-on-click=true open-delay=1000>
             <template v-slot:activator="{ on }">
                 <span v-on="on">
-                  Surligner une réponse dans le texte
+                  Cliquer sur la réponse dans le texte
                   <v-icon fab small dark class="black--text" >mdi-information-outline</v-icon>
                 </span>
             </template>
@@ -28,11 +28,15 @@
 
     </v-row>
     <v-row class="maxWid700 mx-auto textContainer bold"
-    v-if="lastValidationFooter">
+    v-if="showContinue">
       Bravo !
     </v-row>
+    <v-row class="maxWid700 mx-auto textContainer bold red--text"
+    v-if="networkIssueMessage">
+      Pas de connexion, veuillez recommencer
+    </v-row>
     <v-row class="maxWid700 mx-auto"
-    v-if="annotationFooter">
+    v-if="!showContinue">
       <v-col cols='12'>
         <QuestionInput class="maxWid700 mx-auto"/>
 
@@ -45,7 +49,7 @@
       </v-col>
     </v-row>
     <v-row class="maxWid700 mx-auto"
-    v-if="lastValidationFooter">
+    v-if="showContinue">
       <v-col cols='12' class="pr-0 textContainer">
 
         <v-btn
@@ -55,6 +59,7 @@
         x-small
         outlined
         color="secondary"
+        v-if="!loading"
         v-on:click="removeAnswer">
           <v-icon dark>mdi-arrow-left</v-icon>
         </v-btn>
@@ -64,9 +69,15 @@
         small
         color="primary"
         dark
+        :loading="loading"
         v-on:click="validate"
         class="alignSelf"
         >Valider mes 5 questions
+          <template v-slot:loading>
+            <span>
+              <v-icon light>cached</v-icon>
+            </span>
+          </template>
         </v-btn>
 
 
@@ -82,21 +93,6 @@
 
       </v-col>
     </v-row>
-    <v-row class="maxWid700 mx-auto"
-    v-if="bravoFooter">
-      <v-col cols='12' class="pr-0 textContainer">
-
-        <v-btn
-        small
-        color="primary"
-        dark
-        v-on:click="$store.dispatch('switchBetweenAnnotationAndBravo',false)"
-        class="alignSelf"
-        >Continuer
-        </v-btn>
-
-      </v-col>
-    </v-row>
   </v-flex>
 </template>
 
@@ -106,41 +102,39 @@ import QuestionInput from './QuestionInput.vue';
 import Answer from './Answer.vue';
 
 export default {
+  data(){
+    return {
+      loading: false,
+      networkIssueMessage: false,
+    }
+  },
   components: { QuestionInput, Answer },
   computed: {
     ...mapState([
       'currentQuestionIndex',
       'editMode',
-      'showFooter',
-      'showBravo',
-      'showAnnotationTask',
+      'showContinue',
     ]),
     currentAnnotation () {
       return this.$store.getters.currentAnnotation
     },
-    lastValidationFooter () {
-      return this.showAnnotationTask && this.showFooter
-    },
-    annotationFooter () {
-      return this.showAnnotationTask && !this.showFooter
-    },
-    bravoFooter () {
-      return this.showBravo
-    },
   },
   methods:{
-    validate(){
-      let res = this.$store.dispatch('saveQAs')
+    async validate(){
+      this.loading = true
+      let res = await this.$store.dispatch('saveQAs')
+      this.loading = false
       if (res) {
-        this.$store.dispatch('switchBetweenAnnotationAndBravo',true)
         this.next()
+        this.$router.push('bravo')
       } else {
         // eslint-disable-next-line
         console.log('error in the Q or A');
+        this.networkIssueMessage = true
       }
     },
     next(){
-      this.$store.commit('setShowFooter',false)
+      this.$store.commit('setshowContinue',false)
       return this.$store.dispatch('goToNextIndex')
     },
     removeAnswer(){

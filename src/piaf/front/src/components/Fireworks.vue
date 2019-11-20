@@ -107,7 +107,7 @@
           this.ctx.globalCompositeOperation = 'destination-out';
           requestAnimationFrame(this.loop);
           this.seedAmount += 1;
-        }else if (this.ctx !== undefined){
+        }else if (this.ctx !== undefined && this.$refs.canvasBox){
           this.$refs.canvasBox.style = 'display:none';
         }
       },
@@ -204,16 +204,6 @@
       const self = this;
       self.init();
       self.loop();
-      // window.addEventListener('click', (event) => {
-      //   const seed = self.Seed(event.pageX, event.pageY, self.randomInt(175, 185), [self.randomInt(0, 359), '100%', '50%']);
-      //   self.seeds.push(seed);
-      // });
-      // window.addEventListener('resize', () => {
-      //   self.width = window.innerWidth;
-      //   self.height = window.innerHeight;
-      //   self.canvas.width = self.width;
-      //   self.clearCanvas();
-      // });
     },
   };
 </script>

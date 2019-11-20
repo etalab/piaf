@@ -98,7 +98,7 @@ export default {
   methods: {
     setCurrentTheme(theme){
       this.$store.commit('setCurrentTheme', theme)
-      this.$store.dispatch('switchFromThemeToAnnotationTask')
+      this.$router.push('annotation')
     },
   },
 };

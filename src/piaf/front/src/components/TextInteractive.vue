@@ -9,9 +9,6 @@
       {{this.currentDocument.text}}
       </span>
     </div>
-    <!-- <v-btn v-on:click="onClick" class="tooltip" absolute ref="validate" v-show="highlitedText">
-      Valider
-    </v-btn> -->
     <v-btn v-on:click="removeAnswer" absolute outlined class="delete pa-0" ref="delete" v-show="highlitedText && highlitedText.length > 0">
       <v-icon fab x-small dark>mdi-close</v-icon>
     </v-btn>
@@ -67,19 +64,6 @@ export default {
       this.setSelectedRange()
     },
 
-    // onClick() {
-    //   this.$store.dispatch('addNewHighlitedText')
-    //   this.$store.commit('setShowFooter',true)
-    // },
-
-    // moveValidateButton() {
-    //   const button = this.$refs.validate
-    //   const paragraph = this.$refs.paragraph
-    //   const answer = paragraph.querySelector('.selected.last')
-    //   button.$el.style.left = `${answer.offsetLeft}px`
-    //   button.$el.style.top = `${answer.offsetTop}px`
-    // },
-
     moveDeleteButton() {
       const button = this.$refs.delete
       const paragraph = this.$refs.paragraph
@@ -108,27 +92,12 @@ export default {
     }
   },
 
-  mounted () {
-      this.$store.dispatch('loadNewText')
-      this.$store.dispatch('loadDatasetInfo')
-  },
-
 };
 </script>
 <style scoped>
 .alignLeft{
   text-align: left;
 }
-/* .removeBtn{
-  margin-left: -10px;
-  position: absolute;
-  margin-top: -6px;
-  background-color: #4169e1;
-  border-radius: 15px;
-}
-.removeBtn i{
-  font-size: 12px;
-} */
 
 .tooltip { /* This is for the tooltip text */
    background-color: #555;

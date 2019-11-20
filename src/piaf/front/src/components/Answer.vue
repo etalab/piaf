@@ -61,7 +61,7 @@ export default {
   methods: {
     onClick(){
       this.$store.dispatch('addNewHighlitedText')
-      this.$store.commit('setShowFooter',true)
+      this.$store.commit('setshowContinue',true)
     },
 
     goToEditQuestion(){

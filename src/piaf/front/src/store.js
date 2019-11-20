@@ -9,11 +9,7 @@ export default new Vuex.Store({
     // should the user see the screen "choose a theme"
     currentTheme: null,
     // show or not specific Vue components
-    showTheme: true,
-    showFooter: false,
-    showNavbar: false,
-    showAnnotationTask: false,
-    showBravo: false,
+    showContinue: false,
     // Current paragraph we display
     currentDocument: {
       title: 'Titre',
@@ -76,18 +72,6 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    setShowTheme(state,boo) {
-      state.showTheme = boo
-    },
-    setShowNavbar(state,boo) {
-      state.showNavbar = boo
-    },
-    setShowAnnotationTask(state,boo) {
-      state.showAnnotationTask = boo
-    },
-    setShowBravo(state,boo) {
-      state.showBravo = boo
-    },
     setCurrentTheme(state,newTheme) {
       state.currentTheme = newTheme
     },
@@ -115,28 +99,14 @@ export default new Vuex.Store({
     setCurrentQuestionIndex(state, num){
       state.currentQuestionIndex = num
     },
-    setShowFooter(state, boo){
-      state.showFooter = boo
+    setshowContinue(state, boo){
+      state.showContinue = boo
     },
     setUserDetails(state, doc){
       state.userDetails = doc
     },
   },
   actions: {
-    switchFromThemeToAnnotationTask(context){
-      context.commit('setShowAnnotationTask', true)
-      context.commit('setShowTheme', false)
-      context.commit('setShowNavbar', true)
-    },
-    switchBetweenAnnotationAndBravo({commit}, boo){
-      if (boo) {
-        commit('setShowAnnotationTask', false)
-        commit('setShowBravo', true)
-      } else {
-        commit('setShowAnnotationTask', true)
-        commit('setShowBravo', false)
-      }
-    },
     addNewHighlitedText({ commit, state }) {
       let newAnnotations = state.annotations
       newAnnotations[state.currentQuestionIndex].answer = {"text": state.highlitedText, "index": state.startOffset},
@@ -159,7 +129,7 @@ export default new Vuex.Store({
       newAnnotations[state.currentQuestionIndex].answer = {}
       commit('setAnnotations', newAnnotations)
       dispatch('restoreHighliting')
-      commit('setShowFooter', false)
+      commit('setshowContinue', false)
     },
     async loadNewText ({ commit, state }) {
       const p = await getNewParagraph(state.currentTheme)
@@ -189,8 +159,6 @@ export default new Vuex.Store({
       qas.data = state.annotations
       const res = await sendQA(qas)
       if(res){
-        dispatch('resetDefaultStore')
-        await dispatch('loadNewText')
         return true
       }else{
         // eslint-disable-next-line
@@ -229,7 +197,7 @@ export default new Vuex.Store({
       commit('setStartOffset',null)
       commit('setHighlitedText',null)
       commit('setEditeMode',false)
-      commit('setShowFooter',false)
+      commit('setshowContinue',false)
       const defaultAnnotations = [
         {question:{}, answer:{} },
         {question:{}, answer:{} },

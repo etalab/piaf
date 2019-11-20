@@ -142,7 +142,7 @@ export default {
   created: function() {
     // we need to wait 1sec because DOM isn't defined otherwise
     setTimeout(() => {
-      if (!this.isProtected) {
+      if (!this.isProtected && this.$refs.input) {
         this.$nextTick(() => this.$refs.input.focus());
       }
     }, 400);

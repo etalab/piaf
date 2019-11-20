@@ -60,11 +60,6 @@ export default {
     ]),
   },
   components: { Fireworks },
-  methods: {
-    goToAnnotation() {
-      this.$store.dispatch('switchBetweenAnnotationAndBravo',false)
-    },
-  },
   mounted () {
       //only necessary to update the information to display after last text was finished, anyway TextInteractive will load it again
       this.$store.dispatch('loadNewText')
