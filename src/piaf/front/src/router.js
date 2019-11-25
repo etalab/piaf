@@ -11,21 +11,24 @@ export default new Router({
     {
       path: '',
       name: 'theme',
+      meta: {title: 'Choix du thème'},
       component: Theme
     },
     {
       path: '/annotation',
       name: 'annotation',
+      meta: {title: 'Question-réponse'},
       component: () => import('./views/Annotation.vue')
     },
     {
       path: '/bravo',
       name: 'bravo',
+      meta: {title: 'Bravo'},
       component: () => import('./views/Bravo.vue')
     },
-    // {
-    //   path: '/*',
-    //   component: () => import('./views/FourOhFour.vue')
-    // },
+    {
+      path: '/*',
+      component: () => import('./views/FourOhFour.vue')
+    },
   ]
 })
