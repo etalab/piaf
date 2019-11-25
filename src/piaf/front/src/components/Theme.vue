@@ -10,10 +10,10 @@
       <v-layout row justify-center>
         <v-flex xs6 sm4 md3
           v-for="(theme) in themes"
-          v-on:click="setCurrentTheme(theme.name)"
+          v-on:click="setCurrentTheme(theme)"
         >
           <div class="my-2 d-flex flex-column align-center">
-            <v-btn fab large dark v-bind:color="theme.color">
+            <v-btn fab large dark v-bind:color="theme.color" v-bind:disabled="theme.empty">
               <v-icon>{{theme.logo}}</v-icon>
             </v-btn>
             <span class="font-weight-thin white--text zind0">{{theme.name}}</span>
@@ -50,56 +50,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  data: () => ({
-    themes: [
-      {
-        name: "Histoire",
-        logo: "mdi-book-open-page-variant",
-        color: "primary"
-      },
-      {
-        name: "Géographie",
-        logo: "mdi-map-search",
-        color: "warning"
-      },
-      {
-        name: "Société",
-        logo: "mdi-city-variant",
-        color: "error"
-      },
-      {
-        name: "Sport",
-        logo: "mdi-basketball",
-        color: "success"
-      },
-      {
-        name: "Religion",
-        logo: "mdi-alpha-r",
-        color: "secondary"
-      },
-      {
-        name: "Arts",
-        logo: "mdi-palette",
-        color: "info"
-      },
-      {
-        name: "Sciences",
-        logo: "mdi-telescope",
-        color: "accent"
-      },
-      {
-        name: "Mystère",
-        logo: "mdi-help-circle",
-        color: "black"
-      }
-    ]
-  }),
+  computed: {
+    ...mapState([
+      'themes',
+    ]),
+  },
   methods: {
     setCurrentTheme(theme){
-      this.$store.commit('setCurrentTheme', theme)
-      this.$router.push('annotation')
+      if(!theme.empty){
+        this.$store.commit('setCurrentTheme', theme.name)
+        this.$router.push('annotation')
+      }
     },
+  },
+  mounted () {
+      this.$store.dispatch('loadDatasetInfo')
   },
 };
 </script>

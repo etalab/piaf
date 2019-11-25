@@ -63,8 +63,6 @@ export default {
   mounted () {
       //only necessary to update the information to display after last text was finished, anyway TextInteractive will load it again
       this.$store.dispatch('loadNewText')
-      this.$store.dispatch('loadDatasetInfo')
-
       // necessary to update the information to display after last text was finished
       this.$store.dispatch('getUserDetails')
 

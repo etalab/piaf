@@ -50,7 +50,7 @@ export async function getDatasetInfo(theme) {
   : ''
   try {
     const res = await axios.get('/app/api/datasets'+t);
-    if (res && res.data && typeof res.data.text === 'string') {
+    if (res && res.data && typeof res.data.count_pending_articles === 'number') {
       return res.data
     }else {
       return false

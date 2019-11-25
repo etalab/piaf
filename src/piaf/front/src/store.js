@@ -39,6 +39,56 @@ export default new Vuex.Store({
     // what deals with the user
     userDetails: {},
     datasetInfo:{},
+    themes: [
+      {
+        name: "Histoire",
+        logo: "mdi-book-open-page-variant",
+        color: "primary",
+        empty: false,
+      },
+      {
+        name: "Géographie",
+        logo: "mdi-map-search",
+        color: "warning",
+        empty: false,
+      },
+      {
+        name: "Société",
+        logo: "mdi-city-variant",
+        color: "error",
+        empty: false,
+      },
+      {
+        name: "Sport",
+        logo: "mdi-basketball",
+        color: "success",
+        empty: false,
+      },
+      {
+        name: "Religion",
+        logo: "mdi-alpha-r",
+        color: "secondary",
+        empty: false,
+      },
+      {
+        name: "Arts",
+        logo: "mdi-palette",
+        color: "info",
+        empty: false,
+      },
+      {
+        name: "Sciences",
+        logo: "mdi-telescope",
+        color: "accent",
+        empty: false,
+      },
+      {
+        name: "Mystère",
+        logo: "mdi-help-circle",
+        color: "black",
+        empty: false,
+      }
+    ],
   },
   getters: {
     // here we have the number of completed annotation (It means proper question and its proper answer)
@@ -74,6 +124,9 @@ export default new Vuex.Store({
   mutations: {
     setCurrentTheme(state,newTheme) {
       state.currentTheme = newTheme
+    },
+    setThemes(state,newThemes) {
+      state.themes = newThemes
     },
     setAnnotations(state,annotations){
       state.annotations = annotations
@@ -208,19 +261,23 @@ export default new Vuex.Store({
       commit('setAnnotations',defaultAnnotations)
     },
     async loadDatasetInfo ({ commit, state }) {
-      const p = await getDatasetInfo(state.currentTheme)
-      if(p){
-        const doc = {
-          count_pending_articles: p.count_pending_articles,
-          count_completed_articles: p.count_completed_articles,
+      let newThemes = JSON.parse(JSON.stringify(state.themes))
+      for (var i = 0; i < newThemes.length; i++) {
+        let p = await getDatasetInfo(newThemes[i].name)
+        if(p){
+          newThemes[i].count_pending_articles = p.count_pending_articles
+          newThemes[i].count_completed_articles = p.count_completed_articles
+          if (p.count_pending_articles === 0) {
+            newThemes[i].empty = true
+          }
+          // return true
+        }else{
+          // eslint-disable-next-line
+          console.log('problem loading the new datasetInfo');
+          // return false
         }
-        commit('setDatasetInfo', doc)
-        return true
-      }else{
-        // eslint-disable-next-line
-        console.log('problem loading the new datasetInfo');
-        return false
       }
+      commit('setThemes', newThemes)
     },
   }
 })

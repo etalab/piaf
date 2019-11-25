@@ -50,7 +50,6 @@ export default {
       this.$store.dispatch('getUserDetails')
       this.$store.dispatch('loadNewText')
       this.$store.dispatch('resetDefaultStore')
-      this.$store.dispatch('loadDatasetInfo')
   },
 };
 </script>
