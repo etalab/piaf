@@ -5,7 +5,7 @@ from .models import Question, Answer
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'theme', 'audience')
     ordering = ('name',)
     search_fields = ('name',)
 
@@ -23,14 +23,18 @@ class ParagraphAdmin(admin.ModelAdmin):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('paragraph', 'text', 'created_at',)
-    ordering = ('text',)
+    list_display = ('paragraph', 'text', 'created_at', 'status')
+    ordering = ('created_at',)
 
 
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'question', 'text')
-    ordering = ('question',)
-    search_fields = ('question',)
+    list_display = ('user', 'question_text', 'text', 'created_at',)
+    ordering = ('created_at',)
+    search_fields = ('text',)
+
+    def question_text(self, obj):
+        return obj.question.text
+    question_text.short_description = 'Question'
 
 
 admin.site.register(Article, ArticleAdmin)
