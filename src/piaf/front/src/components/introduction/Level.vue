@@ -1,5 +1,8 @@
 <template>
   <v-stepper v-model="currentLevel" vertical class="maxWid700 mx-auto">
+    <span class="justify-center d-flex title">Débuter sur Piaf</span>
+    <span class="justify-center d-flex subtitle pa-2"> Il y a trois niveaux à passer avant d'être expert de Piaf
+    </span>
     <span v-for="(level) in levels" :key="level.level">
       <v-stepper-step
         :step="level.level"
@@ -53,5 +56,10 @@ export default {
 }
 .maxWid700{
   max-width: 700px;
+}
+.center{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 </style>
