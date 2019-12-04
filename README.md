@@ -124,7 +124,7 @@ python manage.py test server.tests
 Go to : [127.0.0.1:8000/app/admin](http://127.0.0.1:8000/app/admin)
 
 Only `JSON file` can be imported. They need to be exaclty following the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format.  
-Here is an example of input dataset: <a href="https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json" download="example.json" target="_blank">Click here to download</a>
+Here is an example of input dataset: <a href="/input-dataset-example.json" download="example.json" target="_blank">Click here to download</a>
 
 
 ### Annotation
