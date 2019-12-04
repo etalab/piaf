@@ -23,9 +23,15 @@ git clone https://github.com/etalab/piaf.git
 cd piaf
 ```
 
-Then you have tow options : install the app with Docker or without
+Then create the environment variables (you can customise your API keys and passwords):
+```bash
+cp .env-example .env
+```
 
-### Installing with Docker-Compose
+
+Now you have tow options : install the app with Docker or without
+
+### Installing with Docker
 
 As a prerequisite, you need to have installed Docker & Docker-compose on your computer.
 
@@ -65,18 +71,14 @@ make build-statics
 
 ## 2. Running
 
-### Running the server for development
 
-Let’s start the development server and explore it.
-Depending on your installation method above, there are two options:
-
-### Running through Docker-Compose
+### Running with Docker
 
 ```bash
-docker-compose up
+make up
 ```
-
-### Running Django manually
+Have a look at the Makefile for more details
+### Running without
 
 First prepare the database:
 
@@ -103,10 +105,11 @@ python manage.py runserver
 
 Open your web-browser at http://127.0.0.1:8000/login/ and login with the admin you created above (username: "admin", password: "password"):
 
-You will then need to create a project on the admin panel: http://127.0.0.1:8000/admin
+You will then need to create a project on the admin panel:
+[127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 
-You can create various kinds of projects. Onle the **questions/answers** project is considered here.
-If you are interested in others kinds of projects you should visit [doccano](https://github.com/chakki-works/doccano) from which Piaf is forked.
+Create a **questions/answers** type project.
+If you are interested in others kinds of projects you should visit [doccano](https://github.com/chakki-works/doccano).
 
 
 ### Running the tests
@@ -118,38 +121,20 @@ python manage.py test server.tests
 
 ### Importing texts
 
-Go to : http://127.0.0.1:8000/app/admin
+Go to : [127.0.0.1:8000/app/admin](http://127.0.0.1:8000/app/admin)
 
-2 types of files can be imported:
-- `CSV file`: must include a header with a "text" column or must be a single column file.
-- `JSON file`: each row must be a JSON object including a "text" key. Note that JSON format is line-breaks friendly.
+Only `JSON file` can be imported. They need to be exaclty following the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format.  
+Here is an example of input dataset: <a href="https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json" download="example.json" target="_blank">Click here to download</a>
 
-`example.csv` (or `example.txt`):
-
-```python
-EU rejects German call to boycott British lamb.
-He lives in Newark, Ohio.
-...
-```
-
-`example.json`:
-
-```JSON
-{"text": "EU rejects German call to boycott British lamb."}
-{"text": "He lives in Newark, Ohio."}
-...
-```
-
-If any other column (or key in a JSON file) is present they are saved as _metadata_.
 
 ### Annotation
 
-Simply reach : http://127.0.0.1:8000/app/
+Simply reach : [app/](http://127.0.0.1:8000/app/)
 
 
 ### Exporing results
 
-Again, on the page : http://127.0.0.1:8000/app/admin
+Again, on the page : [app/admin](http://127.0.0.1:8000/app/admin)
 
 Possible formats are CSV or JSON.
 
@@ -171,14 +156,27 @@ Possible formats are CSV or JSON.
 
 ## configuration
 
-Passing most settings as environment variable will override the default settings.
+Passing most settings as environment variable will override the default settings. Here are some of the variable customisable:
 
-Example:
+```bash
+DJANGO_ALLOW_SIGNUP=True # Allow users to singup (for crowdsourcing)
+DJANGO_USE_MAILJET=False # use Mailjet or the native Django mail service
+DJANGO_MAILJET_API_KEY=ffdfsfcfs2a00ad5ef367bfdsflsdk # put your Mailjet API key here, this is an example resulting in Errors
+DJANGO_MAILJET_SECRET_KEY=nhf41cc0d45ffsdfs6fdsfdsffdsfsf # put your Mailjet API secret here, this is an example resulting in Errors
+MATOMO_SITE_ID= # Matomo id
+WEBPACK_ENVIRONMENT_PRODUCTION=False # build the frontend  or run a 'npm run serve'
+```
+
+### with Docker
+Edit the .env file
+
+### without
+Set the environment variable before launching your server
 ```
 DEBUG=0 MATOMO_SITE_ID=77 src/manage.py runserver
 ```
 
-Will disable debugging and activate Matomo tracking.
+this Will disable debugging and activate Matomo tracking for instance
 
 ## Contact
 
