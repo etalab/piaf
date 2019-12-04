@@ -3,17 +3,18 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b64ba7294eca479181b52d30a7d2e9d7)](https://app.codacy.com/app/guillim/piaf?utm_source=github.com&utm_medium=referral&utm_content=etalab/piaf&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/etalab/piaf.svg?branch=master)](https://travis-ci.org/etalab/piaf)
 
-<abbr title="Pour Une IA Francophone">Piaf</abbr> is an open-source annotation project specialized in questions/answers.
-I was built based on [Doccano](https://github.com/chakki-works/doccano) => a big thanks to the Doccano team.
+<abbr title="Pour Une IA Francophone">Piaf</abbr> is an open-source QA (question answering) annotation plateform.  
+It handles the following features :  
+* nice UI (conceived by a designer)
+* contributor enrollment (signup & mail validation)
+* contributor certification (by any member of the _admin_ team)
+* _admin_ team administration (by the super-admin)
+* input/output of texts to be annotated using the SQuAD format
+* users scoring (for bot and troll removal)
+* annotations managment
 
-## Prerequirements
 
-* Python 3.6+
-* Django 2.1.7+
-* Node.js 8.0+
-* Chromium (recommended)
-
-## Installation
+## 1. Installation
 
 First clone the repo:
 
@@ -22,15 +23,27 @@ git clone https://github.com/etalab/piaf.git
 cd piaf
 ```
 
-Then choose either to run the app through Docker-Compose or manually
+Then you have tow options : install the app with Docker or without
 
-### Installing through Docker-Compose
+### Installing with Docker-Compose
+
+As a prerequisite, you need to have installed Docker & Docker-compose on your computer.
+
+Then, type:
 
 ```bash
 docker-compose pull
 ```
 
-## Installing manually
+### Installing without
+
+As a prerequisite, you need to have installed on your computer:
+
+* Python 3.6+
+* Django 2.1.7+
+* Node.js 8.0+
+* Chromium (recommended)
+
 
 First install Python dependencies:
 
@@ -50,7 +63,7 @@ make build-statics
 > When developing the frontend, you may prefer watching for files changes.
 > Run `npm start` (instead of `npm run build`) for building and hot reloading.
 
-## Running
+## 2. Running
 
 ### Running the server for development
 
@@ -86,7 +99,7 @@ python manage.py runserver
 
 > Note that Django permits to run the server on a different IP or port. `python manage.py runserver <ip>:<port>`
 
-## Creating a project
+## 3. Creating a project
 
 Open your web-browser at http://127.0.0.1:8000/login/ and login with the admin you created above (username: "admin", password: "password"):
 
@@ -170,3 +183,8 @@ Will disable debugging and activate Matomo tracking.
 ## Contact
 
 Feel free to [submit any feedback](https://github.com/etalab/piaf/issues/new).
+
+
+## Acknowledgements
+
+PIAF plateform was originally inspired by [Doccano](https://github.com/chakki-works/doccano). The PIAF team contributed to Doccano repository until the Doccano project was to far from PIAF needs.
