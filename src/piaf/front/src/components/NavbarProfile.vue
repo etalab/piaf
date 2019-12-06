@@ -16,7 +16,7 @@
       </v-avatar>
       </v-col>
       <v-col cols='10' class="pr-0 alignSelf bold" style="text-align:center;font-size:22px">
-        Edite Piaf
+        {{NavbarTitle}}
       </v-col>
       <v-col
         cols='1'
@@ -36,6 +36,12 @@ import UserProfile from './UserProfile.vue';
 export default {
   components: {
     UserProfile,
+  },
+  props : {
+    NavbarTitle: {
+      type: String,
+      default: 'Edite Piaf'
+    },
   },
   computed: {
     ...mapState([
