@@ -5,15 +5,29 @@
         <span class="font-weight-thin mb-5 white--text zind0 title">Niveau 1 : les questions</span>
       </v-layout>
       <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">Voici quelques recommandations pour poser de bonnes questions</span>
+        <span class="font-weight-thin mb-5 white--text zind0">Vous aller lire un texte comme :</span>
+      </v-layout>
+      <v-card max-width="700" class="mx-auto">
+        <v-card-text style="font-size:1em;line-height:1.7;">
+          <span class="black--text bold">Le rire apparaît chez l'être humain aux alentours du quatrième ou cinquième mois</span>
+        </v-card-text>
+      </v-card>
+      <v-layout justify-center>
+        <span class="font-weight-thin mb-5 white--text zind0">Vous verrez une question comme :</span>
+      </v-layout>
+      <v-layout justify-center v-if="step == 5">
+        <span class="font-weight-thin mb-5 white--text zind0 font-italic">A partir de quel âge un Homme peut-il rire ?</span>
+      </v-layout>
+      <v-layout justify-center>
+        <span class="font-weight-thin mb-5 white--text zind0">Voici quelques recommandations pour vous aider à poser de bonnes questions</span>
       </v-layout>
     </span>
     <span v-if="step == 1">
       <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0 title">Utiliser des synonymes</span>
+        <span class="font-weight-thin mb-5 white--text zind0 title">Reformuler</span>
       </v-layout>
       <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">On veut éviter les mots en commun avec le texte.</span>
+        <span class="font-weight-thin mb-5 white--text zind0">On veut utiliser des mots différents du texte.</span>
       </v-layout>
       <v-layout justify-center>
         <span class="font-weight-thin mb-5 white--text zind0">Sinon, on se retrouvera avec une IA qui cherche bêtement les mots en communs entre une question et le texte. Alors que nous, nous voulons une IA qui comprenne une question et soit capable d'y répondre, peu importe si les termes exacts se trouvent dans le texte !</span>

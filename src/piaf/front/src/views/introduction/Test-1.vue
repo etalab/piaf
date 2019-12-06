@@ -27,7 +27,7 @@
     <v-flex xs12 my-0 justify-center class="container">
       <v-row class="maxWid700 mx-auto">
         <v-col cols='12' class="pr-0 textContainer">
-          <span>Cette question ({{step + 1}}/{{lastStep}}) est-elle valide ?</span>
+          <span>Est-ce une bonne question ? ({{step + 1}}/{{lastStep}})</span>
         </v-col>
       </v-row>
       <v-row class="maxWid700 mx-auto">
@@ -73,12 +73,22 @@ export default {
     tests: [
       {
         id : 0,
-        question : "Quel est le titre du Tintin numéro un ?",
+        question : "Quel est le métier de Tintin ?",
         text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
       },
       {
         id : 1,
-        question : "Quel est le métier de Tintin ?",
+        question : "Comment s'appelle le journal publiant les aventures de Tintin ?",
+        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
+      },
+      {
+        id : 2,
+        question : "Qui est reporter pour le petit Vingtime ?",
+        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
+      },
+      {
+        id : 3,
+        question : "Qui est journaliste pour le petit Vingtime ?",
         text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
       }
     ]
