@@ -3,7 +3,7 @@
     <div class="button-wrapper flex" :class="levelClass">
       <a class="background-button"
         :class="{active : active}"
-        @click="onClick(level)"
+        @click="onClick()"
         :title="text + ` ` + level"></a>
     </div>
     <v-icon x-large dark class="lock" v-if="locked">mdi-lock</v-icon>
@@ -22,7 +22,7 @@ export default {
     iconType: String,
   },
   methods: {
-    onClick(level){
+    onClick(){
       if (this.active) {
         this.$router.push('introduction/' + this.level)
       }
