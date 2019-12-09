@@ -8,8 +8,8 @@
   <!-- Sizes your content based upon application components -->
   <v-content>
     <!-- Provides the application the proper gutter -->
-    <v-container fluid>
-      <v-container class="maxWid700 center" v-if="showFirstTime">
+    <v-container fluid class="maxWid700 center">
+      <v-container v-if="showFirstTime">
       <span class="font-weight-thin mb-5 white--text zind0 title">C'est la première fois que l'on vous voit sur Piaf!</span>
      <br>
      <v-btn
