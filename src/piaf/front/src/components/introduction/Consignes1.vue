@@ -122,7 +122,7 @@
         </span>
       </v-layout>
     </span> -->
-    <span v-if="step == 4">
+    <span v-if="step == 5">
       <v-layout justify-center>
         <h1 class="font-weight-thin mb-5 white--text zind0 title">Le saviez-vous ?</h1>
       </v-layout>
@@ -130,7 +130,7 @@
         <span class="font-weight-thin mb-5 white--text zind0">Ce n'est pas grave si l'on fait des <strong>fautes d'orthographes</strong>. <br><br>Il vaut mieux éviter bien sûr, mais ce n'est pas grave. Plus on pose des questions proches de la réalité, mieux notre IA pourra nous comprendre !</span>
       </v-layout>
     </span>
-    <span v-if="step == 5">
+    <span v-if="step == 4">
       <v-layout justify-center>
         <h1 class="font-weight-thin mb-5 white--text zind0 title">Le saviez-vous ?</h1>
       </v-layout>
