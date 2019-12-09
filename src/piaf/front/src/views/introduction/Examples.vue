@@ -53,7 +53,7 @@
           small
           color="primary"
           v-if="step == lastStep"
-          to="/test-1"
+          to="/introduction/1/play"
           >
             Continuer
           </v-btn>
