@@ -53,7 +53,7 @@
           small
           color="primary"
           v-if="step == lastStep"
-          to="/introduction/1/play"
+          :to="toNiveau"
           >
             Continuer
           </v-btn>
@@ -92,10 +92,13 @@ export default {
       if (Number(this.$route.params.level) === 1) {
         return 5
       } else if (Number(this.$route.params.level) === 2) {
-        return 2
+        return 6
       } else {
         return 1
       }
+    },
+    toNiveau(){
+      return "/introduction/"+Number(this.$route.params.level)+"/play"
     },
   }
 };

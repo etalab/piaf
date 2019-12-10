@@ -2,59 +2,72 @@
   <v-container class="maxWid700">
     <span v-if="step == 0">
       <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0 title">Niveau 2 : les réponses</span>
+        <span class="font-weight-thin mb-2 white--text zind0 title">Consignes</span>
       </v-layout>
-      <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">Voici quelques recommandations pour de bonnes réponses</span>
-      </v-layout>
-    </span>
-    <span v-if="step == 1">
-      <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0 title">Dans le texte</span>
-      </v-layout>
-      <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">Il faut impérativement que la réponses soit dans le texte.</span>
-      </v-layout>
-      <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">Pour le moment, on n'entraîne notre IA à trouver des réponses. Décider si oui ou non il y a un réponse dans le texte ce sera pour plus tard !</span>
-      </v-layout>
-    </span>
-    <span v-if="step == 2">
-      <v-layout justify-center>
-        <h1 class="font-weight-thin mb-5 white--text zind0 title">Faire court</h1>
-      </v-layout>
-      <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">Pas de blabla : on veut des réponses courtes.</span>
-      </v-layout>
-      <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">En effet, nous souhaitons que l'IA nous apporte une réponse concise, pas un roman à lire.</span>
-      </v-layout>
-    </span>
-    <span v-if="step == 3">
-      <v-layout justify-center>
-        <h1 class="font-weight-thin mb-5 white--text zind0 title">Exemples</h1>
-      </v-layout>
-      <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">Pour illustrer, regardons ensemble une question-réponse. Nous verrons un exemple de bonne réponse, et un de mauvaise réponse</span>
-      </v-layout>
-    </span>
-    <span v-if="step == 4 || step == 5 || step == 6">
       <v-card max-width="700" class="mx-auto">
-        <v-card-text style="font-size:1em;line-height:1.7;">
-          <span class="black--text bold" v-if="step == 4">Le rire apparaît chez l'être humain aux alentours du quatrième ou cinquième mois</span>
-          <span class="black--text bold" v-if="step == 5">Le rire apparaît chez l'être humain <span class="first">aux </span> <span class="selected"> alentours du quatrième ou cinquième </span><span class="last">mois</span></span>
-          <span class="black--text bold" v-if="step == 6"><span class="first redBackground">Le rire apparaît chez l'être humain aux </span> <span class="selected redBackground"> alentours du quatrième ou cinquième </span><span class="last redBackground">mois</span></span>
+        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2">
+          <span class="black--text bold">Le rire apparaît chez l'être humain <span class="first">aux </span> <span class="selected"> alentours du quatrième ou cinquième </span><span class="last">mois</span></span>
         </v-card-text>
       </v-card>
       <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0 font-italic">A partir de quel âge un Homme peut-il rire ?</span>
+        <span class="font-weight-thin mb-4 white--text">Question : </span>
+        <span class="ml-1 font-weight-thin mb-4 white--text zind0 font-italic"> À quel âge l'homme commence t-il à rire ?</span>
       </v-layout>
-      <v-layout justify-center v-if="step == 5">
-        <span class="font-weight-thin mt-5 white--text zind0">La réponse surlignée en bleu dans le texte est une bonne réponse</span>
+      <v-layout justify-center>
+        <span class="font-weight-thin mt-5 white--text zind0">Ce sera à vous d'évaluer si la réponse (surlignée dans le texte) est intéressante.</span>
       </v-layout>
-      <v-layout justify-center v-if="step == 6">
-        <span class="font-weight-thin mt-5 white--text zind0">En revanche, cette réponse est trop longue
+    </span>
+    <span v-if="[1,2,3,4].indexOf(step) !== -1">
+      <v-layout justify-center>
+        <span class="font-weight-thin white--text zind0 title">Qu'est ce qu'une réponse intéressante?</span>
+      </v-layout>
+      <v-layout justify-center v-if="step == 1">
+        <span class="font-weight-thin mt-10 mb-5 white--text zind0">C'est une réponse courte. Pas la peine de surgligner la phrase complète, quelques mots suffisent.</span>
+      </v-layout>
+      <v-card max-width="700" class="mx-auto" v-if="[2].indexOf(step) !== -1">
+        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2">
+          <span class="black--text bold">Le rire <span class="first redBackground">apparaît chez l'être humain aux </span> <span class="selected redBackground"> alentours du quatrième ou cinquième </span><span class="last redBackground">mois</span></span>
+        </v-card-text>
+      </v-card>
+      <v-card max-width="700" class="mx-auto" v-if="[3].indexOf(step) !== -1">
+        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2">
+          <span class="black--text bold">Le rire apparaît chez l'être humain <span class="first">aux </span> <span class="selected"> alentours du quatrième ou cinquième </span><span class="last">mois</span></span>
+        </v-card-text>
+      </v-card>
+      <v-card max-width="700" class="mx-auto" v-if="[4].indexOf(step) !== -1">
+        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2">
+          <span class="black--text bold">Le rire apparaît chez l'être humain aux alentours du <span class="first">quatrième</span> <span class="selected"> ou cinquième </span><span class="last">mois</span></span>
+        </v-card-text>
+      </v-card>
+      <v-layout justify-center v-if="[2,3,4].indexOf(step) !== -1">
+        <span class="font-weight-thin mt-1 zind0"><i class="white--text">À quel âge l'homme commence t-il à rire ?</i>
         </span>
+      </v-layout>
+      <v-layout justify-center v-if="[2].indexOf(step) !== -1">
+        <span class="font-weight-thin mt-10 white--text zind0">Ici, on a <strong>trop de mots</strong>, on pourrait faire plus court.
+        </span>
+      </v-layout>
+      <v-layout justify-center v-if="[3].indexOf(step) !== -1">
+        <span class="font-weight-thin mt-5 white--text zind0">C'est mieux : il n'y a plus trop de mots superflus.</span>
+      </v-layout>
+      <v-layout justify-center v-if="[4].indexOf(step) !== -1">
+        <span class="font-weight-thin mt-5 white--text zind0">C'est encore mieux : il n'y a plus du tout de mots superflus.</span>
+      </v-layout>
+    </span>
+    <span v-if="step == 5">
+      <v-layout justify-center>
+        <h1 class="font-weight-thin mb-5 white--text zind0 title">Le saviez-vous ?</h1>
+      </v-layout>
+      <v-layout justify-center>
+        <span class="font-weight-thin mb-5 white--text zind0">Pour le moment, on n'entraîne notre IA à trouver des réponses. Décider si oui ou non il y a un réponse dans le texte ce sera pour plus tard !<br><br> C'est pour ça que toutes les questions doivent avoir une réponse dans le texte.</span>
+      </v-layout>
+    </span>
+    <span v-if="step == 6">
+      <v-layout justify-center>
+        <h1 class="font-weight-thin mb-5 white--text zind0 title">Le saviez-vous ?</h1>
+      </v-layout>
+      <v-layout justify-center>
+        <span class="font-weight-thin mb-5 white--text zind0">La raison qui nous pousse à faire court est simple : nous souhaitons que l'IA nous apporte une réponse concise, et pas un roman à lire.</span>
       </v-layout>
     </span>
   </v-container>
