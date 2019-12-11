@@ -24,33 +24,15 @@
     <v-flex xs12 my-0 justify-center class="container">
       <v-row class="maxWid700 mx-auto">
         <v-col cols='12' class="pr-0 textContainer">
-          <span>Est-ce une bonne réponse ?</span>
+          <span>Quelle est la bonne réponse ?</span>
         </v-col>
       </v-row>
       <v-row class="maxWid700 mx-auto">
         <v-col cols='12' class="pr-0 textContainer">
-
-          <v-btn
-          class="mx-2"
-          fab
-          dark
-          small
-          outlined
-          color="error"
-          v-on:click="onClick(false)">
-            <v-icon dark>mdi-close</v-icon>
-          </v-btn>
-
-          <v-btn
-          class="mx-2"
-          fab
-          dark
-          small
-          outlined
-          color="success"
-          v-on:click="onClick(true)">
-            <v-icon dark>mdi-check</v-icon>
-          </v-btn>
+          <span class="first last mx-2 pa-2 aligned"
+            v-for="(answer) in currentTest.answers"
+            :key="answer"
+            v-on:click="onClick(answer)">{{answer}}</span>
         </v-col>
       </v-row>
     </v-flex>
@@ -70,28 +52,18 @@ export default {
     step: 0,
     tests: [
       {
-        step : 3,
-        exp : true,
-        question : "Quel est le tome de Tintin marquant le début de la saga ?",
-        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
-      },
-      {
-        step : 2,
-        exp : true,
+        step : 1,
+        exp : 'Tintin au pays des Soviets',
         question : "Quel est le premier album de Tintin ?",
-        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
+        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
+        answers:['Dès le premier album, Tintin au pays des Soviets','Tintin au pays des Soviets']
       },
       {
         step : 0,
-        exp : false,
-        question : "Qui est reporter pour le petit Vingtime ?",
-        text : "Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
-      },
-      {
-        step : 1,
-        exp : true,
+        exp : 'Tintin',
         question : "Qui est journaliste pour le petit Vingtime ?",
-        text : "Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
+        text : "Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
+        answers:['Tintin','Tintin est un reporter travaillant pour Le Petit Vingtième']
       }
     ]
   }),
@@ -126,10 +98,10 @@ export default {
     },
   },
   methods:{
-    async onClick(boo){
+    async onClick(answer){
       const findIdFunction = (obj) => obj.step == this.step;
       let index = this.tests.findIndex(findIdFunction);
-      this.tests[index].answer = boo
+      this.tests[index].answer = answer
 
       if (this.isLastStep) {
         let score = this.tests.reduce((acc,obj) => (obj.answer == obj.exp) ? acc+1 : acc,0)
@@ -154,5 +126,25 @@ export default {
 .textContainer{
   display: flex;
   justify-content: space-around;
+}
+.aligned{
+  display: flex;
+  align-items: center;
+}
+span.first {
+  color: #ffffff;
+  background-color: #4169e1;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+span.last {
+  color: #ffffff;
+  background-color: #4169e1;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+span.selected {
+  color: #ffffff;
+  background-color: #4169e1;
 }
 </style>
