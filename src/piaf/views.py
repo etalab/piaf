@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 from api.permissions import SuperUserMixin
-from .models import Article, ParagraphBatch, Paragraph, Question, Answer
+from .models import Article, ParagraphBatch, Paragraph, Question, Answer, UserRelevancy
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -126,8 +126,12 @@ class ParagraphView(View):
                 status="pending"
             ).count(),
             "count_pending_batches": article.batches.filter(status="pending").count(),
-            "count_completed_paragraphs": batch.paragraphs.filter(status="completed").count(),
-            "count_completed_batches": article.batches.filter(status="completed").count(),
+            "count_completed_paragraphs": batch.paragraphs.filter(
+                status="completed"
+            ).count(),
+            "count_completed_batches": article.batches.filter(
+                status="completed"
+            ).count(),
             "count_progress_batches": article.batches.filter(status="progress").count(),
         }
         return JsonResponse(data)
@@ -172,3 +176,21 @@ class QuestionView(View):
         question = Question.objects.get(pk=data["id"])
         Answer.objects.create(question=question, text=data["text"], index=data["index"])
         return JsonResponse(None, status=201, safe=False)
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class UserStepView(View):
+    def post(self, request):
+        user = request.user
+        level = int(request.POST["level"])
+        if level > user.level_completed + 1:
+            return HttpResponse(f"Level {level} is not accessible for this user.", status=422)
+        user.level_completed = level
+        relevancy = UserRelevancy(score=request.POST["score"], level=level, user=user)
+        relevancy.save()
+        user.relevancies.add(relevancy)
+        user.save()
+        data = {
+            "level_completed": user.level_completed,
+        }
+        return JsonResponse(data, status=201)
