@@ -110,10 +110,10 @@ export default {
         let score = this.tests.reduce((acc,obj) => (obj.answer == obj.exp) ? acc+1 : acc,0)
         // eslint-disable-next-line
         console.log('do the async call',score);
-        let scoreUpdate = await this.sendScore(score,1)
+        // let scoreUpdate = await this.sendScore(score,1)
         // eslint-disable-next-line
         console.log(scoreUpdate,'now we can redirect to level');
-        // this.$router.push('/introduction')
+        this.$router.push('/introduction/'+this.$route.params.level+'/bravo')
       } else {
         this.step++
       }

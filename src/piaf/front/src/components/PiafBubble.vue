@@ -17,9 +17,7 @@
                :style="`height:auto`"
              >
                <span style="white-space:normal" class="round">
-                 Félicitations! Vous avez écrit <strong>{{userDetails.paragraphs_count * 5}} questions-réponses</strong> depuis votre inscription. Merci beaucoup!
-                 <br><br>
-                 Le prochain paragraphe n'attend plus que vous!!!
+                 <slot></slot>
                </span>
              </v-chip>
            </div>
@@ -44,7 +42,7 @@
       </v-row>
 
     </span>
-    <Fireworks :boxHeight="'100%'" :boxWidth="'100%'"/>
+    <Fireworks :boxHeight="'100%'" :boxWidth="'100%'" v-if="hasFireworks"/>
   </v-layout>
 </template>
 
@@ -53,6 +51,10 @@ import Fireworks from './Fireworks.vue'
 import { mapState } from 'vuex'
 
 export default {
+  name:'PiafBubble',
+  props : {
+    hasFireworks: Boolean,
+  },
   computed: {
     ...mapState([
       'userDetails',

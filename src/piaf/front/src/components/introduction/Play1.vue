@@ -129,7 +129,7 @@ export default {
         let scoreUpdate = await this.sendScore(score,1)
         // eslint-disable-next-line
         console.log(scoreUpdate,'now we can redirect to level');
-        // this.$router.push('/introduction')
+        this.$router.push('/introduction/'+this.$route.params.level+'/bravo')
       } else {
         this.step++
       }

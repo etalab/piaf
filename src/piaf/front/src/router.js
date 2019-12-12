@@ -29,14 +29,20 @@ export default new Router({
     {
       path: '/introduction/:level/',
       name: 'examples',
-      meta: {title: 'Examples'},
+      meta: {title: 'Exemples'},
       component: () => import('./views/introduction/Examples.vue')
     },
     {
       path: '/introduction/:level/play',
       name: 'play',
-      meta: {title: 'play'},
+      meta: {title: 'jouer'},
       component: () => import('./views/introduction/Play.vue')
+    },
+    {
+      path: '/introduction/:level/bravo',
+      name: 'level_finished',
+      meta: {title: 'Niveau déverouillé'},
+      component: () => import('./views/introduction/Bravo.vue')
     },
     {
       path: '/bravo',
