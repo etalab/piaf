@@ -15,7 +15,7 @@
         >
       </v-avatar>
       </v-col>
-      <v-col cols='10' class="pr-0 alignSelf bold" style="text-align:center;font-size:22px">
+      <v-col cols='10' class="pr-0 alignSelf bold fontSpecific" style="text-align:center;font-size:22px">
         {{NavbarTitle}}
       </v-col>
       <v-col
@@ -61,5 +61,11 @@ export default {
 }
 .minwidth{
   min-width: 32px;
+}
+
+.fontSpecific {
+  font-family: 'luckiest guy' !important;
+  text-decoration: none;
+  color: #333;
 }
 </style>
