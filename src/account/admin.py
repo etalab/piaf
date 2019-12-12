@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import User
+from piaf.models import UserRelevancy
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -65,5 +66,10 @@ class UserAdmincertification(admin.ModelAdmin):
         return False
 
 
+class UserRelevanciesAdmin(admin.ModelAdmin):
+    list_display = ("user", "level", "score", "created_at")
+    list_filter = ("user", "level", "score", "created_at")
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Usercertification, UserAdmincertification)
+admin.site.register(UserRelevancy, UserRelevanciesAdmin)

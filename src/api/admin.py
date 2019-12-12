@@ -11,4 +11,4 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-admin.site.register(Project, ProjectAdmin)
+# admin.site.register(Project, ProjectAdmin)

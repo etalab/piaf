@@ -135,3 +135,6 @@ class UserRelevancy(models.Model):
     level = models.PositiveSmallIntegerField(null=False)
     score = models.PositiveIntegerField(null=False)
     created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user}, level {self.level}, {self.score}%"
