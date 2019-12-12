@@ -247,7 +247,8 @@ class UserRelevancyTest(TestCase):
     def test_send_relevancy_adds_score_to_user(self):
         login_user()
         response = client.post(
-            "/app/api/level/completed", data={"level": 1, "score": 75,}
+            "/app/api/level/completed", data={"level": 1, "score": 75,},
+            content_type="application/json"
         )
         self.assertEqual(response.status_code, 201)
         self.assertDictEqual(response.json(), {"level_completed": 1})
@@ -257,7 +258,8 @@ class UserRelevancyTest(TestCase):
         user.level_completed = 2
         user.save()
         response = client.post(
-            "/app/api/level/completed", data={"level": 3, "score": 75}
+            "/app/api/level/completed", data={"level": 3, "score": 75},
+            content_type="application/json"
         )
         user = get_user_model().objects.first()
         self.assertEqual(user.level_completed, 3)
@@ -265,6 +267,8 @@ class UserRelevancyTest(TestCase):
     def test_user_cannot_skip_level(self):
         login_user()
         response = client.post(
-            "/app/api/level/completed", data={"level": 3, "score": 75}
+            "/app/api/level/completed",
+            data={"level": 3, "score": 75},
+            content_type="application/json"
         )
         self.assertEqual(response.status_code, 422)

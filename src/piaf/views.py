@@ -181,12 +181,13 @@ class QuestionView(View):
 @method_decorator(csrf_exempt, name="dispatch")
 class UserStepView(View):
     def post(self, request):
+        data = json.loads(request.body)
         user = request.user
-        level = int(request.POST["level"])
+        level = int(data["level"])
         if level > user.level_completed + 1:
             return HttpResponse(f"Level {level} is not accessible for this user.", status=422)
         user.level_completed = level
-        relevancy = UserRelevancy(score=request.POST["score"], level=level, user=user)
+        relevancy = UserRelevancy(score=data["score"], level=level, user=user)
         relevancy.save()
         user.relevancies.add(relevancy)
         user.save()
