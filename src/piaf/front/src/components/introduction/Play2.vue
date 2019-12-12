@@ -61,7 +61,7 @@ export default {
       {
         step : 0,
         exp : 'Tintin',
-        question : "Qui est journaliste pour le petit Vingtime ?",
+        question : "Qui est journaliste pour le petit Vingtième ?",
         text : "Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
         answers:['Tintin','Tintin est un reporter travaillant pour Le Petit Vingtième']
       }
@@ -73,15 +73,6 @@ export default {
     NavbarProfile,
   },
   computed:{
-    lastStep () {
-      if (Number(this.$route.params.level) === 1) {
-        return 5
-      } else if (Number(this.$route.params.level) === 2) {
-        return 6
-      } else {
-        return 1
-      }
-    },
     toNiveau(){
       return "/introduction/"+Number(this.$route.params.level)+"/play"
     },
