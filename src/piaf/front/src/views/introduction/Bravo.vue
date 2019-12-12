@@ -2,18 +2,24 @@
   <v-app>
   <!--  Is always placed at the top of an application with a lower priority than v-system-bar -->
   <v-app-bar app hide-on-scroll>
-    <NavbarProfile/>
+    <NavbarProfile :NavbarTitle="`Niveau déverouillé`"/>
   </v-app-bar>
 
   <!-- Sizes your content based upon application components -->
   <v-content>
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
-      <Consignes1 v-bind:step="step"/>
+      <PiafBubble :hasFireworks=true>
+        Félicitations! Vous êtes maintenant <strong>expert du niveau {{$route.params.level}}</strong> !
+        <br><br>
+        <span v-if="$route.params.level == 3">Vous pouvez désormais annoter en tant qu'expert !!!</span>
+        <span v-else>Vous pouvez passer au niveau supérieur !!!<!-- Vous pouvez continuer sur ce niveau, ou en essayer un nouveau !!! --></span>
+      </PiafBubble>
     </v-container>
     <!-- we need to put the Animation after the other components for the background to be beneath -->
     <Animation/>
   </v-content>
+
   <v-footer
   style="z-index:10"
   padless
@@ -24,36 +30,12 @@
       <v-row class="maxWid700 mx-auto">
         <v-col cols='12' class="pr-0 textContainer">
           <v-btn
-          class="mx-2"
-          fab
-          dark
-          small
-          outlined
-          color="secondary"
-          v-if="step > 0"
-          v-on:click="step--">
-            <v-icon dark>mdi-arrow-left</v-icon>
-          </v-btn>
-
-          <v-btn
-          class="mx-2"
-          dark
           small
           color="primary"
-          v-if="step != lastStep"
-          @click="step++">
-            Continuer
-          </v-btn>
-
-          <v-btn
-          class="mx-2"
           dark
-          small
-          color="primary"
-          v-if="step == lastStep"
-          to="/test-1"
-          >
-            Continuer
+          v-on:click="onClick"
+          class="alignSelf"
+          >Continuer
           </v-btn>
         </v-col>
       </v-row>
@@ -63,26 +45,41 @@
 </template>
 
 <script>
-import Consignes1 from '../../components/introduction/Consignes1';
 import NavbarProfile from '../../components/NavbarProfile';
 import Animation from '../../components/Animation.vue';
+import PiafBubble from '../../components/PiafBubble.vue';
 
 export default {
-  data: () => ({
-    step: 0,
-    lastStep : 10,
-  }),
   name: 'App',
   components: {
-    Consignes1,
     NavbarProfile,
     Animation,
+    PiafBubble,
+  },
+  methods: {
+    onClick() {
+      if (this.$route.params.level == 3) {
+        this.$router.push('annotation')
+      } else {
+        this.$router.push('/introduction')
+      }
+    }
+  },
+  mounted () {
+      this.$store.dispatch('getUserDetails')
   },
 };
 </script>
+
 <style scoped>
+/* for all */
 .maxWid700{
   max-width: 700px;
+}
+.alignSelf{
+  align-self: center;
+}
+.container{
 }
 .textContainer{
   display: flex;

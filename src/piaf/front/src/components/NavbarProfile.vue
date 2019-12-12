@@ -15,8 +15,8 @@
         >
       </v-avatar>
       </v-col>
-      <v-col cols='10' class="pr-0 alignSelf bold" style="text-align:center;font-size:22px">
-        Edite Piaf
+      <v-col cols='10' class="pr-0 alignSelf bold fontSpecific" style="text-align:center;font-size:22px">
+        {{NavbarTitle}}
       </v-col>
       <v-col
         cols='1'
@@ -37,6 +37,12 @@ export default {
   components: {
     UserProfile,
   },
+  props : {
+    NavbarTitle: {
+      type: String,
+      default: 'Edite Piaf'
+    },
+  },
   computed: {
     ...mapState([
       'currentQuestionIndex'
@@ -55,5 +61,11 @@ export default {
 }
 .minwidth{
   min-width: 32px;
+}
+
+.fontSpecific {
+  font-family: 'luckiest guy' !important;
+  text-decoration: none;
+  color: #333;
 }
 </style>

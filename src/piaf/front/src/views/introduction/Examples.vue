@@ -2,14 +2,16 @@
   <v-app>
   <!--  Is always placed at the top of an application with a lower priority than v-system-bar -->
   <v-app-bar app hide-on-scroll>
-    <NavbarProfile/>
+    <NavbarProfile :NavbarTitle="NavbarTitle"/>
   </v-app-bar>
 
   <!-- Sizes your content based upon application components -->
   <v-content>
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
-      <Consignes1 v-bind:step="step"/>
+      <Consignes1 v-bind:step="step" v-if="$route.params.level == 1"/>
+      <Consignes2 v-bind:step="step" v-if="$route.params.level == 2"/>
+      <Consignes3 v-bind:step="step" v-if="$route.params.level == 3"/>
     </v-container>
     <!-- we need to put the Animation after the other components for the background to be beneath -->
     <Animation/>
@@ -51,7 +53,7 @@
           small
           color="primary"
           v-if="step == lastStep"
-          to="/test-1"
+          :to="toNiveau"
           >
             Continuer
           </v-btn>
@@ -64,20 +66,43 @@
 
 <script>
 import Consignes1 from '../../components/introduction/Consignes1';
+import Consignes2 from '../../components/introduction/Consignes2';
+import Consignes3 from '../../components/introduction/Consignes3';
 import NavbarProfile from '../../components/NavbarProfile';
 import Animation from '../../components/Animation.vue';
 
 export default {
   data: () => ({
     step: 0,
-    lastStep : 10,
+    // lastStep : 5,
   }),
   name: 'App',
   components: {
     Consignes1,
+    Consignes2,
+    Consignes3,
     NavbarProfile,
     Animation,
   },
+  computed:{
+    NavbarTitle () {
+      return 'Niveau ' + this.$route.params.level
+    },
+    lastStep () {
+      if (Number(this.$route.params.level) === 1) {
+        return 5
+      } else if (Number(this.$route.params.level) === 2) {
+        return 5
+      } else if (Number(this.$route.params.level) === 3) {
+        return 1
+      } else {
+        return 1
+      }
+    },
+    toNiveau(){
+      return "/introduction/"+Number(this.$route.params.level)+"/play"
+    },
+  }
 };
 </script>
 <style scoped>

@@ -1,27 +1,31 @@
 <template>
-  <v-stepper v-model="currentLevel" vertical class="maxWid700 mx-auto">
-    <span class="justify-center d-flex title">Débuter sur Piaf</span>
-    <span class="justify-center d-flex subtitle pa-2"> Il y a trois niveaux à passer avant d'être expert de Piaf
-    </span>
-    <span v-for="(level) in levels" :key="level.level">
-      <v-stepper-step
-        :step="level.level"
-        :complete="level.level < currentLevel"
-        class="title">
-        {{level.title}}
-      </v-stepper-step>
-      <v-stepper-content :step="level.level" class="mt-n5">
-        <v-card color="white lighten-1" class="mb-3 noshadow">{{level.text}}</v-card>
-        <v-btn color="primary" @click="onClick">Commencer</v-btn>
-      </v-stepper-content>
-    </span>
-  </v-stepper>
+  <span class="maxWid700 mx-auto">
+    <v-container v-if="currentLevel == 1">
+    <span class="font-weight-thin mb-5 white--text zind0 title">C'est la première fois que l'on vous voit sur Piaf!</span>
+    </v-container>
+
+    <LevelBtn
+    text='Niveau'
+    :level='level.level'
+    :active='level.level == currentLevel'
+    :locked='level.level > currentLevel'
+    :title='level.title'
+    :levelClass="levelClassMethod(level)"
+    :iconType="levelIconMethod(level)"
+    v-for="(level) in levels" :key="level.level"
+    />
+  </span>
 </template>
 
 <script>
+import LevelBtn from './LevelBtn.vue';
+import { mapState } from 'vuex'
+
 export default {
+  components: {
+    LevelBtn,
+  },
   data: () => ({
-     currentLevel: 1,
      levels: [
        {
          color: 'green',
@@ -44,22 +48,44 @@ export default {
      ],
   }),
   methods: {
-    onClick(){
-      this.$router.push('introduction-' + this.currentLevel)
+    levelClassMethod(level) {
+      if (level.level > this.currentLevel) {
+        return 'btngrey'
+      } else if (level.level == this.currentLevel) {
+        return 'btnyellow'
+      } else if (level.level < this.currentLevel) {
+        return 'btnorange'
+      }else {
+        return 'btngrey'
+      }
     },
+    levelIconMethod(level) {
+      if (level.level > this.currentLevel) {
+        return 'mdi-lock'
+      } else if (level.level == this.currentLevel) {
+        return 'mdi-lock-open'
+      } else if (level.level < this.currentLevel) {
+        return 'mdi-check'
+      }else {
+        return 'mdi-lock'
+      }
+    },
+  },
+  computed: {
+    ...mapState([
+      'userDetails',
+    ]),
+    currentLevel() {
+      return (Number(this.userDetails.level_completed) == 3) ? 3 : Number(this.userDetails.level_completed) + 1
+    },
+  },
+  mounted () {
+    this.$store.dispatch('getUserDetails')
   },
 };
 </script>
 <style scoped>
-.noshadow{
-  box-shadow: none;
-}
 .maxWid700{
   max-width: 700px;
-}
-.center{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
 }
 </style>

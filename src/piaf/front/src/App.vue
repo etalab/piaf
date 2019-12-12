@@ -28,4 +28,12 @@ strong{
   background-color: #616161 !important;
   opacity: 1 !important;
 }
+.questionClass{
+  background-color: #00000024;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: solid 1px;
+  /* font-style: italic !important; */
+}
 </style>

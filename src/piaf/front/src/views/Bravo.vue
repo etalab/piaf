@@ -26,7 +26,11 @@
   <v-content>
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
-      <Bravo/>
+      <PiafBubble :hasFireworks=true>
+        Félicitations! Vous avez écrit <strong>{{userDetails.paragraphs_count * 5}} questions-réponses</strong> depuis votre inscription. Merci beaucoup!
+        <br><br>
+        Le prochain paragraphe n'attend plus que vous!!!
+      </PiafBubble>
     </v-container>
     <!-- we need to put the Animation after the other components for the background to be beneath -->
     <Animation/>
@@ -59,14 +63,20 @@
 <script>
 import Navbar from '../components/Navbar';
 import Animation from '../components/Animation.vue';
-import Bravo from '../components/Bravo.vue';
+import PiafBubble from '../components/PiafBubble.vue';
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     Navbar,
     Animation,
-    Bravo,
+    PiafBubble,
+  },
+  computed: {
+    ...mapState([
+      'userDetails',
+    ]),
   },
   methods: {
     goToAnnotation() {
