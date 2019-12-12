@@ -7,7 +7,7 @@
         </v-card-text>
       </v-card>
       <v-layout justify-center>
-        <span class="font-weight-thin mt-5 white--text zind0 font-italic">{{question}}</span>
+        <span class="font-weight-thin mt-5 white--text zind0 questionClass">{{question}}</span>
       </v-layout>
     </span>
   </v-container>

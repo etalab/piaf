@@ -2,16 +2,15 @@
   <v-container class="maxWid700">
     <span v-if="step == 0">
       <v-layout justify-center>
-        <span class="font-weight-thin mb-2 white--text zind0 title">Consignes</span>
+        <span class="font-weight-thin mb-2 white--text zind0 title">La meilleure réponse</span>
       </v-layout>
       <v-card max-width="700" class="mx-auto">
-        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2">
+        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2 mt-5">
           <span class="black--text bold">Le rire apparaît chez l'être humain <span class="first">aux </span> <span class="selected"> alentours du quatrième ou cinquième </span><span class="last">mois</span></span>
         </v-card-text>
       </v-card>
       <v-layout justify-center>
-        <span class="font-weight-thin mb-4 white--text">Question : </span>
-        <span class="ml-1 font-weight-thin mb-4 white--text zind0 font-italic"> À quel âge l'homme commence t-il à rire ?</span>
+        <span class="ml-1 font-weight-thin mt-5 mb-4 white--text zind0 questionClass"> À quel âge l'homme commence t-il à rire ?</span>
       </v-layout>
       <v-layout justify-center>
         <span class="font-weight-thin mt-5 white--text zind0">Ce sera à vous d'évaluer si la réponse (surlignée dans le texte) est intéressante.</span>
@@ -25,22 +24,22 @@
         <span class="font-weight-thin mt-10 mb-5 white--text zind0">C'est une réponse courte. Pas la peine de surgligner la phrase complète, quelques mots suffisent.</span>
       </v-layout>
       <v-card max-width="700" class="mx-auto" v-if="[2].indexOf(step) !== -1">
-        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2">
+        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2 mt-5">
           <span class="black--text bold">Le rire <span class="first redBackground">apparaît chez l'être humain aux </span> <span class="selected redBackground"> alentours du quatrième ou cinquième </span><span class="last redBackground">mois</span></span>
         </v-card-text>
       </v-card>
       <v-card max-width="700" class="mx-auto" v-if="[3].indexOf(step) !== -1">
-        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2">
+        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2 mt-5">
           <span class="black--text bold">Le rire apparaît chez l'être humain <span class="first">aux </span> <span class="selected"> alentours du quatrième ou cinquième </span><span class="last">mois</span></span>
         </v-card-text>
       </v-card>
       <v-card max-width="700" class="mx-auto" v-if="[4].indexOf(step) !== -1">
-        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2">
+        <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2 mt-5">
           <span class="black--text bold">Le rire apparaît chez l'être humain aux alentours du <span class="first">quatrième</span> <span class="selected"> ou cinquième </span><span class="last">mois</span></span>
         </v-card-text>
       </v-card>
       <v-layout justify-center v-if="[2,3,4].indexOf(step) !== -1">
-        <span class="font-weight-thin mt-1 zind0"><i class="white--text">À quel âge l'homme commence t-il à rire ?</i>
+        <span class="font-weight-thin mt-1 zind0 questionClass mt-3 white--text">À quel âge l'homme commence t-il à rire ?
         </span>
       </v-layout>
       <v-layout justify-center v-if="[2].indexOf(step) !== -1">
@@ -55,14 +54,6 @@
       </v-layout>
     </span>
     <span v-if="step == 5">
-      <v-layout justify-center>
-        <h1 class="font-weight-thin mb-5 white--text zind0 title">Le saviez-vous ?</h1>
-      </v-layout>
-      <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">Pour le moment, on n'entraîne notre IA à trouver des réponses. Décider si oui ou non il y a un réponse dans le texte ce sera pour plus tard !<br><br> C'est pour ça que toutes les questions doivent avoir une réponse dans le texte.</span>
-      </v-layout>
-    </span>
-    <span v-if="step == 6">
       <v-layout justify-center>
         <h1 class="font-weight-thin mb-5 white--text zind0 title">Le saviez-vous ?</h1>
       </v-layout>
