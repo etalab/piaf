@@ -29,7 +29,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ('user', 'question_text', 'text', 'created_at',)
-    ordering = ('created_at',)
+    ordering = ('created_at', 'user')
     search_fields = ('text',)
 
     def question_text(self, obj):
