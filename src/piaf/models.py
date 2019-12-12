@@ -23,7 +23,9 @@ class Article(models.Model):
 
     @property
     def batches(self):
-        return ParagraphBatch.objects.filter(paragraphs__article=self).distinct('paragraphs__article')
+        return ParagraphBatch.objects.filter(paragraphs__article=self).distinct(
+            "paragraphs__article"
+        )
 
     def __str__(self):
         return self.name
@@ -121,3 +123,15 @@ class Answer(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         self.question.watch_status()
+
+
+class UserRelevancy(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete="cascade",
+        related_name="relevancies",
+        null=False,
+    )
+    level = models.PositiveSmallIntegerField(null=False)
+    score = models.PositiveIntegerField(null=False)
+    created_at = models.DateField(auto_now_add=True)
