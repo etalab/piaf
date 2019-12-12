@@ -20,7 +20,8 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "email",
             "is_superuser",
-            "is_certified"
+            "is_certified",
+            "level_completed",
         )
 
 

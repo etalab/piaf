@@ -26,6 +26,14 @@ def create_question(paragraph, text):
     return Question.objects.create(paragraph=paragraph, text=text)
 
 
+def login_user():
+    user = get_user_model().objects.create(username="user")
+    user.set_password("password")
+    user.save()
+    client.login(username="user", password="password")
+    return user
+
+
 class ModelTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create(username="user")
@@ -51,22 +59,15 @@ class ModelTest(TestCase):
 
     def test_3_answers_complete_question(self):
         article = create_article("article", "g", "text")
-        question = Question.objects.create(paragraph=article.paragraphs.first(), text="q")
+        question = Question.objects.create(
+            paragraph=article.paragraphs.first(), text="q"
+        )
         Answer.objects.create(question=question, text="a1", index=1)
         Answer.objects.create(question=question, text="a2", index=2)
         self.assertEqual(question.status, "pending")
         answer = Answer(question=question, text="a3", index=3)
         answer.save()
         self.assertEqual(question.status, "completed")
-
-
-
-def login_user():
-    user = get_user_model().objects.create(username="user")
-    user.set_password("password")
-    user.save()
-    client.login(username="user", password="password")
-    return user
 
 
 class ParagraphApiTest(TestCase):
@@ -90,6 +91,7 @@ class ParagraphApiTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["is_certified"], False)
         self.assertEqual(response.json()["paragraphs_count"], 0)
+        self.assertEqual(response.json()["level_completed"], 0)
 
     def test_get_paragraph(self):
         response = client.get("/app/api/paragraph")
@@ -233,7 +235,36 @@ class QuestionApiTest(TestCase):
         article = create_article("title 1", "general", "this is article 1")
         paragraph = article.paragraphs.first()
         for i in range(0, 20):
-            Question.objects.create(paragraph=paragraph, status="completed", text=f"q {i}")
+            Question.objects.create(
+                paragraph=paragraph, status="completed", text=f"q {i}"
+            )
         Question.objects.create(paragraph=paragraph, text="I'm pending")
         response = client.get("/app/api/question")
         self.assertEqual(response.json()["text"], "I'm pending")
+
+
+class UserRelevancyTest(TestCase):
+    def test_send_relevancy_adds_score_to_user(self):
+        login_user()
+        response = client.post(
+            "/app/api/level/completed", data={"level": 1, "score": 75,}
+        )
+        self.assertEqual(response.status_code, 201)
+        self.assertDictEqual(response.json(), {"level_completed": 1})
+
+    def test_user_can_pass_next_level(self):
+        user = login_user()
+        user.level_completed = 2
+        user.save()
+        response = client.post(
+            "/app/api/level/completed", data={"level": 3, "score": 75}
+        )
+        user = get_user_model().objects.first()
+        self.assertEqual(user.level_completed, 3)
+
+    def test_user_cannot_skip_level(self):
+        login_user()
+        response = client.post(
+            "/app/api/level/completed", data={"level": 3, "score": 75}
+        )
+        self.assertEqual(response.status_code, 422)

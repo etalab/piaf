@@ -6,6 +6,7 @@ from .views import (
     AdminDatasetView,
     ParagraphView,
     QuestionView,
+    UserStepView,
     get_datasets_info,
 )
 from .apis import MeView
@@ -20,6 +21,7 @@ urlpatterns = [
     path("api/datasets", get_datasets_info),
     path("api/paragraph", ParagraphView.as_view(), name="api_paragraph"),
     path("api/question", QuestionView.as_view(), name="api_question"),
+    path("api/level/completed", UserStepView.as_view(), name="api_userstep"),
     path("me", MeView.as_view(), name="me"),
     re_path(r'^.*$', IndexView.as_view(), name="index"),
 ]
