@@ -11,7 +11,7 @@
     <v-container fluid>
       <Consignes1 v-bind:step="step" v-if="$route.params.level == 1"/>
       <Consignes2 v-bind:step="step" v-if="$route.params.level == 2"/>
-      <!-- <Consignes3 v-bind:step="step" v-if="$route.params.level == 3"/> -->
+      <Consignes3 v-bind:step="step" v-if="$route.params.level == 3"/>
     </v-container>
     <!-- we need to put the Animation after the other components for the background to be beneath -->
     <Animation/>
@@ -67,7 +67,7 @@
 <script>
 import Consignes1 from '../../components/introduction/Consignes1';
 import Consignes2 from '../../components/introduction/Consignes2';
-// import Consignes3 from '../../components/introduction/Consignes3';
+import Consignes3 from '../../components/introduction/Consignes3';
 import NavbarProfile from '../../components/NavbarProfile';
 import Animation from '../../components/Animation.vue';
 
@@ -80,7 +80,7 @@ export default {
   components: {
     Consignes1,
     Consignes2,
-    // Consignes3,
+    Consignes3,
     NavbarProfile,
     Animation,
   },
@@ -92,7 +92,9 @@ export default {
       if (Number(this.$route.params.level) === 1) {
         return 5
       } else if (Number(this.$route.params.level) === 2) {
-        return 6
+        return 5
+      } else if (Number(this.$route.params.level) === 3) {
+        return 1
       } else {
         return 1
       }
