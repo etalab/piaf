@@ -1,5 +1,9 @@
 <template>
   <span class="maxWid700 mx-auto">
+    <v-container v-if="currentLevel == 1">
+    <span class="font-weight-thin mb-5 white--text zind0 title">C'est la première fois que l'on vous voit sur Piaf!</span>
+    </v-container>
+
     <LevelBtn
     text='Niveau'
     :level='level.level'
@@ -15,13 +19,13 @@
 
 <script>
 import LevelBtn from './LevelBtn.vue';
+import { mapState } from 'vuex'
 
 export default {
   components: {
     LevelBtn,
   },
   data: () => ({
-     currentLevel: 1,
      levels: [
        {
          color: 'green',
@@ -66,6 +70,17 @@ export default {
         return 'mdi-lock'
       }
     },
+  },
+  computed: {
+    ...mapState([
+      'userDetails',
+    ]),
+    currentLevel() {
+      return (Number(this.userDetails.level_completed) == 3) ? 3 : Number(this.userDetails.level_completed) + 1
+    },
+  },
+  mounted () {
+    this.$store.dispatch('getUserDetails')
   },
 };
 </script>

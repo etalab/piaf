@@ -9,20 +9,7 @@
   <v-content>
     <!-- Provides the application the proper gutter -->
     <v-container fluid class="maxWid700 center">
-      <v-container v-if="showFirstTime">
-      <span class="font-weight-thin mb-5 white--text zind0 title">C'est la première fois que l'on vous voit sur Piaf!</span>
-     <br>
-     <v-btn
-       class="mx-2 mt-5"
-       dark
-       small
-       color="primary"
-       @click="showFirstTime = !showFirstTime">
-         Continuer
-     </v-btn>
-
-      </v-container>
-      <Level v-else/>
+      <Level/>
     </v-container>
     <!-- we need to put the Animation after the other components for the background to be beneath -->
     <Animation/>
@@ -36,9 +23,6 @@ import NavbarProfile from '../../components/NavbarProfile';
 import Animation from '../../components/Animation.vue';
 
 export default {
-  data: () => ({
-    showFirstTime: true,
-  }),
   name: 'App',
   components: {
     Level,
