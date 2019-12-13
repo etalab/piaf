@@ -30,7 +30,7 @@ class QuestionAdmin(admin.ModelAdmin):
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ('user', 'question_text', 'text', 'created_at',)
     ordering = ('created_at', 'user')
-    search_fields = ('text',)
+    search_fields = ('text', 'user__email', 'user__first_name', 'user__last_name', 'user__username')
 
     def question_text(self, obj):
         return obj.question.text
