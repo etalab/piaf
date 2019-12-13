@@ -5,12 +5,13 @@ from piaf.models import UserRelevancy
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ("email", "is_superuser", "is_certified", "date_joined", "is_staff", "is_active")
+    list_display = ("email", "is_superuser", "is_certified", "level_completed", "date_joined", "is_staff", "is_active")
     ordering = ("email",)
+    list_filter = ("level_completed","is_certified","is_superuser")
     search_fields = ("email", "is_superuser", "is_certified")
     list_editable = ("is_superuser", "is_certified", "is_staff")
     list_display_links = ("email",)
-    fields = ("email", "is_staff", "is_certified")
+    fields = ("email", "is_staff", "is_certified", "level_completed")
 
     def has_add_permission(self, request):
         if request.user.is_superuser:
