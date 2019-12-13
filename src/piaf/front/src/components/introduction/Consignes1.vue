@@ -19,17 +19,22 @@
         <span class="font-weight-thin mt-5 white--text zind0">Ce sera à vous d'évaluer si la question est intéressante.</span>
       </v-layout>
     </span>
-    <span v-if="[1,2,3].indexOf(step) !== -1">
+    <span v-if="[1].indexOf(step) !== -1">
       <v-layout justify-center>
         <span class="font-weight-thin white--text zind0 title">Qu'est ce qu'une question intéressante&nbsp;?</span>
       </v-layout>
       <v-layout justify-center v-if="step == 1">
         <span class="font-weight-thin mt-10 mb-5 white--text zind0">C'est une question qui utilise des mots différents du texte. On reformule le plus possible avec nos propres mots.</span>
       </v-layout>
-      <v-layout justify-center v-if="[2,3].indexOf(step) !== -1">
-        <span class="font-weight-thin mt-3 mb-5 white--text zind0">Voyons un example :</span>
+    </span>
+    <span v-if="[2,3].indexOf(step) !== -1">
+      <v-layout justify-center>
+        <span class="font-weight-thin white--text zind0 title">Voyons un example&nbsp;:</span>
       </v-layout>
-      <v-card max-width="700" class="mx-auto" v-if="[2,3].indexOf(step) !== -1">
+      <v-layout justify-center v-if="step == 1">
+        <span class="font-weight-thin mt-10 mb-5 white--text zind0">C'est une question qui utilise des mots différents du texte. On reformule le plus possible avec nos propres mots.</span>
+      </v-layout>
+      <v-card max-width="700" class="mx-auto mt-3" v-if="[2,3].indexOf(step) !== -1">
         <v-card-text style="font-size:1em;line-height:1.0;" class="pa-2">
           <span class="black--text bold">Le rire apparaît chez l'être humain aux alentours du quatrième ou cinquième mois</span>
         </v-card-text>
