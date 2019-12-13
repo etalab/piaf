@@ -10,21 +10,9 @@ export default new Router({
   routes: [
     {
       path: '',
-      name: 'theme',
-      meta: {title: 'Choix du thème'},
-      component: Theme
-    },
-    {
-      path: '/annotation',
-      name: 'annotation',
-      meta: {title: 'Question-réponse'},
-      component: () => import('./views/Annotation.vue')
-    },
-    {
-      path: '/introduction',
-      name: 'introduction',
+      name: 'level',
       meta: {title: 'Niveaux'},
-      component: () => import('./views/introduction/Introduction.vue')
+      component: () => import('./views/Level.vue')
     },
     {
       path: '/introduction/:level/',
@@ -45,11 +33,29 @@ export default new Router({
       component: () => import('./views/introduction/Bravo.vue')
     },
     {
-      path: '/bravo',
-      name: 'bravo',
+      path: '/annotation/:level',
+      name: 'annotation',
+      meta: {title: 'à vous de jouer'},
+      component: () => import('./views/Annotation.vue')
+    },
+    {
+      path: '/annotation/:level/theme',
+      name: 'annotation_theme',
+      meta: {title: 'Choix du thème'},
+      component: Theme
+    },
+    {
+      path: '/annotation/:level/bravo',
+      name: 'annotation_bravo',
       meta: {title: 'Bravo'},
       component: () => import('./views/Bravo.vue')
     },
+    // {
+    //   path: '/bravo',
+    //   name: 'bravo',
+    //   meta: {title: 'Bravo'},
+    //   component: () => import('./views/Bravo.vue')
+    // },
     {
       path: '/*',
       component: () => import('./views/FourOhFour.vue')

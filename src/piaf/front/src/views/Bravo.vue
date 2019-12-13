@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     goToAnnotation() {
-      return this.$router.push('annotation')
+      return this.$router.push('/annotation/'+this.$route.params.level)
     }
   },
   mounted () {

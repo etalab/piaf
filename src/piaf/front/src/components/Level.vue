@@ -8,6 +8,7 @@
     text='Niveau'
     :level='level.level'
     :active='level.level == currentLevel'
+    :level_completed='userDetails.level_completed'
     :locked='level.level > currentLevel'
     :title='level.title'
     :levelClass="levelClassMethod(level)"
@@ -76,6 +77,8 @@ export default {
       'userDetails',
     ]),
     currentLevel() {
+      if(this.userDetails.level_completed === undefined)
+        return 1
       return (Number(this.userDetails.level_completed) == 3) ? 3 : Number(this.userDetails.level_completed) + 1
     },
   },

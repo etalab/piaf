@@ -126,7 +126,7 @@ export default {
       this.loading = false
       if (res) {
         this.next()
-        this.$router.push('bravo')
+        this.$router.push('/annotation/'+this.$route.params.level+'/bravo')
       } else {
         // eslint-disable-next-line
         console.log('error in the Q or A');

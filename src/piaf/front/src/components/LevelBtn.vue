@@ -16,6 +16,7 @@ export default {
     text: String,
     title: String,
     active: Boolean,
+    level_completed: Number,
     locked: Boolean,
     level: Number,
     levelClass: String,
@@ -24,7 +25,11 @@ export default {
   methods: {
     onClick(){
       if (this.active) {
-        this.$router.push('introduction/' + this.level)
+        if (this.level_completed >= this.level) {
+          this.$router.push('annotation/' + this.level)
+        }else{
+          this.$router.push('introduction/' + this.level)
+        }
       }
     },
   }

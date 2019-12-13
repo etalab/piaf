@@ -2,7 +2,7 @@
   <v-app>
   <!--  Is always placed at the top of an application with a lower priority than v-system-bar -->
   <v-app-bar app hide-on-scroll>
-    <NavbarProfile :NavbarTitle="`Débuter sur Piaf`"/>
+    <NavbarProfile :NavbarTitle="`Choix du niveau`"/>
   </v-app-bar>
 
   <!-- Sizes your content based upon application components -->
@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import Level from '../../components/introduction/Level';
-import NavbarProfile from '../../components/NavbarProfile';
-import Animation from '../../components/Animation.vue';
+import Level from '../components/Level';
+import NavbarProfile from '../components/NavbarProfile';
+import Animation from '../components/Animation.vue';
 
 export default {
   name: 'App',
