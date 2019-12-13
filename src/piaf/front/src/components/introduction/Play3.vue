@@ -36,30 +36,10 @@
   fixed
   min-height='150px'
   color='white'>
-    <Footer/>
+    <Footer
+      v-on:validation="level3completed"
+      :routeAfterValidation="`/introduction/`+$route.params.level+`/bravo`"/>
   </v-footer>
-  <!-- <v-footer
-  style="z-index:10"
-  padless
-  fixed
-  min-height='150px'
-  color='white'>
-    <v-flex xs12 my-0 justify-center class="container">
-      <v-row class="maxWid700 mx-auto">
-        <v-col cols='12' class="pr-0 textContainer">
-          <span>Quelle est la bonne réponse ?</span>
-        </v-col>
-      </v-row>
-      <v-row class="maxWid700 mx-auto">
-        <v-col cols='12' class="pr-0 textContainer">
-          <span class="first last mx-2 pa-2 aligned"
-            v-for="(answer) in currentTest.answers"
-            :key="answer"
-            v-on:click="onClick(answer)">{{answer}}</span>
-        </v-col>
-      </v-row>
-    </v-flex>
-  </v-footer> -->
   </v-app>
 </template>
 
@@ -85,40 +65,14 @@ export default {
       'currentQuestionIndex',
       'annotations',
     ]),
-    toNiveau(){
-      return "/introduction/"+Number(this.$route.params.level)+"/play"
-    },
     NavbarTitle () {
       return 'Niveau ' + this.$route.params.level
     },
-    // currentTest() {
-    //   const findIdFunction = (obj) => obj.step == this.step;
-    //   let index = this.tests.findIndex(findIdFunction);
-    //   return this.tests[index]
-    // },
-    isLastStep() {
-      return this.step + 1 === this.tests.length
-    },
   },
   methods:{
-    async onClick(answer){
-      const findIdFunction = (obj) => obj.step == this.step;
-      let index = this.tests.findIndex(findIdFunction);
-      this.tests[index].answer = answer
-
-      if (this.isLastStep) {
-        let score = this.tests.reduce((acc,obj) => (obj.answer == obj.exp) ? acc+1 : acc,0)
-        score = 100 * score / this.tests.length
-        // eslint-disable-next-line
-        console.log('do the async call',score);
-        let scoreUpdate = await this.sendScore(score,3)
-        // eslint-disable-next-line
-        console.log(scoreUpdate,'now we can redirect to level');
-        this.$router.push('/introduction/'+this.$route.params.level+'/bravo')
-      } else {
-        this.step++
-      }
-    },
+    level3completed(){
+      this.sendScore(100,3)
+    }
   }
 };
 </script>

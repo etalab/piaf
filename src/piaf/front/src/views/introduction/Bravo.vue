@@ -12,7 +12,7 @@
       <PiafBubble :hasFireworks=true>
         Félicitations! Vous êtes maintenant <strong>expert du niveau {{$route.params.level}}</strong> !
         <br><br>
-        <span v-if="$route.params.level == 3">Vous pouvez désormais annoter en tant qu'expert !!!</span>
+        <span v-if="$route.params.level == 3">Vous avez réalisé vos premières questions-réponses !!!</span>
         <span v-else>Vous pouvez passer au niveau supérieur !!!<!-- Vous pouvez continuer sur ce niveau, ou en essayer un nouveau !!! --></span>
       </PiafBubble>
     </v-container>

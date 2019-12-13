@@ -21,7 +21,7 @@
   fixed
   min-height='150px'
   color='white'>
-    <Footer/>
+    <Footer :routeAfterValidation="`/annotation/`+$route.params.level+`/bravo`"/>
   </v-footer>
 </v-app>
 </template>

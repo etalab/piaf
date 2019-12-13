@@ -51,7 +51,7 @@ export default {
     setCurrentTheme(theme){
       if(!theme.empty){
         this.$store.commit('setCurrentTheme', theme.name)
-        this.step++
+        this.$router.push("/introduction/"+Number(this.$route.params.level)+"/play")
       }
     },
   },

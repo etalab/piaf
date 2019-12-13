@@ -21,7 +21,8 @@
   padless
   fixed
   min-height='150px'
-  color='white'>
+  color='white'
+  v-if="showFooter">
     <v-flex xs12 my-0 justify-center class="container">
       <v-row class="maxWid700 mx-auto">
         <v-col cols='12' class="pr-0 textContainer">
@@ -102,6 +103,9 @@ export default {
     toNiveau(){
       return "/introduction/"+Number(this.$route.params.level)+"/play"
     },
+    showFooter(){
+      return (Number(this.$route.params.level) === 3 && Number(this.step) === 1 ) ? false : true
+    }
   }
 };
 </script>

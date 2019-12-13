@@ -108,6 +108,9 @@ export default {
       networkIssueMessage: false,
     }
   },
+  props: {
+    routeAfterValidation: String,
+  },
   components: { QuestionInput, Answer },
   computed: {
     ...mapState([
@@ -121,12 +124,13 @@ export default {
   },
   methods:{
     async validate(){
+      this.$emit('validation')
       this.loading = true
       let res = await this.$store.dispatch('saveQAs')
       this.loading = false
       if (res) {
         this.next()
-        this.$router.push('/annotation/'+this.$route.params.level+'/bravo')
+        this.$router.push(this.routeAfterValidation)
       } else {
         // eslint-disable-next-line
         console.log('error in the Q or A');
