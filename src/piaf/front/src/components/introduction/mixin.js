@@ -1,6 +1,10 @@
 import axios from 'axios'
 
 export const playMixin = {
+  data: () => ({
+    networkIssueMessage: false,
+    loading: false,
+  }),
   methods: {
     async sendScore(qas,niveau) {
       try {

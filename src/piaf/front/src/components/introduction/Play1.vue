@@ -22,14 +22,18 @@
   min-height='150px'
   color='white'>
     <v-flex xs12 my-0 justify-center class="container">
-      <v-row class="maxWid700 mx-auto">
-        <v-col cols='12' class="pr-0 textContainer">
-          <span>Est-ce une bonne question ?</span>
-        </v-col>
-      </v-row>
-      <v-row class="maxWid700 mx-auto">
-        <v-col cols='12' class="pr-0 textContainer">
 
+      <PlayFooterTitle
+      :title="`Est-ce une bonne question ?`"
+      :networkIssueMessage="networkIssueMessage"/>
+
+      <PlayFooterLoading
+      :loading="loading"
+      :networkIssueMessage="networkIssueMessage"
+      v-on:resubmit="submitAnswers"/>
+
+      <v-row class="maxWid700 mx-auto" v-if="!loading && !networkIssueMessage">
+        <v-col cols='12' class="pr-0 textContainer">
           <v-btn
           class="mx-2"
           fab
@@ -40,7 +44,6 @@
           v-on:click="onClick(false)">
             <v-icon dark>mdi-close</v-icon>
           </v-btn>
-
           <v-btn
           class="mx-2"
           fab
@@ -60,6 +63,8 @@
 
 <script>
 import Play1content from '../../components/introduction/Play1content';
+import PlayFooterLoading from '../../components/introduction/PlayFooterLoading';
+import PlayFooterTitle from '../../components/introduction/PlayFooterTitle';
 import Animation from '../Animation.vue';
 import NavbarProfile from '../../components/NavbarProfile';
 import {playMixin} from './mixin.js';
@@ -97,6 +102,8 @@ export default {
   }),
   components: {
     Play1content,
+    PlayFooterLoading,
+    PlayFooterTitle,
     Animation,
     NavbarProfile,
   },
@@ -123,16 +130,21 @@ export default {
       this.tests[index].answer = boo
 
       if (this.isLastStep) {
-        let score = this.tests.reduce((acc,obj) => (obj.answer == obj.exp) ? acc+1 : acc,0)
-        score = 100 * score / this.tests.length
-        // eslint-disable-next-line
-        console.log('do the async call',score);
-        let scoreUpdate = await this.sendScore(score,1)
-        // eslint-disable-next-line
-        console.log(scoreUpdate,'now we can redirect to level');
-        this.$router.push('/introduction/'+this.$route.params.level+'/bravo')
+        await this.submitAnswers()
       } else {
         this.step++
+      }
+    },
+    async submitAnswers(){
+      this.loading = true
+      let score = this.tests.reduce((acc,obj) => (obj.answer == obj.exp) ? acc+1 : acc,0)
+      score = 100 * score / this.tests.length
+      let scoreUpdate = await this.sendScore(score,1)
+      this.loading = false
+      if (scoreUpdate) {
+        this.$router.push('/introduction/'+this.$route.params.level+'/bravo')
+      } else {
+        this.networkIssueMessage = true
       }
     },
   }
