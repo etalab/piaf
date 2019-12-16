@@ -34,26 +34,32 @@
 
       <v-row class="maxWid700 mx-auto" v-if="!loading && !networkIssueMessage">
         <v-col cols='12' class="pr-0 textContainer">
-          <v-btn
-          class="mx-2"
-          fab
-          dark
-          small
-          outlined
-          color="error"
-          v-on:click="onClick(false)">
-            <v-icon dark>mdi-close</v-icon>
-          </v-btn>
-          <v-btn
-          class="mx-2"
-          fab
-          dark
-          small
-          outlined
-          color="success"
-          v-on:click="onClick(true)">
-            <v-icon dark>mdi-check</v-icon>
-          </v-btn>
+          <span class="btnContainer">
+            <v-btn
+            class="mx-2"
+            fab
+            dark
+            small
+            outlined
+            color="error"
+            v-on:click="onClick(false)">
+              <v-icon dark>mdi-close</v-icon>
+            </v-btn>
+            <span class="error--text">NON</span>
+          </span>
+          <span class="btnContainer">
+            <v-btn
+            class="mx-2"
+            fab
+            dark
+            small
+            outlined
+            color="success"
+            v-on:click="onClick(true)">
+              <v-icon dark>mdi-check</v-icon>
+            </v-btn>
+            <span class="success--text">OUI</span>
+          </span>
         </v-col>
       </v-row>
     </v-flex>
@@ -158,5 +164,11 @@ export default {
 .textContainer{
   display: flex;
   justify-content: space-around;
+}
+.btnContainer{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  text-align: center;
 }
 </style>

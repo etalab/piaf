@@ -34,6 +34,7 @@ strong{
   padding-left: 5px;
   padding-right: 5px;
   border: solid 1px;
+  font-size: 1.2em;
   /* font-style: italic !important; */
 }
 </style>

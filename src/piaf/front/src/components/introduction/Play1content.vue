@@ -2,7 +2,7 @@
   <v-container class="maxWid700">
     <span>
       <v-card max-width="700" class="mx-auto">
-        <v-card-text style="font-size:1em;line-height:1.7;">
+        <v-card-text class="consigneText">
           <span class="black--text bold">{{text}}</span>
         </v-card-text>
       </v-card>
@@ -24,5 +24,9 @@ export default {
 <style scoped>
 .maxWid700{
   max-width: 700px;
+}
+.consigneText {
+  font-size:1.2em;
+  /* line-height:1.0; */
 }
 </style>
