@@ -136,6 +136,7 @@ export default {
 .aligned{
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 span.first {
   color: #ffffff;

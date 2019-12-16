@@ -6,7 +6,7 @@
       </v-layout>
       <v-card max-width="700" class="mx-auto">
         <v-card-text  class="pa-2 mt-5 consigneText">
-          <span class="black--text bold">Le rire apparaît chez l'être humain <span class="first">aux </span> <span class="selected"> alentours du quatrième ou cinquième </span><span class="last">mois</span></span>
+          <span class="black--text bold">Le rire apparaît chez l'être humain aux alentours <span class="first"> du </span> <span class="selected">  quatrième ou cinquième </span><span class="last">mois</span></span>
         </v-card-text>
       </v-card>
       <v-layout justify-center>
