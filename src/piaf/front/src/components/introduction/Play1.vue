@@ -81,13 +81,13 @@ export default {
     step: 0,
     tests: [
       {
-        step : 3,
+        step : 2,
         exp : true,
         question : "Quel est le tome de Tintin marquant le début de la saga ?",
         text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
       },
       {
-        step : 2,
+        step : 3,
         exp : true,
         question : "Quel est le premier album de Tintin ?",
         text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
