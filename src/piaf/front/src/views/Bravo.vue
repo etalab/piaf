@@ -96,8 +96,4 @@ export default {
 }
 .container{
 }
-.textContainer{
-  display: flex;
-  justify-content: space-around;
-}
 </style>

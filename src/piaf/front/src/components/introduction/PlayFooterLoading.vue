@@ -30,10 +30,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.textContainer{
-  display: flex;
-  justify-content: space-around;
-}
-</style>
