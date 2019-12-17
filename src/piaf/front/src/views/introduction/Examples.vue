@@ -93,7 +93,7 @@ export default {
       if (Number(this.$route.params.level) === 1) {
         return 6
       } else if (Number(this.$route.params.level) === 2) {
-        return 5
+        return 7
       } else if (Number(this.$route.params.level) === 3) {
         return 1
       } else {
