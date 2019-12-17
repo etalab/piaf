@@ -13,7 +13,7 @@ export default new Vuex.Store({
     // Current paragraph we display
     currentDocument: {
       title: 'Titre',
-      text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l`adresse : piaf@data.gouv.fr',
+      text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l\'adresse : piaf@data.gouv.fr',
       id:766,
       count_pending_batches:1,
       count_pending_paragraphs:1,

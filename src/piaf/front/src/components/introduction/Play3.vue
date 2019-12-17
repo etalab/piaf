@@ -9,19 +9,30 @@
           text-center
           wrap
         >
-          <v-flex xs12 my-5>
-            <div>
-              <div v-if="currentDocument && annotations">
-                <v-card
-                  max-width="700"
-                  class="mx-auto"
-                >
-                  <TextInteractive
-                    v-bind:text="currentDocument.text"
-                    v-bind:currentQuestionIndex="currentQuestionIndex"
-                    ref="annotator"
-                   />
-
+           <v-flex xs12 my-5>
+             <div>
+               <div v-if="currentDocument && annotations">
+                 <v-card
+                   max-width="700"
+                   class="mx-auto"
+                 >
+                   <v-card-text style="font-size:1em;line-height:1.7;">
+                     <TextTitle/>
+                     <br>
+                     <v-alert
+                       dense
+                       outlined
+                       type="error"
+                       v-show="showErrorMessage"
+                     >
+                       La réponse est <strong>trop longue</strong>, elle doit faire moins de 200 caractères
+                     </v-alert>
+                     <TextInteractive
+                       v-bind:text="currentDocument.text"
+                       v-bind:currentQuestionIndex="currentQuestionIndex"
+                       ref="annotator"
+                      />
+                  </v-card-text>
                  </v-card>
                </div>
              </div>
@@ -45,6 +56,7 @@
 
 <script>
 import TextInteractive from '../TextInteractive';
+import TextTitle from '../TextTitle';
 import Footer from '../Footer';
 import Animation from '../Animation.vue';
 import NavbarProfile from '../../components/NavbarProfile';
@@ -55,6 +67,7 @@ export default {
   mixins: [playMixin],
   components: {
     TextInteractive,
+    TextTitle,
     Footer,
     Animation,
     NavbarProfile,
