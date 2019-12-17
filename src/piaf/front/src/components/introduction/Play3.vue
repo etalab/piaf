@@ -1,7 +1,7 @@
 <template>
   <v-app>
   <v-app-bar app hide-on-scroll>
-    <NavbarProfile :NavbarTitle="NavbarTitle"/>
+    <Navbar/>
   </v-app-bar>
   <v-content>
     <v-container fluid>
@@ -59,7 +59,7 @@ import TextInteractive from '../TextInteractive';
 import TextTitle from '../TextTitle';
 import Footer from '../Footer';
 import Animation from '../Animation.vue';
-import NavbarProfile from '../../components/NavbarProfile';
+import Navbar from '../../components/Navbar';
 import {playMixin} from './mixin.js';
 import { mapState } from 'vuex'
 
@@ -70,7 +70,7 @@ export default {
     TextTitle,
     Footer,
     Animation,
-    NavbarProfile,
+    Navbar,
   },
   computed:{
     ...mapState([
