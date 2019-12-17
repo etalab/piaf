@@ -83,9 +83,6 @@ export default {
 };
 </script>
 <style scoped>
-.maxWid700{
-  max-width: 700px;
-}
 .consigneText {
   font-size:1.2em;
   text-align: left;

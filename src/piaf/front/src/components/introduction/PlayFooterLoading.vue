@@ -32,9 +32,6 @@ export default {
 </script>
 
 <style scoped>
-.maxWid700{
-  max-width: 700px;
-}
 .textContainer{
   display: flex;
   justify-content: space-around;

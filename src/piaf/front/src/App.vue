@@ -37,4 +37,7 @@ strong{
   font-size: 1.2em;
   /* font-style: italic !important; */
 }
+.maxWid700{
+  max-width: 700px;
+}
 </style>

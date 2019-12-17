@@ -78,9 +78,6 @@ export default {
 };
 </script>
 <style scoped>
-.maxWid700{
-  max-width: 700px;
-}
 span.first {
   color: #ffffff;
   background-color: #4169e1;

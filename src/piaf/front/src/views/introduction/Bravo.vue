@@ -73,9 +73,6 @@ export default {
 
 <style scoped>
 /* for all */
-.maxWid700{
-  max-width: 700px;
-}
 .alignSelf{
   align-self: center;
 }
