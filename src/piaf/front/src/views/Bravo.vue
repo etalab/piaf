@@ -94,6 +94,4 @@ export default {
 .alignSelf{
   align-self: center;
 }
-.container{
-}
 </style>

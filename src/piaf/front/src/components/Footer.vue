@@ -153,10 +153,4 @@ export default {
 .alignSelf{
   align-self: center;
 }
-.container{
-}
-.textContainer{
-  display: flex;
-  justify-content: space-around;
-}
 </style>
