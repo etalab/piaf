@@ -76,7 +76,7 @@
         <h1 class="font-weight-thin mb-5 white--text zind0 title">Le saviez-vous ?</h1>
       </v-layout>
       <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text zind0">La raison qui nous pousse à faire court est simple : nous souhaitons que l'IA nous apporte une réponse concise, et pas le paragraphe complet.</span>
+        <span class="font-weight-thin mb-5 white--text zind0">La raison qui nous pousse à faire court est simple : nous souhaitons que l'IA nous apporte une réponse concise, et pas le texte complet.</span>
       </v-layout>
     </span>
   </v-container>

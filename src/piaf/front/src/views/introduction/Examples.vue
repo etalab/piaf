@@ -95,7 +95,7 @@ export default {
       } else if (Number(this.$route.params.level) === 2) {
         return 7
       } else if (Number(this.$route.params.level) === 3) {
-        return 1
+        return 3
       } else {
         return 1
       }
@@ -104,7 +104,7 @@ export default {
       return "/introduction/"+Number(this.$route.params.level)+"/play"
     },
     showFooter(){
-      return (Number(this.$route.params.level) === 3 && Number(this.step) === 1 ) ? false : true
+      return (Number(this.$route.params.level) === 3 && Number(this.step) === 3 ) ? false : true
     }
   }
 };

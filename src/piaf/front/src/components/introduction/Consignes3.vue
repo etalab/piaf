@@ -8,15 +8,36 @@
         <span class="font-weight-thin mt-5 white--text zind0">Une annotation est composée d'une question et de sa réponse</span>
       </v-layout>
       <v-layout justify-center>
-        <span class="font-weight-thin mt-5 white--text zind0">À vous de jouer</span>
+        <span class="font-weight-thin mt-5 white--text zind0">Un texte en a besoin de 5 pour être validé</span>
       </v-layout>
     </span>
-    <span v-if="step == 1">
+    <span v-if="[1,2].indexOf(step) !== -1">
+      <v-layout justify-center>
+        <span class="font-weight-thin mb-5 white--text ">Le titre de l'article wikipedia dont est extrait le texte est affiché au-dessus :</span>
+      </v-layout>
+      <!-- <v-card-text style="font-size:1em;line-height:1.7;"> -->
+      <v-layout text-center wrap>
+        <v-card max-width="700" class="mx-auto">
+          <TextTitle/>
+          <br>
+          <v-card-text class="pa-2 consigneText">
+            <span class="black--text bold">Ici c'est l'emplacement normal du texte</span>
+          </v-card-text>
+        </v-card>
+      </v-layout>
+      <v-layout justify-center v-if="step == 2">
+        <span class="font-weight-thin mt-5 mb-5 white--text ">Le titre ne peut pas faire partie de la réponse</span>
+      </v-layout>
+      <v-layout justify-center v-if="step == 2">
+        <span class="font-weight-thin mb-4 white--text">Plus d'information en cliquant sur le <v-icon fab small dark class="white--text ml-1" >mdi-information-outline</v-icon></span>
+      </v-layout>
+    </span>
+    <span v-if="step == 3">
       <v-layout justify-center>
         <span class="font-weight-thin mb-2 white--text zind0 title">Choisissons un thème</span>
       </v-layout>
       <v-layout justify-center>
-        <span class="font-weight-thin mt-5 white--text zind0">Les textes sont classés selon les thèmes suivant. Lequel préferez-vous ?</span>
+        <span class="font-weight-thin mt-2 white--text zind0">Les textes sont classés selon les thèmes suivant. Lequel préferez-vous ?</span>
       </v-layout>
       <v-layout row justify-center>
         <v-flex xs6 sm4 md3
@@ -37,8 +58,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import TextTitle from '../TextTitle';
 
 export default {
+  components: {
+    TextTitle,
+  },
   props: {
     step: Number
   },
@@ -63,6 +88,7 @@ export default {
 }
 .consigneText {
   font-size:1.2em;
+  text-align: left;
   /* line-height:1.0; */
 }
 </style>
