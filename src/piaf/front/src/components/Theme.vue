@@ -26,11 +26,11 @@
       <v-tooltip left v-bind:open-on-click=true open-delay=1000 max-width=90%>
         <template v-slot:activator="{ on }">
             <span v-on="on" class="font-weight-thin mt-10 white--text zind0">
-              C’est quoi une bonne question ?
+              Qu'est-ce qu'une bonne question ?
               <v-icon fab small dark >mdi-information-outline</v-icon>
             </span>
         </template>
-        <span>Une bonne question sur un paragraphe, c’est une question participe à saisir la variété des vocabulaires, des formulations et des raisonnements qui peuvent survenir dans des questions sur ce paragraphe. C’est donc très large ! La seule limite est que le paragraphe sur lequel porte la question contienne toute l’information nécessaire à la réponse.<br><br> Prenons un exemple : dans le paragraphe <i>"À la fin du mois d’avril 1881, Nietzsche, à Gênes, travaille à la correction des épreuves d’ Aurore avec Peter Gast"</i> (extrait de la page Wikipédia “Biographie de Friedrich Nietzsche”), de bonnes questions peuvent être <i>“Avec qui Nietzche travaille-t-il en 1881 ?”</i>, assez simple, mais aussi <i>“Quel est le nom du livre co-écrit par Nitzche et Gast ?”</i>, qui fait appel à plus de raisonnement et de vocabulaire que ce qui est déjà écrit dans le paragraphe.<br> Une mauvaise question, par contre, serait par exemple <i> “Quel ouvrage est publié par Nietzche 19 ans avant sa mort ?” </i> parce qu’il est nécessaire pour répondre de connaître la date de mort de Nitzche.
+        <span>Une bonne question sur un paragraphe, c’est une question participe à saisir la variété des vocabulaires, des formulations et des raisonnements qui peuvent survenir dans des questions sur ce paragraphe. C’est donc très large ! La seule limite est que le paragraphe sur lequel porte la question contienne toute l’information nécessaire à la réponse.<br><br> Prenons un exemple : dans le paragraphe <i>"À la fin du mois d’avril 1881, Nietzsche, à Gênes, travaille à la correction des épreuves d’ Aurore avec Peter Gast"</i> (extrait de la page Wikipédia “Biographie de Friedrich Nietzsche”), de bonnes questions peuvent être <i>“Avec qui Nietzche travaille-t-il en 1881 ?”</i>, assez simple, mais aussi <i>“Quel est le nom du livre co-écrit par Nitzche et Gast ?”</i>, qui fait appel à plus de raisonnement et de vocabulaire que ce qui est déjà écrit dans le paragraphe.<br> Une mauvaise question, par contre, serait par exemple <i> “Quel ouvrage est publié par Nietzche 19 ans avant sa mort ?” </i> parce qu’il est nécessaire pour répondre de connaître la date de mort de Nietzche.
         </span>
       </v-tooltip>
     </v-layout>
@@ -38,7 +38,7 @@
       <v-tooltip left v-bind:open-on-click=true open-delay=1000 max-width=90%>
         <template v-slot:activator="{ on }">
             <span v-on="on" class="font-weight-thin mt-5 white--text zind0">
-              Pourquoi est ce qu’on m’a donné cet article ?
+              Pourquoi m’a-t-on proposé cet article ?
               <v-icon fab small dark >mdi-information-outline</v-icon>
             </span>
         </template>
