@@ -53,9 +53,6 @@ export default {
 
 <style scoped>
 /* for all */
-.alignSelf{
-  align-self: center;
-}
 .minwidth{
   min-width: 32px;
 }

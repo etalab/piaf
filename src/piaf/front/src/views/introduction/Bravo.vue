@@ -70,10 +70,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-/* for all */
-.alignSelf{
-  align-self: center;
-}
-</style>

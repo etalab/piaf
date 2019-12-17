@@ -44,4 +44,7 @@ strong{
   display: flex;
   justify-content: space-around;
 }
+.alignSelf{
+  align-self: center;
+}
 </style>
