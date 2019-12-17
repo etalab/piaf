@@ -21,6 +21,12 @@
   fixed
   min-height='150px'
   color='white'>
+      <div style="min-height: 4px;min-width:100%;position:absolute;top:0px;">
+        <v-progress-linear
+        :value="(!networkIssueMessage) ? step / tests.length * 100 : 100"
+        color="blue lighten-2"
+        ></v-progress-linear>
+      </div>
     <v-flex xs12 my-0 justify-center class="container">
 
       <PlayFooterTitle
