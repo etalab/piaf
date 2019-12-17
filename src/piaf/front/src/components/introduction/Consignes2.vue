@@ -55,7 +55,10 @@
     </span>
     <span v-if="[5,6].indexOf(step) !== -1">
       <v-layout justify-center v-if="step == 5">
-        <span class="font-weight-thin mb-1 white--text zind0">La réponse doit être en un bloc : on ne peut pas avoir une réponse dispersée en plusieurs morceaux differents endroits du text.</span>
+        <span class="font-weight-thin white--text zind0 title">Qu'est ce qu'une bonne réponse?</span>
+      </v-layout>
+      <v-layout justify-center v-if="step == 5">
+        <span class="font-weight-thin mt-5 white--text zind0">La réponse doit être en un bloc : on ne peut pas avoir une réponse dispersée en plusieurs morceaux differents endroits du text.</span>
       </v-layout>
       <v-card max-width="700" class="mx-auto mb-3" v-if="[6].indexOf(step) !== -1">
         <v-card-text  class="pa-2 mt-0 consigneText">
