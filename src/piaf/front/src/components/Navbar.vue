@@ -60,10 +60,19 @@
                   </v-btn>
 
                 </template>
-                <v-list>
-                  <v-list-item v-for="(annotation, index) in $store.state.annotations" :key="index">
-                    <v-list-item-title v-if="typeof annotation.question.text === 'string'">{{ annotation.question.text }}</v-list-item-title>
-                    <v-list-item-title v-else>pas encore fait</v-list-item-title>
+                <v-list color="white">
+                  <v-list-item v-for="(annotation, index) in $store.state.annotations" :key="index" class="px-2">
+                    <v-list-item-icon class="mr-2 my-1 py-2">
+                      <v-icon>mdi-numeric-{{index + 1}}-circle</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content class="py-2">
+                      <v-list-item-title v-if="typeof annotation.question.text === 'string'" v-text="annotation.question.text" class="questionClass"></v-list-item-title>
+                      <v-list-item-title v-else>pas encore annoté</v-list-item-title>
+                      <v-list-item-subtitle v-if="typeof annotation.answer.text === 'string'" v-text="annotation.answer.text"></v-list-item-subtitle>
+
+                    </v-list-item-content>
+
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -109,5 +118,11 @@ export default {
 }
 .router-link-active{
   text-decoration: none;
+}
+.v-menu__content{
+  border-radius:20px;
+  border-style:solid;
+  border-color: grey;
+
 }
 </style>
