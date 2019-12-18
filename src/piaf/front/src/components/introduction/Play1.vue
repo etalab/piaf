@@ -25,6 +25,7 @@
         <v-progress-linear
         :value="(!networkIssueMessage) ? step / tests.length * 100 : 100"
         color="blue lighten-2"
+        height=8
         ></v-progress-linear>
       </div>
     <v-flex xs12 my-0 justify-center class="container">
