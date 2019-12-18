@@ -58,7 +58,7 @@
         <span class="font-weight-thin white--text zind0 title">Qu'est ce qu'une bonne réponse?</span>
       </v-layout>
       <v-layout justify-center v-if="step == 5">
-        <span class="font-weight-thin mt-5 white--text zind0">La réponse doit être en un bloc : on ne peut pas avoir une réponse dispersée en plusieurs morceaux differents endroits du text.</span>
+        <span class="font-weight-thin mt-5 white--text zind0">La réponse doit être en un bloc : on ne peut pas avoir une réponse dispersée en plusieurs morceaux differents endroits du texte.</span>
       </v-layout>
       <v-card max-width="700" class="mx-auto mb-3" v-if="[6].indexOf(step) !== -1">
         <v-card-text  class="pa-2 mt-0 consigneText">
@@ -68,7 +68,7 @@
       <span class="font-weight-thin zind0 questionClass white--text" v-if="[6].indexOf(step) !== -1">Quels sont les formes du rire ?
       </span>
       <v-layout justify-center v-if="step == 6">
-        <span class="font-weight-thin mt-5 white--text zind0">Dans ce cas, il faut <strong>changer la question</strong> puisqu'on ne peut pas surligner uniquement
+        <span class="font-weight-thin mt-5 white--text zind0">Dans ce cas, il faut <strong>changer la question</strong> puisqu'on ne peut pas surligner d'un traite
           <span class="first">rire</span><span class="last">&nbsp;nerveux</span>,
           <span class="first">fou</span><span class="last">&nbsp;rire</span> et
           <span class="first">rire</span><span class="last">&nbsp;prodromique</span>. Vous ne verrez normalement jamais ce type de question.</span>

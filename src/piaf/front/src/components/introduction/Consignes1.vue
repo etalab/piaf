@@ -28,7 +28,7 @@
       </v-layout>
     </span>
     <span v-if="[3,4].indexOf(step) !== -1">
-      <v-layout justify-center>
+      <v-layout justify-center v-if="[3].indexOf(step) !== -1">
         <span class="font-weight-thin white--text  title">Voyons un example&nbsp;:</span>
       </v-layout>
       <v-card max-width="700" class="mx-auto mt-3" v-if="[3,4].indexOf(step) !== -1">
@@ -41,11 +41,11 @@
         </span>
       </v-layout>
       <v-layout justify-center v-if="[3,4].indexOf(step) !== -1">
-        <span class="font-weight-thin mt-1 white--text ">Ici, on a trop de mots en commun avec le texte : il faut reformuler
+        <span class="font-weight-thin mt-1 white--text "><v-icon dark small>mdi-arrow-right-bold</v-icon> Ici, on a trop de mots en commun avec le texte : il faut reformuler
         </span>
       </v-layout>
       <v-layout justify-center v-if="[4].indexOf(step) !== -1">
-        <span class="font-weight-thin mt-5 white--text ">Voilà une bonne reformulation : </span>
+        <span class="font-weight-thin mt-5 white--text "><v-icon dark small>mdi-arrow-right-bold</v-icon> Voilà une bonne reformulation : </span>
       </v-layout>
       <v-layout justify-center v-if="[4].indexOf(step) !== -1">
         <span class="font-weight-thin green--text  questionClass"><span class="white--text">À quel âge un bébé commence t-il à rire ?</span></span>
@@ -56,7 +56,7 @@
         <h1 class="font-weight-thin mb-5 white--text  title">Le saviez-vous ?</h1>
       </v-layout>
       <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text ">Les <strong>fautes d'orthographes</strong> sont tolérées. <br><br>Il vaut mieux éviter bien sûr, mais rien de grave. Plus on pose des questions proches de la réalité, mieux notre IA pourra nous comprendre !</span>
+        <span class="font-weight-thin mb-5 white--text ">Quelques <strong>fautes d'orthographes</strong> dans vos questions&nbsp;?<br><br>Il vaut mieux éviter bien sûr, mais pas d'inquiétude. Plus nos questions sont proches de ce que nous écrivons dans la vie de tous les jours, mieux notre IA pourra nous comprendre !</span>
       </v-layout>
     </span>
     <span v-if="step == 5">
