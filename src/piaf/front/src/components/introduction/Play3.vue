@@ -75,11 +75,15 @@ export default {
   computed:{
     ...mapState([
       'currentDocument',
+      'highlitedText',
       'currentQuestionIndex',
       'annotations',
     ]),
     NavbarTitle () {
       return 'Niveau ' + this.$route.params.level
+    },
+    showErrorMessage () {
+      return typeof this.highlitedText === 'string' && this.highlitedText.length > 200
     },
   },
   methods:{
