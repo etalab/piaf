@@ -67,6 +67,17 @@
         <span class="font-weight-thin mb-5 white--text ">Qu'est ce que reformuler apporte ? Nous voulons une IA qui comprenne une question et soit capable d'y répondre. Si on ne reformulait pas, notre IA chercherait bêtement les mots en commun entre une question et le texte.</span>
       </v-layout>
     </span>
+    <span v-if="step == 7">
+      <v-layout justify-center>
+        <h1 class="font-weight-thin mb-5 white--text  title">À vous de jouer</h1>
+      </v-layout>
+      <v-layout justify-center>
+        <span class="font-weight-thin mb-5 mt-5 white--text ">Vous allez nous dire si les questions suivantes vous semblent être pertinentes.</span>
+      </v-layout>
+      <v-layout justify-center>
+        <span class="font-weight-thin mb-5 white--text ">Souvenez-vous du maître mot : <strong style="text-transform: uppercase;">reformuler</strong>.</span>
+      </v-layout>
+    </span>
   </v-container>
 </template>
 
