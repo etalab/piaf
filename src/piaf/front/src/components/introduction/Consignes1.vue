@@ -10,7 +10,7 @@
         </v-card-text>
       </v-card>
       <v-layout justify-center v-if="step == 1">
-        <span class="font-weight-thin mt-5 mb-0 white--text ">Puis une question à propos de ce texte comme :</span>
+        <span class="font-weight-thin mt-5 mb-0 white--text ">Puis vous allez lire une question à propos de ce texte comme :</span>
       </v-layout>
       <v-layout justify-center v-if="step == 1">
         <span class="font-weight-thin mb-4 white--text  questionClass">À quel âge l'homme commence t-il à rire ?</span>
@@ -29,7 +29,7 @@
     </span>
     <span v-if="[3,4].indexOf(step) !== -1">
       <v-layout justify-center v-if="[3].indexOf(step) !== -1">
-        <span class="font-weight-thin white--text  title">Voyons un example&nbsp;:</span>
+        <span class="font-weight-thin white--text  title">Voyons un exemple&nbsp;:</span>
       </v-layout>
       <v-card max-width="700" class="mx-auto mt-3" v-if="[3,4].indexOf(step) !== -1">
         <v-card-text class="pa-2 consigneText">
