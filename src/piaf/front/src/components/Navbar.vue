@@ -33,7 +33,7 @@
       </v-row>
 
       </v-col>
-      <v-col cols='11' class="pr-0 alignSelf">
+      <v-col cols='11' class="pr-0 alignSelf" style="display: flex; align-items: center; justify-content: center;">
         <v-progress-linear
           v-bind:value="stepPercentage"
           color="#11174d"
@@ -43,7 +43,31 @@
           v-bind:style="{ borderRadius: 30 + 'px' }"
         >
           <template v-slot="{ value }">
-            <span class="white--text">Question {{ Math.ceil(value / 20 ) }} / 5</span>
+            <span class="white--text" style="display: flex; align-items: center;">
+              Question {{ Math.ceil(value / 20 ) }} / 5
+              <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    color="white"
+                    dark
+                    fab
+                    x-small
+                    v-on="on"
+                    text
+
+                  >
+                     <v-icon dark>mdi-arrow-down-drop-circle</v-icon>
+                  </v-btn>
+
+                </template>
+                <v-list>
+                  <v-list-item v-for="(annotation, index) in $store.state.annotations" :key="index">
+                    <v-list-item-title v-if="typeof annotation.question.text === 'string'">{{ annotation.question.text }}</v-list-item-title>
+                    <v-list-item-title v-else>pas encore fait</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </span>
           </template>
         </v-progress-linear>
       </v-col>
