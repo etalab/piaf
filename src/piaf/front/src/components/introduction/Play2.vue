@@ -67,17 +67,37 @@ export default {
       {
         step : 1,
         exp : 'Tintin au pays des Soviets',
-        question : "Quel est le premier album de Tintin ?",
+        question : "Quel est le tome de Tintin marquant le début de la saga ?",
         text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
         answers:['Dès le premier album, Tintin au pays des Soviets','Tintin au pays des Soviets']
       },
       {
         step : 0,
         exp : 'Tintin',
-        question : "Qui est journaliste pour le petit Vingtième ?",
+        question : "Qui est journaliste ?",
         text : "Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
         answers:['Tintin','Tintin est un reporter travaillant pour Le Petit Vingtième']
-      }
+      },
+      {
+        step : 2,
+        exp : '',
+        question : "Quel est le nom de l'hebdomadaire dont est issu Tintin ?",
+        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
+        answers:['Le Petit Vingtième, le journal publiant ses aventures','Le Petit Vingtième']
+      },
+      {
+        step : 3,
+        exp : 'démarre en trombe dans une décapotable',
+        question : "Comment est née la chevelure particulière de Tintin ?",
+        text : "La houpette de Tintin apparait dans Tintin au pays des Soviets, lorsqu'il démarre en trombe dans une décapotable.",
+        answers:['démarre en trombe dans une décapotable','lorsqu\'il démarre en trombe dans une décapotable']
+      },
+      {
+        step : 4,
+        exp : '',
+        question : "Dans quel tome apparait la chevelure particulière de Tintin ?",
+        text : "La houpette de Tintin apparait dans Tintin au pays des Soviets, lorsqu'il démarre en trombe dans une décapotable.",
+        answers:['La houpette de Tintin apparait dans Tintin au pays des Soviets','Tintin au pays des Soviets']      }
     ]
   }),
   components: {

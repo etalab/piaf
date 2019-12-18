@@ -94,21 +94,27 @@ export default {
       },
       {
         step : 3,
-        exp : true,
+        exp : false,
         question : "Quel est le premier album de Tintin ?",
         text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
       },
       {
         step : 0,
         exp : false,
-        question : "Qui est reporter pour le petit Vingtième ?",
-        text : "Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
+        question : "Qui est reporter pour un journal belge ?",
+        text : "Tintin est un reporter dans un journal belge."
       },
       {
         step : 1,
         exp : true,
-        question : "Qui est journaliste pour le petit Vingtième ?",
-        text : "Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
+        question : "Qui est journaliste ?",
+        text : "Tintin est un reporter dans un journal belge."
+      },
+      {
+        step : 4,
+        exp : true,
+        question : "Quel est le nom de l'hebdomadaire dont est issu Tintin ?",
+        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
       }
     ]
   }),
