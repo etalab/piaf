@@ -8,7 +8,7 @@
       >
          <v-col cols="1"></v-col>
          <v-col cols="10">
-           <div class="talk-bubble tri-right border round btm-left-in">
+           <div class="talk-bubble tri-right round btm-left-in">
              <v-chip
                :color="`white lighten-4`"
                class="ml-0 pa-3 round"
@@ -81,25 +81,10 @@ export default {
 	height: auto;
 	background-color: white;
 }
-.border{
-  border: 3px solid #666;
-}
 .round{
   border-radius: 30px !important;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
-}
-.tri-right.border.btm-left-in:before {
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: 36px;
-  right: auto;
-  top: auto;
-	bottom: -23px;
-	border: 20px solid;
-	border-color: #666 transparent transparent #666;
 }
 .tri-right.btm-left-in:after{
 	content: ' ';
