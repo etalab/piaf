@@ -6,6 +6,14 @@ class User(AbstractUser):
     is_certified = models.BooleanField(default=False)
     level_completed = models.PositiveSmallIntegerField(default=0)
 
+    @property
+    def answers_count(self):
+        return self.answers.count()
+
+    @property
+    def paragraphs_count(self):
+        return self.paragraphs.count()
+
     def clean(self):
         super().clean()
         self.username = self.email

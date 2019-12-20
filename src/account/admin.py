@@ -5,11 +5,20 @@ from piaf.models import UserRelevancy
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ("email", "is_superuser", "is_certified", "level_completed", "date_joined", "is_staff", "is_active")
-    ordering = ("email",)
-    list_filter = ("level_completed","is_certified","is_superuser")
+    list_display = (
+        "email",
+        "is_superuser",
+        "is_certified",
+        "level_completed",
+        "paragraphs_count",
+        "answers_count",
+        "date_joined",
+        "is_active",
+    )
+    ordering = ("-date_joined",)
+    list_filter = ("level_completed", "is_certified", "is_superuser", "is_active")
     search_fields = ("email", "is_superuser", "is_certified")
-    list_editable = ("is_superuser", "is_certified", "is_staff")
+    list_editable = ("is_certified", "is_active")
     list_display_links = ("email",)
     fields = ("email", "is_staff", "is_certified", "level_completed")
 
@@ -50,8 +59,8 @@ class UserAdmincertification(admin.ModelAdmin):
 
     def get_actions(self, request):
         actions = super().get_actions(request)
-        if 'delete_selected' in actions:
-            del actions['delete_selected']
+        if "delete_selected" in actions:
+            del actions["delete_selected"]
         return actions
 
     def has_add_permission(self, request, obj=None):
@@ -70,6 +79,7 @@ class UserAdmincertification(admin.ModelAdmin):
 class UserRelevanciesAdmin(admin.ModelAdmin):
     list_display = ("user", "level", "score", "created_at")
     list_filter = ("user", "level", "score", "created_at")
+
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Usercertification, UserAdmincertification)
