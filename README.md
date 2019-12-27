@@ -188,7 +188,8 @@ Feel free to [submit any feedback](https://github.com/etalab/piaf/issues/new).
 PIAF plateform was originally inspired by [Doccano](https://github.com/chakki-works/doccano). The PIAF team contributed to Doccano repository until the Doccano project was to far from PIAF needs.
 
 ## License
-2019 chakki.
-2019 DINUM, Guillim.
+
+2018 chakki.  
+2019 DINUM, Guillim.  
 
 This application is published under the MIT license.
