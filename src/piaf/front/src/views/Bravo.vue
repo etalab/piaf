@@ -44,7 +44,16 @@
   color='white'>
     <v-flex xs12 my-0 justify-center class="container">
       <v-row class="maxWid700 mx-auto">
-        <v-col cols='12' class="pr-0 textContainer">
+        <v-col cols='12' class="px-0 textContainer">
+          <v-btn
+          dark
+          small
+          color="primary"
+          v-if="!loading"
+          v-on:click="goToTheme">
+            Changer de thème
+          </v-btn>
+
           <v-btn
           small
           color="primary"
@@ -81,7 +90,10 @@ export default {
   methods: {
     goToAnnotation() {
       return this.$router.push('/annotation/'+this.$route.params.level)
-    }
+    },
+    goToTheme() {
+      return this.$router.push('/annotation/'+this.$route.params.level+'/theme/')
+    },
   },
   mounted () {
       this.$store.dispatch('getUserDetails')

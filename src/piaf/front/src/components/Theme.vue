@@ -62,7 +62,7 @@ export default {
     setCurrentTheme(theme){
       if(!theme.empty){
         this.$store.commit('setCurrentTheme', theme.name)
-        this.$router.push('annotation')
+        this.$router.push('/annotation/'+this.$route.params.level)
       }
     },
   },
