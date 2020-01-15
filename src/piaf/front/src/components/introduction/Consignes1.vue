@@ -21,7 +21,7 @@
     </span>
     <span v-if="[2].indexOf(step) !== -1">
       <v-layout justify-center>
-        <span class="font-weight-thin white--text  title">Qu'est ce qu'une question pertinente&nbsp;?</span>
+        <span class="font-weight-thin white--text  title">Qu'est-ce qu'une question pertinente&nbsp;?</span>
       </v-layout>
       <v-layout justify-center v-if="step == 2">
         <span class="font-weight-thin mt-10 mb-5 white--text ">C'est une question qui utilise des mots différents du texte. On reformule le plus possible avec nos propres mots.</span>

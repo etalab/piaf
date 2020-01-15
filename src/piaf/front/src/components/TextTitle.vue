@@ -18,7 +18,7 @@
         Cet article est découpé en <strong>{{currentDocumentChapitresInfo.total}} chapitres, et vous en êtes au numéro {{currentDocumentChapitresInfo.total - currentDocumentChapitresInfo.toDo + 1}}</strong>. Dans ce chapitre, vous en êtes au <strong>paragraphe {{currentDocument.count_completed_paragraphs + 1}} / {{currentDocument.count_pending_paragraphs + currentDocument.count_completed_paragraphs}}</strong>.
       </span>
     <br><br>
-    <strong>Qu'est ce qu'un chapitre ?</strong><br>
+    <strong>Qu'est-ce qu'un chapitre ?</strong><br>
     Pour rendre le travail d'annotation plus agréable, nous avons regroupé les paragraphes en groupe de 5 : les chapitres. Par exemple, un article wikipedia de 8 paragraphes sera découpé en deux chapitres : le premier de 5 paragraphes, et le second de 3 paragraphes.
     <br><br>
     <strong>Combien de question faut-il par paragraphe ?</strong><br>

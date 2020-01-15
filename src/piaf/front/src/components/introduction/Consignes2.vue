@@ -26,7 +26,7 @@
     </span>
     <span v-if="[2,3,4,5].indexOf(step) !== -1">
       <v-layout justify-center>
-        <span class="font-weight-thin white--text zind0 title">Qu'est ce qu'une bonne réponse ?</span>
+        <span class="font-weight-thin white--text zind0 title">Qu'est-ce qu'une bonne réponse ?</span>
       </v-layout>
       <v-layout justify-center v-if="step == 2">
         <span class="font-weight-thin mt-10 mb-5 white--text zind0">C'est une réponse courte. Pas la peine de surligner la phrase complète, quelques mots suffisent.</span>
@@ -63,7 +63,7 @@
     </span>
     <span v-if="[6,7].indexOf(step) !== -1">
       <v-layout justify-center v-if="step == 6">
-        <span class="font-weight-thin white--text zind0 title">Qu'est ce qu'une bonne réponse ?</span>
+        <span class="font-weight-thin white--text zind0 title">Qu'est-ce qu'une bonne réponse ?</span>
       </v-layout>
       <v-layout justify-center v-if="step == 6">
         <span class="font-weight-thin mt-5 white--text zind0">La réponse doit être en un bloc : on ne peut pas avoir une réponse dispersée en plusieurs endroits du texte.</span>
