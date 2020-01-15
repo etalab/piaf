@@ -82,7 +82,7 @@ export default {
       {
         step : 2,
         exp : '',
-        question : "Quel est le nom de l'hebdomadaire dont est issu Tintin ?",
+        question : "Quel est le nom de la gazette dont est issu Tintin ?",
         text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
         answers:['Le Petit Vingtième, le journal publiant ses aventures','Le Petit Vingtième']
       },

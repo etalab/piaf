@@ -41,7 +41,7 @@
         </span>
       </v-layout>
       <v-layout justify-center v-if="[3,4].indexOf(step) !== -1">
-        <span class="font-weight-thin mt-1 white--text "><v-icon dark small>mdi-arrow-right-bold</v-icon> Ici, on a trop de mots en commun avec le texte : il faut reformuler
+        <span class="font-weight-thin mt-1 white--text "><v-icon dark small>mdi-arrow-right-bold</v-icon> Ici, la question et le texte ont trop de mots en commun : il faut reformuler
         </span>
       </v-layout>
       <v-layout justify-center v-if="[4].indexOf(step) !== -1">
@@ -64,7 +64,7 @@
         <h1 class="font-weight-thin mb-5 white--text  title">Le saviez-vous ?</h1>
       </v-layout>
       <v-layout justify-center>
-        <span class="font-weight-thin mb-5 white--text ">Qu'est ce que reformuler apporte ? Nous voulons une IA qui comprenne une question et soit capable d'y répondre. Si on ne reformulait pas, notre IA chercherait bêtement les mots en commun entre une question et le texte.</span>
+        <span class="font-weight-thin mb-5 white--text ">Pourquoi reformuler ? <br><br>Nous voulons une IA (Intelligence Artificelle) qui comprenne une question et soit capable d'y répondre. Si on ne reformulait pas, notre IA chercherait bêtement les mots en commun entre une question et le texte.</span>
       </v-layout>
     </span>
     <span v-if="step == 7">

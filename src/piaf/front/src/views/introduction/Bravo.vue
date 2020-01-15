@@ -10,7 +10,7 @@
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
       <PiafBubble :hasFireworks=true>
-        Félicitations! Vous êtes maintenant <strong>expert du niveau {{$route.params.level}}</strong> !
+        Félicitations ! Vous êtes maintenant <strong>expert du niveau {{$route.params.level}}</strong> !
         <br><br>
         <span v-if="$route.params.level == 3">Vous avez réalisé vos premières questions-réponses !!!</span>
         <span v-else>Vous pouvez passer au niveau supérieur !!!<!-- Vous pouvez continuer sur ce niveau, ou en essayer un nouveau !!! --></span>

@@ -5,10 +5,10 @@
         <span class="font-weight-thin mb-2 white--text zind0 title">Votre première annotation</span>
       </v-layout>
       <v-layout justify-center>
-        <span class="font-weight-thin mt-5 white--text zind0">Une annotation est composée d'une question et de sa réponse</span>
+        <span class="font-weight-thin mt-5 white--text zind0">Une annotation est composée d'une question et de sa réponse.</span>
       </v-layout>
       <v-layout justify-center>
-        <span class="font-weight-thin mt-5 white--text zind0">Un texte a besoin de 5 questions-réponses pour être validé</span>
+        <span class="font-weight-thin mt-5 white--text zind0">Un texte a besoin de 5 questions-réponses pour être validé.</span>
       </v-layout>
     </span>
     <span v-if="[1,2].indexOf(step) !== -1">

@@ -31,7 +31,7 @@
     <v-flex xs12 my-0 justify-center class="container">
 
       <PlayFooterTitle
-      :title="`Est-ce une bonne question ?`"
+      :title="`Est-ce une question pertinente ?`"
       :networkIssueMessage="networkIssueMessage"/>
 
       <PlayFooterLoading
@@ -114,7 +114,7 @@ export default {
       {
         step : 4,
         exp : true,
-        question : "Quel est le nom de l'hebdomadaire dont est issu Tintin ?",
+        question : "Quel est le nom de la gazette dont est issu Tintin ?",
         text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
       }
     ]

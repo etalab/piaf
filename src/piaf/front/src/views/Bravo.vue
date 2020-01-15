@@ -14,7 +14,7 @@
             v-bind:style="{ borderRadius: 30 + 'px' }"
           >
             <template>
-              <span class="white--text">Questions-réponses enregistrées!</span>
+              <span class="white--text">Questions-réponses enregistrées !</span>
             </template>
           </v-progress-linear>
         </v-col>
@@ -27,9 +27,9 @@
     <!-- Provides the application the proper gutter -->
     <v-container fluid>
       <PiafBubble :hasFireworks=true>
-        Félicitations! Vous avez écrit <strong>{{userDetails.paragraphs_count * 5}} questions-réponses</strong> depuis votre inscription. Merci beaucoup!
+        Félicitations ! Vous avez écrit <strong>{{userDetails.paragraphs_count * 5}} questions-réponses</strong> depuis votre inscription. Merci beaucoup !
         <br><br>
-        Le prochain paragraphe n'attend plus que vous!!!
+        Le prochain paragraphe n'attend plus que vous !!!
       </PiafBubble>
     </v-container>
     <!-- we need to put the Animation after the other components for the background to be beneath -->
