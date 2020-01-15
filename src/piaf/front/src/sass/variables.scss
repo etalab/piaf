@@ -22,3 +22,15 @@
   font-family: "cooperhewitt medium";
   src: url("/static/front/cooperhewitt-medium.woff2") format("woff2");
 }
+
+@font-face {
+  font-family: 'luckiest guy';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/static/front/luckiest-guy-v10-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Luckiest Guy Regular'), local('LuckiestGuy-Regular'),
+       url('/static/front/luckiest-guy-v10-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/static/front/luckiest-guy-v10-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/static/front/luckiest-guy-v10-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('/static/front/luckiest-guy-v10-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+}
