@@ -1,7 +1,7 @@
 <template>
   <span class="maxWid700 mx-auto">
     <v-container v-if="currentLevel == 1">
-    <span class="font-weight-thin mb-5 white--text zind0 title">C'est la première fois que l'on vous voit sur Piaf!</span>
+    <span class="font-weight-thin mb-5 white--text zind0 title">Bienvenue sur Piaf ! Vous allez constituer des couples de questions - réponses pour entrainer les intelligences artificelles en français</span>
     </v-container>
 
     <LevelBtn

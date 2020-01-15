@@ -26,7 +26,7 @@
         </v-card>
       </v-layout>
       <v-layout justify-center v-if="step == 2">
-        <span class="font-weight-thin mt-5 mb-5 white--text ">Le titre ne peut pas faire partie de la réponse</span>
+        <span class="font-weight-thin mt-5 mb-5 white--text ">Le titre ne peut pas faire partie de la réponse.</span>
       </v-layout>
       <v-layout justify-center v-if="step == 2">
         <span class="font-weight-thin mb-4 white--text">Plus d'information en cliquant sur le <v-icon fab small dark class="white--text ml-1" >mdi-information-outline</v-icon></span>

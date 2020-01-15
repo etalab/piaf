@@ -2,7 +2,7 @@
   <v-container class="maxWid700">
     <span v-if="[0,1].indexOf(step) !== -1">
       <v-layout justify-center>
-        <span class="font-weight-thin mb-2 white--text ">Vous allez lire un texte comme :</span>
+        <span class="font-weight-thin mb-2 white--text ">Vous allez lire un texte extrait de wikipedia comme :</span>
       </v-layout>
       <v-card max-width="700" class="mx-auto">
         <v-card-text class="pa-2 consigneText">
