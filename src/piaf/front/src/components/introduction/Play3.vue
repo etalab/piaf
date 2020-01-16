@@ -8,6 +8,7 @@
         <v-layout
           text-center
           wrap
+          style="margin-bottom:150px;"
         >
            <v-flex xs12 my-5>
              <div>
