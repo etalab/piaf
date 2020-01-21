@@ -38,6 +38,14 @@ export default new Vuex.Store({
     editMode:false,
     // what deals with the user
     userDetails: {},
+    // {
+    //     "id": 1,
+    //     "username": "email@example.com",
+    //     "email": "email@example.com",
+    //     "is_certified": true,
+    //     "level_completed": 3,
+    //     "paragraphs_count": 14
+    // }
     datasetInfo:{},
     themes: [
       {
