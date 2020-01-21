@@ -58,11 +58,7 @@ export default {
   },
   methods: {
     onClick() {
-      if (this.$route.params.level == 3) {
-        this.$router.push('/annotation/'+this.$route.params.level)
-      } else {
-        this.$router.push('/')
-      }
+      this.$router.push('/')
     }
   },
   mounted () {
