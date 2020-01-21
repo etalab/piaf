@@ -14,7 +14,8 @@ export default new Router({
       name: 'level',
       meta: {title: 'Niveaux'},
       component: () => import('./views/Level.vue'),
-      beforeEnter: (to, from, next) => {
+      beforeEnter: async (to, from, next) => {
+        await store.dispatch('getUserDetails')
         if (store.state && store.state.userDetails && store.state.userDetails.level_completed == 3) {
           next('/annotation/3/theme')
         }else {
