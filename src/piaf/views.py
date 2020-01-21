@@ -173,7 +173,7 @@ class QuestionView(View):
 
     def post(self, request):
         data = json.loads(request.body)
-        question = Question.objects.get(pk=data["id"])
+        question = Question.objects.get(pk=data["id"], status="pending")
         Answer.objects.create(question=question, text=data["text"], index=data["index"])
         return JsonResponse(None, status=201, safe=False)
 
