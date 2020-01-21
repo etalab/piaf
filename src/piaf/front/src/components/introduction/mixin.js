@@ -12,7 +12,7 @@ export const playMixin = {
           "level": niveau,
           "score": qas
         }
-        console.log(data);
+
         const res = await axios.post('/app/api/level/completed',data);
         if (res && res.status === 201) {
           return true
