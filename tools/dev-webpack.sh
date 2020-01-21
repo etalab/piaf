@@ -4,6 +4,10 @@ set -o errexit
 
 root="$(dirname "$0")/.."
 frontend="${root}/src/piaf/front/"
+previousbuild="${root}/src/piaf/static/front"
+
+# we delete old frontend built, if any
+rm -Rf "${previousbuild}"
 
 (
   cd "${frontend}"
