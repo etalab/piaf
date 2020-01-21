@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Theme from './views/Theme.vue'
+import store from './store'
 
 Vue.use(Router)
 
@@ -12,7 +13,14 @@ export default new Router({
       path: '',
       name: 'level',
       meta: {title: 'Niveaux'},
-      component: () => import('./views/Level.vue')
+      component: () => import('./views/Level.vue'),
+      beforeEnter: (to, from, next) => {
+        if (store.state && store.state.userDetails && store.state.userDetails.level_completed === 3) {
+          next('/annotation/3/theme')
+        }else {
+          next()
+        }
+      },
     },
     {
       path: '/introduction/:level/',
