@@ -15,7 +15,7 @@ export default new Router({
       meta: {title: 'Niveaux'},
       component: () => import('./views/Level.vue'),
       beforeEnter: (to, from, next) => {
-        if (store.state && store.state.userDetails && store.state.userDetails.level_completed === 3) {
+        if (store.state && store.state.userDetails && store.state.userDetails.level_completed == 3) {
           next('/annotation/3/theme')
         }else {
           next()
