@@ -7,9 +7,9 @@
     <v-container fluid>
       <v-container class="maxWid700">
         <Play1content
-          v-bind:question="currentTest.question"
-          v-bind:text="currentTest.text"
-          :key="currentTest.step"
+          v-bind:question="test.question"
+          v-bind:text="test.text"
+          :key="test.step"
         />
       </v-container>
     </v-container>
@@ -20,7 +20,8 @@
   padless
   fixed
   min-height='150px'
-  color='white'>
+  :class="show && test.answer == test.exp ? 'ligthG' :
+  show && test.answer != test.exp ? 'ligthR' : 'white'">
       <div style="min-height: 4px;min-width:100%;position:absolute;top:0px;">
         <v-progress-linear
         :value="(!networkIssueMessage) ? step / tests.length * 100 : 100"
@@ -28,7 +29,7 @@
         height=8
         ></v-progress-linear>
       </div>
-    <v-flex xs12 my-0 justify-center class="container">
+    <v-flex xs12 my-0 justify-center class="container" v-if="!show">
 
       <PlayFooterTitle
       :title="`Est-ce une question pertinente ?`"
@@ -70,6 +71,32 @@
         </v-col>
       </v-row>
     </v-flex>
+
+    <v-flex xs12 my-0 justify-center class="container" v-else>
+      <v-row class="maxWid700 mx-auto">
+        <v-col cols='12' class="pr-0 textContainer bold" style="color:green" v-if="test.answer == test.exp">
+          {{test.explainP}}
+        </v-col>
+        <v-col cols='12' class="pr-0 textContainer bold" style="color:red" v-else>
+          {{test.explainN}}
+        </v-col>
+      </v-row>
+
+      <span>
+        <v-row class="maxWid700 mx-auto textContainer">
+          <v-col cols='12' class="pr-0 textContainer">
+            <v-btn
+            small
+            :color="test.answer == test.exp ? 'success' : 'error'"
+            dark
+            class="alignSelf"
+            v-on:click="onClickContinue()">continuer
+            </v-btn>
+          </v-col>
+        </v-row>
+      </span>
+
+    </v-flex>
   </v-footer>
   </v-app>
 </template>
@@ -86,36 +113,47 @@ export default {
   mixins: [playMixin],
   data: () => ({
     step: 0,
+    show:false,
     tests: [
       {
         step : 2,
         exp : true,
         question : "Quel est le tome de Tintin marquant le début de la saga ?",
-        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
+        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
+        explainP: "Bonne réponse !",
+        explainN: "La bonne solution était : OUI"
       },
       {
         step : 3,
         exp : false,
         question : "Quel est le premier album de Tintin ?",
-        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
+        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
+        explainP: "Bonne réponse !",
+        explainN: "La bonne solution était : NON"
       },
       {
         step : 0,
         exp : false,
         question : "Qui est reporter pour un journal belge ?",
-        text : "Tintin est un reporter dans un journal belge."
+        text : "Tintin est un reporter dans un journal belge.",
+        explainP: "Bonne réponse !",
+        explainN: "La bonne solution était : NON"
       },
       {
         step : 1,
         exp : true,
         question : "Qui est journaliste ?",
-        text : "Tintin est un reporter dans un journal belge."
+        text : "Tintin est un reporter dans un journal belge.",
+        explainP: "Bonne réponse !",
+        explainN: "La bonne solution était : OUI"
       },
       {
         step : 4,
         exp : true,
         question : "Quel est le nom de la gazette dont est issu Tintin ?",
-        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures."
+        text : "Dès le premier album, Tintin au pays des Soviets, Tintin est un reporter travaillant pour Le Petit Vingtième, le journal publiant ses aventures.",
+        explainP: "Bonne réponse !",
+        explainN: "La bonne solution était : OUI"
       }
     ]
   }),
@@ -133,7 +171,7 @@ export default {
     NavbarTitle () {
       return 'Niveau ' + this.$route.params.level
     },
-    currentTest() {
+    test() {
       const findIdFunction = (obj) => obj.step == this.step;
       let index = this.tests.findIndex(findIdFunction);
       return this.tests[index]
@@ -147,7 +185,10 @@ export default {
       const findIdFunction = (obj) => obj.step == this.step;
       let index = this.tests.findIndex(findIdFunction);
       this.tests[index].answer = boo
-
+      this.show = !this.show
+    },
+    async onClickContinue(){
+      this.show = !this.show
       if (this.isLastStep) {
         await this.submitAnswers()
       } else {
@@ -176,5 +217,11 @@ export default {
   justify-content: space-around;
   flex-direction: column;
   text-align: center;
+}
+.ligthG{
+  background-color: #c7e6b0 !important
+}
+.ligthR{
+  background-color: #ffc1c1 !important
 }
 </style>
