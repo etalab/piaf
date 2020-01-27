@@ -26,9 +26,7 @@ class AdminDatasetView(SuperUserMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         data = []
-        for article in Article.objects.filter(
-            paragraphs__status="completed"
-        ).prefetch_related("paragraphs__questions__answers"):
+        for article in Article.objects.filter(paragraphs__status="completed"):
             paragraphs = []
             for paragraph in article.paragraphs.filter(status="completed"):
                 questions = []
