@@ -45,7 +45,7 @@ export default new Router({
       path: '/annotation/:level',
       name: 'annotation',
       meta: {title: 'à vous de jouer'},
-      component: () => import('./views/Annotation.vue')
+      component: () => import('./views/annotation/Annotation.vue')
     },
     {
       path: '/annotation/:level/theme',
@@ -57,14 +57,8 @@ export default new Router({
       path: '/annotation/:level/bravo',
       name: 'annotation_bravo',
       meta: {title: 'Bravo'},
-      component: () => import('./views/Bravo.vue')
+      component: () => import('./views/annotation/Bravo.vue')
     },
-    // {
-    //   path: '/bravo',
-    //   name: 'bravo',
-    //   meta: {title: 'Bravo'},
-    //   component: () => import('./views/Bravo.vue')
-    // },
     {
       path: '/*',
       component: () => import('./views/FourOhFour.vue')
