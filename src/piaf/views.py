@@ -36,24 +36,27 @@ class AdminDatasetView(SuperUserMixin, TemplateView):
                 questions = []
                 for question in paragraph.questions.all():
                     q = {
-                        "text": question.text,
+                        "question": question.text,
+                        "id": question.id,
                         "answers": [
-                            model_to_dict(a, ["text", "index"])
+                            {"text": a.text, "answer_start": a.index}
                             for a in question.answers.all()
                         ],
                     }
                     questions.append(q)
-                p = {"text": paragraph.text, "questions": questions}
+                p = {"context": paragraph.text, "qas": questions}
                 paragraphs.append(p)
             d = {
-                "displaytitle": article.name,
+                "title": article.name,
                 "categorie": article.theme,
                 "wikipedia_page_id": article.reference,
                 "audience": article.audience,
                 "paragraphs": paragraphs,
             }
             data.append(d)
-        response = HttpResponse(json.dumps(list(data)), content_type="application/json")
+        response = HttpResponse(
+            json.dumps({"data": list(data), "version": "v1.0"}), content_type="application/json"
+        )
         response["Content-Disposition"] = "attachment; filename=piaf-annotations.json"
         return response
 
