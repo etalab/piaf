@@ -26,7 +26,11 @@ class AdminDatasetView(SuperUserMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         data = []
-        for article in Article.objects.filter(paragraphs__status="completed"):
+        for article in (
+            Article.objects.filter(paragraphs__status="completed")
+            .prefetch_related("paragraphs__questions__answers")
+            .distinct("id")
+        ):
             paragraphs = []
             for paragraph in article.paragraphs.filter(status="completed"):
                 questions = []
@@ -183,7 +187,9 @@ class UserStepView(View):
         user = request.user
         level = int(data["level"])
         if level > user.level_completed + 1:
-            return HttpResponse(f"Level {level} is not accessible for this user.", status=422)
+            return HttpResponse(
+                f"Level {level} is not accessible for this user.", status=422
+            )
         user.level_completed = level
         relevancy = UserRelevancy(score=data["score"], level=level, user=user)
         relevancy.save()
