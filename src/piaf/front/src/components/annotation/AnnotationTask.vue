@@ -41,8 +41,8 @@
 <script>
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
-import TextInteractive from './TextInteractive.vue';
-import TextTitle from './TextTitle.vue';
+import TextInteractive from '../TextInteractive.vue';
+import TextTitle from '../TextTitle.vue';
 
 export default {
   components: { TextInteractive, TextTitle },

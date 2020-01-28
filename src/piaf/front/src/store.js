@@ -104,6 +104,9 @@ export default new Vuex.Store({
       return state.annotations.filter(annotation =>
         typeof annotation.question.text === 'string' && typeof annotation.answer.text === 'string').length
     },
+    numOfFinishedA: state => {
+      return state.annotations.filter(annotation => typeof annotation.answer.text === 'string').length
+    },
     currentAnnotation: state => {
       return state.annotations[state.currentQuestionIndex]
     },
@@ -230,6 +233,22 @@ export default new Vuex.Store({
     goToNextIndex({commit, state, getters, dispatch}){
       let i = state.currentQuestionIndex
       let f = getters.numOfFinishedQA
+      if( (i + 1) <= f){
+        if (i + 1 < 5) {
+          commit('setCurrentQuestionIndex', i + 1)
+          dispatch('restoreHighliting')
+        }else{
+          // eslint-disable-next-line
+          console.log('we cannot go further than 5 QR');
+        }
+      }else{
+        // eslint-disable-next-line
+        console.log('we cannot increase the current question index');
+      }
+    },
+    goToNextIndexAnswerMode({commit, state, getters, dispatch}){
+      let i = state.currentQuestionIndex
+      let f = getters.numOfFinishedA
       if( (i + 1) <= f){
         if (i + 1 < 5) {
           commit('setCurrentQuestionIndex', i + 1)
