@@ -11,16 +11,17 @@ export default new Vuex.Store({
     // show or not specific Vue components
     showContinue: false,
     // Current paragraph we display
-    currentDocument: {
-      title: 'Titre',
-      text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l\'adresse : piaf@data.gouv.fr',
-      id:766,
-      count_pending_batches:1,
-      count_pending_paragraphs:1,
-      count_completed_paragraphs:1,
-      count_progress_batches:1,
-      count_completed_batches:1,
-    },
+    currentDocument: false,
+    // {
+    //   title: 'Titre',
+    //   text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l\'adresse : piaf@data.gouv.fr',
+    //   id:766,
+    //   count_pending_batches:1,
+    //   count_pending_paragraphs:1,
+    //   count_completed_paragraphs:1,
+    //   count_progress_batches:1,
+    //   count_completed_batches:1,
+    // },
     // annotations from the user on the current paragraph
     annotations: [
       {question:{}, answer:{} },

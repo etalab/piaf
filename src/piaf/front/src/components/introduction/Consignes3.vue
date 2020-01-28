@@ -18,7 +18,7 @@
       <!-- <v-card-text style="font-size:1em;line-height:1.7;"> -->
       <v-layout text-center wrap>
         <v-card max-width="700" class="mx-auto">
-          <TextTitle/>
+          <span class="black--text bold">Exemple de titre</span>
           <br>
           <v-card-text class="pa-2 consigneText">
             <span class="black--text bold">Ici c'est l'emplacement normal du texte</span>
@@ -27,9 +27,6 @@
       </v-layout>
       <v-layout justify-center v-if="step == 2">
         <span class="font-weight-thin mt-5 mb-5 white--text ">Le titre ne peut pas faire partie de la réponse.</span>
-      </v-layout>
-      <v-layout justify-center v-if="step == 2">
-        <span class="font-weight-thin mb-4 white--text">Plus d'information en cliquant sur le <v-icon fab small dark class="white--text ml-1" >mdi-information-outline</v-icon></span>
       </v-layout>
     </span>
     <span v-if="step == 3">
@@ -58,12 +55,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import TextTitle from '../TextTitle';
 
 export default {
-  components: {
-    TextTitle,
-  },
   props: {
     step: Number
   },
