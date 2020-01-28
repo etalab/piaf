@@ -26,32 +26,37 @@ class AdminDatasetView(SuperUserMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         data = []
-        for article in Article.objects.filter(
-            paragraphs__status="completed"
-        ).prefetch_related("paragraphs__questions__answers"):
+        for article in (
+            Article.objects.filter(paragraphs__status="completed")
+            .prefetch_related("paragraphs__questions__answers")
+            .distinct("id")
+        ):
             paragraphs = []
             for paragraph in article.paragraphs.filter(status="completed"):
                 questions = []
                 for question in paragraph.questions.all():
                     q = {
-                        "text": question.text,
+                        "question": question.text,
+                        "id": question.id,
                         "answers": [
-                            model_to_dict(a, ["text", "index"])
+                            {"text": a.text, "answer_start": a.index}
                             for a in question.answers.all()
                         ],
                     }
                     questions.append(q)
-                p = {"text": paragraph.text, "questions": questions}
+                p = {"context": paragraph.text, "qas": questions}
                 paragraphs.append(p)
             d = {
-                "displaytitle": article.name,
+                "title": article.name,
                 "categorie": article.theme,
                 "wikipedia_page_id": article.reference,
                 "audience": article.audience,
                 "paragraphs": paragraphs,
             }
             data.append(d)
-        response = HttpResponse(json.dumps(list(data)), content_type="application/json")
+        response = HttpResponse(
+            json.dumps({"data": list(data), "version": "v1.0"}), content_type="application/json"
+        )
         response["Content-Disposition"] = "attachment; filename=piaf-annotations.json"
         return response
 
@@ -185,7 +190,9 @@ class UserStepView(View):
         user = request.user
         level = int(data["level"])
         if level > user.level_completed + 1:
-            return HttpResponse(f"Level {level} is not accessible for this user.", status=422)
+            return HttpResponse(
+                f"Level {level} is not accessible for this user.", status=422
+            )
         user.level_completed = level
         relevancy = UserRelevancy(score=data["score"], level=level, user=user)
         relevancy.save()
