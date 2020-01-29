@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getNewParagraph, sendQA, getUserDetails, getDatasetInfo } from './storeUtils.js'
+import { getNewParagraph, sendQA, getUserDetails, getDatasetInfo, sendA, getNewQuestion } from './storeUtils.js'
 
 Vue.use(Vuex)
 
@@ -218,6 +218,37 @@ export default new Vuex.Store({
         return false
       }
     },
+    async loadNewQuestion ({ commit, state }) {
+      const p = await getNewQuestion(state.currentTheme)
+      if(p){
+        console.log(p);
+        const doc = {
+          title: p.paragraph.title,
+          id: p.paragraph.id,
+          theme: p.paragraph.theme,
+          text: p.paragraph.text,
+          count_pending_batches: null,
+          count_pending_paragraphs: null,
+          count_completed_paragraphs:null,
+          count_progress_batches:null,
+          count_completed_batches:null,
+        }
+        commit('setCurrentDocument', doc)
+        const anno = [
+          {question:{text: p.text, id:p.id}, answer:{} },
+          {question:{}, answer:{} },
+          {question:{}, answer:{} },
+          {question:{}, answer:{} },
+          {question:{}, answer:{} }
+        ]
+        commit('setAnnotations', anno)
+        return true
+      }else{
+        // eslint-disable-next-line
+        console.log('problem loading the new question');
+        return false
+      }
+    },
     async saveQAs ({ state, dispatch }) {
       let qas = {}
       qas.paragraph = state.currentDocument.id
@@ -231,25 +262,34 @@ export default new Vuex.Store({
         return false
       }
     },
+    async saveA ({ state, dispatch }) {
+      let a = {}
+      let anno = false
+      if (state.annotations
+        && state.annotations[0]
+        && state.annotations[0].question
+        && state.annotations[0].question.id) {
+        anno = state.annotations[0]
+      }else{
+        // eslint-disable-next-line
+        console.log('problem saving your Answer - input');
+        return false
+      }
+      a.id = anno.question.id
+      a.index = anno.answer.index
+      a.text = anno.answer.text
+      const res = await sendA(a)
+      if(res){
+        return true
+      }else{
+        // eslint-disable-next-line
+        console.log('problem saving your Answer');
+        return false
+      }
+    },
     goToNextIndex({commit, state, getters, dispatch}){
       let i = state.currentQuestionIndex
       let f = getters.numOfFinishedQA
-      if( (i + 1) <= f){
-        if (i + 1 < 5) {
-          commit('setCurrentQuestionIndex', i + 1)
-          dispatch('restoreHighliting')
-        }else{
-          // eslint-disable-next-line
-          console.log('we cannot go further than 5 QR');
-        }
-      }else{
-        // eslint-disable-next-line
-        console.log('we cannot increase the current question index');
-      }
-    },
-    goToNextIndexAnswerMode({commit, state, getters, dispatch}){
-      let i = state.currentQuestionIndex
-      let f = getters.numOfFinishedA
       if( (i + 1) <= f){
         if (i + 1 < 5) {
           commit('setCurrentQuestionIndex', i + 1)

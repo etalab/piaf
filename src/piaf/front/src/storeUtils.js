@@ -5,7 +5,23 @@ export async function getNewParagraph(theme) {
   ? '?theme='+theme
   : ''
   try {
-    const res = await axios.get('/app/api/paragraph'+t);
+    const res = await axios.get('/app/api/paragraph'+t,{timeout:3000});
+    if (res && res.data && typeof res.data.text === 'string') {
+      return res.data
+    }else {
+      return false
+    }
+  } catch (error) {
+    return false
+  }
+}
+
+export async function getNewQuestion(theme) {
+  let t = (['Religion', 'Géographie', 'Histoire', 'Sport', 'Arts', 'Société', 'Sciences'].indexOf(theme) !== -1)
+  ? '?theme='+theme
+  : ''
+  try {
+    const res = await axios.get('/app/api/question'+t,{timeout:3000});
     if (res && res.data && typeof res.data.text === 'string') {
       return res.data
     }else {
@@ -31,9 +47,9 @@ export async function sendQA(qas) {
   }
 }
 
-export async function saveA(as) {
+export async function sendA(a) {
   try {
-    const res = await axios.post('/app/api/question',as,{timeout:3000});
+    const res = await axios.post('/app/api/question',a,{timeout:3000});
     if (res && res.status === 201) {
       return true
     }else {
