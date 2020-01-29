@@ -28,10 +28,10 @@
 
 <script>
 
-import Footer from '../components/Footer';
-import AnnotationTask from '../components/AnnotationTask';
-import Navbar from '../components/Navbar';
-import Animation from '../components/Animation.vue';
+import Footer from '../../components/Footer';
+import AnnotationTask from './AnnotationTask';
+import Navbar from '../../components/Navbar';
+import Animation from '../../components/Animation.vue';
 
 import { mapState } from 'vuex'
 

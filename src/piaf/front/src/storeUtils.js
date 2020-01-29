@@ -31,6 +31,21 @@ export async function sendQA(qas) {
   }
 }
 
+export async function saveAs(as) {
+  try {
+    const res = await axios.post('/app/api/question',as);
+    if (res && res.status === 201) {
+      return true
+    }else {
+      return false
+    }
+  } catch (error) {
+    // eslint-disable-next-line
+    console.error(error);
+    return false
+  }
+}
+
 export async function getUserDetails() {
   try {
     const res = await axios.get('/app/me');

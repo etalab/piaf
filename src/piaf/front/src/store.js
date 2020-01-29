@@ -11,16 +11,17 @@ export default new Vuex.Store({
     // show or not specific Vue components
     showContinue: false,
     // Current paragraph we display
-    currentDocument: {
-      title: 'Titre',
-      text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l\'adresse : piaf@data.gouv.fr',
-      id:766,
-      count_pending_batches:1,
-      count_pending_paragraphs:1,
-      count_completed_paragraphs:1,
-      count_progress_batches:1,
-      count_completed_batches:1,
-    },
+    currentDocument: false,
+    // {
+    //   title: 'Titre',
+    //   text:'Ceci est un document par défaut. Il y a donc un problème de connexion, ou alors veuillez nous contacter à l\'adresse : piaf@data.gouv.fr',
+    //   id:766,
+    //   count_pending_batches:1,
+    //   count_pending_paragraphs:1,
+    //   count_completed_paragraphs:1,
+    //   count_progress_batches:1,
+    //   count_completed_batches:1,
+    // },
     // annotations from the user on the current paragraph
     annotations: [
       {question:{}, answer:{} },
@@ -103,6 +104,9 @@ export default new Vuex.Store({
     numOfFinishedQA: state => {
       return state.annotations.filter(annotation =>
         typeof annotation.question.text === 'string' && typeof annotation.answer.text === 'string').length
+    },
+    numOfFinishedA: state => {
+      return state.annotations.filter(annotation => typeof annotation.answer.text === 'string').length
     },
     currentAnnotation: state => {
       return state.annotations[state.currentQuestionIndex]
@@ -230,6 +234,22 @@ export default new Vuex.Store({
     goToNextIndex({commit, state, getters, dispatch}){
       let i = state.currentQuestionIndex
       let f = getters.numOfFinishedQA
+      if( (i + 1) <= f){
+        if (i + 1 < 5) {
+          commit('setCurrentQuestionIndex', i + 1)
+          dispatch('restoreHighliting')
+        }else{
+          // eslint-disable-next-line
+          console.log('we cannot go further than 5 QR');
+        }
+      }else{
+        // eslint-disable-next-line
+        console.log('we cannot increase the current question index');
+      }
+    },
+    goToNextIndexAnswerMode({commit, state, getters, dispatch}){
+      let i = state.currentQuestionIndex
+      let f = getters.numOfFinishedA
       if( (i + 1) <= f){
         if (i + 1 < 5) {
           commit('setCurrentQuestionIndex', i + 1)

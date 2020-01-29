@@ -91,6 +91,11 @@ export default {
     level3completed(){
       this.sendScore(100,3)
     }
-  }
+  },
+  mounted () {
+      this.$store.dispatch('getUserDetails')
+      this.$store.dispatch('loadNewText')
+      this.$store.dispatch('resetDefaultStore')
+  },
 };
 </script>
