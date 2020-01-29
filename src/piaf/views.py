@@ -55,7 +55,8 @@ class AdminDatasetView(SuperUserMixin, TemplateView):
             }
             data.append(d)
         response = HttpResponse(
-            json.dumps({"data": list(data), "version": "v1.0"}), content_type="application/json"
+            json.dumps({"data": list(data), "version": "v1.0"}),
+            content_type="application/json",
         )
         response["Content-Disposition"] = "attachment; filename=piaf-annotations.json"
         return response
@@ -179,7 +180,9 @@ class QuestionView(View):
     def post(self, request):
         data = json.loads(request.body)
         question = Question.objects.get(pk=data["id"], status="pending")
-        Answer.objects.create(question=question, text=data["text"], index=data["index"])
+        Answer.objects.create(
+            question=question, text=data["text"], index=data["index"], user=request.user
+        )
         return JsonResponse(None, status=201, safe=False)
 
 
