@@ -32,4 +32,5 @@ class MeView(APIView):
         serializer = UserSerializer(request.user, context={"request": request})
         data = serializer.data
         data["paragraphs_count"] = request.user.paragraphs.count()
+        data["answers_count"] = request.user.answers.exclude(question__paragraph__user=request.user).count()
         return Response(data)
