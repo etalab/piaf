@@ -14,7 +14,12 @@
             v-bind:style="{ borderRadius: 30 + 'px' }"
           >
             <template>
-              <span class="white--text">Questions-réponses enregistrées !</span>
+              <span class="white--text">
+                <span v-if="$route.params.level == 2">Réponse enregistrée !
+                </span>
+                <span v-else>Questions-réponses enregistrées !
+                </span>
+              </span>
             </template>
           </v-progress-linear>
         </v-col>
@@ -28,10 +33,15 @@
     <v-container fluid>
       <PiafBubble :hasFireworks=true>
         Félicitations !
-        <span v-if="$route.params.level == 2">Nous n'avons pas encore le décompte exact de vos réponses. <br><br> </span>
+        <span v-if="$route.params.level == 2">Vous avez répondu à <strong>{{userDetails.answers_count}} questions</strong> depuis votre inscription. Merci beaucoup !
+        <br><br>
+        La prochaine question n'attend plus que vous !!!
+        </span>
+        <span v-else>
         Vous avez écrit <strong>{{userDetails.paragraphs_count * 5}} questions-réponses</strong> depuis votre inscription. Merci beaucoup !
         <br><br>
         Le prochain paragraphe n'attend plus que vous !!!
+        </span>
       </PiafBubble>
     </v-container>
     <!-- we need to put the Animation after the other components for the background to be beneath -->

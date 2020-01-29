@@ -30,9 +30,11 @@
         <br>
         <p v-if="userDetails.is_certified">Vous êtes contributeur certifié <v-icon x-small dark>mdi-medal</v-icon></p>
         <p v-else>Vous êtes contributeur officiel de Piaf</p>
-        <p>Merci pour vos contributions! On peut dire que vous êtes en train d'Édith Piaf :)</p>
+        <p>Merci pour vos contributions ! On peut dire que vous êtes en train d'Édith Piaf :)</p>
         <br>
-        <p v-if="userDetails.paragraphs_count">Déja {{ userDetails.paragraphs_count * 5 }} questions-réponses ! Bravo</p>
+        <p v-if="userDetails.paragraphs_count">Déja {{ userDetails.paragraphs_count * 5 }} questions-réponses !
+          <span v-if="userDetails.answers_count">Et {{userDetails.answers_count}} réponses supplémentaires !</span>
+          Bravo</p>
         <br>
         <br>
         <p>Rappel de votre email: {{ userDetails.email }}</p>

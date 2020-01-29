@@ -13,7 +13,7 @@ export const playMixin = {
           "score": qas
         }
 
-        const res = await axios.post('/app/api/level/completed',data);
+        const res = await axios.post('/app/api/level/completed',data,{timeout:3000});
         if (res && res.status === 201) {
           return true
         }else {
