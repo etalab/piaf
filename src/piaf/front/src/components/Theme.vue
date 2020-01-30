@@ -22,6 +22,19 @@
       </v-layout>
 
     </v-layout>
+
+    <v-layout justify-center v-if="userDetails.is_certified" class="mt-10">
+      <span class="font-weight-thin white--text zind0">Plus d'idées pour faire des questions-réponses ?</span>
+      <v-btn
+      class="mx-2"
+      dark
+      small
+      color="primary"
+      v-on:click="$router.push('/annotation/2')">
+        Répondre à des questions
+      </v-btn>
+    </v-layout>
+
     <v-layout justify-center>
       <v-tooltip left v-bind:open-on-click=true open-delay=1000 max-width=90%>
         <template v-slot:activator="{ on }">
@@ -56,6 +69,7 @@ export default {
   computed: {
     ...mapState([
       'themes',
+      'userDetails',
     ]),
   },
   methods: {
