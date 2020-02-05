@@ -66,7 +66,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import Answer from './Answer.vue';
 
 export default {
   data(){
@@ -78,7 +77,6 @@ export default {
   props: {
     routeAfterValidation: String,
   },
-  components: { Answer },
   computed: {
     ...mapState([
       'highlitedText',
