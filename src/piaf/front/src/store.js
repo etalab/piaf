@@ -221,7 +221,6 @@ export default new Vuex.Store({
     async loadNewQuestion ({ commit, state }) {
       const p = await getNewQuestion(state.currentTheme)
       if(p){
-        console.log(p);
         const doc = {
           title: p.paragraph.title,
           id: p.paragraph.id,
@@ -249,11 +248,17 @@ export default new Vuex.Store({
         return false
       }
     },
-    async saveQAs ({ state, dispatch }) {
+    async saveQAs ({ state }) {
       let qas = {}
       qas.paragraph = state.currentDocument.id
       qas.data = state.annotations
-      const res = await sendQA(qas)
+
+      //let's check it's a proper QA set. every object has to pass
+      const c = qas.every(qa => { return typeof qa.answer.text === 'string' })
+
+      let res
+      if (c) {  res = await sendQA(qas)   }
+
       if(res){
         return true
       }else{
@@ -262,7 +267,7 @@ export default new Vuex.Store({
         return false
       }
     },
-    async saveA ({ state, dispatch }) {
+    async saveA ({ state }) {
       let a = {}
       let anno = false
       if (state.annotations
