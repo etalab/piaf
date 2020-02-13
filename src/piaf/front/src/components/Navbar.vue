@@ -33,7 +33,19 @@
       </v-row>
 
       </v-col>
-      <v-col cols='10' class="pr-0 alignSelf" style="display: flex; align-items: center; justify-content: center;">
+      <v-col cols='10' class="pr-0 alignSelf" style="display: flex; align-items: center; justify-content: center;" v-if="text">
+        <v-progress-linear
+          background-color="#1b4799"
+          height="25"
+          rounded
+          v-bind:style="{ borderRadius: 30 + 'px' }"
+        >
+          <span class="white--text" style="display: flex; align-items: center;">
+            {{text}}
+          </span>
+        </v-progress-linear>
+      </v-col>
+      <v-col cols='10' class="pr-0 alignSelf" style="display: flex; align-items: center; justify-content: center;" v-else>
         <v-progress-linear
           v-bind:value="stepPercentage"
           color="#11174d"
@@ -95,13 +107,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default {
+  props: {
+    text : String,
+  },
   computed: {
-    ...mapState([
-      'currentQuestionIndex',
-    ]),
     stepPercentage(){
       return this.$store.getters.currentProgress * 20
     },
