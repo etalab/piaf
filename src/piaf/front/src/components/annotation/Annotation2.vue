@@ -46,7 +46,7 @@ export default {
   computed: mapState([
     'currentDocument',
   ]),
-  mounted () {
+  created () {
       this.$store.dispatch('getUserDetails')
       this.$store.dispatch('resetDefaultStore')
       this.$store.dispatch('loadNewQuestion')

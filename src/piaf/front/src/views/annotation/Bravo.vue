@@ -107,7 +107,7 @@ export default {
       return this.$router.push('/annotation/'+this.$route.params.level+'/theme/')
     },
   },
-  mounted () {
+  created () {
       this.$store.dispatch('getUserDetails')
   },
 };
