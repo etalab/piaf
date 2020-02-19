@@ -158,11 +158,13 @@ class QuestionView(View):
             .distinct("id")
             .exclude(paragraph__user=user)
             .exclude(answers__user=user)
+            .annotate(answers_count=Count("answers"))
+            .order_by("-answers_count")
         )
         count = questions.count()
         if count == 0:
             return JsonResponse({})
-        question = questions[randint(0, questions.count() - 1)]
+        question = questions[randint(0, count - 1)]
         paragraph = question.paragraph
         article = paragraph.article
 
