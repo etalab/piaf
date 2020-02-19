@@ -2,7 +2,7 @@
   <v-app>
   <!--  Is always placed at the top of an application with a lower priority than v-system-bar -->
   <v-app-bar app hide-on-scroll>
-    <Navbar/>
+    <Navbar :text="`Trouver une réponse`"/>
   </v-app-bar>
 
   <!-- Sizes your content based upon application components -->
@@ -46,7 +46,7 @@ export default {
   computed: mapState([
     'currentDocument',
   ]),
-  mounted () {
+  created () {
       this.$store.dispatch('getUserDetails')
       this.$store.dispatch('resetDefaultStore')
       this.$store.dispatch('loadNewQuestion')

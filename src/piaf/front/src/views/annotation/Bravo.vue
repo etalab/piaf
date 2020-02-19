@@ -82,7 +82,6 @@
 </template>
 
 <script>
-import Navbar from '../../components/Navbar';
 import Animation from '../../components/Animation.vue';
 import PiafBubble from '../../components/PiafBubble.vue';
 import { mapState } from 'vuex'
@@ -90,7 +89,6 @@ import { mapState } from 'vuex'
 export default {
   name: 'App',
   components: {
-    Navbar,
     Animation,
     PiafBubble,
   },
@@ -107,7 +105,7 @@ export default {
       return this.$router.push('/annotation/'+this.$route.params.level+'/theme/')
     },
   },
-  mounted () {
+  created () {
       this.$store.dispatch('getUserDetails')
   },
 };

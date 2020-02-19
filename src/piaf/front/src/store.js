@@ -254,7 +254,7 @@ export default new Vuex.Store({
       qas.data = state.annotations
 
       //let's check it's a proper QA set. every object has to pass
-      const c = qas.every(qa => { return typeof qa.answer.text === 'string' })
+      const c = qas.data.every(qa => { return typeof qa.answer.text === 'string' })
 
       let res
       if (c) {  res = await sendQA(qas)   }
