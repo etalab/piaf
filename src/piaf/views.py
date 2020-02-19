@@ -105,7 +105,7 @@ class ParagraphView(View):
     def get(self, request, *args, **kwargs):
         """Provide a randomly picked pending article."""
         theme = request.GET.get("theme")
-        qs = ParagraphBatch.objects.exclude(status="completed").distinct()
+        qs = ParagraphBatch.objects.exclude(status="completed").distinct("id")
         # Limit display by audience
         if getattr(request.user, "is_certified", False):
             qs_certified = qs.filter(paragraphs__article__audience="restricted")
@@ -155,6 +155,7 @@ class QuestionView(View):
         user = request.user
         questions = (
             Question.objects.filter(status="pending")
+            .distinct("id")
             .exclude(paragraph__user=user)
             .exclude(answers__user=user)
         )
