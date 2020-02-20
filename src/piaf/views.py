@@ -7,6 +7,7 @@ from django.forms.models import model_to_dict
 from django.http import HttpResponse, JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Count
 
 from api.permissions import SuperUserMixin
 from .models import Article, ParagraphBatch, Paragraph, Question, Answer, UserRelevancy
@@ -155,14 +156,15 @@ class QuestionView(View):
         user = request.user
         questions = (
             Question.objects.filter(status="pending")
-            .distinct("id")
             .exclude(paragraph__user=user)
             .exclude(answers__user=user)
+            .annotate(answers_count=Count("answers"))
+            .order_by("-answers_count")
         )
         count = questions.count()
         if count == 0:
             return JsonResponse({})
-        question = questions[randint(0, questions.count() - 1)]
+        question = questions[randint(0, count - 1)]
         paragraph = question.paragraph
         article = paragraph.article
 
