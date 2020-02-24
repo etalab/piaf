@@ -32,6 +32,20 @@ export async function getNewQuestion(theme) {
   }
 }
 
+export async function reportQ(id) {
+  try {
+    const res = await axios.put('/app/api/question',{id:id},{timeout:3000});
+    if (res && res.data && typeof res.data.text === 'string') {
+      return true
+    }else {
+      return false
+    }
+  } catch (error) {
+    return false
+  }
+}
+
+
 export async function sendQA(qas) {
   try {
     const res = await axios.post('/app/api/paragraph',qas,{timeout:3000});

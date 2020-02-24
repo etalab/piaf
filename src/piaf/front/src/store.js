@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getNewParagraph, sendQA, getUserDetails, getDatasetInfo, sendA, getNewQuestion } from './storeUtils.js'
+import { getNewParagraph, sendQA, getUserDetails, getDatasetInfo, sendA, getNewQuestion, reportQ } from './storeUtils.js'
 
 Vue.use(Vuex)
 
@@ -289,6 +289,23 @@ export default new Vuex.Store({
       }else{
         // eslint-disable-next-line
         console.log('problem saving your Answer');
+        return false
+      }
+    },
+    async reportQ({ state }) {
+      let res
+      try {
+        res = await reportQ(state.annotations[0].question.id)
+        if(res){
+          return true
+        }else{
+          // eslint-disable-next-line
+          console.log('problem reporting your Question 2');
+          return false
+        }
+      } catch (e) {
+        // eslint-disable-next-line
+        console.log('problem reporting your Question 1',e);
         return false
       }
     },

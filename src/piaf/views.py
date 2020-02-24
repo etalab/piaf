@@ -188,6 +188,12 @@ class QuestionView(View):
         )
         return JsonResponse(None, status=201, safe=False)
 
+    def put(self, request):
+        data = json.loads(request.body)
+        question = Question.objects.get(pk=data["id"])
+        question.report_increase()
+        return JsonResponse(None, status=201, safe=False)
+
 
 @method_decorator(csrf_exempt, name="dispatch")
 class UserStepView(View):

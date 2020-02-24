@@ -104,11 +104,16 @@ class Question(models.Model):
     status = models.CharField(
         max_length=10, choices=zip(STATUSES, STATUSES), default="pending"
     )
+    report_count = models.IntegerField(default=0)
 
     def watch_status(self):
         if self.answers.count() >= 3:
             self.status = STATUS_COMPLETED
             self.save()
+
+    def report_increase(self, user):
+        self.report_count = self.report_count + 1
+        self.save()
 
 
 class Answer(models.Model):
