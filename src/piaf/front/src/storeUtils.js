@@ -35,7 +35,7 @@ export async function getNewQuestion(theme) {
 export async function reportQ(id) {
   try {
     const res = await axios.put('/app/api/question',{id:id},{timeout:3000});
-    if (res && res.data && typeof res.data.text === 'string') {
+    if (res && res.status === 201) {
       return true
     }else {
       return false

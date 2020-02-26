@@ -123,6 +123,7 @@ export default {
   },
   props: {
     routeAfterValidation: String,
+    routeAfterReport: String,
   },
   computed: {
     ...mapState([
@@ -154,7 +155,7 @@ export default {
       let res = await this.$store.dispatch('reportQ')
       this.loading = false
       if (res) {
-        this.$router.push(this.routeAfterValidation)
+        this.$router.push(this.routeAfterReport)
       } else {
         // eslint-disable-next-line
         console.log('error in reporting the question');

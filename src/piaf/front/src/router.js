@@ -60,6 +60,12 @@ export default new Router({
       component: () => import('./views/annotation/Bravo.vue')
     },
     {
+      path: '/annotation/:level/report',
+      name: 'annotation_report',
+      meta: {title: 'Signalement'},
+      component: () => import('./views/annotation/Report.vue')
+    },
+    {
       path: '/*',
       component: () => import('./views/FourOhFour.vue')
     },
