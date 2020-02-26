@@ -111,7 +111,7 @@ class Question(models.Model):
             self.status = STATUS_COMPLETED
             self.save()
 
-    def report_increase(self, user):
+    def report_increase(self):
         self.report_count = self.report_count + 1
         self.save()
 
