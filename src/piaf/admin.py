@@ -23,8 +23,8 @@ class ParagraphAdmin(admin.ModelAdmin):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('paragraph', 'text', 'created_at', 'status')
-    ordering = ('created_at',)
+    list_display = ('paragraph', 'text', 'created_at', 'status', 'report_count')
+    ordering = ('created_at', 'report_count')
 
 
 class AnswerAdmin(admin.ModelAdmin):
