@@ -57,9 +57,9 @@ class ParagraphBatch(models.Model):
 
 
 class Paragraph(models.Model):
-    article = models.ForeignKey(Article, on_delete="cascade", related_name="paragraphs")
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="paragraphs")
     batch = models.ForeignKey(
-        ParagraphBatch, on_delete="cascade", related_name="paragraphs"
+        ParagraphBatch, on_delete=models.CASCADE, related_name="paragraphs"
     )
     text = models.TextField()
     status = models.CharField(
@@ -97,7 +97,7 @@ class Paragraph(models.Model):
 
 class Question(models.Model):
     paragraph = models.ForeignKey(
-        Paragraph, on_delete="cascade", related_name="questions"
+        Paragraph, on_delete=models.CASCADE, related_name="questions"
     )
     text = models.CharField(max_length=200)
     created_at = models.DateField(auto_now_add=True)
@@ -120,7 +120,7 @@ class Answer(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete="null", related_name="answers", null=True
     )
-    question = models.ForeignKey(Question, on_delete="cascade", related_name="answers")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
     text = models.CharField(max_length=200)
     index = models.IntegerField()
     created_at = models.DateField(auto_now_add=True)
@@ -133,7 +133,7 @@ class Answer(models.Model):
 class UserRelevancy(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete="cascade",
+        on_delete=models.CASCADE,
         related_name="relevancies",
         null=False,
     )
