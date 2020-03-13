@@ -11,7 +11,7 @@ class UserAdmin(admin.ModelAdmin):
         "is_certified",
         "level_completed",
         "paragraphs_count",
-        "answers_count",
+        "additional_answers_count",
         "date_joined",
         "is_active",
     )

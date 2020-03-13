@@ -11,6 +11,10 @@ class User(AbstractUser):
         return self.answers.count()
 
     @property
+    def additional_answers_count(self):
+        return self.answers.count() - (self.paragraphs.count() * 5)
+
+    @property
     def paragraphs_count(self):
         return self.paragraphs.count()
 
