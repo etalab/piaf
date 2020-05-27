@@ -117,7 +117,7 @@ Go to : [127.0.0.1:8000/app/admin](http://127.0.0.1:8000/app/admin)
 Note that only `JSON` files can be imported. Furthermore, they need to match exaclty the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format. But, we accept some extra fields :
 - __"categorie"__ : can be one of the followings - 'Religion', 'Géographie', 'Histoire', 'Sport', 'Arts', 'Société', 'Sciences' default to 'Société' if empty
 - __"displaytitle"__ : if you need a more deligthful title (falls back to title if empty)
-- __"wikipedia_page_id"__ : integer like *7138870* for Wikipedia reference (falls back to 0 if empty)
+- __"reference"__ : integer like *7138870* for Wikipedia reference (falls back to 0 if empty)
 
 Here is an example of input dataset: <a href="/input-dataset-example.json" download="example.json" target="_blank">Click here to download</a>
 
