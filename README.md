@@ -101,29 +101,24 @@ python manage.py runserver
 
 > Note that Django permits to run the server on a different IP or port. `python manage.py runserver <ip>:<port>`
 
-## 3. Creating a project
+## 3. Setting up your annotation campaign
 
-Open your web-browser at http://127.0.0.1:8000/login/ and login with the admin you created above (username: "admin", password: "password"):
+### Reach the Admin panel
+Open your web-browser at http://127.0.0.1:8000/login/ and login with the admin you created above (username: "admin", password: "password")
 
-You will then need to create a project on the admin panel:
+You will then be able to reach the admin panel, for any administration task you may require:
 [127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
-
-Create a **questions/answers** type project.
-If you are interested in others kinds of projects you should visit [doccano](https://github.com/chakki-works/doccano).
-
-
-### Running the tests
-
-```bash
-python manage.py test server.tests
-```
 
 
 ### Importing texts
 
 Go to : [127.0.0.1:8000/app/admin](http://127.0.0.1:8000/app/admin)
 
-Only `JSON file` can be imported. They need to be exaclty following the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format.  
+Note that only `JSON` files can be imported. Furthermore, they need to match exaclty the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format. But, we accept some extra fields :
+- __"categorie"__ : can be one of the followings - 'Religion', 'Géographie', 'Histoire', 'Sport', 'Arts', 'Société', 'Sciences' default to 'Société' if empty
+- __"displaytitle"__ : if you need a more deligthful title (falls back to title if empty)
+- __"wikipedia_page_id"__ : integer like *7138870* for Wikipedia reference (falls back to 0 if empty)
+
 Here is an example of input dataset: <a href="/input-dataset-example.json" download="example.json" target="_blank">Click here to download</a>
 
 
@@ -132,27 +127,12 @@ Here is an example of input dataset: <a href="/input-dataset-example.json" downl
 Simply reach : [app/](http://127.0.0.1:8000/app/)
 
 
-### Exporing results
+### Exploring results
 
 Again, on the page : [app/admin](http://127.0.0.1:8000/app/admin)
 
-Possible formats are CSV or JSON.
+Only possible format is JSON.
 
-> All documents have a _metadata_ column which contain data about the imported document.
-> These _metadata_ are especially useful to match imported results with the original dataset.
-> Example:
-
-`import.json`:
-
-```JSON
-{"text": "EU rejects German call to boycott British lamb.", "external_id": 1}
-```
-
-`output.json`:
-
-```JSON
-{"doc_id": 16, "text": "EU rejects calls", "labels": ["news"], "username": "user23", "metadata": {"external_id": 1}}
-```
 
 ## configuration
 
@@ -191,5 +171,6 @@ PIAF plateform was originally inspired by [Doccano](https://github.com/chakki-wo
 
 2018 chakki.  
 2019 DINUM, Guillim.  
+2020 DINUM, Guillim.  
 
 This application is published under the MIT license.

@@ -66,10 +66,13 @@ class AdminDatasetView(SuperUserMixin, TemplateView):
         content = request.FILES["file"].read()
         data = json.loads(content).get("data")
         for d in data:
+            name = d["displaytitle"] if "displaytitle" in d == True else d["title"]
+            cat = d["categorie"] if "categorie" in d == True else "Société"
+            ref = d["reference"] if "reference" in d == True else 0
             article = Article(
-                name=d["displaytitle"],
-                theme=d["categorie"],
-                reference=d.get("wikipedia_page_id"),
+                name=name,
+                theme=cat,
+                reference=ref,
                 audience=request.POST["audience"],
             )
             article.save()
