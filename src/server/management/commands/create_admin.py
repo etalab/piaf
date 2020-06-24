@@ -13,15 +13,18 @@ class Command(createsuperuser.Command):
     def handle(self, *args, **options):
         password = options.get('password')
         username = options.get('username')
-
         if password and not username:
             raise CommandError('--username is required if specifying --password')
-
-        super(Command, self).handle(*args, **options)
-
+            super(Command, self).handle(*args, **options)
         if password:
             database = options.get('database')
             db = self.UserModel._default_manager.db_manager(database)
             user = db.get(username=username)
-            user.set_password(password)
-            user.save()
+            try:
+                user.set_password(password)
+                user.save()
+                print('user admin successfully registered')
+            except Exception as e:
+                print('error', e)
+            else:
+                print('already existing user admin')
