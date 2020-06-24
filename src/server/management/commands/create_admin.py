@@ -25,8 +25,12 @@ class Command(createsuperuser.Command):
             except Exception as e:
                 print('error, user does not exist', e)
                 user = db.create(username=username)
+                user.set_password(password)
+                user.is_superuser = True
+                user.is_staff = True
+                user.is_active = True
+                user.email = options.get('email')
             else:
                 print('already existing user admin')
-            user.set_password(password)
             user.save()
             print('user admin successfully registered')
