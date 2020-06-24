@@ -1,0 +1,165 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Piaf - Pour une IA francophone</title>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-extensions@4.0.1/bulma-divider/dist/css/bulma-divider.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-extensions@4.0.1/bulma-checkradio/dist/css/bulma-checkradio.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-extensions@4.0.1/bulma-tooltip/dist/css/bulma-tooltip.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'assets/css/forum.css' %}">
+  <link rel=stylesheet href=https://piaf.etalab.studio/assets/css/style.css>
+  {% block header %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+  <nav class="fixed w-full z-50">
+    <div class="header">
+      <div
+        class="absolute h-full right-0 left-0 container mx-auto flex items-center px-4 lg:px-12 bg-white border-b border-gray">
+        <a class="flex items-end md:block" href="/">
+          <svg class="transform-l scale-70 lg:scale-100" xmlns="http://www.w3.org/2000/svg" width="127" height="37"
+            viewBox="0 0 127.07 36.99">
+            <defs>
+              <linearGradient id="piaf_logo_11" x1="47.1" y1="5.11" x2="7.91" y2="42.54" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#6cc4c7"></stop>
+                <stop offset="0.49" stop-color="#27a3dd"></stop>
+              </linearGradient>
+              <linearGradient id="piaf_logo_3" x1="31.77" y1="8.61" x2="31.86" y2="8.61" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#1c213f"></stop>
+                <stop offset="0.49" stop-color="#243670"></stop>
+              </linearGradient>
+            </defs>
+            <title>Logo PIAF</title>
+            <path
+              d="M67.09,36.58H65.45V4.49h8.31c4.36,0,9.38,1.85,9.38,8.84v.83c0,7-5,8.84-9.38,8.84H67.09Zm6.67-15.14c3.12,0,7.65-1.15,7.65-7.36v-.66c0-6.21-4.53-7.37-7.65-7.37H67.09V21.44Z"
+              style="fill:#233161"></path>
+            <path d="M90.54,8.81H88.07V6.34h2.47Zm-2.06,6h1.65V36.58H88.48Z" style="fill:#233161"></path>
+            <path
+              d="M109.67,33.29a9.49,9.49,0,0,1-8,3.7c-3.7,0-6.17-2.26-6.17-5.76v-.41c0-4.73,3.7-6,6.91-6.5l7.07-1.11v-.82c0-4.24-1.35-6.46-5.76-6.46C99,15.93,98,18.68,98,22H96.3V21.6c0-3.12,1.23-7.24,7.4-7.24,5.68,0,7.41,3.38,7.41,8v8l.2,6.17h-1.23Zm-.21-2V24.73l-7.19,1.19c-3.09.54-5.15,2.06-5.15,4.9v.41c0,2.18,1.44,4.2,4.73,4.2C106.71,35.43,108.68,32.71,109.46,31.31Z"
+              style="fill:#233161"></path>
+            <path
+              d="M120.08,14.77h6.58v1.57h-6.58V36.58h-1.65V16.34h-3.49V14.77h3.49V9.22c0-4.32,2.47-6,5.76-6a7.85,7.85,0,0,1,2.88.41V5.19a7.8,7.8,0,0,0-2.47-.37c-3,0-4.52.9-4.52,4.61Z"
+              style="fill:#233161"></path>
+            <path
+              d="M47.27,9.3A13.37,13.37,0,0,0,41,6.13c-1.86,2.31-1.39,4.33-1.31,7.1A16.9,16.9,0,0,1,35,25.62C28.59,32,17.39,31.1,11.23,24.74L11,24.55l-.76.55A56.55,56.55,0,0,1,3.6,28.82a3.53,3.53,0,0,0-.43.18l0,0,.16,0a22.11,22.11,0,0,1,3.44-.5A15,15,0,0,1,9,28.53a10.55,10.55,0,0,1,4.37,1.37c3.07,1.86,5.7,4.27,9.18,5.39A15.78,15.78,0,0,0,33.22,35C40.5,32,43.9,24.28,42.87,16.79,42.44,13.71,44.78,11,47.27,9.3Z"
+              style="fill:url(#piaf_logo_11)"></path>
+            <path d="M31.86,8.57l-.06,0,0,0Z" style="mix-blend-mode:darken;fill:url(#piaf_logo_3)"></path>
+            <path
+              d="M31.8,8.62l.14-.12L32,8.44l-.05,0a11.05,11.05,0,0,1,9-2.35A16,16,0,0,1,43.9,3.38s-7.1-7-15.29-.82l.05,0-.1.07-.13.11.06-.05a.87.87,0,0,1-.1.08l0,0L16,12.44,6.82,19.18C4.6,20.59,2.31,21.8,0,23a22.85,22.85,0,0,1,5.6-.42A10.68,10.68,0,0,1,11,24.53c0-.5,3.49-2.55,4-3l4.38-3.22Z"
+              style="fill:#e52039"></path>
+          </svg>
+          <span class="block text-blue -ml-8 text-xs md:text-sm md:ml-0">Pour des IA francophones (beta)</span>
+        </a>
+        <ul class="flex h-full items-center uppercase ml-auto mr-0 font-cooper-medium hidden text-sm xl:text-lg md:flex"
+          role="menubar" aria-hidden="false">
+
+          <li class="has-dropdown h-full flex items-center cursor-default mx-4 lg:mx-10" aria-haspopup="true"
+            role="menuitem">
+            <a href="https://piaf.etalab.studio/presentation.html" class="text-link ">Démarche</a>
+            <svg class="icon-arrow-down ml-2" width="15" height="15">
+              <use xlink:href="#icon-arrow-down" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+            </svg>
+            <ul
+              class="dropdown border-b border-gray absolute left-0 -bottom-4 pl-4 py-4 bg-white flex text-sm justify-center"
+              aria-hidden="true" role="menu">
+              <li class="mx-6" role="menuitem">
+                <a class="text-blue text-link " href="presentation.html" tabindex="-1">Présentation</a>
+              </li>
+              <li class="mx-6" role="menuitem">
+                <a class="text-blue text-link " href="/contribution.html" tabindex="-1">Annoter des articles</a>
+              </li>
+              <li class="mx-6" role="menuitem">
+                <a class="text-blue text-link " href="/usages.html" tabindex="-1">Proposer un cas d'usage</a>
+              </li>
+              <li class="mx-6" role="menuitem">
+                <a class="text-blue text-link " href="/faq.html" tabindex="-1">FAQ</a>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="mx-4 lg:mx-10" role="menuitem">
+            <a href="https://piaf.etalab.studio/communaute.html" class=" relative inline-flex uppercase text-blue text-link">
+
+              <span class="relative">Qui sommes-nous</span>
+            </a>
+          </li>
+
+          <li class="mx-4 lg:mx-10" role="menuitem">
+            <a href="https://piaf.etalab.studio/actualites.html" class=" relative inline-flex uppercase text-blue text-link">
+
+              <span class="relative">Actualités</span>
+            </a>
+          </li>
+
+          <li class=" ml-4 lg:ml-10 " role="menuitem">
+            <a href="https://app.piaf.etalab.studio/"
+              class=" relative inline-flex uppercase btn--white text-red rounded -ml-4 lg:-ml-6 border border-red px-4 lg:px-6 py-2">
+              <span class="btn-overlay--red"></span>
+              <span class="relative">Contribuer</span>
+            </a>
+          </li>
+        </ul>
+        <div class="mobile-btn block ml-auto md:hidden">
+          <button class="hamburger--spin hamburger--collapse flex" type="button">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-nav shadow fixed left-0 top-0 w-4/5 h-screen bg-white">
+      <ul>
+        <li class="mt-10 ml-10">
+          <a href="/">ACCUEIL</a>
+        </li>
+        <li class="uppercase my-4 ml-10" role="menuitem">
+          <a class="text-blue text-link " href="presentation.html" tabindex="-1">Présentation</a>
+        </li>
+        <li class="uppercase my-4 ml-10" role="menuitem">
+          <a class="text-blue text-link " href="/contribution.html" tabindex="-1">Annoter des articles</a>
+        </li>
+        <li class="uppercase my-4 ml-10" role="menuitem">
+          <a class="text-blue text-link " href="/usages.html" tabindex="-1">Proposer un cas d'usage</a>
+        </li>
+        <li class="uppercase my-4 ml-10" role="menuitem">
+          <a class="text-blue text-link " href="/faq.html" tabindex="-1">FAQ</a>
+        </li>
+        <li class="my-4 mx-10">
+          <a href="/communaute.html" class=" relative inline-flex uppercase text-blue text-link">
+
+            <span class="relative">Qui sommes-nous</span>
+          </a>
+        </li>
+
+        <li class="my-4 mx-10">
+          <a href="/actualites.html" class=" relative inline-flex uppercase text-blue text-link">
+            <span class="relative">Actualités</span>
+          </a>
+        </li>
+        <li class="my-4  ml-16 ">
+          <a href="https://app.piaf.etalab.studio/"
+            class=" relative inline-flex uppercase btn--white text-red rounded -ml-6 border border-red px-6 py-2">
+            <span class="btn-overlay--red"></span>
+            <span class="relative">Contribuer</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  {% block content %}{% endblock %}
+
+  {% block footer %}{% endblock %}
+</body>
+</html>
