@@ -31,7 +31,7 @@ if [[ -n "${ADMIN_USERNAME}" ]] && [[ -n "${ADMIN_PASSWORD}" ]] && [[ -n "${ADMI
     --password "${ADMIN_PASSWORD}" \
     --email "${ADMIN_EMAIL}" \
     --noinput \
-  || true
+  || echo "user admin already exist"
 fi
 
 PORT="8000"

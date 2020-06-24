@@ -7,6 +7,7 @@ module.exports = {
     extract: {
       filename: '[name].css',
       chunkFilename: '[name].css',
+      ignoreOrder: true,
     },
   },
   configureWebpack: {
