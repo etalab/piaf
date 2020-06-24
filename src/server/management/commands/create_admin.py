@@ -19,12 +19,14 @@ class Command(createsuperuser.Command):
         if password:
             database = options.get('database')
             db = self.UserModel._default_manager.db_manager(database)
-            user = db.get(username=username)
+            print('testing')
             try:
-                user.set_password(password)
-                user.save()
-                print('user admin successfully registered')
+                user = db.get(username=username)
             except Exception as e:
-                print('error', e)
+                print('error, user does not exist', e)
+                user = db.create(username=username)
             else:
                 print('already existing user admin')
+            user.set_password(password)
+            user.save()
+            print('user admin successfully registered')
