@@ -102,7 +102,6 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
             ],
             "libraries": {
-                "analytics": "server.templatetags.analytics",
                 "utils_templating": "authentification.templatetags.utils_templating",
             },
         },
