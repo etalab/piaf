@@ -40,6 +40,7 @@
         <v-flex xs6 sm4 md3
           v-for="(theme) in themes"
           v-on:click="setCurrentTheme(theme)"
+          :key="theme.name"
         >
           <div class="my-2 d-flex flex-column align-center">
             <v-btn fab large dark v-bind:color="theme.color" v-if="!theme.empty">
