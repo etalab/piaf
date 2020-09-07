@@ -10,6 +10,9 @@ down:
 restart: down up
 
 build-statics:
+	if [[ -f "README.md" ]]; then \
+		mkdir src/piaf/front/static; \
+	fi; \
 	cd src/piaf/front/static && npm run build
 
 test:
