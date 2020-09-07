@@ -49,6 +49,7 @@ As a prerequisite, you need to have installed on your computer:
 * Django 2.1.7+
 * Node.js 8.0+
 * Chromium (recommended)
+* Vue cli 4.4+  (more info [here](https://cli.vuejs.org/guide/installation.html))
 
 
 First install Python dependencies:
