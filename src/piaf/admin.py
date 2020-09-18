@@ -19,7 +19,7 @@ class ParagraphBatchAdmin(admin.ModelAdmin):
 class ParagraphAdmin(admin.ModelAdmin):
     list_display = ('article', 'batch', 'text', 'status')
     ordering = ('article',)
-    search_fields = ('name',)
+    search_fields = ('text',)
 
 
 class QuestionAdmin(admin.ModelAdmin):
