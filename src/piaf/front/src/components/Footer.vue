@@ -124,10 +124,10 @@ export default {
   },
   methods:{
     async validate(){
-      this.$emit('validation')
       this.loading = true
       let res = await this.$store.dispatch('saveQAs')
       this.loading = false
+      this.$emit('validation')
       if (res) {
         this.next()
         this.$router.push(this.routeAfterValidation)

@@ -20,8 +20,8 @@
   padless
   fixed
   min-height='150px'
-  color='white'>
-    <Footer :routeAfterValidation="`/annotation/`+$route.params.level+`/bravo`"/>
+  color='white'>{{restoreTrigger}}
+    <Footer :routeAfterValidation="routeAfterValidation" v-on:validation="onValidation" :key="restoreTrigger"/>
   </v-footer>
 </v-app>
 </template>
@@ -37,15 +37,35 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'App',
+  data(){
+    return {
+      restoreTrigger:0
+    }
+  },
   components: {
     AnnotationTask,
     Navbar,
     Footer,
     Animation,
   },
-  computed: mapState([
-    'currentDocument',
-  ]),
+  computed: {
+    ...mapState([
+      'currentDocument',
+    ]),
+    routeAfterValidation () {
+      const urlEnd = (process.env.VUE_APP_PRINT_BRAVO === 'true') ? '/bravo' : '#' + new Date().getTime()
+      return '/annotation/' + this.$route.params.level + urlEnd
+    },
+  },
+  methods: {
+    onValidation(){
+      if (process.env.VUE_APP_PRINT_BRAVO === 'false') {
+        this.$store.dispatch('loadNewText')
+        this.$store.dispatch('resetDefaultStore')
+        this.restoreTrigger = this.restoreTrigger++
+      }
+    },
+  },
   mounted () {
       this.$store.dispatch('getUserDetails')
       this.$store.dispatch('loadNewText')
