@@ -80,7 +80,10 @@ class AdminDatasetView(SuperUserMixin, TemplateView):
                 if i % 5 == 0:
                     batch = ParagraphBatch()
                     batch.save()
-                Paragraph(batch=batch, article=article, text=p["context"]).save()
+                paragraph=Paragraph(batch=batch, article=article, text=p["context"])
+                paragraph.save()
+                for question in p["qas"]:
+                    Question(paragraph=paragraph, text=question["question"]).save()
         context = {"count_inserted_articles": len(data)}
         return self.render_to_response(context=context)
 
