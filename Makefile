@@ -1,5 +1,5 @@
 DC    := 'docker-compose'
-export WEBPACK_ENVIRONMENT_PRODUCTION=False
+export WEBPACK_ENVIRONMENT_PRODUCTION=True
 
 up:
 	${DC} up
