@@ -19,7 +19,12 @@ export default new Router({
         if (store.state && store.state.userDetails && store.state.userDetails.level_completed == 3) {
           next('/annotation/3/theme')
         }else {
-          next()
+          // We need to cast to a boolean, otherwise it comes as a string. /!\ Boolean() can't be used
+          if (process.env.VUE_APP_ALLOW_ONBOARDING === 'true') {
+            next()
+          } else {
+            next('/annotation/3/theme')
+          }
         }
       },
     },

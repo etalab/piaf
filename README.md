@@ -111,31 +111,36 @@ You will then be able to reach the admin panel, for any administration task you 
 [127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 
 
-### Importing texts
+### Import texts
 
-Go to : [127.0.0.1:8000/app/admin](http://127.0.0.1:8000/app/admin)
+We designed a simple interface for you to upload in an easy way your texts you want to annotate. It's located here : [/app/admin](http://127.0.0.1:8000/app/admin)
 
-Note that only `JSON` files can be imported. Furthermore, they need to match exaclty the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format. But, we accept some extra fields :
+Here is an example of input dataset: <a href="/input-dataset-example.json" download="example.json" target="_blank">Click here to download</a>
+
+As you can see in the example above, texts have to match the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format. But, for additional app options, we accept some extra fields :
 - __"categorie"__ : can be one of the followings - 'Religion', 'Géographie', 'Histoire', 'Sport', 'Arts', 'Société', 'Sciences' default to 'Société' if empty
 - __"displaytitle"__ : if you need a more deligthful title (falls back to title if empty)
 - __"reference"__ : integer like *7138870* for Wikipedia reference (falls back to 0 if empty)
 
-Here is an example of input dataset: <a href="/input-dataset-example.json" download="example.json" target="_blank">Click here to download</a>
+## 4. Annotation campaign
+
+Simply reach : [app/](http://127.0.0.1:8000/app/)  
+And give your users this URL so they can begin to annotate.
+
+#### Admin section
+
+To manage users, you can reach the admin dashboard : [admin/](http://127.0.0.1:8000/admin/)
+
+## 5. Export results
+
+Once you have some annotated texts, you may want to download them so you can train your own QA model for instance. Please, download the result on the page : [app/admin](http://127.0.0.1:8000/app/admin)
 
 
-### Annotation
-
-Simply reach : [app/](http://127.0.0.1:8000/app/)
 
 
-### Exploring results
+## 6. Configuration
 
-Again, on the page : [app/admin](http://127.0.0.1:8000/app/admin)
-
-Only possible format is JSON.
-
-
-## configuration
+## - General configuration
 
 Passing most settings as environment variable will override the default settings. Here are some of the variable customisable:
 
@@ -157,11 +162,26 @@ Set the environment variable before launching your server
 DEBUG=0 MATOMO_SITE_ID=77 src/manage.py runserver
 ```
 
-this Will disable debugging and activate Matomo tracking for instance
+this will disable debugging and activate Matomo tracking for instance
 
-## Contact
+### - Special Configuration for the VueJS app
 
-Feel free to [submit any feedback](https://github.com/etalab/piaf/issues/new).
+There are some specific settings in a second `.env` file (it was simpler for us to keep two files). These settings are directly related with the frontend options. You will find it at this location : `src/piaf/front/.env`  
+
+```bash
+VUE_APP_ALLOW_ONBOARDING=true # Redirect new users to an onboarding process to teach them how to annotate a text
+```
+
+## Troubleshooting & Contact
+
+Feel free to [submit any feedback here](https://github.com/etalab/piaf/issues/new).
+
+### Run VueJS app alone
+It's possible to run the frontend application by itself. For this to work out, you will need :
+- change `base: '/app'` into `base: '/'` in the file _src/piaf/front/src/router.js_
+- make sure `publicPath: '/'` in the file _src/piaf/front/vue.config.js_
+- to go to this folder _src/piaf/front_ & run `npm run watch`
+- and start your server from _src/piaf/static/front_ where npm builds the app.
 
 
 ## Acknowledgements

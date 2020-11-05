@@ -206,3 +206,6 @@ src/db
 src/piaf/front/node_modules
 src/piaf/front/dist
 src/piaf/static/
+
+# atom live server package config
+.atom-live-server.json
