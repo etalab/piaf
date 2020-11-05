@@ -170,6 +170,7 @@ There are some specific settings in a second `.env` file (it was simpler for us 
 
 ```bash
 VUE_APP_ALLOW_ONBOARDING=true # Redirect new users to an onboarding process to teach them how to annotate a text
+VUE_APP_PRINT_BRAVO=false # Option to hide the "Bravo" page after questions are submitted
 ```
 
 ## Troubleshooting & Contact
