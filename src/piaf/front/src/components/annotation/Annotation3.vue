@@ -20,7 +20,7 @@
   padless
   fixed
   min-height='150px'
-  color='white'>{{restoreTrigger}}
+  color='white'>
     <Footer :routeAfterValidation="routeAfterValidation" v-on:validation="onValidation" :key="restoreTrigger"/>
   </v-footer>
 </v-app>
