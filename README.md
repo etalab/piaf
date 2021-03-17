@@ -78,6 +78,7 @@ make build-statics
 ```bash
 make up
 ```
+Note that it **takes a few minutes** to be up and reunning.  
 Have a look at the Makefile for more details
 ### Running without
 
