@@ -200,8 +200,7 @@ bundle/
 webpack-stats.json
 
 # database
-src/db/*
-!/src/db/README.md
+src/db
 
 # new app front
 src/piaf/front/node_modules
