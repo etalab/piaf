@@ -115,7 +115,7 @@ You will then be able to reach the admin panel, for any administration task you 
 
 We designed a simple interface for you to upload in an easy way your texts you want to annotate. It's located here : [/app/admin](http://127.0.0.1:8000/app/admin)
 
-Here is an example of input dataset: [Click here to download]("/input-dataset-example.json")
+Here is an example of input dataset: [Click here to download](/input-dataset-example.json)
 
 As you can see in the example above, texts have to match the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format. But, for additional app options, we accept some extra fields :
 - __"categorie"__ : can be one of the followings - 'Religion', 'Géographie', 'Histoire', 'Sport', 'Arts', 'Société', 'Sciences' default to 'Société' if empty
