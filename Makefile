@@ -1,7 +1,12 @@
+#!/bin/bash
+
 DC    := 'docker-compose'
 export WEBPACK_ENVIRONMENT_PRODUCTION=True
 
 up:
+	if [[ ! -d "src/db" ]]; then \
+		mkdir src/db; \
+	fi; \
 	${DC} up
 
 down:
