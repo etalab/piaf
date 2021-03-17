@@ -1,5 +1,5 @@
 #!/bin/bash
-
+SHELL := /bin/bash
 DC    := 'docker-compose'
 export WEBPACK_ENVIRONMENT_PRODUCTION=True
 
