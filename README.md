@@ -43,38 +43,7 @@ docker-compose pull
 
 ### Installing without
 
-As a prerequisite, you need to have installed on your computer:
-
-* Python 3.6+
-* Django 2.1.7+
-* Node.js 8.0+
-* Chromium (recommended)
-* Vue cli 4.4+  (more info [here](https://cli.vuejs.org/guide/installation.html))
-
-
-First install Python dependencies:
-
-```bash
-sudo apt-get install libpq-dev  # Linux/Debian only
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-Secondly, install Vue cli (if needed):
-
-```bash
-sudo npm install -g @vue/cli@latest # In Linux/Debian
-```
-
-Then compile the frontend:
-
-```bash
-make build-statics
-```
-
-> When developing the frontend, you may prefer watching for files changes.
-> Run `npm start` (instead of `npm run build`) for building and hot reloading.
+See the dedicated [README_without_docker](https://github.com/etalab/piaf/blob/master/README_without_docker.md)
 
 ## 2. Running
 
@@ -88,26 +57,7 @@ Note that it **takes a few minutes** to be up and reunning.
 Have a look at the Makefile for more details
 ### Running without
 
-First prepare the database:
-
-```bash
-cd src
-python manage.py migrate
-```
-
-Then create the admin user:
-
-```bash
-python manage.py create_admin --noinput --username "admin" --email "admin@example.com" --password "password"
-```
-
-And finally run the Django server:
-
-```bash
-python manage.py runserver
-```
-
-> Note that Django permits to run the server on a different IP or port. `python manage.py runserver <ip>:<port>`
+See the dedicated [README_without_docker](https://github.com/etalab/piaf/blob/master/README_without_docker.md)
 
 ## 3. Setting up your annotation campaign
 
@@ -164,12 +114,7 @@ WEBPACK_ENVIRONMENT_PRODUCTION=False # build the frontend  or run a 'npm run ser
 Edit the .env file
 
 ### without
-Set the environment variable before launching your server
-```
-DEBUG=0 MATOMO_SITE_ID=77 src/manage.py runserver
-```
-
-this will disable debugging and activate Matomo tracking for instance
+See the dedicated [README_without_docker](https://github.com/etalab/piaf/blob/master/README_without_docker.md)
 
 ### - Special Configuration for the VueJS app
 
