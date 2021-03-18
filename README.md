@@ -61,6 +61,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Secondly, install Vue cli (if needed):
+
+```bash
+sudo npm install -g @vue/cli@latest # In Linux/Debian
+```
+
 Then compile the frontend:
 
 ```bash
