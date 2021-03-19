@@ -18,7 +18,7 @@ build-statics:
 	if [[ -f "README.md" ]]; then \
 		mkdir src/piaf/front/static; \
 	fi; \
-	cd src/piaf/front/static && npm run build
+	cd src/piaf/front/static && npm install && npm run build
 
 test:
 	DATABASE_URL=pgsql://localhost/piaf?sslmode=disable src/manage.py test piaf
