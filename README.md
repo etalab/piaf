@@ -63,13 +63,18 @@ See the dedicated [README_without_docker](https://github.com/etalab/piaf/blob/ma
 ### Reach the Admin panel
 Open your web-browser at http://127.0.0.1:8000/login/ and login with the admin you created above (username: "admin", password: "password")
 
+![signup](/doc/signup.png)
+
 You will then be able to reach the admin panel, for any administration task you may require:
 [127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 
+![signup](/doc/admin_django.png)
 
 ### Import texts
 
 We designed a simple interface for you to upload in an easy way your texts you want to annotate. It's located here : [/app/admin](http://127.0.0.1:8000/app/admin)
+
+![signup](/doc/admin_json.png)
 
 Here is an example of input dataset: [Click here to download](/input-dataset-example.json)
 
@@ -82,6 +87,11 @@ As you can see in the example above, texts have to match the [SQuAD](https://raj
 
 Simply reach : [app/](http://127.0.0.1:8000/app/)  
 And give your users this URL so they can begin to annotate.
+
+![signup](/doc/menu.png)
+
+Here what is may look like:
+![signup](/doc/animation.gif)
 
 #### Admin section
 
@@ -123,6 +133,7 @@ There are some specific settings in a second `.env` file (it was simpler for us 
 VUE_APP_ALLOW_ONBOARDING=true # Redirect new users to an onboarding process to teach them how to annotate a text
 VUE_APP_PRINT_BRAVO=false # Option to hide the "Bravo" page after questions are submitted
 ```
+![signup](/doc/bravo.png)
 
 ## Troubleshooting & Contact
 
