@@ -146,5 +146,6 @@ PIAF plateform was originally inspired by [Doccano](https://github.com/chakki-wo
 2018 chakki.  
 2019 DINUM, Guillim.  
 2020 DINUM, Guillim.  
+2021 DINUM, Guillim.  
 
 This application is published under the MIT license.
