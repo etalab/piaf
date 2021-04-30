@@ -3,7 +3,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b64ba7294eca479181b52d30a7d2e9d7)](https://app.codacy.com/app/guillim/piaf?utm_source=github.com&utm_medium=referral&utm_content=etalab/piaf&utm_campaign=Badge_Grade_Dashboard)
 
 <abbr title="Pour Une IA Francophone">Piaf</abbr> is an open-source QA (question answering) annotation plateform.  
-It handles the following features :  
+It handles the following features:  
 * nice UI (conceived by a designer)
 * contributor enrollment (signup & mail validation)
 * contributor certification (by any member of the _admin_ team)
@@ -28,7 +28,7 @@ cp .env-example .env
 ```
 
 
-Now you have tow options : install the app with Docker or without
+Now you have two options: install the app with Docker or without
 
 ### Installing with Docker
 
@@ -52,7 +52,7 @@ See the dedicated [README_without_docker](https://github.com/etalab/piaf/blob/ma
 ```bash
 make up
 ```
-Note that it **takes a few minutes** to be up and reunning.  
+Note that it **takes a few minutes** to be up and running.  
 Have a look at the Makefile for more details
 ### Running without
 
@@ -72,20 +72,20 @@ You will then be able to reach the admin panel, for any administration task you 
 
 ### Import texts
 
-We designed a simple interface for you to upload in an easy way your texts you want to annotate. It's located here : [/app/admin](http://127.0.0.1:8000/app/admin)
+We designed a simple interface for you to upload in an easy way your texts you want to annotate. It's located here: [/app/admin](http://127.0.0.1:8000/app/admin)
 
 ![signup](/doc/admin_json.png)
 
 Here is an example of input dataset: [Click here to download](/input-dataset-example.json)
 
-As you can see in the example above, texts have to match the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format. But, for additional app options, we accept some extra fields :
+As you can see in the example above, texts have to match the [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) format. But, for additional app options, we accept some extra fields:
 - __"categorie"__ : can be one of the followings - 'Religion', 'Géographie', 'Histoire', 'Sport', 'Arts', 'Société', 'Sciences' default to 'Société' if empty
 - __"displaytitle"__ : if you need a more deligthful title (falls back to title if empty)
 - __"reference"__ : integer like *7138870* for Wikipedia reference (falls back to 0 if empty)
 
 ## 4. Annotation campaign
 
-Simply reach : [app/](http://127.0.0.1:8000/app/)  
+Simply reach: [app/](http://127.0.0.1:8000/app/)  
 And give your users this URL so they can begin to annotate.
 
 ![signup](/doc/menu.png)
@@ -95,7 +95,7 @@ Here what is may look like:
 
 #### Admin section
 
-To manage users, you can reach the admin dashboard : [admin/](http://127.0.0.1:8000/admin/)
+To manage users, you can reach the admin dashboard: [admin/](http://127.0.0.1:8000/admin/)
 
 ## 5. Export results
 
@@ -127,7 +127,7 @@ See the dedicated [README_without_docker](https://github.com/etalab/piaf/blob/ma
 
 ### - Special Configuration for the VueJS app
 
-There are some specific settings in a second `.env` file (it was simpler for us to keep two files). These settings are directly related with the frontend options. You will find it at this location : `src/piaf/front/.env`  
+There are some specific settings in a second `.env` file (it was simpler for us to keep two files). These settings are directly related with the frontend options. You will find it at this location: `src/piaf/front/.env`  
 
 ```bash
 VUE_APP_ALLOW_ONBOARDING=true # Redirect new users to an onboarding process to teach them how to annotate a text
@@ -140,7 +140,7 @@ VUE_APP_PRINT_BRAVO=false # Option to hide the "Bravo" page after questions are 
 Feel free to [submit any feedback here](https://github.com/etalab/piaf/issues/new).
 
 ### Run VueJS app alone
-It's possible to run the frontend application by itself. For this to work out, you will need :
+It's possible to run the frontend application by itself. For this to work out, you will need:
 - change `base: '/app'` into `base: '/'` in the file _src/piaf/front/src/router.js_
 - make sure `publicPath: '/'` in the file _src/piaf/front/vue.config.js_
 - to go to this folder _src/piaf/front_ & run `npm run watch`
