@@ -1,5 +1,10 @@
-# Piaf
+# Important information
 
+This project is no longer active and is now archived. Thank you for your contributions! You can find the product dataset at the following link: [https://huggingface.co/datasets/AgentPublic/piaf](https://huggingface.co/datasets/AgentPublic/piaf).
+
+Ce projet n'est plus actif et est désormais archivé. Merci pour vos contributions ! Vous pouvez retrouver le jeu de données produit au lien suivant : [https://huggingface.co/datasets/AgentPublic/piaf](https://huggingface.co/datasets/AgentPublic/piaf).
+
+# Piaf 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b64ba7294eca479181b52d30a7d2e9d7)](https://app.codacy.com/app/guillim/piaf?utm_source=github.com&utm_medium=referral&utm_content=etalab/piaf&utm_campaign=Badge_Grade_Dashboard)
 
 <abbr title="Pour Une IA Francophone">Piaf</abbr> is an open-source QA (question answering) annotation plateform.  
